@@ -1,0 +1,54 @@
+doctype html
+html
+  include ./head.jade
+  
+  body
+    #description
+     | #{basicInfo.title} | #{basicInfo.days} | #{basicInfo.budget}
+     br
+     
+    #navigation
+      - var dateCount = 0
+      - var spotCount = 0
+      each day in navigation
+        - var dateNum = "day_"
+        - dateCount++
+        - dateNum = dateNum + dateCount
+        div(id=dateNum class="date") #{day.date}
+          each spot in day.actv
+            - var spotNum = "spot_"
+            - spotCount++
+            - spotNum = spotNum + spotCount
+            div(id=spotNum class="spot") #{spot.itemName}
+              div(class="type" style="display: none") #{spot.type}
+              div(class="latLng" style="display: none") #{spot.latLng}
+              
+    #detailRoute
+      each oneDay in allRoutes
+        h3
+          .daynum #{oneDay.date}
+        - var oneDayRoutes = oneDay.actv
+        each route in oneDayRoutes
+          if route.type == "airport"
+            .route #{route.itemName} #{oneDay.date}
+            br
+          if route.type == "airRoute"
+            .route #{route.itemName} #{route.ts}~#{route.arrTime}
+            br
+          if route.type == "vs"
+            .route #{route.itemName}
+            .pic
+              img(src="#{route.imageList[0]}", height="200" width="300")
+              .info
+                .info-1 建议游玩时间: #{route.timeCost} 小时
+                .info-2 预计开销: #{route.price} 元
+            br
+          if route.type == "hotel"
+            .route 
+              h4 #{route.itemName}
+              .info-1 预计开销: #{route.price} 元
+              .info-2 Phone: #{route.phoneList[0]}
+              .info-3 地址: #{route.addr}
+            br
+    #map
+    
