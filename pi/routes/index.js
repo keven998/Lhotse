@@ -49,7 +49,9 @@ router.get('/', function(req, res) {
 
 
 
-
+router.get('/plans/', function(req, res) {
+  res.render('plans');
+});
 
 router.get('/download/', function(req, res) {
   res.render('download');

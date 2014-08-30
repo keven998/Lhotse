@@ -1,0 +1,73 @@
+.ico01-d1{background-size:24px;background:url("/images/plans/D1.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/D1.png',sizingMethod='scale');top: 5px;left: 5px;}
+.ico01-d2{background-size:24px;background:url("/images/plans/D2.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/D2.png',sizingMethod='scale');top: 5px;left: 5px;}
+.ico01-d3{background-size:24px;background:url("/images/plans/D3.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/D3.png',sizingMethod='scale');top: 5px;left: 5px;}
+.ico01-d4{background-size:24px;background:url("/images/plans/D4.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/D4.png',sizingMethod='scale');top: 5px;left: 5px;}
+.ico01-d5{background-size:24px;background:url("/images/plans/D5.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/D5.png',sizingMethod='scale');top: 5px;left: 5px;}
+.ico02-circle{background-size:30px;background:url("/images/plans/circle.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/circle.png',sizingMethod='scale');top: 10px;left: 5px;}
+/* slider-container */
+.slider-container{height: 350px;overflow:hidden;position:relative}
+.main-slider{width:100%;height:100%;position:relative;overflow:hidden}
+.slide-item{min-width:996px;width:100%;position:absolute;left:0;top:0;display:none}
+.slide-item img{width:100%;height:auto;min-height:320px}
+.slide-cont{position:absolute;left:50%;top:0;width:970px;margin-left:-485px;text-shadow:1px 1px 1px #111}
+.slide-cont{font-size:19px;color:#fff}
+.slide-cont h1{font-size:47px;font-weight:normal;color:#ffcf01;line-height:47px;margin-top:1.2em}
+.slide-cont h1 span{font-size:30px;text-transform:uppercase}
+.slide-cont a{color:#fff;font-size:14px;text-decoration:none;text-transform:uppercase;background:url(../images/icon_nav.png) no-repeat 100% 50%;padding-right:16px}
+#slider{width: 100% !important;}
+#slider img{width: 100%;height: 100%;}
+.backToTop{bottom: 0px!important;bottom: auto;position:fixed;_position:absolute;width:43px;height:43px;background: url(../images/gotop.png) no-repeat 0 0;cursor: pointer;z-index:1990;bottom:0;display:none;}
+.backToTop:hover{background-position: 0 -43px;-webkit-transition:background 0.2s ease 0s;-moz-transition:background 0.2s ease 0s;-o-transition:background 0.2s ease 0s;-ms-transition:background 0.2s ease 0s;transition:background 0.2s ease 0s;}
+ /*routeList css*/
+.user{float: right;width: 150px;height: 60px;padding-left: 50px;position: relative;color: #fff;}
+.user img{width: 50px;height: 50px;position: absolute;left: 0;top: 5px;}
+.user .b1{line-height: 40px;}
+.user .b2{font-size: 12px;position: absolute;left: 55px;top: 20px;}
+.bd .t{width: 950px;height: 40px;line-height: 50px;margin-left: auto;margin-right: auto;padding: 20px 25px 10px 25px;border-bottom: 1px solid #BDBDBD;font-size: 32px;color: #08DCA9;font-family: '黑体';}
+.content .c{width: auto;height: 50px;padding: 25px;line-height: 1.5;font-size: 16px;}
+.content .c .line{color: #08DCA9;font-size: 16px;}
+.content .c .t{color: #111;font-family: '黑体';font-size: 16px;padding: 2px 5px;}
+.routelist{width: auto;height: auto;padding: 0 25px;}
+.routelist li{margin-bottom: 25px;background: #FAFAFA;overflow: hidden;}
+.c-img{float: left;width: 285px;height: 215px;}
+.c-img img{width: 100%;height: 100%}
+.c2{float: left;width: 605px;height: 215px;margin-left: 40px;margin-right: 20px;font-family: '黑体';position: relative;}
+.c2 h2{height: 60px;line-height: 60px;font-size: 24px;color: #08DCA9;cursor: pointer;}
+.c2 .txt{color: #aaa;font-size: 16px;line-height: 1.5;overflow: hidden;margin-bottom: 10px;}
+.ico-g{height: 25px;*height:20px;color: #111;font-size: 16px;}
+
+.btn02{display: inline-block;width: auto;height: 10px;line-height: 10px;background: #F7F7F7;color: #333;padding: 5px;text-align: center;border-radius: 5px;margin-right: 10px;}
+.btn02-c1{background: #08DCA9;color: #fff;}
+.btn02-c2{background: #898989;color: #fff}
+.btn02-c3{background: #fff;border: 1px solid #08DCA9;}
+.btn02-c4{background: #F30D0D;color: #fff;padding: 10px 20px;font-size: 16px;position: absolute;left: 0;bottom: 10px;*bottom: 0}
+.slider-content{position: relative;width: 100%;height: auto;border-bottom: 2px solid #08DCA9}
+.slider-content .slder{overflow: hidden;width: 100%;height: 100%}
+.slider-content .shade{position: absolute;left:0;bottom:0;width: 100%;height: 90px;z-index: 1}
+
+/*sider css 侧栏隐藏域*/
+.sider{position: fixed;top: 0;right: 0;width: 550px;height: 600px;padding: 80px 25px 40px;z-index: 11111111;background: #fff;font-family: '黑体';/* display: none; */}
+.layer{position: absolute;left: 0;top: 0;width: 100%;height: 100%;background: #555;opacity: .5;filter:alpha(opacity:50)z-index: 11;/* display: none; */}
+.tab{overflow: hidden}
+.tab .item{float: left;*display: inline;width: 135px;height: 40px;line-height: 40px;font-size: 16px;text-align: center;}
+.tab .item01-normal{background: url(/images/plans/detail_normal.png) no-repeat;}
+.tab .item01-hover{background: url(/images/plans/detail_hover.png) no-repeat}
+.tab .item02-normal{background: url(/images/plans/about_normal.png) no-repeat}
+.tab .item02-hover{background: url(/images/plans/about_hover.png) no-repeat;}
+.tab-c{}
+.tab-c .c{width: auto;height: auto;padding: 0;margin-top: 25px;}
+.c .t1{height: 40px;line-height: 40px;width: 100%;white-space: nowrap;font-size: 20px;}
+.c p{height: 80px;border-left: 5px solid #08DCA9 !important;border:1px solid #aaa;padding: 15px 0 10px;}
+.c .t2{color: #08DCA9;}
+.c .l{overflow: hidden}
+.c .l li{height: 30px;color: #777;}
+.c p .txt{color: #777;font-size: 16px;}
+.txt .dot{color: #08DCA9;font-size: 40px;line-height: 0;position: relative;left: 10px;top: 8px;}
+.about-list{overflow: auto;height: 500px;margin-top: 20px;}
+ul.about-list li{width:auto;height: 150px;background: #eee;position: relative;padding: 10px 10px 5px 70px;margin-bottom: 15px;}
+.sider-userimg{position: absolute;left: 10px;top: 10px;width: 50px;height: 50px;}
+.about-list .t1{color: #08DCA9;height: 30px;width: 100%;line-height: 30px;font-size: 20px;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
+.about-list .au{color: #F5865F;}
+.about-list .time{color: #aaa}
+.about-list .txt{color: #555;font-size: 16px;margin-top: 10px;margin-bottom: 10px;height: 40px;line-height: 1.3;overflow: hidden;}
+.about-list .ico-g{color: #aaa;font-size: 16px;margin-right: 25px;}

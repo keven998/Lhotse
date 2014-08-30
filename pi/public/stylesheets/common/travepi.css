@@ -24,7 +24,7 @@ commen
 .btn{display: inline-block;width: auto;height: 10px;line-height: 10px;background: #fff;color: #08DCA9;border-radius: 15px;padding: 10px 15px;text-align: center;}
 .btn-login{margin: 16px;}
 /*travepi------top*/
-.hd{position: fixed;left:0;top:0;width: 100%;height: 60px;line-height: 40px;background: #08DCA9;z-index: 111;transition: height ease 300ms;box-shadow: 0 1px 5px #aaa;}
+.hd{position: fixed;left:0;top:0;width: 100%;height: 60px;line-height: 40px;background: #08DCA9;z-index: 111111111111;transition: height ease 300ms;}
 .logo{float:left;width: 100px;height: 100%;line-height: 70px;*line-height:50px;margin-left: 50px;text-align: center;}
 .logo img{width: 80px;height: auto}
 .nav{width: 70%;height: auto;overflow: hidden;float: left;text-align: center;}
