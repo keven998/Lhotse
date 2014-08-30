@@ -43,7 +43,7 @@ block content
             i.ico02.ico02-where
             b 想要去哪玩？
             input.s-ip
-            a#search-btn.s-btn
+            a(href='/plans/53aa9a6410114e3fd47833bd')#search-btn.s-btn
     .content.f-cb
       p.t
         b.txt01 精彩的旅程，也需要你的发现
@@ -69,126 +69,27 @@ block content
           | View all blog posts
       .c-right.f-cb
         #m-list.main
-          .m-list.fl.w50
-            .layer
-            a
-              img(src='/images/index/pic.png')
-            .left
-              .top
-                img(src='/images/index/ca.png')
+          each vs in hotRoute
+            .m-list.fl.w50
+              .layer
+              a(href='/plan/detail/#{vs._id}')
+                img(src='#{vs.imageList}' width=342 height=180)
+              .left
+                .top
+                  img(src='/images/index/ca.png')
+                .bottom
+                  img(src='/images/index/headpic.png')
+              .right
+                .m
+                  h2
+                    a(href='/plan/detail/#{vs._id}') #{vs.title}
+                  .label Posted by Tewllfsdlj|Srerwe|Csdflsdj
+                  p
+                    | Sedfl dfdljf dlfjdl dlfjd ldsj d ldjf .dfldjdf ld fdlfjsdll.sdfldslj dfldlsj dlf.
               .bottom
-                img(src='/images/index/headpic.png')
-            .right
-              .m
-                h2
-                  a 东西南北中国，换到穿越斯里兰卡：一瞌睡的绿宝石
-                .label Posted by Tewllfsdlj|Srerwe|Csdflsdj
-                p
-                  | Sedfl dfdljf dlfjdl dlfjd ldsj d ldjf .dfldjdf ld fdlfjsdll.sdfldslj dfldlsj dlf.
-            .bottom
-              a.arr-c
-                i.ico01.ico01-arr
-                | 点击更多
-          .m-list.fl.w50
-            .layer
-            a
-              img(src='/images/index/pic.png')
-            .left
-              .top
-                img(src='/images/index/ca.png')
-              .bottom
-                img(src='/images/index/headpic.png')
-            .right
-              .m
-                h2
-                  a 东西南北中国，换到穿越斯里兰卡：一瞌睡的绿宝石
-                .label Posted by Tewllfsdlj|Srerwe|Csdflsdj
-                p
-                  | Sedfl dfdljf dlfjdl dlfjd ldsj d ldjf .dfldjdf ld fdlfjsdll.sdfldslj dfldlsj dlf.
-            .bottom
-              a.arr-c
-                i.ico01.ico01-arr
-                | 点击更多
-          .m-list.fl.w50
-            .layer
-            a
-              img(src='/images/index/pic.png')
-            .left
-              .top
-                img(src='/images/index/ca.png')
-              .bottom
-                img(src='/images/index/headpic.png')
-            .right
-              .m
-                h2
-                  a 东西南北中国，换到穿越斯里兰卡：一瞌睡的绿宝石
-                .label Posted by Tewllfsdlj|Srerwe|Csdflsdj
-                p
-                  | Sedfl dfdljf dlfjdl dlfjd ldsj d ldjf .dfldjdf ld fdlfjsdll.sdfldslj dfldlsj dlf.
-            .bottom
-              a.arr-c
-                i.ico01.ico01-arr
-                | 点击更多
-          .m-list.fl.w50
-            .layer
-            a
-              img(src='/images/index/pic.png')
-            .left
-              .top
-                img(src='/images/index/ca.png')
-              .bottom
-                img(src='/images/index/headpic.png')
-            .right
-              .m
-                h2
-                  a 东西南北中国，换到穿越斯里兰卡：一瞌睡的绿宝石
-                .label Posted by Tewllfsdlj|Srerwe|Csdflsdj
-                p
-                  | Sedfl dfdljf dlfjdl dlfjd ldsj d ldjf .dfldjdf ld fdlfjsdll.sdfldslj dfldlsj dlf.
-            .bottom
-              a.arr-c
-                i.ico01.ico01-arr
-                | 点击更多
-          .m-list.fl.w50
-            .layer
-            a
-              img(src='/images/index/pic.png')
-            .left
-              .top
-                img(src='/images/index/ca.png')
-              .bottom
-                img(src='/images/index/headpic.png')
-            .right
-              .m
-                h2
-                  a 东西南北中国，换到穿越斯里兰卡：一瞌睡的绿宝石
-                .label Posted by Tewllfsdlj|Srerwe|Csdflsdj
-                p
-                  | Sedfl dfdljf dlfjdl dlfjd ldsj d ldjf .dfldjdf ld fdlfjsdll.sdfldslj dfldlsj dlf.
-            .bottom
-              a.arr-c
-                i.ico01.ico01-arr
-                | 点击更多
-          .m-list.fl.w50
-            .layer
-            a
-              img(src='/images/index/pic.png')
-            .left
-              .top
-                img(src='/images/index/ca.png')
-              .bottom
-                img(src='/images/index/headpic.png')
-            .right
-              .m
-                h2
-                  a 东西南北中国，换到穿越斯里兰卡：一瞌睡的绿宝石
-                .label Posted by Tewllfsdlj|Srerwe|Csdflsdj
-                p
-                  | Sedfl dfdljf dlfjdl dlfjd ldsj d ldjf .dfldjdf ld fdlfjsdll.sdfldslj dfldlsj dlf.
-            .bottom
-              a.arr-c
-                i.ico01.ico01-arr
-                | 点击更多
+                a(href='/plan/detail/#{vs._id}').arr-c
+                  i.ico01.ico01-arr
+                  | 点击更多
           .more
             i.ico02.ico02-loading
             a.btn 加载更多···

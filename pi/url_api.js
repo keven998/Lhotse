@@ -17,6 +17,7 @@ var urlApi = {
   newestRoute : "http://api.lvxingpai.com/explore/plans?loc=53aa9a6510114e3fd4783acf",
   recommondRoute : "http://api.lvxingpai.com/explore/plans?loc=53aa9a6510114e3fd4783ca6",
   routeDetail : 'http://api.lvxingpai.com/plans/templates/PLANID?fromLoc=53aa9a6410114e3fd47833bd&traffic=1',
+  plans: 'http://api.lvxingpai.cn/web/explore/plans?loc=LOCALID&fromLoc=53aa9a6410114e3fd47833ce&tag=&minDays=0&maxDays=3',
   
 };
 module.exports = urlApi;

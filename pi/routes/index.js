@@ -6,6 +6,7 @@ var hotRoute = require('../model/hot_route');
 var mustgoRoute = require('../model/mustgo_route');
 var newestRoute = require('../model/newest_route');
 var recommondRoute = require('../model/recommond_route');
+var plans = require('../model/plans');
 
 
 router.get('/', function(req, res) {
@@ -47,10 +48,11 @@ router.get('/', function(req, res) {
   });
 });
 
-
-
-router.get('/plans/', function(req, res) {
-  res.render('plans');
+router.get('/plans/:LOCALID', function(req, res){
+  plans.getdata(req, function(data){
+    console.log(JSON.parse(data));
+    res.render('plans', {plans: JSON.parse(data).result});
+  });
 });
 
 router.get('/download/', function(req, res) {
