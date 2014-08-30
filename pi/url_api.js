@@ -1,5 +1,5 @@
 var urlApi = {
-  apiHost : 'http://api.lvxingpai.com',
+  apiHost : 'http://api.lvxingpai.cn',
   inputTips : '',
   searchCityByName : '/geo/localities/search',
   getRouteInCity : '/explore/plans',
@@ -18,6 +18,12 @@ var urlApi = {
   recommondRoute : "http://api.lvxingpai.com/explore/plans?loc=53aa9a6510114e3fd4783ca6",
   routeDetail : 'http://api.lvxingpai.com/plans/templates/PLANID?fromLoc=53aa9a6410114e3fd47833bd&traffic=1',
   plans: 'http://api.lvxingpai.cn/web/explore/plans?loc=LOCALID&fromLoc=53aa9a6410114e3fd47833ce&tag=&minDays=0&maxDays=3',
+  
+  ugc : {
+    display: '/web/ugc-plans/UGCID',
+    // 有待扩充
+    timeline: '/web/ugc-plans/templates/PEMPLATES?fromLoc=53aa9a6410114e3fd47833bd',
+  },
   
 };
 module.exports = urlApi;

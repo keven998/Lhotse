@@ -23,7 +23,6 @@ var base_model = function(){
   
   // 请求数据
   this.get = function(callback) {
-    console.log(this.getUrls());
     request(this.getUrls(), function(err, res, data) {
       if (err) {
         throw err;
