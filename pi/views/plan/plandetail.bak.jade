@@ -1,0 +1,29 @@
+extends ../common/base
+
+block content
+  .plan-detail
+    .title
+      h1 
+        | #{plandetail.title}
+    .pic
+      img(src="#{plandetail.imageList}", alt="图片未加载" height="200" width="200")
+    .time-cost 
+      h2 估算时间：
+        | #{plandetail.days}
+    .route-plan 
+      h2 行程安排
+      - var routes = plandetail.details
+      - var daycount = 1
+      each route in routes
+        .day-number 
+          h2 
+            第 #{daycount++} 天行程安排
+          -var onedayplan = route.actv
+          each smallplan in onedayplan
+            .title
+              h2
+                | #{smallplan.itemName}
+            .pic
+              img(src="#{smallplan.details.imageList}", alt="图片未加载" height="200" width="200")
+              
+          

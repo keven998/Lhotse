@@ -1,0 +1,73 @@
+doctype html
+html
+  head
+    block page_var
+    link(href='/stylesheets/common/reset.css', rel='stylesheet')
+    link(href='/stylesheets/common/travepi.css', rel='stylesheet')
+    script(src='/javascripts/lib/jquery-1.11.1.min.js', rel='javascripts')
+    script(data-main='/require/main.js', src='/javascripts/lib/require.js')
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=Edge')
+    title 旅行派
+
+  body
+    #top.hd
+      h1.logo
+        img(src='/images/common/logo.png')
+      ul.nav.f-cb
+        li
+          a
+            i.ico01.ico01-home
+            | 首页
+        li
+          a
+            i.ico01.ico01-add
+            | 目的地
+        li
+          a
+            i.ico01.ico01-newplan
+            | 新的计划
+        li
+          a
+            i.ico01.ico01-myplan
+            | 我的计划
+        li
+          a
+            i.ico01.ico01-download
+            | APP下载
+      a.btn.btn-login 登录
+
+    block content
+
+    .ft
+      .ft-c
+        .top
+          .m-p.fl
+            h3 关于我们
+            p
+              | Address:sldfjlsdjflsd
+              | Address:sldfjlsdjflsd
+              | Address:sldfjlsdjflsd
+              | Address:sldfjlsdjflsd
+          .m-p.fl
+            h3 产品合作
+            p
+              | Address:sldfjlsdjflsd
+              | Address:sldfjlsdjflsd
+          .m-p.fl
+            h3 反馈
+            p
+              | Address:sldfjlsdjflsd
+              | Address:sldfflsd
+          .m-p.fr
+            h3 联系我们
+            p
+              i.ico02.ico02-qq
+              i.ico02.ico02-weibo
+              b NEWSLETTER
+              input.email-ip(placeholder='Enter your email')
+              a.btn.email email
+      .bottom
+        img(src='/images/common/logo2.png')
+        b ©2012 asodufosdufosj fdslfdj
+        | 北京爱走天下网络科技有限责任公司

@@ -1,0 +1,12 @@
+extends ../common/base
+
+block page_var
+    script.
+        var page_var = {
+            id: 'login',
+            path: 'account/',
+        }
+
+block content
+  div
+    a(href="https://api.weibo.com/oauth2/authorize?client_id=#{client_id}&response_type=code&redirect_uri=#{callback}"): img(src="http://www.sinaimg.cn/blog/developer/wiki/32.png")

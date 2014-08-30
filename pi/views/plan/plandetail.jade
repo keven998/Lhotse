@@ -1,0 +1,37 @@
+doctype html
+html
+  include ./head.jade
+  body
+  
+    - var days = plandetail.days
+    p.ss #{plandetail.templateId} 
+    #day 旅行日程: #{days}
+      - for(var i = 1; i <= days; i++)
+        - var dayNum = "day"
+        - dayNum = dayNum + i
+        div(id=dayNum) 第#{i}天 
+    
+    - var routes = plandetail.details  
+    #plan 每日行程
+      - var daycount = 1
+      - var id = 0
+      each route in routes
+        .day-number 
+          h3 
+            | 第 #{daycount++} 天行程安排
+          - var onedayplan = route.actv
+          each smallplan in onedayplan
+            - id++
+            - var titleNum = "title"
+            - var locNum = "loc"
+            - var distance = "distance"
+            - titleNum = titleNum + id
+            - locNum = locNum + id
+            - distance = distance + id
+            div(id=titleNum class="title") #{smallplan.itemName}---------【可悬浮】
+            div(id=distance class="distance") A --> B --------【可点击】
+            div(id=locNum class="LatLng" style="display: none") #{smallplan.details.addr.lat},#{smallplan.details.addr.lng}
+      div(id="totalSpots" style="display: none") #{id}   
+
+    #map 地图
+            

@@ -1,0 +1,43 @@
+extends common/base	
+
+block page_var
+    script.
+        var page_var = {
+            id: 'download',
+            path: '',
+        }
+
+block content
+    .Download_main
+      .Download_phone
+        #slider
+          img(src='/images/phone1.jpeg',width='320',height='480',alt='')
+          img(src='/images/phone2.jpeg',width='320',height='480',alt='')
+          img(src='/images/phone3.jpeg',width='320',height='480',alt='')
+          img(src='/images/phone4.jpeg',width='320',height='480',alt='')
+          img(src='/images/phone5.jpeg',width='320',height='480',alt='')
+      .Download_intro  
+        .Download_biglogo
+          img(src='/images/BigLogo.png',width='160',height='60',alt='')
+        .Download_text
+          h4 我们是全行程的攻略，我们是您的旅行助手
+          h4 最全的旅行路线攻略
+          h4 首创考虑大交通对行程安排的影响
+          h4 您可以根据情况实时调整您的旅行计划，一键优化重新生成最优攻略
+          h4 所有这些，您只需要告诉我们，你想去哪儿
+        fieldset.Download_download_button
+            .Download_title DOWNLOAD下载<img src=""></img>
+            a.Download_appdown(href='https://itunes.apple.com/cn/app/lu-xing-pai-zui-ge-xing-zi/id895702413?mt=8')
+              img(src='/images/APP_download.png',width='138',height='33',alt='')
+            a.Download_anddown(href='http://cms.lvxingpai.cn/download/LXP.apk')
+              img(src='/images/And_download.png',width='138',height='33',alt='')
+
+        .Download_two_code
+          img(src='/images/two_code.png',width='79',height='85',alt='')
+      
+      img(src='/images/reflight.png',width='163',height='362',alt='')
+      
+      
+        
+
+
