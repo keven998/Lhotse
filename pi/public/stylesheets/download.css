@@ -1,0 +1,12 @@
+.Download_main{margin-top:100px;background:url(/images/download/wave_backgroud.png) no-repeat bottom;background-size:100% 400px;width:100%;height:585px;}
+ .Download_phone{float:left;background:url(/images/download/phone.png) no-repeat top;background-size:460px,580px;width:560px;height:580px;}
+  .Download_phone #phone_slider{width:320px;height:480px;margin-left:170px;margin-top:90px;z-index:2;}
+    
+ .Download_intro{display:inline-block;margin-left:20px;}
+  .Download_biglogo{margin-top:70px;}
+  .Download_text{margin-top:80px;color:white;}
+  .Download_download_button{display:inline-block;margin-top:30px;height:70px;width:300px;border:#fff solid 3px;}
+   .Download_title{margin:5px 0 8px 15px;color:white;}
+   .Download_appdown{margin-right:10px}
+  .Download_two_code{display:inline-block;vertical-align:top;margin-top:30px;margin-left:100px;}
+
