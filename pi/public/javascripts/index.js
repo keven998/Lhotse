@@ -49,7 +49,8 @@
         duration:3000,//回到顶部的速度时间
         targetObg:"body"//目标位置
     };
-
+    
+    //导航悬浮
     var top = $('#top'),
         logo = $('.logo'),
         btnLogin = $('.btn-login'),
@@ -94,6 +95,7 @@
             });
         }
     });
+    //文本输入框
     var searchInput = $('#search-input'),
         tips = $('.tips'),
         searchBtn = $('#search-btn');
@@ -110,12 +112,15 @@
     searchInput.on('blur', function (e) {
         tips.hide(200)
     })
+    //图片的二态    
     var mList = $('#m-list');
-    mList.on('mouseover', '.m-list>a', function (e) {
-        $(this).parent('.m-list').find('.layer').fadeIn(200);
+    $(mList).on('mouseenter', '.m-list', function (e) {
+        $('.layer').stop(false,true);
+        $(this).find('.layer').fadeIn(200);
     });
-    mList.on('mouseout', '.m-list>a', function (e) {
-        $(this).parent('.m-list').find('.layer').fadeOut(200);
+    $(mList).on('mouseleave', '.m-list', function (e) {
+        $('.layer').stop(false,true);
+        $(this).find('.layer').fadeOut(200);
     })
     /*
      * 图片轮播
