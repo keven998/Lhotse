@@ -23,7 +23,6 @@ var base_model = function(){
   
   // 请求数据
   this.get = function(callback) {
-    console.log(this.getUrls());
     request(this.getUrls(), function(err, res, data) {
       if (err) {
         throw err;
@@ -46,7 +45,6 @@ var base_model = function(){
     for (param in params) {
       form[param] = params[param];
     }
-    //console.log(form); 
     return form;
   }
 

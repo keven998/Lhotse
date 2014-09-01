@@ -103,7 +103,6 @@ router.get('/search', function(req, res){
         });
       });  
   });
-  
 });
 
 router.get('/download/', function(req, res) {

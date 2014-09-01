@@ -15,12 +15,8 @@ router.get('/detail/:PLANID', function(req, res) {
   });
 });
 
-
-
-
 /* GET users listing. */
 router.get('/timeline/:PEMPLATES', function(req, res) {
-  console.log("---------------------------");
   model.setUrl(apiList.apiHost + apiList.ugc.timeline);
   model.getdata(req, function(data) {
     //res.send(JSON.parse(data));
@@ -159,7 +155,6 @@ router.get('/timeline/:PEMPLATES', function(req, res) {
       tempDay.actv = tempActv; // 关联地点数组
       navigation.push(tempDay);
     }
-    console.log("---");
     //res.send(navigation);
     
     res.render('plan/timeline', {
