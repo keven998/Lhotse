@@ -33,6 +33,8 @@ var base_model = function(){
 
   // 获取所有query参数
   this.parseQuery = function(req) {
+    if (req == null)
+      return {};
     var querys = req.query;
     var params = req.params;
     var form = {};	// e.x. {id:1, name:'10086', type:'mobile'}
@@ -43,7 +45,6 @@ var base_model = function(){
     for (param in params) {
       form[param] = params[param];
     }
-    //console.log(form); 
     return form;
   }
 

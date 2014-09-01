@@ -1,7 +1,8 @@
+     
       var map;
       var path;
       var centerMarker;
-      var spotArray = new Array();      
+      var spotArray = new Array();
       var spotNum = 1;
       var event = new Array();
       var latlngArray = new Array();
@@ -13,7 +14,7 @@
       var centerLatlng;
       // 所有点的经纬度
       var allPointLatlng = new Array();
-      
+
       function initialize() {
         //计算地图中心点
         var center = calculateCenterPoint();
@@ -24,29 +25,30 @@
         };
         // map对象
         map = new google.maps.Map(document.getElementById('map'), mapOptions);
-        
+
         setSpots(map);
         spotStatusInitial();
-        
-        
+
+
         // 设置事件监听，用于地图点的跳动交互
         var total = getTotalSpots();
+        alert(total);
         for(;spotNum <= total; spotNum++ ) {
-          var str = "#title" + spotNum;
+          var str = "#latLng_" + spotNum;
           // 鼠标悬浮时
           $(str).mouseover(function(){
             var titlename = $(this).attr("id");
-            var num = titlename.substring(5, titlename.length);         
+            var num = titlename.substring(6, titlename.length);
             spotStatus(num);
           });
           // 鼠标离开时
           $(str).mouseleave(function(){
             var titlename = $(this).attr("id");
-            var num = titlename.substring(5, titlename.length);         
+            var num = titlename.substring(6, titlename.length);
             mouseLeaveAction();
           });
         }
-        
+
         // 链接所有的点
         path = new google.maps.Polyline({
           path: latlngArray,
@@ -54,29 +56,29 @@
           strokeOpacity: 3.0,
           strokeWeight: 2
         });
-        
+
         path.setMap(map);
-        
-        
+
+
         var lineSymbol = {
           path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
           scale: 5,
           strokeColor: '#393'
         };
         // 设置事件监听用于画两点之间的连线
-        for(var i = 1; i <= total; i++ ) {
-          var str = "#distance" + i;
-          $(str).click(function(){
-            var distancename = $(this).attr("id");
-            var num = distancename.substring(8, distancename.length);
-            //alert(num);
-            connect(num);
-          });
-        }
-        
+//        for(var i = 1; i <= total; i++ ) {
+//          var str = "#distance" + i;
+//          $(str).click(function() {
+//            var distancename = $(this).attr("id");
+//            var num = distancename.substring(8, distancename.length);
+//            //alert(num);
+//            connect(num);
+//          });
+//        }
+
         function connect(num) {
           //if (lineFlag == num)
-            
+
           // 覆盖原始链接
           path.setMap(map);
           var twoPoints = new Array();
@@ -97,7 +99,7 @@
 
 //          connectline.setMap(map);
           animateCircle();
-          
+
           // 动画
           function animateCircle() {
             var count = 0;
@@ -110,65 +112,68 @@
                 connectline.set('icons', icons);
               }
               else
-                connectline.setVisible(false);              
+                connectline.setVisible(false);
             }, 10);
           }
         }
-                
-        
-                       
-      }  
-      
+
+
+
+      }
+
       // ===========================================================
       //异步加载地图
-      function loadScript() {        
+      function loadScript() {
         var script = document.createElement('script');
         script.type = 'text/javascript';
         script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&' +
             'callback=initialize';
-        document.body.appendChild(script);        
+        document.body.appendChild(script);
       }
       window.onload = loadScript;
-      
+
       // 获得景点数
       function getTotalSpots() {
         var number = document.getElementById('totalSpots').innerHTML;
         return number;
       }
-      
+
       // 设置所有的点，并标记在地图上
       function setSpots(map) {
         var total = getTotalSpots();
         for (var i = 1; i <= total; i++) {
-          var loc = document.getElementById("loc" + i).innerHTML;
-          var title = document.getElementById("title" + i).innerHTML;
-          var locarr = loc.split(",");
-          var latlng = new google.maps.LatLng(locarr[0], locarr[1]);
-          var spot = new google.maps.Marker({
-              position : latlng,
-              map : map,
-              title : title,
-          });
-//          spot.setIcon("123");
-          // 获得一些重要的全局变量
-          spotArray.push(spot);
-          latlngArray.push(latlng);         
-        }       
+          var type = document.getElementById("type_" + i).innerHTML;
+          if (type == "vs") {
+            var loc = document.getElementById("latLng_" + i).innerHTML;
+            var title = document.getElementById("spot_" + i).innerHTML;
+            var locarr = loc.split(",");
+            var latlng = new google.maps.LatLng(locarr[0], locarr[1]);
+            var spot = new google.maps.Marker({
+                position : latlng,
+                map : map,
+                title : title,
+            });
+  //          spot.setIcon("123");
+            // 获得一些重要的全局变量
+            spotArray.push(spot);
+            latlngArray.push(latlng);
+          }
+        }
       }
-      
+
       // 计算合理的地图中心点
       // return: array[lat, lng]
       function calculateCenterPoint() {
         var total = getTotalSpots();
         for (var i = 1; i <= total; i++) {
-          var loc = document.getElementById("loc" + i).innerHTML;
-          var title = document.getElementById("title" + i).innerHTML;
+          var loc = document.getElementById("latLng_" + i).innerHTML;
+          var title = document.getElementById("spot_" + i).innerHTML;
           var locarr = loc.split(",");
           allPointLatlng.push(locarr[0]);
-          allPointLatlng.push(locarr[1]);         
+          allPointLatlng.push(locarr[1]);
         }
         //alert(allPointLatlng);
-        var centerPoint = new Array();      
+        var centerPoint = new Array();
         var latMax = 0;
         var lngMax = 0;
         var latMin = parseFloat(allPointLatlng[0]);
@@ -193,14 +198,14 @@
 //        alert(centerPoint);
         return centerPoint;
       }
-      
+
       // 初始化所有点的动作状态，默认为静止
       function spotStatusInitial() {
         for (var i = 0; i < spotArray.length; i++) {
           spotArray[i].setAnimation(null);  //google.maps.Animation.BOUNCE
         }
       }
-      
+
       function setSpotStatus(m) {
           for (var i = 0; i < spotArray.length; i++) {
             if (i == m - 1 || i == m)
@@ -208,10 +213,10 @@
             else
               spotArray[i].setAnimation(null);  //google.maps.Animation.BOUNCE
           }
-        
+
 
       }
-      
+
       //改变某一个点的动作状态,设置一个监听位
       function spotStatus(num) {
         if (pointFlag != num)
@@ -223,15 +228,15 @@
           spotArray[num-1].setAnimation(google.maps.Animation.BOUNCE);
         }
       }
-      
+
       function mouseLeaveAction() {
         spotStatusInitial();
       }
-      
-      
-      
 
-      
-      
-      
-    
+
+
+
+
+
+
+
