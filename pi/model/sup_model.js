@@ -22,6 +22,6 @@ api_model.setUrl = function(url) {
 
 // 返回url
 api_model.getUrl = function() {
-  api_model.prototype.getUrls();
+   return api_model.prototype.getUrls();
 }
 module.exports = api_model;

@@ -7,6 +7,7 @@ html
      | #{basicInfo.title} | #{basicInfo.days} | #{basicInfo.budget}
      br
      
+     
     #navigation
       - var dateCount = 0
       - var spotCount = 0
@@ -14,14 +15,20 @@ html
         - var dateNum = "day_"
         - dateCount++
         - dateNum = dateNum + dateCount
-        div(id=dateNum class="date") #{day.date}
+        div(id=dateNum class="date") 第#{dateCount}天 (#{day.date})
           each spot in day.actv
-            - var spotNum = "spot_"
+            - var spotId = "spot_"
+            - var latLngId = "latLng_"
+            - var typeId = "type_"
             - spotCount++
-            - spotNum = spotNum + spotCount
-            div(id=spotNum class="spot") #{spot.itemName}
-              div(class="type" style="display: none") #{spot.type}
-              div(class="latLng" style="display: none") #{spot.latLng}
+            - spotId = spotId + spotCount
+            - latLngId = latLngId + spotCount
+            - typeId = typeId + spotCount
+            div(id=spotId class="spot") #{spot.itemName}
+            div(id=typeId style="display: none") #{spot.type}
+            div(id=latLngId class="latLng" style="display: none") #{spot.latLng}
+        br  
+      div(id="totalSpots") #{spotCount}
               
     #detailRoute
       each oneDay in allRoutes
@@ -31,10 +38,8 @@ html
         each route in oneDayRoutes
           if route.type == "airport"
             .route #{route.itemName} #{oneDay.date}
-            br
-          if route.type == "airRoute"
+          if route.type == "airRoute" || route.type == "trainRoute"
             .route #{route.itemName} #{route.ts}~#{route.arrTime}
-            br
           if route.type == "vs"
             .route #{route.itemName}
             .pic
@@ -42,13 +47,12 @@ html
               .info
                 .info-1 建议游玩时间: #{route.timeCost} 小时
                 .info-2 预计开销: #{route.price} 元
-            br
           if route.type == "hotel"
             .route 
               h4 #{route.itemName}
               .info-1 预计开销: #{route.price} 元
               .info-2 Phone: #{route.phoneList[0]}
               .info-3 地址: #{route.addr}
-            br
+          br
     #map
     

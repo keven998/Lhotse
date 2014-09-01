@@ -1,3 +1,4 @@
+//<meta charset="utf-8"/>
 var express = require('express');
 var router = express.Router();
 var async = require('async');
@@ -7,6 +8,8 @@ var mustgoRoute = require('../model/mustgo_route');
 var newestRoute = require('../model/newest_route');
 var recommondRoute = require('../model/recommond_route');
 var plans = require('../model/plans');
+var request = require('request')
+var model = require('../model/sup_model.js');
 
 
 router.get('/', function(req, res) {
@@ -48,11 +51,59 @@ router.get('/', function(req, res) {
   });
 });
 
+
+
+
 router.get('/plans/:LOCALID', function(req, res){
   plans.getdata(req, function(data){
     console.log(JSON.parse(data));
     res.render('plans', {plans: JSON.parse(data).result});
   });
+});
+
+
+
+
+router.get('/search', function(req, res){
+  var fromLocName = req.query.fromLocName;
+  var arrLocName = req.query.arrLocName; 
+  var queryFromName = urlApi.searchCityIdByName + fromLocName;
+  var queryArrName = urlApi.searchCityIdByName + arrLocName;
+  async.parallel({
+    from: function(callback) {
+      model.setUrl(encodeURI(queryFromName));
+      model.getdata(req, function(data){
+        data = JSON.parse(data);
+        var id = data.result[0]["_id"];
+        callback(null, id);
+      });
+    },
+    arrive: function(callback) {
+      model.setUrl(encodeURI(queryArrName));
+      model.getdata(req, function(data){
+        data = JSON.parse(data);
+        var id = data.result[0]["_id"];
+        callback(null, id);
+      });
+    },
+    },
+    function(err, results) {
+      var fromId = results.from;
+      var arriveId = results.arrive;
+      //console.log(fromId + arriveId);
+      var indexGoUrl = "http://api.lvxingpai.cn/web/plans/explore?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
+      model.setUrl(encodeURI(indexGoUrl));
+      model.getdata(null, function(data){
+        data = JSON.parse(data);
+        //res.send(data);
+        res.render('plans', {
+        plans : data.result,
+        from : fromLocName,
+        to : arrLocName,
+        });
+      });  
+  });
+  
 });
 
 router.get('/download/', function(req, res) {

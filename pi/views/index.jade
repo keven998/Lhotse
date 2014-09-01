@@ -6,6 +6,7 @@ block page_var
             id: 'index',
             path: '',
         }
+    script(src="http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js" type="text/ecmascript")
     
 block content
     .bd
@@ -34,16 +35,17 @@ block content
         .shade
           .bg
           .s
-            i.ico02.ico02-position
-            b
-              | 我的位置：
-              i.tips 请输入您的位置
-            input#search-input.s-ip
-            b.line
-            i.ico02.ico02-where
-            b 想要去哪玩？
-            input.s-ip
-            a(href='/plans/53aa9a6410114e3fd47833bd')#search-btn.s-btn
+            form(name="input" action="http://localhost:8880/search" method="GET")
+              i.ico02.ico02-position
+              b
+                | 我的位置：
+                i.tips 请输入您的位置
+              input#search-input.s-ip(type="text" name="fromLocName")
+              b.line
+              i.ico02.ico02-where
+              b 想要去哪玩？
+              input.s-ip(type="text" name="arrLocName")
+              input#search-btn.s-btn(type="submit" value="")
     .content.f-cb
       p.t
         b.txt01 精彩的旅程，也需要你的发现
