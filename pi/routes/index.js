@@ -1,4 +1,3 @@
-//<meta charset="utf-8"/>
 var express = require('express');
 var router = express.Router();
 var async = require('async');
@@ -13,6 +12,7 @@ var model = require('../model/sup_model.js');
 
 
 router.get('/', function(req, res) {
+  console.log("in....");
   async.parallel({
     hotRoute: function(callback) {
       hotRoute.getdata(req, function(data){
@@ -112,4 +112,31 @@ router.get('/download/', function(req, res) {
 router.get('/target/', function(req, res){
   res.render('target');
 });
+
+//  联想功能
+router.get('/suggestion', function(req, res){
+  var tempInput = req.query.input;
+  if (tempInput == "") {
+    res.json();
+  } 
+  else {
+    var requestUrl = "http://api.lvxingpai.cn/web/suggestions?restaurant=0&vs=1&hotel=0&loc=1&word=" + tempInput;
+    model.setUrl(encodeURI(requestUrl));
+    model.getdata(null, function(data){
+      var result = JSON.parse(data).result;
+      //var loc = result.loc;
+      var suggestionArray = new Array();
+      for (type in result) {
+        var arrData = result[type];
+        for (var i = 0; i < arrData.length; i++) {
+          var tempName = arrData[i].name;
+          suggestionArray.push(tempName);
+        }
+      }
+      console.log(suggestionArray); 
+      res.json({suggestion: suggestionArray});
+    });
+  }
+});
+
 module.exports = router;

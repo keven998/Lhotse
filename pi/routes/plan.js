@@ -6,7 +6,7 @@ var routeDetail = require('../model/route_detail');
 var model = require('../model/sup_model.js');
 var apiList = require('../url_api');
 
-/* GET users listing. */
+/* 获得路线详情 */
 router.get('/detail/:PLANID', function(req, res) {
   routeDetail.getdata(req, function(data){
     res.render('plan/plandetail', {
@@ -15,7 +15,7 @@ router.get('/detail/:PLANID', function(req, res) {
   });
 });
 
-/* GET users listing. */
+/* 时间轴 */
 router.get('/timeline/:PEMPLATES', function(req, res) {
   model.setUrl(apiList.apiHost + apiList.ugc.timeline);
   model.getdata(req, function(data) {
@@ -44,24 +44,19 @@ router.get('/timeline/:PEMPLATES', function(req, res) {
     //res.send(basicInfo);
     
     // 日程安排
-    var details = result.details;
-    
-     
+    var details = result.details;     
     // 转换每日日期格式 "2014-08-30 00:00:00+0800" --> "2014-08-30"
     for (var i = 0; i < details.length; i++) {
       details[i].date = details[i].date.split(" ")[0];
-    }
-    
+    }    
     // 包含每天的路线信息，一天一个元素
-    var allRoutes = new Array();
-    
+    var allRoutes = new Array();   
     for (var dayNumber = 0; dayNumber < details.length; dayNumber++) {
       var oneDay = new Object();
       var tempDay = details[dayNumber];
       oneDay['date'] = tempDay.date;
       oneDay['hasTraffic'] = "no"; //默认值
       var oneDayTempRoutes = tempDay.actv;
-
       var oneDayRoutes = new Array();
       for (var routeNum = 0; routeNum < oneDayTempRoutes.length; routeNum++) {
         var tempRoute = new Object();
@@ -132,8 +127,7 @@ router.get('/timeline/:PEMPLATES', function(req, res) {
       allRoutes.push(oneDay);
       oneDay = null;
     }    
-    //res.send(allRoutes);
-    
+    //res.send(allRoutes);    
     // 导览栏
     var navigation = new Array();   
     for (var i = 0; i < allRoutes.length; i++) {
@@ -155,17 +149,13 @@ router.get('/timeline/:PEMPLATES', function(req, res) {
       tempDay.actv = tempActv; // 关联地点数组
       navigation.push(tempDay);
     }
-    //res.send(navigation);
-    
+    //res.send(navigation);    
     res.render('plan/timeline', {
       allRoutes : allRoutes,
       basicInfo : basicInfo,
       navigation : navigation,
-    });
-
-  
+    }); 
   });
-
 });
 
 
