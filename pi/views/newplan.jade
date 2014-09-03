@@ -1,0 +1,47 @@
+extends common/base
+
+block page_var
+    script.
+        var page_var = {
+            id: 'newplan',
+            path: '',
+        }
+        
+block content
+  .full_bg
+    .center_container
+      h1.title 此刻，我们一起去旅行！
+      .search_form
+        form(name="input" action="/search" method="GET")  
+          .search_in
+            .input
+              i.mypos 
+              h2 我的位置 :  
+              input.s-ip(type="text" name="fromLocName")
+            .input
+              i.dest 
+              h2 想要去哪儿玩 ？
+              input.s-ip(type="text" name="arrLocName")
+          input.s-btn(type="submit" value="")
+      .city_nav
+        a(href="") 
+          b 香港
+        a(href="") 
+          b 澳门
+        a(href="") 
+          b 北京
+        a(href="") 
+          b 杭州
+        a(href="") 
+          b 西藏
+        a(href="") 
+          b 三亚
+        a(href="") 
+          b 黄山
+        a(href="") 
+          b 九寨沟
+        a(href="") 
+          b 上海
+        a(href="/target/") 
+          b 更多>> 
+         

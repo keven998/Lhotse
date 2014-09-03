@@ -97,7 +97,7 @@
             });
         }
     });
-    //文本输入框
+    //文本输入框，获取焦点
     var searchInput = $('#search-input'),
         tips = $('.tips'),
         searchBtn = $('#search-btn');
