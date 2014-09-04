@@ -4,8 +4,10 @@ var request = require('request');
 
 router.get('/login/', function(req, res) {
   data = {
-    callback: 'http://www2.lvxingpai.cn:8880/account/callback/weibo/',
-    client_id: '2294159543',
+    weibo_callback: 'http://www2.lvxingpai.cn:8880/account/callback/weibo/',
+    weibo_client_id: '2294159543',
+    qq_callback: encodeURI('http://www2.lvxingpai.cn:8880/account/callback/qq/'),
+    qq_client_id: '101151725',
   }
   res.render('account/login', data)
 });
@@ -45,7 +47,45 @@ router.get('/callback/weibo/', function(req, ori_res) {
       console.log(url)
       request(url, function(err, res, data){
         console.log(data);
-        ori_res.render('account/welcome', JSON.parse(data));
+        ori_res.render('account/welcome', {
+            data : JSON.parse(data),
+            type : "1"
+        });
+      })
+
+  });
+});
+
+router.get('/callback/qq/', function(req, ori_res) {
+  var form = {
+    client_id: '101151725',
+    client_secret: '124f82692bc1080c0af901da4c379ac5',
+    grant_type: 'authorization_code',
+    redirect_uri: encodeURI('http://www2.lvxingpai.cn:8880/account/callback/qq/'),
+    code: req.query.code,
+  };
+  var options = {
+    url : "https://graph.qq.com/oauth2.0/token",
+    form: form,
+    method: 'POST',
+  };
+
+  request(options, function(err, res, data) {
+      if (err) {
+        throw err;
+      }
+      access_token = data.split('&')[0];
+      url = "https://graph.qq.com/oauth2.0/me?" + access_token;
+      request(url, function(err, res, data){
+        openid=data.split('"')[7];
+        url = "https://graph.qq.com/user/get_user_info?" + access_token + "&oauth_consumer_key=101151725&openid=" + openid;
+        request(url, function(err, res, data){
+          console.log(data);
+          ori_res.render('account/welcome', {
+            data : JSON.parse(data),
+            type : "0"
+          });
+        })            
       })
 
   });
