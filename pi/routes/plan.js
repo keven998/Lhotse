@@ -8,10 +8,14 @@ var apiList = require('../url_api');
 
 /* 获得路线详情 */
 router.get('/detail/:PLANID', function(req, res) {
+  console.log("++++");
   routeDetail.getdata(req, function(data){
-    res.render('plan/plandetail', {
-      plandetail : JSON.parse(data).result,
-    });
+    var data = JSON.parse(data).result;
+    console.log(data);
+//    res.render('plan/plandetail', {
+//      plandetail : data,
+//    });
+    res.json({plandetail : data,});
   });
 });
 
@@ -157,6 +161,7 @@ router.get('/timeline/:PEMPLATES', function(req, res) {
     }); 
   });
 });
+
 
 
 module.exports = router;

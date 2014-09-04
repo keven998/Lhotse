@@ -64,7 +64,7 @@ router.get('/plans/:LOCALID', function(req, res){
 
 
 
-router.get('/search', function(req, res){
+router.get('/search/plans', function(req, res){
   var fromLocName = req.query.fromLocName;
   var arrLocName = req.query.arrLocName; 
   var queryFromName = urlApi.searchCityIdByName + fromLocName;
@@ -86,7 +86,7 @@ router.get('/search', function(req, res){
         callback(null, id);
       });
     },
-    },
+  },
     function(err, results) {
       var fromId = results.from;
       var arriveId = results.arrive;
@@ -95,7 +95,7 @@ router.get('/search', function(req, res){
       model.setUrl(encodeURI(indexGoUrl));
       model.getdata(null, function(data){
         data = JSON.parse(data);
-        //res.send(data);
+        //res.send(data.result);
         res.render('plans', {
         plans : data.result,
         from : fromLocName,
@@ -116,6 +116,7 @@ router.get('/target/', function(req, res){
 //  联想功能
 router.get('/suggestion', function(req, res){
   var tempInput = req.query.input;
+  // 如果未有输入则推送空
   if (tempInput == "") {
     res.json();
   } 
@@ -124,7 +125,6 @@ router.get('/suggestion', function(req, res){
     model.setUrl(encodeURI(requestUrl));
     model.getdata(null, function(data){
       var result = JSON.parse(data).result;
-      //var loc = result.loc;
       var suggestionArray = new Array();
       for (type in result) {
         var arrData = result[type];
@@ -138,5 +138,10 @@ router.get('/suggestion', function(req, res){
     });
   }
 });
+
+// 联想推荐开关
+var suggestion = function () {
+  
+}
 
 module.exports = router;
