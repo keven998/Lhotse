@@ -1,0 +1,59 @@
+doctype html
+html
+  include ./head.jade
+  
+  body
+    #navigation
+      - var routes = plandetail.details
+      - var daycount = 0
+      - var id = 0        
+      each route in routes
+        - var dayNumber = "dayNumber_"
+        - daycount++
+        - dayNumber = dayNumber + daycount
+        div(id=dayNumber class="day-number-navigation")
+          h3 
+            | 第 #{daycount} 天
+          - var onedayplan = route.actv                
+          each smallplan in onedayplan
+            - var navigation = "navigation_"
+            if smallplan.type == "vs" || (smallplan.type == "traffic" && smallplan.subType != "airRoute" && smallplan.subType != "trainRoute") 
+              - id++
+              - navigation = navigation + id
+              div(id=navigation class="navigation") #{smallplan.itemName} 
+      
+    #detailRoute
+      - var daycount = 1
+      - var locid = 0
+      - var id = 0
+      - var routes = plandetail.details
+      each route in routes
+        .day-number-detail 
+          h3 
+            | 第 #{daycount++} 天行程安排
+          - var onedayplan = route.actv       
+          each smallplan in onedayplan
+            - var titleNum = "title"
+            - var locNum = "loc"
+            - var distance = "distance"
+            if smallplan.type == "traffic"
+              - id++
+              - titleNum = titleNum + id
+              - distance = distance + id
+              div(id=titleNum class="title") #{smallplan.itemName} #{smallplan.ts} 
+              div(id=distance class="distance") 距离 
+            else if smallplan.type == "vs"  
+              - id++
+              - locid++
+              - titleNum = titleNum + id
+              - locNum = locNum + locid
+              - distance = distance + id
+              div(id=titleNum class="title") #{smallplan.itemName}
+              div(id=distance class="distance") A --> B
+              div(id=locNum class="LatLng" style="display: none") #{smallplan.details.addr.lat},#{smallplan.details.addr.lng}
+            
+              
+      div(id="totalSpots" style="display: none") #{id}   
+
+    #map
+            
