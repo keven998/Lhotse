@@ -1,0 +1,57 @@
+/*
+@timeList css
+*/
+.user{float: right;width: 150px;height: 60px;padding-left: 50px;position: relative;color: #fff;}
+.user img{width: 50px;height: 50px;position: absolute;left: 0;top: 5px;}
+.user .b1{line-height: 40px;}
+.user .b2{font-size: 12px;position: absolute;left: 55px;top: 20px;}
+.opt{width: 1000px;height: 30px;line-height: 30px;margin:0 auto;margin-top: 60px;text-align: right;font-size: 16px;font-family: "黑体";}
+.t-bd{position: relative;margin-top: -20px;}
+.t-bd .t{width: 950px;height: 40px;line-height: 50px;margin-left: auto;margin-right: auto;padding: 20px 25px 10px 25px;border-bottom: 1px solid #BDBDBD;font-size: 32px;color: #21B699;font-family: '黑体';position: relative;}
+.t-bd .t b{font-size: 14px;position: absolute;left: 240px;}
+.t-bd .t .b1{top: 10px}
+.t-bd .t .b2{top: 30px;}
+.t-left{float:left;width: 600px;height: auto;margin-right: -600px;margin-top: 25px;overflow-y: auto;overflow-x: hidden;}
+.t-left .timeline{position: absolute;top: 200px;width: 130px;height: auto;z-index: 111;background: #fff;margin-left: 5px;}
+.timeline ul{width: auto;height: auto;border-left: 3px solid #AAA;padding-left: 10px;}
+.timeline ul li{position: relative;width: 100%;height: 30px;}
+.timeline .point{position: absolute;left: -22px;top: -5px;line-height: 0;width: 10px;height: 10px;border-radius: 50%;background: #aaa;border: 5px solid #fff;}
+.timeline .point-01{background: #08DCA9;}
+.timeline .arr{width: 8px;height: 4px;display: inline-block;position: relative;left: -10px;top: -9px;}
+.timeline .arr-down{background-size: 8px 4px;background: url("/images/plans/timeline/arr_down.png") no-repeat;}
+.timeline .arr-up{background-size:10px;background: url("/images/plans/timeline/arr_up.png") no-repeat;}
+.timeline .sub_layer{padding: 20px 0 15px 10px;display: none;margin-right: 10px;margin-bottom: -10px;position: relative;left: -13px;top: -15px;border-left: 3px solid #08DCA9;}
+.timeline .sub_layer a{margin-bottom: 5px;}
+.timeline:after{content: '';position: absolute;left: -5px;bottom: -10px;width: 10px;height: 25px;background: #fff;}
+.t-left .timeline-detail{width: 420px;padding-left: 180px;position: relative;font-family: "黑体";}
+.t-left .timeline-detail ul li{position:relative;border-top: 4px solid #D8D7D2;}
+.timeline-detail{position: relative}
+.timeline-detail li.first{position: absolute;visibility: hidden;top: -100px;}
+.timeline-detail ul li .day{position: absolute;left: -180px;top: -5px;width: 130px;border-top: 4px solid #D8D7D2;padding: 8px 0;font-size: 16px;color: #bbb;font-family: '黑体';}
+.timeline-detail ul li .cru-day{color: #08DCA9;}
+.timeline-detail ul li .ico03{position: absolute;left: -35px;top: -5px;width: 25px;height: 35px;}
+.ico03-car{background-size:20px;background:url("/images/plans/timeline/car.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/timeline/car.png',sizingMethod='scale');}
+.ico03-spot{background-size:20px;background:url("/images/plans/timeline/spot.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/timeline/spot.png',sizingMethod='scale');}
+.ico03-hotal{background-size:20px;background:url("/images/plans/timeline/hotal.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/timeline/hotal.png',sizingMethod='scale');}
+.timeline-detail ul li .m{font-size: 16px;padding-bottom: 20px;}
+li .m h3{height: 40px;line-height: 2;color: #777;}
+li .m .btn02{position: relative;left: 0;top: 0;margin-left: 5px;}
+li .m .suggest{border-left: 1px solid;height: 70px;line-height: 70px;margin-left: 10px;margin-bottom: -10px;}
+li .m .suggest .ico01{left: -11px;top: 4px;border: 3px solid #fff;background-position: center;border-radius: 50%;width: 15px;height: 15px;}
+li .m b{font-weight: normal;font-size: 14px;}
+li .m .hotal{width:300px;height: 60px;line-height: 1.5;padding: 35px 30px 0 20px;background: url("/images/plans/timeline/Shape.png") no-repeat;background-position: center;background-size: cover;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/timeline/Shape.png',sizingMethod='scale');}
+li .m .hotal .point{color: #08DCA9;font-size: 40px;line-height: 0;position: relative;top: 8px;left: 5px;}
+.t-right{float: right;width: 350px;margin-top: 25px;}
+.t-right .map{width: 100%}
+.tab-c .c{width: auto;height: auto;padding: 0;margin-top: 25px;font-size: 16px;}
+.c .t1{height: 40px;line-height: 40px;width: 100%;white-space: nowrap;font-size: 20px;}
+.c .p1{height: 80px;border-left: 5px solid #08DCA9 !important;border:1px solid #aaa;padding: 15px 0 10px;}
+.c .t2{color: #08DCA9;}
+.c .l{overflow: hidden}
+.c .l li{height: 30px;color: #777;}
+.c p .txt{color: #777;font-size: 16px;}
+.c .left{width: 200px;height: 150px;margin-right: -200px;float: left}
+.c .left img{width: 100%;height: auto}
+.c .right{float:right;width: 330px;padding-left: 220px;height: 150px;font-size: 16px;}
+.c .right .t3{height: 30px;font-size: 20px;}
+.c .right .p2{padding: 20px 0;line-height: 1.5;}
