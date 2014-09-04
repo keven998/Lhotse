@@ -51,18 +51,11 @@ router.get('/', function(req, res) {
   });
 });
 
-
-
-
 router.get('/plans/:LOCALID', function(req, res){
   plans.getdata(req, function(data){
-    console.log(JSON.parse(data));
     res.render('plans', {plans: JSON.parse(data).result});
   });
 });
-
-
-
 
 router.get('/search', function(req, res){
   var fromLocName = req.query.fromLocName;
