@@ -112,13 +112,4 @@ router.get('/download/', function(req, res) {
 router.get('/target/', function(req, res){
   res.render('target');
 });
-
-router.get('/myplan/', function(req, res){
-  res.render('myplan');
-});
-
-router.get('/newplan/', function(req, res){
-  res.render('newplan');
-});
-
 module.exports = router;

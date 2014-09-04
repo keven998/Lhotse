@@ -1,19 +1,20 @@
-.main_container{margin:0 auto;width:1002px;}
+
+
+.main_container{height:auto;}
 #map_container { margin-top:80px;width:100%; max-width:800px; background-color:#FFF;}
 
-
-.hot_views,.hot_cities{margin:50px 0px;}
 .title{font-size:24px;}
 i.line{color:#08DCA9;}
+
 .city-list{overflow:hidden;}
 .view-list{overflow:hidden;}
-.col-thin{float:left;width:190px;height:325px;}
-.col-thick{float:left;overflow:hidden;width:295px;height:325px;}
-.row-tall{float:left;width:295px;height:175px;}
-.row-short{float:left;overflow:hidden;width:295px;height:145px;}
+.col-thin{float:left;width:190px;height:330px;}
+.col-thick{float:left;overflow:hidden;width:305px;height:330px;}
+.row-tall{float:left;width:305px;height:175px;}
+.row-short{float:left;overflow:hidden;width:305px;height:145px;}
 .bot{margin-bottom:5px;}
 .rig{margin-right:5px;}
 .type01{width:190px;height:325px;}
-.type02{width:295px;height:175px;}
-.type03{float:left;width:145px;height:145px;}
-.type04{float:right;width:145px;height:145px;}
+.type02{width:305px;height:175px;}
+.type03{float:left;width:150px;height:145px;}
+.type04{float:right;width:150px;height:145px;}
