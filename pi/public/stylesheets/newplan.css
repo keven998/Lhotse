@@ -1,0 +1,15 @@
+.full_bg{width:100%;height:700px;background:url("/images/newplan/background.jpg") no-repeat;padding-bottom:280px;}
+.center_container{margin:0 auto;width:720px;height:768px;}
+h1.title{color:#8dd;font-size:32px;padding-top:200px;}
+.search_form{width:720px;height:120px;margin-top:15px;}
+.search_in{display:inline-block;}
+.input{margin-bottom:10px;width:580px;height:55px;background:#c3c3c4;border-radius:15px;-moz-border-radius:15px;-webkit-border-radius:15px;}
+.input i{display:inline-block;margin:12px 10px;width:30px;height:30px;}
+.mypos{background:url("/images/newplan/mypos_icon.png") no-repeat;}
+.dest{background:url("/images/newplan/dest_icon.png") no-repeat;}
+.input h2{display:inline-block;vertical-align:top;font-size:20px;color:#fff;line-height:55px;width:150px;}
+.s-ip{width:250px;height:55px;line-height: 30px;display:inline-block;vertical-align:top;border: 0 none;font-size: 19px;background:#c3c3c4;}
+.s-btn{display:inline-block;vertical-align:top;width:120px;height:120px;background:url("/images/newplan/go_button.png") no-repeat;border:none;cursor:pointer;margin:5px;}
+.city_nav{margin-top:10px;margin-left:10px;height:30px;}
+.city_nav a{font-size:17px;margin-right:10px;color:#999;}
+
