@@ -51,20 +51,14 @@ router.get('/', function(req, res) {
   });
 });
 
-
-
-
 router.get('/plans/:LOCALID', function(req, res){
   plans.getdata(req, function(data){
-    console.log(JSON.parse(data));
     res.render('plans', {plans: JSON.parse(data).result});
   });
 });
 
 
-
-
-router.get('/search/plans', function(req, res){
+router.get('/search', function(req, res){
   var fromLocName = req.query.fromLocName;
   var arrLocName = req.query.arrLocName; 
   var queryFromName = urlApi.searchCityIdByName + fromLocName;
@@ -74,7 +68,7 @@ router.get('/search/plans', function(req, res){
       model.setUrl(encodeURI(queryFromName));
       model.getdata(req, function(data){
         data = JSON.parse(data);
-        var id = data.result[0]["_id"];
+        var id = selectCityId(data.result);
         callback(null, id);
       });
     },
@@ -82,7 +76,7 @@ router.get('/search/plans', function(req, res){
       model.setUrl(encodeURI(queryArrName));
       model.getdata(req, function(data){
         data = JSON.parse(data);
-        var id = data.result[0]["_id"];
+        var id = selectCityId(data.result);
         callback(null, id);
       });
     },
@@ -99,6 +93,7 @@ router.get('/search/plans', function(req, res){
         res.render('plans', {
         plans : data.result,
         from : fromLocName,
+        fromId : fromId,  // 用于配置“复制路线”的url
         to : arrLocName,
         });
       });  
@@ -107,11 +102,12 @@ router.get('/search/plans', function(req, res){
 
 router.get('/download/', function(req, res) {
   res.render('download');
-});
+}); 
 
 router.get('/target/', function(req, res){
   res.render('target');
 });
+
 
 //  联想功能
 router.get('/suggestion', function(req, res){
@@ -142,6 +138,21 @@ router.get('/suggestion', function(req, res){
 // 联想推荐开关
 var suggestion = function () {
   
+}
+
+
+// 输入一个城市名字后，会得到一个列表，level = 1 是省会和level = 2是市
+// 通常选取【市】作为出发地
+var selectCityId = function(result) {
+  var cityId = "";
+  for (var i = 0; i < result.length; i++) {
+    var tempCity = result[i];
+    if (tempCity.level == 2) {
+      cityId = tempCity._id;
+      break;
+    } 
+  }
+  return cityId;
 }
 
 module.exports = router;

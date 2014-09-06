@@ -11,7 +11,16 @@ var urlApi = {
   // 根据现有城市名字查询城市ID
   searchCityIdByName : "http://api.lvxingpai.com/geo/localities/search?keyword=", 
   
+  viewspot : {
+    detail : '/web/poi/view-spots/SPOTID',
+  },
   
+  
+  ugc : {
+    display: '/web/ugc-plans/UGCID',
+    // 有待扩充
+    timeline: '/web/ugc-plans/templates/TEMPLATES?fromLoc=_fromLoc',
+  },
   
 };
 module.exports = urlApi;
