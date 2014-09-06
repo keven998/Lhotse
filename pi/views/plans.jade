@@ -35,7 +35,7 @@ block content
         a.btn02 15天以上
       ul.routelist.f-cb
         each plan in plans
-          li(data-url="http://localhost:8880/plan/detail/#{plan._id}")
+          li(data-url="/plans/detail/#{plan._id}")
             a.c-img
               img(src='#{plan.imageList}')
             .c2
