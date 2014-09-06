@@ -37,6 +37,7 @@ $(function () {
     timeLineSpotImg.each(function () {
         $(this).on('click', function (e) {
             var requestUrl = $(this).attr('data-url');
+            console.dir(requestUrl);
             sider.css('height', wheight);
             layer.show();
             sider.show(500, function () {
@@ -44,7 +45,10 @@ $(function () {
                     url    : requestUrl,
                     data   : {},
                     success: function (msg) {
-                        console.dir(msg) //请求成功后，写入dom,打开侧栏、遮罩
+                        console.dir(msg); //请求成功后，写入dom,打开侧栏、遮罩
+                        //alert(msg.result.name);
+                        $('div').children('h3.t3').text(msg.result.name);
+                        $('div.left').children('img').attr('src', msg.result.imageList[0]);
                     },
                     error  : function () {
                         console.log('error!!!')

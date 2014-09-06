@@ -21,6 +21,11 @@ var urlApi = {
   
   searchCityIdByName : "http://api.lvxingpai.com/geo/localities/search?keyword=", 
   
+  viewspot : {
+    detail : '/web/poi/view-spots/SPOTID',
+  },
+  
+  
   ugc : {
     display: '/web/ugc-plans/UGCID',
     // 有待扩充
