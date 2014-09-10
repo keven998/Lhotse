@@ -1,0 +1,31 @@
+/*
+@timeList css
+*/
+.user{float: right;width: 150px;height: 60px;padding-left: 50px;position: relative;color: #fff;}
+.user img{width: 50px;height: 50px;position: absolute;left: 0;top: 5px;}
+.user .b1{line-height: 40px;}
+.user .b2{font-size: 12px;position: absolute;left: 55px;top: 20px;}
+.opt{width: 1000px;height: 30px;line-height: 30px;margin:0 auto;margin-top: 60px;text-align: right;font-size: 16px;font-family: "黑体";}
+.t-bd .t{width: 950px;height: 40px;line-height: 50px;margin-left: auto;margin-right: auto;padding: 20px 25px 10px 25px;border-bottom: 1px solid #BDBDBD;font-size: 32px;color: #21B699;font-family: '黑体';position: relative;text-align: center;}
+.t-left{float:left;width: 315px;height: auto;margin-right: -600px;border-top: 3px solid #08DCA9;border-left: 1px solid #C9C9C9;font-family: '黑体';position: relative;padding-bottom: 40px;}
+.t-left .time{height: 60px;line-height: 60px;font-size: 16px;color: #777;padding-left: 10px;}
+.t-left .edit-list{width: auto;height: auto;font-size: 18px;}
+.t-left .edit-list li{position: relative;height: 40px;line-height: 40px;text-align: center;border-bottom: 1px solid #E4E4E4;}
+.t-left .edit-list li.driver{background: #F7F7F7;}
+.t-left .edit-list li.driver .ico01-d{position: absolute;top: 8px;left: 5px;background: url("/images/plans/edit/circle_bg.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/edit/circle_bg.png',sizingMethod='scale');width: 25px;height: 25px;line-height: 1.5;text-align: center;color: #Fff;}
+.t-left .edit-list li .ico01-close{position: absolute;top: 12px;right: 5px;left: auto;background: url("/images/plans/edit/delete.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/edit/delete.png',sizingMethod='scale');}
+.t-left .add{height: 40px;line-height: 40px;text-align: center;border-bottom: 1px solid #E4E4E4;background: #08DCA9;color: #fff;font-weight: bold;font-size: 18px;cursor: pointer;position: absolute;bottom: 0;width: 100%;}
+.t-left .add em{font-size: 36px;line-height: .8;position: relative;top: 6px;}
+.btn02-c4{right: -10px;left: auto;padding: 10px 30px;}
+.btn02-c1{float: right;margin-top: 13px;padding: 10px;}
+.t-right{float: right;width: 685px;border-left: 1px solid #C9C9C9;}
+.t-right .search{text-align: center;height: 70px;line-height: 70px;}
+.ico02-search{background: url("/images/plans/edit/search.png") no-repeat;top: 15px;right: 30px;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/edit/search.png',sizingMethod='scale');}
+.t-right .search .s-input{width: 520px;height: 30px;padding: 3px 40px 3px 10px;background: #eee;border: 0 none;line-height: 25px;font-size: 16px;margin-left: 25px}
+.t-right .imgs a{float: left;margin: 0 0 15px 15px;width: 213px;background-color: #F7F7F9;position: relative;line-height: .5;padding-bottom: 15px;}
+.t-right .imgs a img{width: 100%;margin-bottom: 15px;}
+.imgs a .spot-name{font-size: 18px;color: #08DCA9;display: block;margin-left: 10px;}
+.imgs a .label{position: absolute;left: 0;top: 80px;background: #F9B248;color: #fff;height: 20px;line-height: 1.5;padding: 2px 5px;}
+.imgs a .ico02{position: absolute;top: 5px;right: 5px;background: url("/images/plans/edit/add_day.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/edit/add_day.png',sizingMethod='scale');}
+.box{ background:#fff; width:30px; height:30px; position:absolute; display:block; top:0px; left:0px; padding:1px; border:1px solid #666;}
+.box img{ width:28px; height:28px;}

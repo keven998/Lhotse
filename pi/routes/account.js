@@ -4,9 +4,9 @@ var request = require('request');
 
 router.get('/login/', function(req, res) {
   data = {
-    weibo_callback: 'http://www2.lvxingpai.cn:8880/account/callback/weibo/',
+    weibo_callback: 'http://www2.lvxingpai.cn/account/callback/weibo/',
     weibo_client_id: '2294159543',
-    qq_callback: encodeURI('http://www2.lvxingpai.cn:8880/account/callback/qq/'),
+    qq_callback: encodeURI('http://www2.lvxingpai.cn/account/callback/qq/'),
     qq_client_id: '101151725',
   }
   res.render('account/login', data)
@@ -18,7 +18,7 @@ router.get('/callback/weibo/', function(req, ori_res) {
     client_id: '2294159543',
     client_secret: 'a35ae59c1883bf184e7b76c667e88cee',
     grant_type: 'authorization_code',
-    redirect_uri: 'http://www2.lvxingpai.cn:8880/account/callback/weibo/',
+    redirect_uri: '/account/callback/weibo/',
     code: req.query.code,
   };
   var options = {

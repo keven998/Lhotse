@@ -1,0 +1,138 @@
+extends ../common/base
+
+block page_var
+    script.
+        var page_var = {
+            id: 'timeline',
+            path: 'plans/',
+        }
+    
+block content
+    .bd.t-bd
+      h1.t
+        | 北京——香港|
+        b.b1 全程#{basicInfo.days}天
+        b.b2 ￥#{basicInfo.budget[0]}-￥#{basicInfo.budget[1]}
+    .content.f-cb
+      .t-left
+        .timeline
+          ul#timeLine
+            - var flag = 0
+            - var numToChinese = {1: "一",2: "二",3: "三",4: "四",5: "五",6: "六",7: "七",8: "八",9: "九",10: "十",11: "十一",12: "十二",13: "十三",14: "十四",15: "十五",16: "十六",17: "十七",}
+            each day in navigation
+              - flag++
+              if flag == 1
+                li(data-status='active', data-for='list-01')
+                  i.point.point-01
+                  a.btn02.btn02-c1(href='#detail-d1') 第一天
+                  i.arr.arr-down
+                #list-01.sub_layer(style='display: block;')
+                  each spot in day.actv    
+                    a.btn02.btn02-c3 #{spot.itemName} 
+              else if flag < 10
+                li(data-for='list-0' + flag)
+                  i.point
+                  a.btn02(href='#detail-d' + flag) 第#{numToChinese[flag]}天
+                  i.arr.arr-up
+                div(id="list-0"+flag class="sub_layer")  
+                  each spot in day.actv
+                    a.btn02.btn02-c3 #{spot.itemName}    
+              else
+                li(data-for='list-' + flag)
+                  i.point
+                  a.btn02(href='#detail-d' + flag) 第#{numToChinese[flag]}天
+                  i.arr.arr-up
+                div(id="list-"+flag class="sub_layer")  
+                  each spot in day.actv
+                    a.btn02.btn02-c3 #{spot.itemName}
+                    
+                          
+              
+        .timeline-detail
+          - var dayCount = 0          
+          each day in allRoutes
+            - dayCount++
+            
+            if dayCount < 10
+              ul(data-day='0'+dayCount)
+                - var flag = 0            
+                each spot in day.actv
+                  - flag++
+                  li
+                    if flag == 1 
+                      .day.cru-day
+                        b 第#{numToChinese[dayCount]}天
+                        b #{day.date}
+                    
+                    if (spot.type == "airport" || spot.type == "trainStation") && spot.stopType == "dep"
+                      i.ico03.ico03-car
+                      .m
+                        h3 #{spot.itemName}  #{day.date}
+                        a.btn02.btn02-c4 #{day.actv[flag].itemName}
+                        | #{day.actv[flag].ts}出发——#{day.actv[flag].arrTime}到达 
+                        
+                    if (spot.type == "airport" || spot.type == "trainStation") && spot.stopType == "arr"  
+                      i.ico03.ico03-car
+                      .m
+                        h3 #{spot.itemName}
+                        p.suggest
+                          i.ico01.ico01-km
+                          | 距离12.3公里  建议打车
+                      
+                    if spot.type == "vs"
+                      i.ico03.ico03-spot
+                      .m
+                        h3 #{spot.itemName}
+                        img.spot-img(data-url='http://localhost:8880/viewspot/detail/' + spot.itemId, src=spot.imageList[0] width=300 height=160)
+                        br
+                        b 1、建议游玩：#{spot.timeCost}  2、开放时间08:00-18:00  3、门票￥#{spot.price}
+                        p.suggest
+                          i.ico01.ico01-km
+                          | 距离12.8公里  建议公交  
+                      
+                    if spot.type == "hotel"
+                      i.ico03.ico03-hotal
+                      .m
+                        h3
+                          | #{spot.itemName}
+                          a.btn02.btn02-c1 更多选择
+                        p.hotal
+                          i.point ·
+                          | ￥#{spot.price}起
+                          i.point ·
+                          | 电话 #{spot.phoneList[0]}
+                          i.point ·
+                          | #{spot.addr}
+                
+            else
+              ul(data-day=dayCount)      
+              
+   
+                  
+                  
+      .t-right
+        img.map(src='/images/plans/timeline/map-bg.png')
+      .sider(style='display: none;')
+        .tab-c
+          .c.f-cb
+            .left
+              img(src='/images/plans/timeline/list.jpg')
+            .right
+              h3.t3 loading...
+              em.color-02 AAAAA
+              i.ico01.ico01-flag
+              | 333人
+              i.ico01.ico01-heart
+              | 6666人
+              p.p2
+                | 门票：￥999
+                | 开放时间：19:00-20:00  建议游玩：2小时
+                | 最佳月份：全年
+          .c
+            h2.t1.t2 |简介
+            p 简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介
+          .c
+            a.btn02.btn02-c1 景区攻略
+    .layer(style='display: none;')
+    
+    

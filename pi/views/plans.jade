@@ -35,7 +35,7 @@ block content
         a.btn02 15天以上
       ul.routelist.f-cb
         each plan in plans
-          li(data-url='/ajax.php')
+          li(data-url="/plans/detail/#{plan._id}")
             a.c-img
               img(src='#{plan.imageList}')
             .c2
@@ -57,52 +57,45 @@ block content
               p.ico-g.fl.w50
                 i.ico01.ico01-cost
                 b 预计花费 ￥#{plan.budget[0]}-￥#{plan.budget[1]}
-              a.btn02.btn02-c4(href='/plan/timeline/' + plan._id)复制路线
+              a.btn02.btn02-c4(href='/plans/timeline/' + plan._id + '?_fromLoc=' + fromId)复制路线
       .sider(style='display: none;')
         .tab
           a#tab01.item.item01-hover
           a#tab02.item.item02-normal
         #item01.tab-c
           .c
-            h1.t1 台北深度体验之旅
+            h1.t1 
             p
-              span.txt
+              span.day
                 b.dot ·
                 | 全程12天
-              span.txt
+              span.cost
                 b.dot ·
                 | 人均3000-40000元
-              <br>
-              span.txt
+              br
+              span.goodtime
                 b.dot ·
                 | 适合月份：四季皆宜
-              <br>
-              span.txt
+              br
+              span.tags
                 b.dot ·
                 | 旅途印象：感官盛宴，美景不暇，摄影的天堂，沧桑怀古
-              <br>
+              
           .c
             h2.t1.t2 |路线速览
             ul.l
-              li
-                i.ico01.ico01-d1
-                b 敦煌-乌鲁木齐-国际大巴扎
-              li
-                i.ico01.ico01-d2
-                b 乌鲁木齐-昌吉-克拉玛依-奎屯-石河子-博乐
-              li
-                i.ico01.ico01-d3
-                b 赛里木湖
-              li
-                i.ico01.ico01-d4
-                b 敦煌-赛里木湖-国际大巴扎
-              li
-                i.ico01.ico01-d5
-                b 敦煌-乌鲁木齐-国际大巴扎
+              
+              
+              
+              
+              
           .c
             h3.t1.t2
               i.ico02.ico02-circle
               b 台北三日深度体验之旅
+              
+              
+              
         #item02.tab-c(style='display: none;')
           ul.about-list
             li
