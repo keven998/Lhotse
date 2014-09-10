@@ -1,6 +1,17 @@
 extends ../common/base
+block page_var
+    script.
+        var page_var = {
+            id: 'welcome',
+            path: 'account/',
+        }
 
 block content
-  div
-    p 欢迎您：#{screen_name}
-    img(src="#{avatar_large}")
+  .main_container
+    .user_info
+      if (type=="1")
+        p 欢迎您：#{data.screen_name}
+        img(src="#{data.avatar_large}")
+      else
+        p 欢迎您：#{data.nickname}
+        img(src="#{data.figureurl_2}")
