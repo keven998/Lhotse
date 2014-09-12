@@ -51,7 +51,7 @@ router.get('/', function(req, res) {
   });
 });
 
-router.get('/plans/:LOCALID', function(req, res){
+router.get('/plans/:LOCALID/', function(req, res){
   plans.getdata(req, function(data){
     res.render('plans', {plans: JSON.parse(data).result});
   });
@@ -106,12 +106,5 @@ router.get('/target/', function(req, res){
   res.render('target');
 });
 
-router.get('/myplan/', function(req, res){
-  res.render('myplan');
-});
-
-router.get('/newplan/', function(req, res){
-  res.render('newplan');
-});
 
 module.exports = router;

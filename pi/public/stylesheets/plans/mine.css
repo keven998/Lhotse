@@ -7,10 +7,10 @@
 .plan_title{display:inline-block;height:30px;width:180px;margin-top:25px;background:#e3e4e4;}
 .plan_title h2{margin-left:5px;line-height:30px;font-size:19px;color:#08DCA9;}
 .edit_btn{display:inline-block;margin-left:10px;width:86px;}
-.confirm{background-image:url("/images/myplan/confirm_btn.png");height:23px;width:40px;margin-right:4px;}
-.cancel{background-image:url("/images/myplan/cancel_btn.png");height:23px;width:40px;}
+.confirm{background-image:url("/images/plans/mine/confirm_btn.png");height:23px;width:40px;margin-right:4px;}
+.cancel{background-image:url("/images/plans/mine/cancel_btn.png");height:23px;width:40px;}
 p.date{margin:5px 0 10px 10px;}
-.viewdetail{background-image:url("/images/myplan/viewdetail_btn.png");height:23px;width:65px;margin:0 0 30px 15px;}
+.viewdetail{background-image:url("/images/plans/mine/viewdetail_btn.png");height:23px;width:65px;margin:0 0 30px 15px;}
 .plan_ft{margin-left:120px;color:#d3d4d4;}
-i.delete{margin-left:30px;margin-top:5px;display:inline-block;background:url("/images/myplan/delete_btn.png") no-repeat;width:15px;height:15px;cursor:pointer;}
-a .newplan_btn{border:none;background:url("/images/myplan/newplan_btn.png") no-repeat;height:55px;width:170px;margin:40px 0 50px 800px;}
+i.delete{margin-left:30px;margin-top:5px;display:inline-block;background:url("/images/plans/mine/delete_btn.png") no-repeat;width:15px;height:15px;cursor:pointer;}
+a .newplan_btn{border:none;background:url("/images/plans/mine/newplan_btn.png") no-repeat;height:55px;width:170px;margin:40px 0 50px 800px;}

@@ -15,6 +15,14 @@ router.get('/detail/:PLANID', function(req, res) {
   });
 });
 
+router.get('/mine', function(req, res){
+  res.render('plans/mine');
+});
+
+router.get('/create', function(req, res){
+  res.render('plans/create');
+});
+
 router.get('/timeline/:PEMPLATES', function(req, res) {
   res.render('plans/timeline');
 });

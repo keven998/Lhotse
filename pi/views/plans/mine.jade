@@ -1,17 +1,17 @@
-extends common/base
+extends ../common/base
 
 block page_var
     script.
         var page_var = {
-            id: 'myplan',
-            path: '',
+            id: 'mine',
+            path: 'plans/',
         }
         
 block content
   .content
     .plan_list
       .plan_item
-        img(src="/images/myplan/list.jpg" width="146" height="147")  
+        img(src="/images/plans/mine/list.jpg" width="146" height="147")  
         .plan_desc
           .plan_title  
             h2 小明的假日旅行
@@ -24,7 +24,7 @@ block content
             更新时间：2014.8.15
             i.delete  
       .plan_item
-        img(src="/images/myplan/list.jpg" width="146" height="147")  
+        img(src="/images/plans/mine/list.jpg" width="146" height="147")  
         .plan_desc
           .plan_title  
             h2 小明的假日旅行
@@ -37,7 +37,7 @@ block content
             更新时间：2014.8.15
             i.delete  
       .plan_item
-        img(src="/images/myplan/list.jpg" width="146" height="147")  
+        img(src="/images/plans/mine/list.jpg" width="146" height="147")  
         .plan_desc
           .plan_title  
             h2 小明的假日旅行
@@ -50,7 +50,7 @@ block content
             更新时间：2014.8.15
             i.delete  
       .plan_item
-        img(src="/images/myplan/list.jpg" width="146" height="147")  
+        img(src="/images/plans/mine/list.jpg" width="146" height="147")  
         .plan_desc
           .plan_title  
             h2 小明的假日旅行
@@ -63,7 +63,7 @@ block content
             更新时间：2014.8.15
             i.delete  
       .plan_item
-        img(src="/images/myplan/list.jpg" width="146" height="147")  
+        img(src="/images/plans/mine/list.jpg" width="146" height="147")  
         .plan_desc
           .plan_title  
             h2 小明的假日旅行
@@ -76,7 +76,7 @@ block content
             更新时间：2014.8.15
             i.delete  
       .plan_item
-        img(src="/images/myplan/list.jpg" width="146" height="147")  
+        img(src="/images/plans/mine/list.jpg" width="146" height="147")  
         .plan_desc
           .plan_title  
             h2 小明的假日旅行
@@ -88,6 +88,6 @@ block content
           .plan_ft 
             更新时间：2014.8.15
             i.delete      
-    a(href="www2.lvxingpai.cn:8880/newplan/")
+    a(href="www2.lvxingpai.cn:8880/plans/create/")
       button.newplan_btn
       
