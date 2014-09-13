@@ -51,12 +51,6 @@ router.get('/', function(req, res) {
   });
 });
 
-router.get('/plans/:LOCALID/', function(req, res){
-  plans.getdata(req, function(data){
-    res.render('plans', {plans: JSON.parse(data).result});
-  });
-});
-
 router.get('/search', function(req, res){
   var fromLocName = req.query.fromLocName;
   var arrLocName = req.query.arrLocName; 
@@ -83,16 +77,15 @@ router.get('/search', function(req, res){
     function(err, results) {
       var fromId = results.from;
       var arriveId = results.arrive;
-      //console.log(fromId + arriveId);
       var indexGoUrl = "http://api.lvxingpai.cn/web/plans/explore?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
       model.setUrl(encodeURI(indexGoUrl));
       model.getdata(null, function(data){
         data = JSON.parse(data);
         //res.send(data);
         res.render('plans', {
-        plans : data.result,
-        from : fromLocName,
-        to : arrLocName,
+          plans : data.result,
+          from : fromLocName,
+          to : arrLocName,
         });
       });  
   });

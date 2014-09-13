@@ -15,11 +15,17 @@ router.get('/detail/:PLANID', function(req, res) {
   });
 });
 
-router.get('/mine', function(req, res){
+router.get('/:LOCALID', function(req, res){
+  plans.getdata(req, function(data){
+    res.render('plans', {plans: JSON.parse(data).result});
+  });
+});
+
+router.get('/mine/', function(req, res){
   res.render('plans/mine');
 });
 
-router.get('/create', function(req, res){
+router.get('/create/', function(req, res){
   res.render('plans/create');
 });
 
