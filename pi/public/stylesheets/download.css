@@ -1,4 +1,4 @@
-.Download_main{margin-top:100px;background:url(/images/download/wave_backgroud.png) no-repeat bottom;background-size:100% 400px;width:100%;height:585px;}
+.Download_main{margin-top:100px;margin-bottom:280px;background:url(/images/download/wave_backgroud.png) no-repeat bottom;background-size:100% 400px;width:100%;height:585px;}
  .Download_phone{float:left;background:url(/images/download/phone.png) no-repeat top;background-size:460px,580px;width:560px;height:580px;}
   .Download_phone #phone_slider{width:320px;height:480px;margin-left:170px;margin-top:90px;z-index:2;}
     

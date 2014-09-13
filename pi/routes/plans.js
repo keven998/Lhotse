@@ -15,6 +15,18 @@ router.get('/detail/:PLANID', function(req, res) {
   });
 });
 
+router.get('/mine/', function(req, res){
+  res.render('plans/mine');
+});
+
+router.get('/create/', function(req, res){
+  res.render('plans/create');
+});
+
+router.get('/timeline/:PEMPLATES', function(req, res) {
+  res.render('plans/timeline');
+});
+
 router.get('/edit/:TEMPLATES', function(req, res) {
   res.render('plans/edit');
 });
@@ -23,8 +35,6 @@ router.get('/edit/:TEMPLATES', function(req, res) {
 router.get('/timeline/:TEMPLATES', function(req, res) { 
    model.setUrl(apiList.apiHost + apiList.ugc.timeline);
    model.getdata(req, function(data) {
-     console.log("复制路线的Url:" + model.getUrl());
-
      data = JSON.parse(data);
      //res.send(data);     
      
