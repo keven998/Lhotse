@@ -60,17 +60,16 @@ router.get('/edit/post', function(req, res) {
   });
 });
 
+
 router.get('/mine/', function(req, res){
   res.render('plans/mine');
 });
+
 
 router.get('/create/', function(req, res){
   res.render('plans/create');
 });
 
-//router.get('/timeline/:PEMPLATES', function(req, res) {
-//  res.render('plans/timeline');
-//});
 
 router.get('/edit/:TEMPLATES', function(req, res) {
   res.render('plans/edit');
@@ -81,7 +80,6 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
    model.setUrl(apiList.apiHost + apiList.ugc.timeline);
    model.getdata(req, function(data) {
      data = JSON.parse(data);
-     //res.send(data);     
      var requestUrl = req.originalUrl;
      //提取数据     
      var lastModified = data.lastModified;
@@ -94,7 +92,6 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
      var days = result.days;
      var imageList = result.imageList;
      var budget = result.budget;
-     //var templateId = result.templateId;
     
      var basicInfo = new Object();
      basicInfo['_id'] = _id;
@@ -104,8 +101,6 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
      basicInfo['days'] = days;
      basicInfo['budget'] = budget;
      basicInfo['requestUrl'] = requestUrl;
-     //console.log(templateId);
-     //res.send(basicInfo);
     
      // 日程安排
      var details = result.details;    
@@ -195,7 +190,6 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
        allRoutes.push(oneDay);
        oneDay = null;
      }    
-     //res.send(allRoutes);
     
      // 导览栏
      var navigation = new Array();   
@@ -218,17 +212,12 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
        tempDay.actv = tempActv; // 关联地点数组
        navigation.push(tempDay);
      }
-     //res.send(navigation);
-     //res.send(allRoutes);    
      res.render('plans/timeline', {
        allRoutes : allRoutes,
        basicInfo : basicInfo,
        navigation : navigation,
      });
-
-  
-   });
-
- });
+  });
+});
 
 module.exports = router;

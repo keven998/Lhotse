@@ -118,7 +118,7 @@ block content
                       .m(id="vs_" + vsCount)
                         .latlng(style="display:none;") #{spot.lat},#{spot.lng}
                         h3 #{spot.itemName}
-                        img.spot-img(data-url='http://localhost:8880/viewspot/detail/' + spot.itemId, src=spot.imageList[0] width=300 height=160)
+                        img.spot-img(data-url='/viewspot/detail/' + spot.itemId, src=spot.imageList[0] width=300 height=160)
                         br
                         b 1、建议游玩：#{spot.timeCost}  2、开放时间08:00-18:00  3、门票￥#{spot.price}
                         p.suggest

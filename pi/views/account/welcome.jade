@@ -8,10 +8,7 @@ block page_var
 
 block content
   .main_container
-    .user_info
-      if (type=="1")
-        p 欢迎您：#{data.screen_name}
-        img(src="#{data.avatar_large}")
-      else
-        p 欢迎您：#{data.nickname}
-        img(src="#{data.figureurl_qq_1}")
+        .user_info
+            p 欢迎您：#{result.nickName}
+            img(src="#{result.avatar}")
+
