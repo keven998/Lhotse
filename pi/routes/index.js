@@ -1,4 +1,3 @@
-//<meta charset="utf-8"/>
 var express = require('express');
 var router = express.Router();
 var async = require('async');
@@ -36,7 +35,6 @@ router.get('/', function(req, res) {
     },
     }, 
     function(err, results) {
-      console.log('---DATA---');      
       results.hotRoute = JSON.parse(results.hotRoute);
       results.mustgoRoute = JSON.parse(results.mustgoRoute);
       results.newestRoute = JSON.parse(results.newestRoute);
@@ -61,7 +59,7 @@ router.get('/search', function(req, res){
       model.setUrl(encodeURI(queryFromName));
       model.getdata(req, function(data){
         data = JSON.parse(data);
-        var id = data.result[0]["_id"];
+        var id = selectCityId(data.result);
         callback(null, id);
       });
     },
@@ -69,11 +67,11 @@ router.get('/search', function(req, res){
       model.setUrl(encodeURI(queryArrName));
       model.getdata(req, function(data){
         data = JSON.parse(data);
-        var id = data.result[0]["_id"];
+        var id = selectCityId(data.result);
         callback(null, id);
       });
     },
-    },
+  },
     function(err, results) {
       var fromId = results.from;
       var arriveId = results.arrive;
@@ -81,10 +79,10 @@ router.get('/search', function(req, res){
       model.setUrl(encodeURI(indexGoUrl));
       model.getdata(null, function(data){
         data = JSON.parse(data);
-        //res.send(data);
         res.render('plans', {
           plans : data.result,
           from : fromLocName,
+          fromId : fromId,  // 用于配置“复制路线”的url
           to : arrLocName,
         });
       });  
@@ -93,11 +91,55 @@ router.get('/search', function(req, res){
 
 router.get('/download/', function(req, res) {
   res.render('download');
-});
+}); 
 
 router.get('/target/', function(req, res){
   res.render('target');
 });
 
+//  联想功能
+router.get('/suggestion', function(req, res){
+  var tempInput = req.query.input;
+  // 如果未有输入则推送空
+  if (tempInput == "") {
+    res.json();
+  } 
+  else {
+    var requestUrl = "http://api.lvxingpai.cn/web/suggestions?restaurant=0&vs=1&hotel=0&loc=1&word=" + tempInput;
+    model.setUrl(encodeURI(requestUrl));
+    model.getdata(null, function(data){
+      var result = JSON.parse(data).result;
+      var suggestionArray = new Array();
+      for (type in result) {
+        var arrData = result[type];
+        for (var i = 0; i < arrData.length; i++) {
+          var tempName = arrData[i].name;
+          suggestionArray.push(tempName);
+        }
+      }
+      res.json({suggestion: suggestionArray});
+    });
+  }
+});
+
+// 联想推荐开关
+var suggestion = function () {
+  
+}
+
+
+// 输入一个城市名字后，会得到一个列表，level = 1 是省会和level = 2是市
+// 通常选取【市】作为出发地
+var selectCityId = function(result) {
+  var cityId = "";
+  for (var i = 0; i < result.length; i++) {
+    var tempCity = result[i];
+    if (tempCity.level == 2) {
+      cityId = tempCity._id;
+      break;
+    } 
+  }
+  return cityId;
+}
 
 module.exports = router;

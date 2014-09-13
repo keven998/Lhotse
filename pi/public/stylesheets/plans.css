@@ -3,6 +3,7 @@
 .ico01-d3{background-size:24px;background:url("/images/plans/D3.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/D3.png',sizingMethod='scale');top: 5px;left: 5px;}
 .ico01-d4{background-size:24px;background:url("/images/plans/D4.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/D4.png',sizingMethod='scale');top: 5px;left: 5px;}
 .ico01-d5{background-size:24px;background:url("/images/plans/D5.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/D5.png',sizingMethod='scale');top: 5px;left: 5px;}
+
 .ico02-circle{background-size:30px;background:url("/images/plans/circle.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/circle.png',sizingMethod='scale');top: 10px;left: 5px;}
 /* slider-container */
 .slider-container{height: 350px;overflow:hidden;position:relative}
@@ -62,7 +63,12 @@
 .c .l{overflow: hidden}
 .c .l li{height: 30px;color: #777;}
 .c p .txt{color: #777;font-size: 16px;}
-.txt .dot{color: #08DCA9;font-size: 40px;line-height: 0;position: relative;left: 10px;top: 8px;}
+
+.day .dot{color: #08DCA9;font-size: 40px;line-height: 0;position: relative;left: 10px;top: 8px;}
+.cost .dot{color: #08DCA9;font-size: 40px;line-height: 0;position: relative;left: 10px;top: 8px;}
+.goodtime .dot{color: #08DCA9;font-size: 40px;line-height: 0;position: relative;left: 10px;top: 8px;}
+.tags .dot{color: #08DCA9;font-size: 40px;line-height: 0;position: relative;left: 10px;top: 8px;}
+
 .about-list{overflow: auto;height: 500px;margin-top: 20px;}
 ul.about-list li{width:auto;height: 150px;background: #eee;position: relative;padding: 10px 10px 5px 70px;margin-bottom: 15px;}
 .sider-userimg{position: absolute;left: 10px;top: 10px;width: 50px;height: 50px;}

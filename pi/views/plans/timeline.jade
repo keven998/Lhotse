@@ -11,240 +11,105 @@ block content
     .bd.t-bd
       h1.t
         | 北京——香港|
-        b.b1 全程2天
-        b.b2 ￥1200-￥2000
+        b.b1 全程#{basicInfo.days}天
+        b.b2 ￥#{basicInfo.budget[0]}-￥#{basicInfo.budget[1]}
     .content.f-cb
       .t-left
         .timeline
           ul#timeLine
-            li(data-status='active', data-for='list-01')
-              i.point.point-01
-              a.btn02.btn02-c1(href='#detail-d1') 第一天
-              i.arr.arr-down
-            #list-01.sub_layer(style='display: block;')
-              a.btn02.btn02-c3 北京南站
-              a.btn02.btn02-c3 广州南站
-              a.btn02.btn02-c3 白云山
-              a.btn02.btn02-c3 希尔顿大酒店
-            li(data-for='list-02')
-              i.point
-              a.btn02(href='#detail-d2') 第二天
-              i.arr.arr-up
-            #list-02.sub_layer
-              a.btn02.btn02-c3 北京南站
-              a.btn02.btn02-c3 广州南站
-              a.btn02.btn02-c3 白云山
-              a.btn02.btn02-c3 希尔顿大酒店
-            li(data-for='list-03')
-              i.point
-              a.btn02(href='#detail-d3') 第三天
-              i.arr.arr-up
-            #list-03.sub_layer
-              a.btn02.btn02-c3 北京南站
-              a.btn02.btn02-c3 广州南站
-              a.btn02.btn02-c3 白云山
-              a.btn02.btn02-c3 希尔顿大酒店
-            li(data-for='list-04')
-              i.point
-              a.btn02(href='#detail-d4') 第四天
-              i.arr.arr-up
-            #list-04.sub_layer
-              a.btn02.btn02-c3 北京南站
-              a.btn02.btn02-c3 广州南站
-              a.btn02.btn02-c3 白云山
-              a.btn02.btn02-c3 希尔顿大酒店
-            li(data-for='list-05')
-              i.point
-              a.btn02(href='#detail-d5') 第五天
-              i.arr.arr-up
-            #list-05.sub_layer
-              a.btn02.btn02-c3 北京南站
-              a.btn02.btn02-c3 广州南站
-              a.btn02.btn02-c3 白云山
-              a.btn02.btn02-c3 希尔顿大酒店
+            - var flag = 0
+            - var numToChinese = {1: "一",2: "二",3: "三",4: "四",5: "五",6: "六",7: "七",8: "八",9: "九",10: "十",11: "十一",12: "十二",13: "十三",14: "十四",15: "十五",16: "十六",17: "十七",}
+            each day in navigation
+              - flag++
+              if flag == 1
+                li(data-status='active', data-for='list-01')
+                  i.point.point-01
+                  a.btn02.btn02-c1(href='#detail-d1') 第一天
+                  i.arr.arr-down
+                #list-01.sub_layer(style='display: block;')
+                  each spot in day.actv    
+                    a.btn02.btn02-c3 #{spot.itemName} 
+              else if flag < 10
+                li(data-for='list-0' + flag)
+                  i.point
+                  a.btn02(href='#detail-d' + flag) 第#{numToChinese[flag]}天
+                  i.arr.arr-up
+                div(id="list-0"+flag class="sub_layer")  
+                  each spot in day.actv
+                    a.btn02.btn02-c3 #{spot.itemName}    
+              else
+                li(data-for='list-' + flag)
+                  i.point
+                  a.btn02(href='#detail-d' + flag) 第#{numToChinese[flag]}天
+                  i.arr.arr-up
+                div(id="list-"+flag class="sub_layer")  
+                  each spot in day.actv
+                    a.btn02.btn02-c3 #{spot.itemName}
+                    
+                          
+              
         .timeline-detail
-          ul(data-day='01')
-            //
-              <li id="detail-d1" class="first"></li>
-            li
-              .day.cru-day
-                b 第一天
-                b 2014-01-01
-              i.ico03.ico03-car
-              .m
-                h3 北京南站  2014-01-01
-                a.btn02.btn02-c4 T109
-                | 19:00出发——07:00到达
-            li
-              i.ico03.ico03-car
-              .m
-                h3 广州南站
-                p.suggest
-                  i.ico01.ico01-km
-                  | 距离12.3公里  建议打车
-            li
-              i.ico03.ico03-spot
-              .m
-                h3 白云山
-                img.spot-img(data-url='.../ajax.php', src='/images/plans/timeline/list.jpg')
-                b 1、建议玩3小时  2、开发时间08:00-18:00  3、门票￥99-￥444
-                p.suggest
-                  i.ico01.ico01-km
-                  | 距离12.8公里  建议公交
-            li
-              i.ico03.ico03-hotal
-              .m
-                h3
-                  | 希尔顿大酒店
-                  a.btn02.btn02-c1 更多选择
-                p.hotal
-                  i.point ·
-                  | ￥555起
-                  i.point ·
-                  | 电话 010-1232456
-                  i.point ·
-                  | 海淀区 海淀59号 3W咖啡馆
-          ul(data-day='02')
-            //
-              <li id="detail-d2" class="first"></li>
-            li
-              .day.cru-day
-                b 第二天
-                b 2014-01-01
-              i.ico03.ico03-car
-              .m
-                h3 北京南站  2014-01-01
-                a.btn02.btn02-c4 T109
-                | 19:00出发——07:00到达
-            li
-              i.ico03.ico03-spot
-              .m
-                h3 白云山
-                img.spot-img(data-url='.../ajax.php', src='/images/plans/timeline/list.jpg')
-                b 1、建议玩3小时  2、开发时间08:00-18:00  3、门票￥99-￥444
-                p.suggest
-                  i.ico01.ico01-km
-                  | 距离12.8公里  建议公交
-            li
-              i.ico03.ico03-hotal
-              .m
-                h3
-                  | 希尔顿大酒店
-                  a.btn02.btn02-c1 更多选择
-                p.hotal
-                  i.point ·
-                  | ￥555起
-                  i.point ·
-                  | 电话 010-1232456
-                  i.point ·
-                  | 海淀区 海淀59号 3W咖啡馆
-          ul(data-day='03')
-            //
-              <li id="detail-d3" class="first"></li>
-            li
-              .day.cru-day
-                b 第三天
-                b 2014-01-01
-              i.ico03.ico03-car
-              .m
-                h3 北京南站  2014-01-01
-                a.btn02.btn02-c4 T109
-                | 19:00出发——07:00到达
-            li
-              i.ico03.ico03-hotal
-              .m
-                h3
-                  | 希尔顿大酒店
-                  a.btn02.btn02-c1 更多选择
-                p.hotal
-                  i.point ·
-                  | ￥555起
-                  i.point ·
-                  | 电话 010-1232456
-                  i.point ·
-                  | 海淀区 海淀59号 3W咖啡馆
-          ul(data-day='04')
-            //
-              <li id="detail-d4" class="first"></li>
-            li
-              .day.cru-day
-                b 第四天
-                b 2014-01-01
-              i.ico03.ico03-car
-              .m
-                h3 北京南站  2014-01-01
-                a.btn02.btn02-c4 T109
-                | 19:00出发——07:00到达
-            li
-              i.ico03.ico03-car
-              .m
-                h3 广州南站
-                p.suggest
-                  i.ico01.ico01-km
-                  | 距离12.3公里  建议打车
-            li
-              i.ico03.ico03-spot
-              .m
-                h3 白云山
-                img.spot-img(data-url='.../ajax.php', src='/images/plans/timeline/list.jpg')
-                b 1、建议玩3小时  2、开发时间08:00-18:00  3、门票￥99-￥444
-                p.suggest
-                  i.ico01.ico01-km
-                  | 距离12.8公里  建议公交
-            li
-              i.ico03.ico03-hotal
-              .m
-                h3
-                  | 希尔顿大酒店
-                  a.btn02.btn02-c1 更多选择
-                p.hotal
-                  i.point ·
-                  | ￥555起
-                  i.point ·
-                  | 电话 010-1232456
-                  i.point ·
-                  | 海淀区 海淀59号 3W咖啡馆
-          ul(data-day='05')
-            //
-              <li id="detail-d5" class="first"></li>
-            li
-              .day.cru-day
-                b 第五天
-                b 2014-01-01
-              i.ico03.ico03-car
-              .m
-                h3 北京南站  2014-01-01
-                a.btn02.btn02-c4 T109
-                | 19:00出发——07:00到达
-            li
-              i.ico03.ico03-car
-              .m
-                h3 广州南站
-                p.suggest
-                  i.ico01.ico01-km
-                  | 距离12.3公里  建议打车
-            li
-              i.ico03.ico03-spot
-              .m
-                h3 白云山
-                img.spot-img(data-url='.../ajax.php', src='/images/plans/timeline/list.jpg')
-                b 1、建议玩3小时  2、开发时间08:00-18:00  3、门票￥99-￥444
-                p.suggest
-                  i.ico01.ico01-km
-                  | 距离12.8公里  建议公交
-            li
-              i.ico03.ico03-hotal
-              .m
-                h3
-                  | 希尔顿大酒店
-                  a.btn02.btn02-c1 更多选择
-                p.hotal
-                  i.point ·
-                  | ￥555起
-                  i.point ·
-                  | 电话 010-1232456
-                  i.point ·
-                  | 海淀区 海淀59号 3W咖啡馆
+          - var dayCount = 0          
+          each day in allRoutes
+            - dayCount++
+            
+            if dayCount < 10
+              ul(data-day='0'+dayCount)
+                - var flag = 0            
+                each spot in day.actv
+                  - flag++
+                  li
+                    if flag == 1 
+                      .day.cru-day
+                        b 第#{numToChinese[dayCount]}天
+                        b #{day.date}
+                    
+                    if (spot.type == "airport" || spot.type == "trainStation") && spot.stopType == "dep"
+                      i.ico03.ico03-car
+                      .m
+                        h3 #{spot.itemName}  #{day.date}
+                        a.btn02.btn02-c4 #{day.actv[flag].itemName}
+                        | #{day.actv[flag].ts}出发——#{day.actv[flag].arrTime}到达 
+                        
+                    if (spot.type == "airport" || spot.type == "trainStation") && spot.stopType == "arr"  
+                      i.ico03.ico03-car
+                      .m
+                        h3 #{spot.itemName}
+                        p.suggest
+                          i.ico01.ico01-km
+                          | 距离12.3公里  建议打车
+                      
+                    if spot.type == "vs"
+                      i.ico03.ico03-spot
+                      .m
+                        h3 #{spot.itemName}
+                        img.spot-img(data-url='http://localhost:8880/viewspot/detail/' + spot.itemId, src=spot.imageList[0] width=300 height=160)
+                        br
+                        b 1、建议游玩：#{spot.timeCost}  2、开放时间08:00-18:00  3、门票￥#{spot.price}
+                        p.suggest
+                          i.ico01.ico01-km
+                          | 距离12.8公里  建议公交  
+                      
+                    if spot.type == "hotel"
+                      i.ico03.ico03-hotal
+                      .m
+                        h3
+                          | #{spot.itemName}
+                          a.btn02.btn02-c1 更多选择
+                        p.hotal
+                          i.point ·
+                          | ￥#{spot.price}起
+                          i.point ·
+                          | 电话 #{spot.phoneList[0]}
+                          i.point ·
+                          | #{spot.addr}
+                
+            else
+              ul(data-day=dayCount)      
+              
+   
+                  
+                  
       .t-right
         img.map(src='/images/plans/timeline/map-bg.png')
       .sider(style='display: none;')
@@ -253,7 +118,7 @@ block content
             .left
               img(src='/images/plans/timeline/list.jpg')
             .right
-              h3.t3 白云山-山外有山
+              h3.t3 loading...
               em.color-02 AAAAA
               i.ico01.ico01-flag
               | 333人
@@ -269,3 +134,5 @@ block content
           .c
             a.btn02.btn02-c1 景区攻略
     .layer(style='display: none;')
+    
+    
