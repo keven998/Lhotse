@@ -58,7 +58,7 @@ router.get('/edit/post', function(req, res) {
       }
   res.json(result);
   });
-}
+});
 
 router.get('/mine/', function(req, res){
   res.render('plans/mine');
@@ -219,7 +219,7 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
        navigation.push(tempDay);
      }
      //res.send(navigation);
-     res.send(allRoutes);    
+     //res.send(allRoutes);    
      res.render('plans/timeline', {
        allRoutes : allRoutes,
        basicInfo : basicInfo,
