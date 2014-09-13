@@ -6,7 +6,6 @@ var urlApi = require('../url_api');
 var request = require('request')
 var model = require('../model/sup_model.js');
 
-
 router.get('/detail/:SPOTID', function(req, res) {
   model.setUrl(urlApi.apiHost + urlApi.viewspot.detail); 
   model.getdata(req, function(data){
