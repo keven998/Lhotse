@@ -44,9 +44,7 @@ router.get('/callback/weibo/', function(req, ori_res) {
       }
 	//从控制台输出个人信息(带着token的url请求)，如何从网页输出？
       url = "https://api.weibo.com/2/users/show.json?access_token=" + access_token + "&uid=" + uid
-      console.log(url)
       request(url, function(err, res, data){
-        console.log(data);
         ori_res.render('account/welcome', {
             data : JSON.parse(data),
             type : "1"
@@ -80,7 +78,6 @@ router.get('/callback/qq/', function(req, ori_res) {
         openid=data.split('"')[7];
         url = "https://graph.qq.com/user/get_user_info?" + access_token + "&oauth_consumer_key=101151725&openid=" + openid;
         request(url, function(err, res, data){
-          console.log(data);
           ori_res.render('account/welcome', {
             data : JSON.parse(data),
             type : "0"

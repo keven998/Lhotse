@@ -39,7 +39,6 @@ router.get('/edit/:TEMPLATES/', function(req, res) {
       }
       dayRoute.push(tempArr);  
     }
-    //res.json(dayRoute);
     res.render('plans/edit',{
       daysRoute : dayRoute,
     });
@@ -47,38 +46,40 @@ router.get('/edit/:TEMPLATES/', function(req, res) {
 });
 
 router.get('/edit/post', function(req, res) {
-//  model.setUrl(apiList.apiHost + apiList.ugc.edit);  
-//  model.getdata(req, function(data) {
-//    data = JSON.parse(data); 
-//  })
-  console.log('---+++');
   var data = req.query;
-  console.log(data);
-  
   var options = {
     url : "http://api.lvxingpai.cn/web/ugc-plans",
     json: data,
     method: 'POST',
   };
-
-  //处理返回的数据(着一个过程？)
   request(options, function(err, respond, result) {
       if (err) {
         throw err;
       }
-    //返回json数据
-    //res.json();
-    res.json(result);
+  res.json(result);
   });
- 
+}
+
+router.get('/mine/', function(req, res){
+  res.render('plans/mine');
+});
+
+router.get('/create/', function(req, res){
+  res.render('plans/create');
+});
+
+//router.get('/timeline/:PEMPLATES', function(req, res) {
+//  res.render('plans/timeline');
+//});
+
+router.get('/edit/:TEMPLATES', function(req, res) {
+  res.render('plans/edit');
 });
 
 /* GET users listing. */
 router.get('/timeline/:TEMPLATES', function(req, res) { 
    model.setUrl(apiList.apiHost + apiList.ugc.timeline);
    model.getdata(req, function(data) {
-     console.log("复制路线的Url:" + model.getUrl());    
-     //var from_id = req.querys._fromLoc;
      data = JSON.parse(data);
      //res.send(data);     
      var requestUrl = req.originalUrl;
