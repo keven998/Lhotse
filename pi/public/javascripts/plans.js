@@ -35,7 +35,6 @@ $(function () {
     * 将线路列表项的事件委托在外围容器上
     * */
     routeList.on('click','a.c-img,h2,a.btn02-c1',function(e){
-        alert('abc');
         var requestUrl = $(this).parents('li').attr('data-url');//假设单项的数据请求地址写在父级dom li中
         sider.css('height',wheight);
         layer.show();
@@ -63,10 +62,7 @@ $(function () {
                     for (var i = 0; i < msg.plandetail.summary.length; i++) {
                       $("ul.l").append("<li><b>D" + (i+1) + " : " + msg.plandetail.summary[i] + "</b></li>");
                     }
-                    
-                    //alert(msg.plandetail.title);
-                    console.dir(msg) //请求成功后，写入dom,打开侧栏、遮罩
-                    
+                    //请求成功后，写入dom,打开侧栏、遮罩
                 },
                 error  : function () {
                     console.log('error!!!')

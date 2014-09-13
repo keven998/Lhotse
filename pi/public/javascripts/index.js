@@ -188,7 +188,7 @@ function getLinkData() {
                 $.ajax({
                     type : "GET",   //提交的方法为post
                     contentType: 'application/json', 
-                    url : "http://localhost:8880/suggestion",   //对应的Action提交的路径
+                    url : "/suggestion",   //对应的Action提交的路径
                     data  : {input : linkDataProperty.value},   //从前台传递到后台的查询语句的参数
                     dataType : "json",  //从Action中返回的数据的类型为json类型的
                     error : function(){
