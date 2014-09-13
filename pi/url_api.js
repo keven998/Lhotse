@@ -9,8 +9,8 @@ var urlApi = {
   routeDetail : 'http://api.lvxingpai.cn/web/plans/PLANID',
   
   //热门城市，热门景点
-  hotCities : 'http://api.lvxingpai.cn/explore?showDetails=1&pageSize=8&loc=1',
-  hotviews  : 'http://api.lvxingpai.cn/web/poi/view-spots/explore?page=0&pageSize=8',
+  hotCities : '/explore?showDetails=1&pageSize=8&loc=1',
+  hotViews  : '/web/poi/view-spots/explore?page=0&pageSize=8',
   
   //落地页面
   routePageDetail : '/web/plans/ROUTEID',

@@ -105,8 +105,50 @@ router.get('/download/', function(req, res) {
 }); 
 
 router.get('/target/', function(req, res){
-      
-  res.render('target');
+  async.parallel(
+    {
+      hotCities: function(callback) {
+        model.setUrl(urlApi.apiHost+urlApi.hotCities);
+        model.getdata(req, function(data){
+          data = JSON.parse(data);
+          callback(null, data);
+        });
+      },
+      hotViews: function(callback) {
+        model.setUrl(urlApi.apiHost+urlApi.hotViews);
+        model.getdata(req, function(data){
+          data = JSON.parse(data);
+          callback(null, data);
+        });
+      },
+    },
+    function(err, results) {
+      var cityList = new Array(),
+          viewList = new Array();
+      for (var i=0;i<8;i++){
+        var city = results.hotCities.result.loc[i];
+        cityList.push({
+          name: city.name,
+          img:  city.imageList[0],
+        });
+      }
+      for (var i=0;i<8;i++){
+        var view = results.hotViews.result[i];
+        viewList.push({
+          name: view.name,
+          img:  view.imageList[0],
+        });
+      }
+      console.log({
+        hotCities : cityList,
+        hotViews  : viewList,
+      });
+      res.render('target', {
+        hotCities : cityList,
+        hotViews  : viewList,
+      });
+    }
+  );
 });
 
 

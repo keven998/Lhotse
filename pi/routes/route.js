@@ -10,8 +10,6 @@ router.get('/detail/:ROUTEID', function(req, res) {
   model.getdata(req, function(data) {
     console.log("复制路线的Url:" + model.getUrl());
     data = JSON.parse(data);
-    console.log(data);
-        
     res.render('route/detail', data);
   })
 })  
