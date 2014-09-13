@@ -12,7 +12,6 @@ var model = require('../model/sup_model.js');
 
 
 router.get('/', function(req, res) {
-  console.log("in....");
   async.parallel({
     hotRoute: function(callback) {
       hotRoute.getdata(req, function(data){
@@ -36,7 +35,6 @@ router.get('/', function(req, res) {
     },
     }, 
     function(err, results) {
-      console.log('---DATA---');      
       results.hotRoute = JSON.parse(results.hotRoute);
       results.mustgoRoute = JSON.parse(results.mustgoRoute);
       results.newestRoute = JSON.parse(results.newestRoute);
@@ -50,13 +48,6 @@ router.get('/', function(req, res) {
       });       
   });
 });
-
-router.get('/plans/:LOCALID', function(req, res){
-  plans.getdata(req, function(data){
-    res.render('plans', {plans: JSON.parse(data).result});
-  });
-});
-
 
 router.get('/search', function(req, res){
   var fromLocName = req.query.fromLocName;
@@ -84,17 +75,15 @@ router.get('/search', function(req, res){
     function(err, results) {
       var fromId = results.from;
       var arriveId = results.arrive;
-      //console.log(fromId + arriveId);
       var indexGoUrl = "http://api.lvxingpai.cn/web/plans/explore?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
       model.setUrl(encodeURI(indexGoUrl));
       model.getdata(null, function(data){
         data = JSON.parse(data);
-        //res.send(data.result);
         res.render('plans', {
-        plans : data.result,
-        from : fromLocName,
-        fromId : fromId,  // 用于配置“复制路线”的url
-        to : arrLocName,
+          plans : data.result,
+          from : fromLocName,
+          fromId : fromId,  // 用于配置“复制路线”的url
+          to : arrLocName,
         });
       });  
   });
@@ -151,7 +140,6 @@ router.get('/target/', function(req, res){
   );
 });
 
-
 //  联想功能
 router.get('/suggestion', function(req, res){
   var tempInput = req.query.input;
@@ -172,7 +160,6 @@ router.get('/suggestion', function(req, res){
           suggestionArray.push(tempName);
         }
       }
-      console.log(suggestionArray); 
       res.json({suggestion: suggestionArray});
     });
   }

@@ -23,9 +23,11 @@ var urlApi = {
   },
   
   ugc : {
-    display: '/web/ugc-plans/UGCID',
+    display : '/web/ugc-plans/UGCID',
     // 有待扩充
-    timeline: '/web/ugc-plans/templates/TEMPLATES?fromLoc=_fromLoc',
+    timeline : '/web/ugc-plans/templates/TEMPLATES?fromLoc=_fromLoc',
+    // 暂时不能保存路线，所以用查询某个模板路线的数据代替
+    edit : '/web/plans/TEMPLATES',
   },
   
 };

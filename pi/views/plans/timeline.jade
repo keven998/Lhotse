@@ -6,14 +6,33 @@ block page_var
             id: 'timeline',
             path: 'plans/',
         }
-    
+        
+    script(src='/javascripts/gmap/googlemap.js', rel='javascripts')
+    script(src='/javascripts/FileSaver.js', rel='javascripts')
+    script(src='/javascripts/jspdf.js', rel='javascripts')
+
 block content
+    .opt
+      a 保存
+      a &nbsp;/
+      //
+        a.color-01(href="/plans/edit/" + basicInfo._id + '/') 编辑路线
+      a.color-01(href="/plans/edit/" + basicInfo.templateId + '/') 编辑路线
+      a &nbsp;/
+      a 发送朋友
+      a &nbsp;/
+      a.pdf PDF下载
     .bd.t-bd
       h1.t
         | 北京——香港|
         b.b1 全程#{basicInfo.days}天
         b.b2 ￥#{basicInfo.budget[0]}-￥#{basicInfo.budget[1]}
+        b.requestUrl(style='display:none') #{basicInfo.requestUrl}
     .content.f-cb
+      h1.cur_day
+        b.d-title 第一天
+        //
+          b 2014-01-01
       .t-left
         .timeline
           ul#timeLine
@@ -27,29 +46,47 @@ block content
                   a.btn02.btn02-c1(href='#detail-d1') 第一天
                   i.arr.arr-down
                 #list-01.sub_layer(style='display: block;')
-                  each spot in day.actv    
-                    a.btn02.btn02-c3 #{spot.itemName} 
+                  - var t = 0 
+                  each spot in day.actv
+                    - t++
+                    if t == 1
+                      a.btn02.btn02-c3.btn02-c1 #{spot.itemName}    
+                    else
+                      a.btn02.btn02-c3 #{spot.itemName} 
+              
               else if flag < 10
                 li(data-for='list-0' + flag)
                   i.point
                   a.btn02(href='#detail-d' + flag) 第#{numToChinese[flag]}天
                   i.arr.arr-up
                 div(id="list-0"+flag class="sub_layer")  
+                  - var t = 0
                   each spot in day.actv
-                    a.btn02.btn02-c3 #{spot.itemName}    
+                    - t++
+                    if t == 1
+                      a.btn02.btn02-c3.btn02-c1 #{spot.itemName}    
+                    else
+                      a.btn02.btn02-c3 #{spot.itemName} 
+                        
               else
                 li(data-for='list-' + flag)
                   i.point
                   a.btn02(href='#detail-d' + flag) 第#{numToChinese[flag]}天
                   i.arr.arr-up
                 div(id="list-"+flag class="sub_layer")  
+                  - var t = 0
                   each spot in day.actv
-                    a.btn02.btn02-c3 #{spot.itemName}
+                    - t++
+                    if t == 1
+                      a.btn02.btn02-c3.btn02-c1 #{spot.itemName}    
+                    else
+                      a.btn02.btn02-c3 #{spot.itemName}
                     
                           
               
         .timeline-detail
-          - var dayCount = 0          
+          - var dayCount = 0
+          - var vsCount = 0          
           each day in allRoutes
             - dayCount++
             
@@ -59,11 +96,7 @@ block content
                 each spot in day.actv
                   - flag++
                   li
-                    if flag == 1 
-                      .day.cru-day
-                        b 第#{numToChinese[dayCount]}天
-                        b #{day.date}
-                    
+                                      
                     if (spot.type == "airport" || spot.type == "trainStation") && spot.stopType == "dep"
                       i.ico03.ico03-car
                       .m
@@ -80,8 +113,10 @@ block content
                           | 距离12.3公里  建议打车
                       
                     if spot.type == "vs"
+                      - vsCount++
                       i.ico03.ico03-spot
-                      .m
+                      .m(id="vs_" + vsCount)
+                        .latlng(style="display:none;") #{spot.lat},#{spot.lng}
                         h3 #{spot.itemName}
                         img.spot-img(data-url='http://localhost:8880/viewspot/detail/' + spot.itemId, src=spot.imageList[0] width=300 height=160)
                         br
@@ -105,13 +140,18 @@ block content
                           | #{spot.addr}
                 
             else
-              ul(data-day=dayCount)      
+              ul(data-day=dayCount)     
+          
+          #totalSpots #{vsCount}
               
    
                   
                   
       .t-right
-        img.map(src='/images/plans/timeline/map-bg.png')
+        .map(id="gmap")  
+        
+        
+        
       .sider(style='display: none;')
         .tab-c
           .c.f-cb
