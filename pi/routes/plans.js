@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var routeDetail = require('../model/route_detail');
+var request = require('request'); 
 
 // 新方法
 var model = require('../model/sup_model.js');
@@ -15,6 +16,61 @@ router.get('/detail/:PLANID', function(req, res) {
   });
 });
 
+/* 编辑路线 */
+router.get('/edit/:TEMPLATES/', function(req, res) {
+  model.setUrl(apiList.apiHost + apiList.ugc.edit);  
+  model.getdata(req, function(data) {
+    data = JSON.parse(data);    
+    //res.json(data);
+    var result = data.result;
+    var title = result.title;
+    var days = result.days;
+    var details = result.details;
+    var dayRoute = new Array();
+    for (var i = 0; i < details.length; i++) {
+      var actv = details[i].actv;
+      var tempArr = new Array();
+      for (var j = 0; j < actv.length; j++) {
+        var temp = new Object();
+        var elem = actv[j];
+        temp.itemId = elem.itemId;
+        temp.itemName = elem.itemName;
+        tempArr.push(temp);
+      }
+      dayRoute.push(tempArr);  
+    }
+    res.render('plans/edit',{
+      daysRoute : dayRoute,
+    });
+  });
+});
+
+router.get('/edit/post', function(req, res) {
+  var data = req.query;
+  var options = {
+    url : "http://api.lvxingpai.cn/web/ugc-plans",
+    json: data,
+    method: 'POST',
+  };
+  request(options, function(err, respond, result) {
+      if (err) {
+        throw err;
+      }
+  res.json(result);
+  });
+});
+
+
+router.get('/mine/', function(req, res){
+  res.render('plans/mine');
+});
+
+
+router.get('/create/', function(req, res){
+  res.render('plans/create');
+});
+
+
 router.get('/edit/:TEMPLATES', function(req, res) {
   res.render('plans/edit');
 });
@@ -23,11 +79,8 @@ router.get('/edit/:TEMPLATES', function(req, res) {
 router.get('/timeline/:TEMPLATES', function(req, res) { 
    model.setUrl(apiList.apiHost + apiList.ugc.timeline);
    model.getdata(req, function(data) {
-     console.log("复制路线的Url:" + model.getUrl());
-
      data = JSON.parse(data);
-     //res.send(data);     
-     
+     var requestUrl = req.originalUrl;
      //提取数据     
      var lastModified = data.lastModified;
      var result = data.result;
@@ -47,7 +100,7 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
      basicInfo['desc'] = result.desc || "";
      basicInfo['days'] = days;
      basicInfo['budget'] = budget;
-     //res.send(basicInfo);
+     basicInfo['requestUrl'] = requestUrl;
     
      // 日程安排
      var details = result.details;    
@@ -137,7 +190,6 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
        allRoutes.push(oneDay);
        oneDay = null;
      }    
-     //res.send(allRoutes);
     
      // 导览栏
      var navigation = new Array();   
@@ -160,18 +212,12 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
        tempDay.actv = tempActv; // 关联地点数组
        navigation.push(tempDay);
      }
-     //res.send(navigation);
-    
      res.render('plans/timeline', {
        allRoutes : allRoutes,
        basicInfo : basicInfo,
        navigation : navigation,
      });
-
-  
-   });
-
- });
-
+  });
+});
 
 module.exports = router;

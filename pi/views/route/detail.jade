@@ -1,0 +1,122 @@
+extends ../common/base
+
+block page_var
+    script.
+        var page_var = {
+            id: 'detail',
+            path: 'route/',
+        }
+        
+block content
+    .main_container
+        h1 #{result.title}
+        hr
+        .tab
+          a#tab01.item.item01-hover
+          a#tab02.item.item02-normal
+        #item01.tab-c
+          .c
+            h1.t1 
+            p
+              span.day
+                b.dot ●
+                | 全程 #{result.days} 天
+              span.cost
+                b.dot ●
+                | 人均 #{result.budget[0]}-#{result.budget[1]} 元
+              br
+              br
+              span.tags
+                b.dot ●
+                | 旅途印象：#{result.tags}
+          .c
+            h3.t1.t2
+              i.ico02.ico02-circle
+              b 路线速览
+            .para
+              -var i=0;
+              each day in result.summary
+                .day_act
+                  -i++; 
+                  span.date D#{i}   
+                  | #{day}
+                  br
+          .c
+            h3.t1.t2
+              i.ico02.ico02-circle
+              b 台北三日深度体验之旅
+              
+        #item02.tab-c(style='display: none;')
+          .c
+            h1.t1 
+            ul.about-list
+              li
+                img.sider-userimg(src='/images/route/detail/user02.png')
+                h1.t1 表面上是现代大都会，但内心却又但内心却又但内心却又但内心却又，抹不掉的电缆附件
+                em.au SAFSREWAG　FLFJ 发表
+                em.time 2014-10-1
+                p.txt
+                  | 他是亚洲的一颗明珠，在静谧的男孩中熠熠生辉。他是张爱玲那座
+                  | 货没到的是悲哀的成，里几是悲哀的成，里几是悲哀的成，里几个
+                p.ico-g.fl
+                  i.ico01.ico01-eye
+                  b 浏览2345
+                p.ico-g.fl
+                  i.ico01.ico01-source
+                  b 文章来自穷游网
+              li
+                img.sider-userimg(src='/images/route/detail/headpic.png')
+                h1.t1 表面上是现代大都会，但内心却又但内心却又但内心却又但内心却又，抹不掉的电缆附件
+                em.au SAFSREWAG　FLFJ 发表
+                em.time 2014-10-1
+                p.txt
+                  | 他是亚洲的一颗明珠，在静谧的男孩中熠熠生辉。他是张爱玲那座
+                  | 货没到的是悲哀的成，里几是悲哀的成，里几是悲哀的成，里几个
+                p.ico-g.fl
+                  i.ico01.ico01-eye
+                  b 浏览2345
+                p.ico-g.fl
+                  i.ico01.ico01-source
+                  b 文章来自穷游网
+              li
+                img.sider-userimg(src='/images/route/detail/headpic.png')
+                h1.t1 表面上是现代大都会，但内心却又但内心却又但内心却又但内心却又，抹不掉的电缆附件
+                em.au SAFSREWAG　FLFJ 发表
+                em.time 2014-10-1
+                p.txt
+                  | 他是亚洲的一颗明珠，在静谧的男孩中熠熠生辉。他是张爱玲那座
+                  | 货没到的是悲哀的成，里几是悲哀的成，里几是悲哀的成，里几个
+                p.ico-g.fl
+                  i.ico01.ico01-eye
+                  b 浏览2345
+                p.ico-g.fl
+                  i.ico01.ico01-source
+                  b 文章来自穷游网
+              li
+                img.sider-userimg(src='/images/route/detail/headpic.png')
+                h1.t1 表面上是现代大都会，但内心却又但内心却又但内心却又但内心却又，抹不掉的电缆附件
+                em.au SAFSREWAG　FLFJ 发表
+                em.time 2014-10-1
+                p.txt
+                  | 他是亚洲的一颗明珠，在静谧的男孩中熠熠生辉。他是张爱玲那座
+                  | 货没到的是悲哀的成，里几是悲哀的成，里几是悲哀的成，里几个
+                p.ico-g.fl
+                  i.ico01.ico01-eye
+                  b 浏览2345
+                p.ico-g.fl
+                  i.ico01.ico01-source
+                  b 文章来自穷游网
+              li
+                img.sider-userimg(src='/images/route/detail/headpic.png')
+                h1.t1 表面上是现代大都会，但内心却又但内心却又但内心却又但内心却又，抹不掉的电缆附件
+                em.au SAFSREWAG　FLFJ 发表
+                em.time 2014-10-1
+                p.txt
+                  | 他是亚洲的一颗明珠，在静谧的男孩中熠熠生辉。他是张爱玲那座
+                  | 货没到的是悲哀的成，里几是悲哀的成，里几是悲哀的成，里几个
+                p.ico-g.fl
+                  i.ico01.ico01-eye
+                  b 浏览2345
+                p.ico-g.fl
+                  i.ico01.ico01-source
+                  b 文章来自穷游网

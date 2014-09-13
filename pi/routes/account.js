@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var request = require('request'); 
 
+
 router.get('/login/', function(req, res) {
   data = {
     weibo_callback: 'http://www2.lvxingpai.cn/account/callback/weibo/',
@@ -14,6 +15,7 @@ router.get('/login/', function(req, res) {
 
 
 router.get('/callback/weibo/', function(req, ori_res) {
+
   var form = {
     client_id: '2294159543',
     client_secret: 'a35ae59c1883bf184e7b76c667e88cee',
@@ -21,47 +23,48 @@ router.get('/callback/weibo/', function(req, ori_res) {
     redirect_uri: 'http://www2.lvxingpai.cn/account/callback/weibo/',
     code: req.query.code,
   };
+
   var options = {
     url : "https://api.weibo.com/oauth2/access_token",
     form: form,
     method: 'POST',
   };
 
-  request(options, function(err, res, data) {
-      if (err) {
-        throw err;
-      }
-      oauth2 = JSON.parse(data);
-      access_token = oauth2.access_token;
-      uid = oauth2.uid;
-	
-      url = "https://api.weibo.com/2/users/show.json?access_token=" + access_token + "&uid=" + uid;
-      request(url, function(err, res, data){
-        console.log(data);
-        request(url, function(err, res, data){
-          data=JSON.parse(data);
-          var post_info = {
-            provider: "weibo",
-            avatar: data.avatar_large,
-            nickName: data.screen_name,
-            oauthId: uid,
-            token: access_token,
-            udid: "",
-          };
-          
-          var options = {
-            url : 'http://api.lvxingpai.cn/web/users/oauth-login',
-            json: post_info,
-            method: 'POST',
-          };
-          request(options, function(err, res, data){
-            ori_res.render('account/welcome', data);     
-          })
-        }) 
-      })
+  request(options, function(err, res, data){
+    if (err) {
+      throw err;
+    }
+    oauth2 = JSON.parse(data);
+    access_token = oauth2.access_token;
+    uid = oauth2.uid;
 
+    url = "https://api.weibo.com/2/users/show.json?access_token=" + access_token + "&uid=" + uid;
+    request(url, function(err, res, data){
+      request(url, function(err, res, data){
+
+        data = JSON.parse(data);
+        var post_info = {
+          provider: "weibo",
+          avatar: data.avatar_large,
+          nickName: data.screen_name,
+          oauthId: uid,
+          token: access_token,
+          udid: "",
+        };
+        
+        var options = {
+          url: 'http://api.lvxingpai.cn/web/users/oauth-login',
+          json: post_info,
+          method: 'POST',
+        };
+        request(options, function(err, res, data){
+          ori_res.render('account/welcome', data);     
+        })
+      })
+    })
   });
 });
+
 
 router.get('/callback/qq/', function(req, ori_res) {
   var form = {
@@ -83,11 +86,13 @@ router.get('/callback/qq/', function(req, ori_res) {
       }
       access_token = data.split('&')[0].substr(13);
       url = 'https://graph.qq.com/oauth2.0/me?access_token=' + access_token;
+
       request(url, function(err, res, data){
-        openid=data.split('"')[7];
+        openid = data.split('"')[7];
         url = 'https://graph.qq.com/user/get_user_info?access_token=' + access_token + '&oauth_consumer_key=101151725&openid=' + openid;
+
         request(url, function(err, res, data){
-          data=JSON.parse(data);
+          data = JSON.parse(data);
           var post_info = {
             provider: "qq",
             avatar: data.figureurl,
@@ -96,18 +101,18 @@ router.get('/callback/qq/', function(req, ori_res) {
             token: access_token,
             udid: "",
           };
-          
+
           var options = {
             url : 'http://api.lvxingpai.cn/web/users/oauth-login',
             json: post_info,
             method: 'POST',
           };
+          
           request(options, function(err, res, data){
             ori_res.render('account/welcome', data);     
           })
         })            
       })
-
   });
 });
 

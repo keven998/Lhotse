@@ -8,6 +8,13 @@ var urlApi = {
   recommondRoute : "http://api.lvxingpai.com/explore/plans?loc=53aa9a6510114e3fd4783ca6",
   routeDetail : 'http://api.lvxingpai.cn/web/plans/PLANID',
   
+  //热门城市，热门景点
+  hotCities : '/explore?showDetails=1&pageSize=8&loc=1',
+  hotViews  : '/web/poi/view-spots/explore?page=0&pageSize=8',
+  
+  //落地页面
+  routePageDetail : '/web/plans/ROUTEID',
+  
   // 根据现有城市名字查询城市ID
   searchCityIdByName : "http://api.lvxingpai.com/geo/localities/search?keyword=", 
   
@@ -15,11 +22,12 @@ var urlApi = {
     detail : '/web/poi/view-spots/SPOTID',
   },
   
-  
   ugc : {
-    display: '/web/ugc-plans/UGCID',
+    display : '/web/ugc-plans/UGCID',
     // 有待扩充
-    timeline: '/web/ugc-plans/templates/TEMPLATES?fromLoc=_fromLoc',
+    timeline : '/web/ugc-plans/templates/TEMPLATES?fromLoc=_fromLoc',
+    // 暂时不能保存路线，所以用查询某个模板路线的数据代替
+    edit : '/web/plans/TEMPLATES',
   },
   
 };

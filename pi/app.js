@@ -9,6 +9,8 @@ var routes = require('./routes/index');
 var account = require('./routes/account');
 var plans = require('./routes/plans');
 var viewspot = require('./routes/viewspot');
+//route是模板路线的所有路由
+var route = require('./routes/route');
 
 var app = express();
 
@@ -24,6 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+app.use('/route', route);
 app.use('/account', account);
 app.use('/plans', plans);
 app.use('/viewspot', viewspot);
@@ -36,10 +39,8 @@ app.use(function(req, res, next) {
     next(err);
 });
 
-/// error handlers
 
-// development error handler
-// will print stacktrace
+// development error handler, will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
@@ -50,8 +51,7 @@ if (app.get('env') === 'development') {
     });
 }
 
-// production error handler
-// no stacktraces leaked to user
+// production error handler, no stacktraces leaked to user
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('common/error', {

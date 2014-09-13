@@ -6,20 +6,42 @@ block page_var
             id: 'edit',
             path: 'plans/',
         }
+      
+    link(href="/stylesheets/plans/jquery.datetimepicker.css" rel="stylesheet")
+    
     
 block content
     .bd.t-bd
       h1.t
         | 北京——香港
-        a.btn02.btn02-c4 确定
-    .content.f-cb
+        a.btn02.btn02-c4
+          | 确定
+    
+    .content.f-cb      
       .t-left
         h1.time
-          | 出发时间：2014-01-01
+          | 出发时间：
+          input#datetimepicker.date_picker(type='text')
           a.btn02.btn02-c1 一键优化
+        
+        - var dayCount = 0
+        each oneDayRoute in daysRoute
+          - dayCount++
+          ul.edit-list(data-day=dayCount)
+            li.driver.disabled.active
+              i.ico01-d D#{dayCount}
+              i.ico01.ico01-close
+            each spot in oneDayRoute
+              li(draggable='true', style='height: 40px;')
+                | #{spot.itemName}
+                i.ico01.ico01-close
+                .id(style='display:none') #{spot.itemId}
+        
         .add
           em +
           | 添加一天
+      
+      
       .t-right
         .search
           input.s-input(placeholder='搜索')
@@ -29,6 +51,7 @@ block content
             div
               img(src='/images/plans/edit/spot01.png')
             em.spot-name 鼓浪屿
+            br
             i.ico01.ico01-good
             | 4.5
             i.ico01.ico01-sugg
@@ -38,7 +61,8 @@ block content
           a
             div
               img(src='/images/plans/edit/spot01.png')
-            em.spot-name 鼓浪屿
+            em.spot-name 鼓浪屿鼓浪屿
+            br
             i.ico01.ico01-good
             | 4.5
             i.ico01.ico01-sugg
@@ -48,7 +72,8 @@ block content
           a
             div
               img(src='/images/plans/edit/spot01.png')
-            em.spot-name 鼓浪屿
+            em.spot-name 鼓浪鼓浪屿屿
+            br
             i.ico01.ico01-good
             | 4.5
             i.ico01.ico01-sugg
@@ -58,7 +83,8 @@ block content
           a
             div
               img(src='/images/plans/edit/spot01.png')
-            em.spot-name 鼓浪屿
+            em.spot-name 鼓鼓浪屿鼓浪屿浪屿
+            br
             i.ico01.ico01-good
             | 4.5
             i.ico01.ico01-sugg
@@ -68,7 +94,8 @@ block content
           a
             div
               img(src='/images/plans/edit/spot01.png')
-            em.spot-name 鼓浪屿
+            em.spot-name 鼓浪鼓浪屿屿
+            br
             i.ico01.ico01-good
             | 4.5
             i.ico01.ico01-sugg
@@ -78,7 +105,8 @@ block content
           a
             div
               img(src='/images/plans/edit/spot01.png')
-            em.spot-name 鼓浪屿
+            em.spot-name 浪屿
+            br
             i.ico01.ico01-good
             | 4.5
             i.ico01.ico01-sugg
@@ -88,10 +116,15 @@ block content
           a
             div
               img(src='/images/plans/edit/spot01.png')
-            em.spot-name 鼓浪屿
+            em.spot-name 鼓鼓浪屿浪屿
+            br
             i.ico01.ico01-good
             | 4.5
             i.ico01.ico01-sugg
             | 建议游玩3小时
             em.label 美食|美景
             i.ico02.ico02-add
+
+    script(src='/javascripts/plans/jquery.sortable.min.js' rel='javascript')
+    script(src='/javascripts/plans/jquery.datetimepicker.js' rel='javascript')
+    script(src='/javascripts/plans/posttest.js' rel='javascript')

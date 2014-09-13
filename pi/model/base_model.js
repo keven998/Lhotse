@@ -56,7 +56,9 @@ var base_model = function(){
     var temp = this.urls;
      
     for (substr in form) {
-      temp = temp.replace(substr, form[substr]);
+      if (temp){
+        temp = temp.replace(substr, form[substr]);
+      }
     } 
     this.urls = temp;
     return this;
@@ -68,8 +70,5 @@ var base_model = function(){
   }
   
 };
-
-
-
 
 module.exports = base_model;
