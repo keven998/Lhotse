@@ -1,16 +1,22 @@
 .main_container{margin:0 auto;width:1002px;padding-bottom:280px;}
 
-.plan_list{margin-top:100px;overflow:hidden;}
+a .newplan_btn{border:none;background:url("/images/plans/mine/newplan_btn.png") no-repeat;height:55px;width:170px;margin:100px 0 20px 800px;}
+.plan_list{margin-bottom:100px;overflow:hidden;}
 .plan_item{float:left;width:480px;height:170px;background:#f7f8f8;margin:0 20px 20px 0;}
+.img_contain{position:relative;display:inline-block;}
 .plan_item img{margin:10px 20px 0 20px;border-radius:73px;-moz-border-radius:73px;-webkit-border-radius:73px;}
+.days{position:absolute;left:55px;top:65px;font-size:30px;color:#fff;}
 .plan_desc{display:inline-block;height:140px;width:280px;vertical-align:top;}
-.plan_title{display:inline-block;height:30px;width:180px;margin-top:25px;background:#e3e4e4;}
-.plan_title h2{margin-left:5px;line-height:30px;font-size:19px;color:#08DCA9;}
-.edit_btn{display:inline-block;margin-left:10px;width:86px;}
+.plan_title{display:inline-block;height:28px;width:180px;margin-top:25px;}
+.plan_title:hover{background:#e3e4e4;}
+.plan_name{margin-left:5px;line-height:28px;font-size:19px;color:#08DCA9;}
+.plan_edit{display:none;height:28px;width:180px;margin-top:25px;}
+.plan_input{margin-left:5px;width:180px;height:28px;line-height:28px;font-size:19px;color:#08DCA9;}
+.edit_btn{display:none;margin-left:10px;width:86px;}
 .confirm{background-image:url("/images/plans/mine/confirm_btn.png");height:23px;width:40px;margin-right:4px;}
 .cancel{background-image:url("/images/plans/mine/cancel_btn.png");height:23px;width:40px;}
-p.date{margin:5px 0 10px 10px;}
-.viewdetail{background-image:url("/images/plans/mine/viewdetail_btn.png");height:23px;width:65px;margin:0 0 30px 15px;}
-.plan_ft{margin-left:120px;color:#d3d4d4;}
-i.delete{margin-left:30px;margin-top:5px;display:inline-block;background:url("/images/plans/mine/delete_btn.png") no-repeat;width:15px;height:15px;cursor:pointer;}
-a .newplan_btn{border:none;background:url("/images/plans/mine/newplan_btn.png") no-repeat;height:55px;width:170px;margin:40px 0 50px 800px;}
+p.date{margin:5px 0 15px 5px;font-size:16px;}
+/*.viewdetail{background-image:url("/images/plans/mine/viewdetail_btn.png");height:23px;width:65px;margin:0 0 30px 15px;}*/
+.viewdetail{background-color:#08DCA9;height:23px;width:65px;margin:0 0 30px 5px;padding:5px 10px;border-radius:73px;-moz-border-radius:73px;-webkit-border-radius:3px;color:#fff;font-size:14px;}
+.plan_ft{margin:35px 0 0 115px;color:#888;font-size:13px;}
+i.delete{margin-left:15px;margin-top:5px;display:inline-block;background:url("/images/plans/mine/delete_btn.png") no-repeat;width:15px;height:15px;cursor:pointer;}

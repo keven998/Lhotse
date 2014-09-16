@@ -30,5 +30,7 @@ var urlApi = {
     edit : '/web/plans/TEMPLATES',
   },
   
+  //mine页面，根据用户ID获取我的计划列表
+    myPlans: '/web/ugc-plans/users/USERID',
 };
 module.exports = urlApi;
