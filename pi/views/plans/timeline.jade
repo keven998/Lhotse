@@ -15,16 +15,14 @@ block content
     .opt
       a 保存
       a &nbsp;/
-      //
-        a.color-01(href="/plans/edit/" + basicInfo._id + '/') 编辑路线
-      a.color-01(href="/plans/edit/" + basicInfo.templateId + '/') 编辑路线
+      a.color-01(href="/plans/edit/" + basicInfo._id + '/?DEST=' + basicInfo.destinaton.name + '&fromLocId=' + basicInfo.fromLocId) 编辑路线
       a &nbsp;/
       a 发送朋友
       a &nbsp;/
       a.pdf PDF下载
     .bd.t-bd
       h1.t
-        | 北京——香港|
+        | #{basicInfo.title}
         b.b1 全程#{basicInfo.days}天
         b.b2 ￥#{basicInfo.budget[0]}-￥#{basicInfo.budget[1]}
         b.requestUrl(style='display:none') #{basicInfo.requestUrl}

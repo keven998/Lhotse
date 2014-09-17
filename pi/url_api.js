@@ -15,19 +15,24 @@ var urlApi = {
   //落地页面
   routePageDetail : '/web/plans/ROUTEID',
   
-  // 根据现有城市名字查询城市ID
-  searchCityIdByName : "http://api.lvxingpai.com/geo/localities/search?keyword=", 
-  
-  viewspot : {
-    detail : '/web/poi/view-spots/SPOTID',
-  },
+    // 根据现有城市名字查询城市ID
+    searchCityIdByName : "http://api.lvxingpai.com/geo/localities/search?keyword=", 
+    searchCityNameById : "/web/geo/localities/fromLocId",   //:fromLocId
+    
+    viewspot : {
+        detail : '/web/poi/view-spots/SPOTID',
+        searchByLoc : '/web/poi/view-spots/search?keyword=DEST&page=0&pageSize=10&sortField=viewCnt&sort=desc',
+    },
   
   ugc : {
+    getUgcById : '/web/ugc-plans/UGCID',
+    getUgcByIdNone : '/web/ugc-plans/',
     display : '/web/ugc-plans/UGCID',
+    editSave : "http://api.lvxingpai.cn/web/ugc-plans",
     // 有待扩充
-    timeline : '/web/ugc-plans/templates/TEMPLATES?fromLoc=_fromLoc',
+    timeline : '/web/ugc-plans/templates/TEMPLATES?fromLoc=_fromLoc&uid=5409b6dde4b043c0eff098fe',
     // 暂时不能保存路线，所以用查询某个模板路线的数据代替
-    edit : '/web/plans/TEMPLATES',
+    edit : '/web/ugc-plans/UGCID',
   },
   
 };

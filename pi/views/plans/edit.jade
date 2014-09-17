@@ -13,11 +13,12 @@ block page_var
 block content
     .bd.t-bd
       h1.t
-        | 北京——香港
+        | #{locName.from}——#{locName.arr}
+        .ugcId(style='display:none') #{id}
         a.btn02.btn02-c4
           | 确定
     
-    .content.f-cb      
+    .content.f-cb     
       .t-left
         h1.time
           | 出发时间：
@@ -36,6 +37,7 @@ block content
                 | #{spot.itemName}
                 i.ico01.ico01-close
                 .id(style='display:none') #{spot.itemId}
+                .type(style='display:none') #{spot.type}
         
         .add
           em +
@@ -47,84 +49,23 @@ block content
           input.s-input(placeholder='搜索')
           i.ico02.ico02-search
         .imgs.f-cb
-          a
-            div
-              img(src='/images/plans/edit/spot01.png')
-            em.spot-name 鼓浪屿
-            br
-            i.ico01.ico01-good
-            | 4.5
-            i.ico01.ico01-sugg
-            | 建议游玩3小时
-            em.label 美食|美景
-            i.ico02.ico02-add
-          a
-            div
-              img(src='/images/plans/edit/spot01.png')
-            em.spot-name 鼓浪屿鼓浪屿
-            br
-            i.ico01.ico01-good
-            | 4.5
-            i.ico01.ico01-sugg
-            | 建议游玩3小时
-            em.label 美食|美景
-            i.ico02.ico02-add
-          a
-            div
-              img(src='/images/plans/edit/spot01.png')
-            em.spot-name 鼓浪鼓浪屿屿
-            br
-            i.ico01.ico01-good
-            | 4.5
-            i.ico01.ico01-sugg
-            | 建议游玩3小时
-            em.label 美食|美景
-            i.ico02.ico02-add
-          a
-            div
-              img(src='/images/plans/edit/spot01.png')
-            em.spot-name 鼓鼓浪屿鼓浪屿浪屿
-            br
-            i.ico01.ico01-good
-            | 4.5
-            i.ico01.ico01-sugg
-            | 建议游玩3小时
-            em.label 美食|美景
-            i.ico02.ico02-add
-          a
-            div
-              img(src='/images/plans/edit/spot01.png')
-            em.spot-name 鼓浪鼓浪屿屿
-            br
-            i.ico01.ico01-good
-            | 4.5
-            i.ico01.ico01-sugg
-            | 建议游玩3小时
-            em.label 美食|美景
-            i.ico02.ico02-add
-          a
-            div
-              img(src='/images/plans/edit/spot01.png')
-            em.spot-name 浪屿
-            br
-            i.ico01.ico01-good
-            | 4.5
-            i.ico01.ico01-sugg
-            | 建议游玩3小时
-            em.label 美食|美景
-            i.ico02.ico02-add
-          a
-            div
-              img(src='/images/plans/edit/spot01.png')
-            em.spot-name 鼓鼓浪屿浪屿
-            br
-            i.ico01.ico01-good
-            | 4.5
-            i.ico01.ico01-sugg
-            | 建议游玩3小时
-            em.label 美食|美景
-            i.ico02.ico02-add
+          each spot in spots
+            a
+              div
+                img(src=spot.pic width='213' height='144')
+              .id(style='display:none') #{spot._id}
+              .type(style='display:none') vs
+              em.spot-name #{spot.name}
+              br
+              i.ico01.ico01-good
+              | #{spot.ranking}
+              i.ico01.ico01-sugg
+              | 建议游玩#{spot.timeCost}小时
+              if spot.tags != ''
+                em.label #{spot.tags}
+              i.ico02.ico02-add
+          
 
     script(src='/javascripts/plans/jquery.sortable.min.js' rel='javascript')
     script(src='/javascripts/plans/jquery.datetimepicker.js' rel='javascript')
-    script(src='/javascripts/plans/posttest.js' rel='javascript')
+    script(src='/javascripts/plans/editsave.js' rel='javascript')
