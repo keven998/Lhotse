@@ -114,10 +114,9 @@ router.get('/mine/:USERID/', function(req, res){
 });
 
 
-router.get('/mine/delete', function(req, res) {
-    var data = req.query;
+router.get('/mine/delete/:planID/', function(req, res) {
     var options = {
-        url:    "http://api.lvxingpai.cn/web/ugc-plans/" + data.planId,
+        url:    "http://api.lvxingpai.cn/web/ugc-plans/" + req.params.planID,
         method: 'DELETE',
     };
     request(options, function(err, respond, result) {
@@ -129,14 +128,12 @@ router.get('/mine/delete', function(req, res) {
 });
 
 
-router.get('/mine/putname', function(req, res) {
-    console.log(req.query);
+router.get('/mine/altername', function(req, res) {
     var data = {
             "action":   "updateTitle",
             "_id":       req.query.planId,
             "title":    req.query.planName
         };
-    console.log(data);
     var options = {
         url : "http://api.lvxingpai.cn/web/ugc-plans",
         json: data,
