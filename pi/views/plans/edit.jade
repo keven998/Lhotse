@@ -22,8 +22,9 @@ block content
       .t-left
         h1.time
           | 出发时间：
-          input#datetimepicker.date_picker(type='text')
-          a.btn02.btn02-c1 一键优化
+          input#datetimepicker.date_picker(type='text')        
+          //
+            a.btn02.btn02-c1 一键优化
         
         - var dayCount = 0
         each oneDayRoute in daysRoute
@@ -48,6 +49,14 @@ block content
         .search
           input.s-input(placeholder='搜索')
           i.ico02.ico02-search
+          
+        .tab-select
+            ul
+                li(class="" data-tab-active="cur" data-tab="strategycat" data-tab-id="viewspot")
+                    a(href="javascript: void 0;")  景点 
+                li(class="" data-tab-active="cur" data-tab="strategycat" data-tab-id="hotel")
+                    a(href="javascript: void 0;")  酒店    
+            
         .imgs.f-cb
           each spot in spots
             a
@@ -68,4 +77,5 @@ block content
 
     script(src='/javascripts/plans/jquery.sortable.min.js' rel='javascript')
     script(src='/javascripts/plans/jquery.datetimepicker.js' rel='javascript')
-    script(src='/javascripts/plans/editsave.js' rel='javascript')
+    //
+        script(src='/javascripts/plans/editsave.js' rel='javascript')

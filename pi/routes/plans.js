@@ -3,7 +3,7 @@ var router = express.Router();
 var routeDetail = require('../model/route_detail');
 var request = require('request'); 
 var async = require('async');
-var addOneDay = require('../libs/addOneDay');
+
 
 // 新方法
 var model = require('../model/sup_model.js');
@@ -147,6 +147,7 @@ router.post('/edit/post', function(req, res) {
         ugcData.budget = data.result.budget;
         ugcData.stayBudget = data.result.stayBudget;
         ugcData.v = '1.1.0';
+        ugcData.webFlag = 1;
         ugcData.seq = '';
         ugcData.timestamp = '';      
         
@@ -164,7 +165,7 @@ router.post('/edit/post', function(req, res) {
                 }
                 details.push(oneSpot);
             }
-            tempDate = addOneDay(tempDate);
+            tempDate = calendar.addOneDay(tempDate);
         }
         
         // 获得交通信息
@@ -196,7 +197,8 @@ router.post('/edit/post', function(req, res) {
             }
         }
         ugcData.details = details; 
-           
+        //ugcData = JSON.stringify(ugcData);
+        //console.log(ugcData);
         // 拉到上面
         var options = {
             url : apiList.ugc.editSave,
@@ -208,6 +210,7 @@ router.post('/edit/post', function(req, res) {
             if (err) {
                 throw err;
             }     
+            console.log(result);
             res.json(result);
         });
     });  
@@ -384,5 +387,49 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
         });
     });
 });
+
+
+
+/*
+    addOneDay：计算XXXX-XX-XX 加一天后是多少？
+*/
+var calendar = (function() {
+    //月份
+    var ma = [['01','03','05','07','08','10'],['04','06','09','11']];
+
+    //判断数组a是否存在在元素n 
+    function check(n,a) { 
+        for(var i = 0,len = a.length;i < len;i++) { 
+            if(a[i] == n) { 
+                return true; 
+        } 
+    } 
+        return false; 
+    }
+    
+    //闰?年? 
+    function isLeap(y) { 
+        return ((y % 4 == 0 && y % 100 != 0) || y % 400 == 0) ? true : false; 
+    }
+    
+    return {
+        addOneDay : function (o) {
+            var d = o.split('-'); 
+            var l = isLeap(d[0]); 
+            if((check(d[1],ma[0]) && (d[2] == '31')) || (check(d[1],ma[1]) && (d[2] == '30')) || 
+                (d[1] == '02' && d[2] == '28' && !l) || (d[1] == '02' && d[2] == '29' && l)) { 
+            
+                return d[0] + '-' + ((d[1] * 1 + 1) < 10 ? '0' + (d[1] * 1 + 1) : (d[1] * 1 + 1)) + '-01'; 
+            } else if(d[1] == '12' && d[2] == '31') { 
+            
+                return (d[0] * 1 + 1) + '-' + '01-01'; 
+            } else { 
+            
+                return d[0] + '-' + d[1] + '-' + ((d[2] * 1 + 1) < 10 ? '0' + (d[2] * 1 + 1) : (d[2] * 1 + 1)); 
+            } 
+        }   
+    };               
+} ());
+
 
 module.exports = router;

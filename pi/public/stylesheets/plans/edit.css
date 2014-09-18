@@ -23,7 +23,7 @@
 .t-right{float: right;width: 685px;border-left: 1px solid #C9C9C9;}
 .t-right .search{text-align: center;height: 70px;line-height: 70px;}
 .ico02-search{background: url("../images/search.png") no-repeat;top: 15px;right: 30px;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/edit/search.png',sizingMethod='scale');}
-.t-right .search .s-input{width: 520px;height: 30px;padding: 3px 40px 3px 10px;background: #eee;border: 0 none;line-height: 25px;font-size: 16px;margin-left: 25px}
+
 .t-right .imgs a{float: left;margin: 0 0 15px 15px;width: 213px;background-color: #F7F7F9;position: relative;line-height: .5;padding-bottom: 15px;}
 .t-right .imgs a img{width: 100%;margin-bottom: 15px;}
 .imgs a .spot-name{font-size: 18px;color: #08DCA9;display: block;margin-left: 10px;}
@@ -34,3 +34,6 @@
 .sortable-dragging{border: 2px solid #a22}
 .sortable-placeholder{border: 1px dashed #08DCA9;background-color: none}
 .date_picker{width: 90px;color: #777;font-size: 18px;border: 0 none;cursor: pointer;}
+
+.t-right .search .s-input{width: 200px;height: 30px;padding: 3px 40px 3px 10px;background: #eee;border: 0 none;line-height: 25px;font-size: 16px;margin-left: 25px}
+.t-right .tab-select li{width: 100px;height: 30px;padding: 3px 40px 3px 10px;background: #eee;border: 0 none;line-height: 25px;font-size: 20px;margin-left: 25px; display: inline;}

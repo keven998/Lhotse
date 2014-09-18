@@ -28,7 +28,7 @@ var urlApi = {
     getUgcById : '/web/ugc-plans/UGCID',
     getUgcByIdNone : '/web/ugc-plans/',
     display : '/web/ugc-plans/UGCID',
-    editSave : "http://api.lvxingpai.cn/web/ugc-plans",
+    editSave : "http://api.lvxingpai.cn/web/plans/optimizers",
     // 有待扩充
     timeline : '/web/ugc-plans/templates/TEMPLATES?fromLoc=_fromLoc&uid=5409b6dde4b043c0eff098fe',
     // 暂时不能保存路线，所以用查询某个模板路线的数据代替
