@@ -13,7 +13,8 @@ var urlApi = {
   hotViews  : '/web/poi/view-spots/explore?page=0&pageSize=8',
   
   //落地页面
-  routePageDetail : '/web/plans/ROUTEID',
+  routeDetail:  '/web/plans/ROUTEID',
+  routeNotes:    '/misc/notes/search?planId=ROUTEID',
   
   // 根据现有城市名字查询城市ID
   searchCityIdByName : "http://api.lvxingpai.com/geo/localities/search?keyword=", 

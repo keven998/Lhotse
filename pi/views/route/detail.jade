@@ -9,7 +9,7 @@ block page_var
         
 block content
     .main_container
-        h1 #{title}
+        h1 #{details.title}
         hr
         .tab
             a#tab01.item.item01-hover
@@ -20,103 +20,60 @@ block content
                 p
                     span.day
                         b.dot ●
-                        | 全程 #{days} 天
+                        | 全程 #{details.days} 天
                     span.cost
                         b.dot ●
-                        | 人均 #{budget[0]}-#{budget[1]} 元
+                        | 人均 #{details.budget[0]}-#{details.budget[1]} 元
                     br
                     br
                     span.tags
                         b.dot ●
-                        | 旅途印象：#{tags}
+                        | 旅途印象：#{details.tags}
             .c
                 h3.t1.t2
                     i.ico02.ico02-circle
                     b 路线速览
                 .para
                     -var i=0;
-                    each day in summary
+                    each day in details.summary
                         .day_act
-                            -i++;
+                            -i=i+1;
                             span.date D#{i}
                             | #{day}
                             br
-            .c
-                h3.t1.t2
-                    i.ico02.ico02-circle
-                    b #{title}
-                .moredesc !{moreDesc}
+            if (details.moreDesc != "")
+                .c
+                    h3.t1.t2
+                        i.ico02.ico02-circle
+                        b #{details.title}
+                    .moredesc !{details.moreDesc}
         #item02.tab-c(style='display: none;')
             .c
                 h1.t1
                 ul.about-list
-                  li
-                    img.sider-userimg(src='/images/route/detail/user02.png')
-                    h1.t1 表面上是现代大都会，但内心却又但内心却又但内心却又但内心却又，抹不掉的电缆附件
-                    em.au SAFSREWAG　FLFJ 发表
-                    em.time 2014-10-1
-                    p.txt
-                      | 他是亚洲的一颗明珠，在静谧的男孩中熠熠生辉。他是张爱玲那座
-                      | 货没到的是悲哀的成，里几是悲哀的成，里几是悲哀的成，里几个
-                    p.ico-g.fl
-                      i.ico01.ico01-eye
-                      b 浏览2345
-                    p.ico-g.fl
-                      i.ico01.ico01-source
-                      b 文章来自穷游网
-                  li
-                    img.sider-userimg(src='/images/route/detail/headpic.png')
-                    h1.t1 表面上是现代大都会，但内心却又但内心却又但内心却又但内心却又，抹不掉的电缆附件
-                    em.au SAFSREWAG　FLFJ 发表
-                    em.time 2014-10-1
-                    p.txt
-                      | 他是亚洲的一颗明珠，在静谧的男孩中熠熠生辉。他是张爱玲那座
-                      | 货没到的是悲哀的成，里几是悲哀的成，里几是悲哀的成，里几个
-                    p.ico-g.fl
-                      i.ico01.ico01-eye
-                      b 浏览2345
-                    p.ico-g.fl
-                      i.ico01.ico01-source
-                      b 文章来自穷游网
-                  li
-                    img.sider-userimg(src='/images/route/detail/headpic.png')
-                    h1.t1 表面上是现代大都会，但内心却又但内心却又但内心却又但内心却又，抹不掉的电缆附件
-                    em.au SAFSREWAG　FLFJ 发表
-                    em.time 2014-10-1
-                    p.txt
-                      | 他是亚洲的一颗明珠，在静谧的男孩中熠熠生辉。他是张爱玲那座
-                      | 货没到的是悲哀的成，里几是悲哀的成，里几是悲哀的成，里几个
-                    p.ico-g.fl
-                      i.ico01.ico01-eye
-                      b 浏览2345
-                    p.ico-g.fl
-                      i.ico01.ico01-source
-                      b 文章来自穷游网
-                  li
-                    img.sider-userimg(src='/images/route/detail/headpic.png')
-                    h1.t1 表面上是现代大都会，但内心却又但内心却又但内心却又但内心却又，抹不掉的电缆附件
-                    em.au SAFSREWAG　FLFJ 发表
-                    em.time 2014-10-1
-                    p.txt
-                      | 他是亚洲的一颗明珠，在静谧的男孩中熠熠生辉。他是张爱玲那座
-                      | 货没到的是悲哀的成，里几是悲哀的成，里几是悲哀的成，里几个
-                    p.ico-g.fl
-                      i.ico01.ico01-eye
-                      b 浏览2345
-                    p.ico-g.fl
-                      i.ico01.ico01-source
-                      b 文章来自穷游网
-                  li
-                    img.sider-userimg(src='/images/route/detail/headpic.png')
-                    h1.t1 表面上是现代大都会，但内心却又但内心却又但内心却又但内心却又，抹不掉的电缆附件
-                    em.au SAFSREWAG　FLFJ 发表
-                    em.time 2014-10-1
-                    p.txt
-                      | 他是亚洲的一颗明珠，在静谧的男孩中熠熠生辉。他是张爱玲那座
-                      | 货没到的是悲哀的成，里几是悲哀的成，里几是悲哀的成，里几个
-                    p.ico-g.fl
-                      i.ico01.ico01-eye
-                      b 浏览2345
-                    p.ico-g.fl
-                      i.ico01.ico01-source
-                      b 文章来自穷游网
+                    each note in notes
+                        li
+                            if  (note.authorAvator != NULL)
+                                img.sider-userimg(src=note.authorAvator)
+                            else
+                                img.sider-userimg(src='/images/route/detail/user02.png')
+                            h1.t1 #{note.title}
+                            em.time 2014-10-1
+                            em.au
+                                .name #{note.authorName}
+                                | 发表
+                            .txt #{note.summary}
+                            .tip
+                                i.ico01.ico01-eye
+                                b 浏览 #{note.viewCnt}
+                            .tip
+                                i.ico01.ico01-source
+                                case note.source
+                                    when "qyer"
+                                        b 文章来自穷游网
+                                    when "baidu"
+                                        b 文章来自百度旅游
+                                    when "mafengwo"
+                                        b 文章来自蚂蜂窝
+                                    default
+                                        b
