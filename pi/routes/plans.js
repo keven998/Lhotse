@@ -41,6 +41,7 @@ router.get('/edit/:TEMPLATES/', function(req, res) {
     }
     res.render('plans/edit',{
       daysRoute : dayRoute,
+      user_info: req.session.user_info,
     });
   });
 });
@@ -62,17 +63,17 @@ router.get('/edit/post', function(req, res) {
 
 
 router.get('/mine/', function(req, res){
-  res.render('plans/mine');
+  res.render('plans/mine', {user_info: req.session.user_info});
 });
 
 
 router.get('/create/', function(req, res){
-  res.render('plans/create');
+  res.render('plans/create', {user_info: req.session.user_info});
 });
 
 
 router.get('/edit/:TEMPLATES', function(req, res) {
-  res.render('plans/edit');
+  res.render('plans/edit', {user_info: req.session.user_info});
 });
 
 /* GET users listing. */
@@ -213,9 +214,10 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
        navigation.push(tempDay);
      }
      res.render('plans/timeline', {
-       allRoutes : allRoutes,
-       basicInfo : basicInfo,
-       navigation : navigation,
+       allRoutes: allRoutes,
+       basicInfo: basicInfo,
+       navigation: navigation,
+       user_info: req.session.user_info,
      });
   });
 });
