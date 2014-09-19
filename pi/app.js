@@ -13,7 +13,6 @@ var viewspot = require('./routes/viewspot');
 //route是模板路线的所有路由
 var route = require('./routes/route');
 
-
 var app = express();
 
 // view engine setup

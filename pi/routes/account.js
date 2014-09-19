@@ -30,7 +30,7 @@ router.get('/callback/weibo/', function(req, ori_res) {
         oauth2 = JSON.parse(data);
         access_token = oauth2.access_token;
         uid = oauth2.uid;
-        
+
         url = "https://api.weibo.com/2/users/show.json?access_token=" + access_token + "&uid=" + uid;
         request(url, function(err, res, data){
             data = JSON.parse(data);
