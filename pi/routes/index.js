@@ -35,18 +35,19 @@ router.get('/', function(req, res) {
     },
     }, 
     function(err, results) {
-      results.hotRoute = JSON.parse(results.hotRoute);
-      results.mustgoRoute = JSON.parse(results.mustgoRoute);
-      results.newestRoute = JSON.parse(results.newestRoute);
-      results.recommondRoute = JSON.parse(results.recommondRoute);
-      res.render('index', {
-        //现在只展示hotRoute
-        hotRoute: results.hotRoute.result,
-        mustgoRoute: results.mustgoRoute.result,
-        newestRoute: results.newestRoute.result,
-        recommondRoute: results.recommondRoute.result,
-      });       
-  });
+        results.hotRoute = JSON.parse(results.hotRoute);
+        results.mustgoRoute = JSON.parse(results.mustgoRoute);
+        results.newestRoute = JSON.parse(results.newestRoute);
+        results.recommondRoute = JSON.parse(results.recommondRoute);
+        res.render('index', {
+            //现在只展示hotRoute
+            hotRoute: results.hotRoute.result,
+            mustgoRoute: results.mustgoRoute.result,
+            newestRoute: results.newestRoute.result,
+            recommondRoute: results.recommondRoute.result,
+            user_info: req.session.user_info,
+        });
+    });
 });
 
 router.get('/search', function(req, res){
@@ -90,7 +91,7 @@ router.get('/search', function(req, res){
 });
 
 router.get('/download/', function(req, res) {
-  res.render('download');
+    res.render('download', {user_info: req.session.user_info});
 }); 
 
 router.get('/target/', function(req, res){
@@ -133,8 +134,9 @@ router.get('/target/', function(req, res){
         hotViews  : viewList,
       });
       res.render('target', {
-        hotCities : cityList,
-        hotViews  : viewList,
+        hotCities: cityList,
+        hotViews: viewList,
+        user_info: req.session.user_info,
       });
     }
   );
