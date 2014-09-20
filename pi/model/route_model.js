@@ -1,14 +1,8 @@
-var base_model = require('./base_model');
+var base_model = require('./base_model_new');
 
-function hot(){}
-hot.prototype = new base_model();
-hot.prototype.constructor = hot;
-hot = function(){
-    this.url = null;
-    this.params = ['id', 'name']
-}
-
-
-must_go = function(){
-    //...
-}
+function detail(){}
+detail.prototype = new base_model();
+detail.prototype.constructor = detail;
+detail.prototype.set_url('/web/plans/ROUTEID');
+detail.prototype.set_queries(['ROUTEID']);
+module.exports.detail = detail;
