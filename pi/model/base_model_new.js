@@ -38,12 +38,7 @@ var base_model = function(){
             queries = req.query,
             query_array = new Array(),
             query_str = '';
-        console.log('*******');
-        console.log(url);
-        console.log('*******');
-        console.log(url_params);
-        console.log('*******');
-        console.log(queries);
+
         for (param in url_params){
             url = url.replace(param, url_params[param]);
         } 
@@ -54,8 +49,7 @@ var base_model = function(){
         query_str = query_array.join('&')
         if (query_str) url += '?';
         result = this.api_domain + url + query_str
-        console.log('*******');
-        console.log(result);
+
         return result
     }  
 };
