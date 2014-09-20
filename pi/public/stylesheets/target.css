@@ -2,16 +2,21 @@
 
 .title{font-size:24px;}
 i.line{color:#08DCA9;}
+.text_layer h2{font-size:20px;color:#fff;}
 
 .city-list{overflow:hidden;height:400px;}
+.rel{position:relative;}
+.text_layer{position:absolute;bottom:5px;left:10px;width:60px;height:40px;padding:10px 10px;background-color:rgba(0,0,0,.25);filter:0.25;progid:DXImageTransform.Microsoft.Gradient(startColorStr=#40000000,endColorStr=#40000000);}
 .view-list{overflow:hidden;height:400px;}
 .col-thin{float:left;width:190px;height:325px;}
 .col-thick{float:left;overflow:hidden;width:295px;height:325px;}
-.row-tall{float:left;width:295px;height:175px;}
+.row-long{float:left;width:295px;height:175px;}
 .row-short{float:left;overflow:hidden;width:295px;height:145px;}
 .bot{margin-bottom:5px;}
 .rig{margin-right:5px;}
 .type01{width:190px;height:325px;}
 .type02{width:295px;height:175px;}
-.type03{float:left;width:145px;height:145px;}
-.type04{float:right;width:145px;height:145px;}
+.type03{width:145px;height:145px;}
+.type04{width:145px;height:145px;}
+.fl-l{float:left;}
+.fl-r{float:right;}

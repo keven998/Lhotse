@@ -293,7 +293,7 @@ $(function () {
         
         //获取其它参数
         var startDate = $('#datetimepicker').val();
-        var uid = '5409b6dde4b043c0eff098fe';       // should get from cookies
+        var uid = $('.user .b1').attr('data-id');
         var fromLocId = getQueryString('fromLocId');
         var ugcId = $('.ugcId').text();
             
@@ -325,7 +325,7 @@ $(function () {
                 type : 'POST',
                 success: function (msg) {
                     if (msg.code == 0) {
-                        alert('保存成功');
+                        window.location.href="/plans/mine/";
                     } else {
                        alert('保存失败'); 
                     }

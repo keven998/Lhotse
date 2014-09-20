@@ -167,6 +167,7 @@ router.get('/edit/:UGCID',function(req, res) {
                 spots : spots,      // 城市景点 
                 locName : locName,  // 对象：起点和目的地
                 hotels : hotels,
+                user_info: req.session.user_info,
             });
         }
     )
@@ -265,12 +266,12 @@ router.post('/edit/post', function(req, res) {
 
 
 router.get('/mine/', function(req, res){
-  res.render('plans/mine');
+  res.render('plans/mine', {user_info: req.session.user_info});
 });
 
 
 router.get('/create/', function(req, res){
-  res.render('plans/create');
+  res.render('plans/create', {user_info: req.session.user_info});
 });
 
 
@@ -431,10 +432,10 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
             allRoutes : allRoutes,
             basicInfo : basicInfo,
             navigation : navigation,
+            user_info: req.session.user_info,
         });
     });
 });
-
 
 
 /*

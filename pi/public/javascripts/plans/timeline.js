@@ -209,7 +209,7 @@ $('a.save').click( function(e) {
                 type : 'POST',
                 success : function (msg) {
                     if (msg.code == 0) {
-                        alert('保存成功');
+                        window.location.href="/plans/mine/";
                     } else {
                        alert('保存失败'); 
                     }
@@ -224,9 +224,7 @@ $('a.save').click( function(e) {
     从cookies中获得uid
 */
 function getUid() {
-    // to do
-    var uid = '5409b6dde4b043c0eff098fe';
-    return uid;
+    return $('.user .b1').attr('data-id');
 }
 
 

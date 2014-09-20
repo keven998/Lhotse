@@ -4,6 +4,7 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var expressSession = require('express-session');
 
 var routes = require('./routes/index');
 var account = require('./routes/account');
@@ -24,8 +25,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
+app.use(expressSession({secret:'travelpi'}));
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/', routes);
 app.use('/route', route);
 app.use('/account', account);
@@ -39,7 +40,6 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
-
 
 // development error handler, will print stacktrace
 if (app.get('env') === 'development') {
@@ -60,6 +60,5 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
 
 module.exports = app;
