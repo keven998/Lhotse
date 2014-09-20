@@ -31,21 +31,32 @@ router.get('/callback/weibo/', function(req, ori_res) {
         access_token = oauth2.access_token;
         uid = oauth2.uid;
 
+        // need to change to web user login
         url = "https://api.weibo.com/2/users/show.json?access_token=" + access_token + "&uid=" + uid;
         request(url, function(err, res, data){
             data = JSON.parse(data);
-            var user_info = {
+            var post_info = {
                 provider: "weibo",
                 avatar: data.avatar_large,
-                nick_name: data.screen_name,
+                nickName: data.screen_name,
                 oauthId: uid,
                 token: access_token,
                 udid: "",
             };
-            req.session.user_info = user_info;
-
-            // todo: call api to get real internal user info
-            ori_res.redirect(req.headers.referer);
+            var options = {
+                url: 'http://api.lvxingpai.cn/users/oauth-login',
+                json: post_info,
+                method: 'POST',
+            };
+            request(options, function(err, res, data){
+                var user_info = {
+                    _id: data.result._id,
+                    nick_name: data.result.nickName,
+                    avatar: data.result.avatar,
+                }
+                req.session.user_info = user_info;
+                ori_res.redirect(req.headers.referer);
+            })
         });
     });
 });
