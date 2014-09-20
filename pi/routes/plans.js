@@ -61,8 +61,9 @@ router.get('/edit/post', function(req, res) {
 });
 
 
-router.get('/mine/:USERID/', function(req, res){
-    model.setUrl(apiList.apiHost + apiList.myPlans);
+router.get('/mine/', function(req, res){
+    var user_info = req.session.user_info
+    model.setUrl(apiList.apiHost + apiList.myPlans + user_info._id);
     model.getdata(req, function(data) {
         var planList = [];
         data = JSON.parse(data);
