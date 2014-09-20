@@ -24,6 +24,20 @@ router.post('/search', function(req, res) {
     });
 }); 
 
+
+// 路线编辑 ajax请求更多
+router.post('/ajax/more', function(req, res) {
+    var text = req.body.searchText,
+        page = req.body.page;
+        
+    var requestUrl = urlApi.apiHost + urlApi.searchViewspot + "keyword=" + encodeURI(text) + "&page=" + encodeURI(page);
+    console.log(requestUrl);
+    model.setUrl(requestUrl);
+    model.getdata(null, function(data){
+        res.json(JSON.parse(data));
+    });
+});
+
 // 输入一个城市名字后，会得到一个列表，level = 1 是省会和level = 2是市
 // 通常选取【市】作为出发地
 var selectCityId = function(result) {

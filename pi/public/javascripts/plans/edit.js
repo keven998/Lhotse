@@ -386,8 +386,7 @@ $(function () {
         搜索景点和酒店--添加DOM
     */
     function ajaxAddDom (msg, tagFlag) {
-        var type = ['hotel', 'vs'];
-        // 解析加载特定数据
+        
         var data = msg.result;
         var len = data.length;
         if (len == 0) {
@@ -395,7 +394,43 @@ $(function () {
         }
         if (tagFlag == 1) {
             tagViewspot.empty();
-            for (var i = 0; i < len; i++) {
+            viewspotData(data, tagViewspot);
+        } else {
+            tagHotel.empty();
+            hotelData(data, tagHotel);    
+        } 
+    }
+    
+    
+    /*
+        从返回的数据中提取酒店数据
+    */
+    function hotelData(data, tagDom) {
+        var len = data.length;
+        for (var i = 0; i < len; i++) {
+                var temp = data[i];
+                var content = new Object();
+
+                content.src = temp.imageList[0];
+                content.phone = temp.contact.phoneList ? temp.contact.phoneList[0] : '';
+                content.address =temp.addr.addr;
+                content.id = temp._id;
+                content.rank = temp.ratings.starLevel;
+                content.name = temp.name;
+                content.price = temp.price;
+                
+                var dom = '<a><div><img src=' + content.src + ' width="213" height="144"></div><div style="display:none" class="id">' + content.id + '</div><div style="display:none" class="type">hotel</div><div class="value"><em class="ranking">' + content.rank + '星级</em><em class="price">￥' + content.price + '起</em></div><div class="hotel-name"><em>' + content.name + '</em></div><div class="phone"><i class="ico-phone"></i>' + content.phone + '</div><div class="addr"><i class="ico-addr"></i>' + content.address + '</div><i class="ico02 ico02-add"></i></a>';
+                
+                tagDom.append(dom);    
+        }
+    }
+    
+    /*
+        从返回的数据中提取景点数据
+    */
+    function viewspotData(data, tagDom) {
+        var len = data.length;
+        for (var i = 0; i < len; i++) {
                 var temp = data[i];
                 var content = new Object();
                 
@@ -413,26 +448,86 @@ $(function () {
                 
                 var dom = '<a><div><img src=' + content.src + ' width="213" height="144"></div><div style="display:none" class="id">' + content.id + '</div><div style="display:none" class="type">vs</div><em class="spot-name">' + content.name + '</em><br><i class="ico01 ico01-good"></i>0.3<i class="ico01 ico01-sugg"></i>建议游玩' + content.timeCost + '小时<em class="label">' + content.tags + '</em><i class="ico02 ico02-add"></i></a>';
 
-                tagViewspot.append(dom);
-            }
-        } else {
-            tagHotel.empty();
-            for (var i = 0; i < len; i++) {
-                var temp = data[i];
-                var content = new Object();
-
-                content.src = temp.imageList[0];
-                content.phone = temp.contact.phoneList ? temp.contact.phoneList[0] : '';
-                content.address =temp.addr.addr;
-                content.id = temp._id;
-                content.rank = temp.ratings.starLevel;
-                content.name = temp.name;
-                content.price = temp.price;
-                
-                var dom = '<a><div><img src=' + content.src + ' width="213" height="144"></div><div style="display:none" class="id">' + content.id + '</div><div style="display:none" class="type">hotel</div><div class="value"><em class="ranking">' + content.rank + '星级</em><em class="price">￥' + content.price + '起</em></div><div class="hotel-name"><em>' + content.name + '</em></div><div class="phone"><i class="ico-phone"></i>' + content.phone + '</div><div class="addr"><i class="ico-addr"></i>' + content.address + '</div><i class="ico02 ico02-add"></i></a>';
-                
-                tagHotel.append(dom);    
-            }
-        } 
+                tagDom.append(dom);
+        }
     }
+    
+    
+    /*
+        ajax滚动加载
+    */
+    // page设置
+    var page = 0;
+    // 记录滚动加载是否结束
+    var dataOver = false;
+    var ajaxStatus = true;
+    var requestUrl = ['/hotel/ajax/more', '/viewspot/ajax/more'];
+            
+    $(window).on("scroll", function () {
+        var top = document.documentElement.scrollTop + document.body.scrollTop;
+        var textheight = $(document).height();
+        // 判断下拉菜单位置，加载更多数据        
+        if ( textheight - top - $(window).height() <= 50  && !dataOver && ajaxStatus ) {
+            ajaxStatus = false;           
+            
+            var searchText = searchInput.val();                                    
+            
+            // ajax的post数据
+            var data = {
+                searchText : searchText,
+                page : ++page,
+            };
+
+            // 显示缓冲图标
+            if (!dataOver) {
+                $('.more').show();
+            }
+
+            $.ajax({ 
+                url    : requestUrl[tagFlag],
+                data   : data,
+                dataType : "json",           
+                type : 'POST',
+                
+                success: function (msg) {  //成功返回后删除加载状态样式，插入dom
+                    console.dir(msg);
+                    $('.more').hide();
+                    ajaxAddMore(msg);       
+                    ajaxStatus = true;                    
+                },
+                error  : function () {
+                    return false;
+                }
+            });
+        }
+    });
+    
+    
+    /*
+        ajax动态添加DOM元素
+        switch : 
+                -- 0 用于选择主题和天数
+                -- 1 用于ajax动态加载更多 
+    */
+    function ajaxAddMore (msg) {
+        var data = msg.result;
+        var len = data.length;
+        
+        if (len == 0) {
+            if (!dataOver) {
+                dataOver = true;
+                routeList.append("<h1 font='50px'>数据加载完了...</h1>");
+            }
+            return ;
+        }
+        
+        // 添加新的DOM数据
+        if (tagFlag == 1) {
+            viewspotData(data, tagViewspot);
+        } else {
+            hotelData(data, tagHotel);    
+        }                           
+    }
+    
+    /*---end---*/
 })

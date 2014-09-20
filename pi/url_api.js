@@ -21,9 +21,11 @@ var urlApi = {
     
     // 根据名字搜索酒店
     searchHotelByName : '/web/poi/hotels/search?page=0&pageSize=9&keyword=',
+    searchHotel : '/web/poi/hotels/search?pageSize=9&',
     
     // 根据名字搜索景点
     searchViewspotByName : '/web/poi/view-spots/search?&page=0&pageSize=9&sortField=viewCnt&sort=desc&keyword=',
+    searchViewspot : '/web/poi/view-spots/search?pageSize=9&sortField=viewCnt&sort=desc&',
     
     viewspot : {
         detail : '/web/poi/view-spots/SPOTID',
