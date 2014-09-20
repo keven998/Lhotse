@@ -22,8 +22,8 @@ block content
                                 input.s-ip(type="text" name="fromLocName")
                             .text_input
                                 i.dest
-                                h2 想要去哪儿玩 ？
-                                input.s-ip#linkDataProperty(type="text" name="arrLocName" onkeyup="getLinkData();")
+                                h2 想要去哪儿玩 :
+                                input.s-ip#linkDataProperty(type="text" name="arrLocName" onkeyup="getLinkData();" autocomplete="off")
                         input.s-btn(type="submit" value="")
                 .city_nav
                     a(href="/search?arrLocName=%E9%A6%99%E6%B8%AF")
