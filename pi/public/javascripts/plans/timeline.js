@@ -7,25 +7,35 @@ $(function () {
     timeLine.on('click', 'li', function (e,type) {  //'type'--事件触发来自滚动条标识
         var self = $(this),
             subId = "#" + self.attr('data-for'),
-            listDetailItemId="#" + self.attr('data-item'),
+            // data-item 是自动生成的？
+            listDetailItemId = "#" + self.attr('data-item'),
             suList,
             titleTxt,
             timelineDetailCon=$('.t-left');
+            
         titleTxt=$(this).children('a').text();
+        
         updataTitle(titleTxt);
+        
+        // 增加一个属性
         self.attr('data-status', 'active');
+        // 点击后 改变颜色
         self.find('a.btn02').addClass('btn02-c1');
         self.find('i.point').addClass('point-01');
+        // 改变箭头方向
         self.find('i.arr').addClass('arr-down').removeClass('arr-up');
+        // 显示这一天的节点
         $(subId).show();
         suList=$(subId+' a');
-        radioToggle(suList,'btn02-c1'); //子项单击高亮效果绑定
-        if(type!=='istrigger'){   //手动点击时右侧滚动条联动效果
+        //子项单击高亮效果绑定
+        radioToggle(suList,'btn02-c1');
+        //手动点击时右侧滚动条联动效果
+        if(type !== 'istrigger') {
             timelineDetailCon.off('scroll');
             $('.t-left').animate({
                 scrollTop: $(listDetailItemId).position().top
             },function(){
-                timelineDetailCon.on('scroll',scrollAction);
+                timelineDetailCon.on('scroll', scrollAction);
             });
             //timelineDetailCon.on('scroll',scrollAction);
         }
@@ -178,6 +188,63 @@ $(function () {
     }
 })
 
+
+/*
+    用户直接保存路线
+*/
+$('a.save').click( function(e) {
+    var uid = getUid();
+    var ugcId = $('p.id').text();
+    
+    var data = {
+    "uid" : uid,
+    "_id" : ugcId,
+    "action" : "updateUid",
+    };
+    
+    $.ajax({  //动画结束，写入数据
+                url    : '/plans/timeline/save',
+                data   : data,
+                dataType : "json",           
+                type : 'POST',
+                success : function (msg) {
+                    if (msg.code == 0) {
+                        alert('保存成功');
+                    } else {
+                       alert('保存失败'); 
+                    }
+                },
+                error : function () {
+                    alert('保存失败...');
+                }
+        });
+});
+
+/*
+    从cookies中获得uid
+*/
+function getUid() {
+    // to do
+    var uid = '5409b6dde4b043c0eff098fe';
+    return uid;
+}
+
+
+/*
+    从url中获得ugcId
+*/
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) 
+        return unescape(r[2]); 
+    return null;
+}
+
+
+/*
+    PDF下载
+*/ 
 $('a.pdf').click( function(e){
   var doc = new jsPDF();
   var requestUrl = $('b.requestUrl').text();

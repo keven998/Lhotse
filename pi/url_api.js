@@ -19,14 +19,22 @@ var urlApi = {
     searchCityIdByName : "http://api.lvxingpai.com/geo/localities/search?keyword=", 
     searchCityNameById : "/web/geo/localities/fromLocId",   //:fromLocId
     
+    // 根据名字搜索酒店
+    searchHotelByName : '/web/poi/hotels/search?page=0&pageSize=9&keyword=',
+    
+    // 根据名字搜索景点
+    searchViewspotByName : '/web/poi/view-spots/search?&page=0&pageSize=9&sortField=viewCnt&sort=desc&keyword=',
+    
     viewspot : {
         detail : '/web/poi/view-spots/SPOTID',
         searchByLoc : '/web/poi/view-spots/search?keyword=DEST&page=0&pageSize=10&sortField=viewCnt&sort=desc',
     },
   
+  
   ugc : {
     getUgcById : '/web/ugc-plans/UGCID',
     getUgcByIdNone : '/web/ugc-plans/',
+    saveUgc : '/web/ugc-plans',
     display : '/web/ugc-plans/UGCID',
     editSave : "http://api.lvxingpai.cn/web/plans/optimizers",
     // 有待扩充

@@ -20,6 +20,28 @@ router.get('/detail/:PLANID', function(req, res) {
 });
 
 
+/*
+    user save the ugc in timeline 
+*/
+router.post('/timeline/save', function(req, res) {
+    var postData = req.body;
+    var requestUrl = apiList.apiHost + apiList.ugc.saveUgc;
+    // http post
+    var options = {
+        url :  requestUrl,
+        json: postData,
+        method: 'POST',
+    };
+    
+    request(options, function(err, respond, result) {
+        if (err) {
+            throw err;
+        }
+        res.json(result);
+    });
+});
+
+
 /* edit route */
 router.get('/edit/:UGCID',function(req, res) {
     async.parallel({
@@ -63,7 +85,6 @@ router.get('/edit/:UGCID',function(req, res) {
             model.setUrl(encodeURI(apiList.apiHost + requestUrl));
             model.getdata(req, function(data){
                 data = JSON.parse(data);
-                //res.send(data);
                 var result = data.result;
                 var spots = new Array();
                 for (var i = 0; i < result.length; i++) {
@@ -94,6 +115,32 @@ router.get('/edit/:UGCID',function(req, res) {
             });
         },
         
+        hotels: function(callback) {
+            var requestUrl = '/web/poi/hotels/search?keyword=' + req.query.DEST + '&page=0&pageSize=9';
+            console.log(requestUrl);
+            model.setUrl(encodeURI(apiList.apiHost + requestUrl));
+            model.getdata(req, function(data){
+                data = JSON.parse(data);
+                var result = data.result;
+                var hotels = new Array();
+                for (var i = 0; i < result.length; i++) {
+                    var hotel = result[i];
+                    var tempHotel = new Object();
+                    tempHotel.name = hotel.name;
+                    tempHotel._id = hotel._id;
+                    tempHotel.pic = hotel.imageList[0];
+                    tempHotel.ranking = hotel.ratings.starLevel;
+                    tempHotel.price = hotel.price;
+                    tempHotel.phone = hotel.contact.phoneList ? hotel.contact.phoneList[0] : '';
+                    tempHotel.address = hotel.addr.addr;
+
+                    hotels.push(tempHotel);
+                }
+                
+                callback(null, hotels);
+            });
+        },
+        
         locName : function(callback) {
              model.setUrl(apiList.apiHost + apiList.searchCityNameById); 
              model.getdata(req, function(data){
@@ -113,11 +160,13 @@ router.get('/edit/:UGCID',function(req, res) {
             var dataObj = results.route;
             var spots = results.spots;
             var locName = results.locName;
+            var hotels = results.hotels;
             res.render('plans/edit', {
                 daysRoute : dataObj.dayRoute,
                 id : dataObj._id,   // 表明这个ugc id，ajax传递给node后，获取别的信息，减少前段任务
                 spots : spots,      // 城市景点 
                 locName : locName,  // 对象：起点和目的地
+                hotels : hotels,
             });
         }
     )
@@ -126,8 +175,8 @@ router.get('/edit/:UGCID',function(req, res) {
 /* edit post request */
 router.post('/edit/post', function(req, res) {
     var webPostData = req.body;
-    var vsAndHotel = webPostData.spotArray;
     
+    var vsAndHotel = webPostData.spotArray;
     //获得ugc信息
     var requestUrl = apiList.apiHost + apiList.ugc.getUgcByIdNone + webPostData.ugcId;
     model.setUrl(encodeURI(requestUrl));
@@ -197,9 +246,8 @@ router.post('/edit/post', function(req, res) {
             }
         }
         ugcData.details = details; 
-        //ugcData = JSON.stringify(ugcData);
-        //console.log(ugcData);
-        // 拉到上面
+   
+        // http post
         var options = {
             url : apiList.ugc.editSave,
             json: ugcData,
@@ -210,7 +258,6 @@ router.post('/edit/post', function(req, res) {
             if (err) {
                 throw err;
             }     
-            console.log(result);
             res.json(result);
         });
     });  

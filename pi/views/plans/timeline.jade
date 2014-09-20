@@ -13,7 +13,7 @@ block page_var
 
 block content
     .opt
-      a 保存
+      a.save 保存
       a &nbsp;/
       a.color-01(href="/plans/edit/" + basicInfo._id + '/?DEST=' + basicInfo.destinaton.name + '&fromLocId=' + basicInfo.fromLocId) 编辑路线
       a &nbsp;/
@@ -23,6 +23,7 @@ block content
     .bd.t-bd
       h1.t
         | #{basicInfo.title}
+        p.id(style='display:none') #{basicInfo._id}
         b.b1 全程#{basicInfo.days}天
         b.b2 ￥#{basicInfo.budget[0]}-￥#{basicInfo.budget[1]}
         b.requestUrl(style='display:none') #{basicInfo.requestUrl}
@@ -140,7 +141,7 @@ block content
             else
               ul(data-day=dayCount)     
           
-          #totalSpots #{vsCount}
+          #totalSpots(style='display:none') #{vsCount}
               
    
                   

@@ -15,16 +15,14 @@ block content
       h1.t
         | #{locName.from}——#{locName.arr}
         .ugcId(style='display:none') #{id}
-        a.btn02.btn02-c4
-          | 确定
     
     .content.f-cb     
       .t-left
         h1.time
           | 出发时间：
-          input#datetimepicker.date_picker(type='text')        
-          //
-            a.btn02.btn02-c1 一键优化
+          input#datetimepicker.date_picker(type='text')
+          a.btn02.btn02-c4
+            | 确定
         
         - var dayCount = 0
         each oneDayRoute in daysRoute
@@ -46,18 +44,17 @@ block content
       
       
       .t-right
+        .tab
+          a#tab01.item.item01-hover
+          a#tab02.item.item02-normal 
+        
+        
         .search
           input.s-input(placeholder='搜索')
           i.ico02.ico02-search
           
-        .tab-select
-            ul
-                li(class="" data-tab-active="cur" data-tab="strategycat" data-tab-id="viewspot")
-                    a(href="javascript: void 0;")  景点 
-                li(class="" data-tab-active="cur" data-tab="strategycat" data-tab-id="hotel")
-                    a(href="javascript: void 0;")  酒店    
-            
-        .imgs.f-cb
+          
+        .imgs.f-cb#item01
           each spot in spots
             a
               div
@@ -73,9 +70,28 @@ block content
               if spot.tags != ''
                 em.label #{spot.tags}
               i.ico02.ico02-add
-          
-
+        
+        
+        
+        .imgs.f-cb#item02(style='display: none;')
+            each hotel in hotels
+                a
+                    div
+                        img(src=hotel.pic width='213' height='144')
+                    .id(style='display:none') #{hotel._id}
+                    .type(style='display:none') hotel
+                    .value
+                        em.ranking #{hotel.ranking}星级
+                        em.price ￥#{hotel.price}起
+                    .hotel-name 
+                        em #{hotel.name}
+                    .phone
+                        i.ico-phone
+                        | #{hotel.phone}
+                    .addr
+                        i.ico-addr
+                        | #{hotel.address}
+                    i.ico02.ico02-add
+                    
     script(src='/javascripts/plans/jquery.sortable.min.js' rel='javascript')
     script(src='/javascripts/plans/jquery.datetimepicker.js' rel='javascript')
-    //
-        script(src='/javascripts/plans/editsave.js' rel='javascript')

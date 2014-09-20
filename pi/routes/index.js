@@ -81,9 +81,10 @@ router.get('/search', function(req, res){
         data = JSON.parse(data);
         res.render('plans', {
           plans : data.result,
-          from : fromLocName,
+          fromName : fromLocName,
+          arriveId : arriveId,
           fromId : fromId,  // 用于配置“复制路线”的url
-          to : arrLocName,
+          arriveName : arrLocName,
         });
       });  
   });

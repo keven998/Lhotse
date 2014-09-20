@@ -7,11 +7,22 @@ var request = require('request')
 var model = require('../model/sup_model.js');
 
 router.get('/detail/:SPOTID', function(req, res) {
-  model.setUrl(urlApi.apiHost + urlApi.viewspot.detail); 
-  model.getdata(req, function(data){
-    res.json(JSON.parse(data));
-  });
+    model.setUrl(urlApi.apiHost + urlApi.viewspot.detail); 
+    model.getdata(req, function(data){
+        res.json(JSON.parse(data));
+    });
 });
+
+
+// 路线编辑的搜索景点
+router.post('/search', function(req, res) {
+    var text = req.body.searchText;
+    var requestUrl = urlApi.apiHost + urlApi.searchViewspotByName + encodeURI(text);
+    model.setUrl(requestUrl); 
+    model.getdata(null, function(data){
+        res.json(JSON.parse(data));
+    });
+}); 
 
 // 输入一个城市名字后，会得到一个列表，level = 1 是省会和level = 2是市
 // 通常选取【市】作为出发地

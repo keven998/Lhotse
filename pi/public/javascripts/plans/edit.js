@@ -1,4 +1,45 @@
+/*
+    tagFlag 标志当前tag
+    0：酒店
+    1：景点
+*/
+var tagFlag = 1;
+
 $(function () {
+    // tab切换
+    var tab01=$('#tab01'),
+        tab02=$('#tab02'),
+        item01=$('#item01'),
+        item02=$('#item02');
+    
+    tab01.click(function(){
+        // tag置位 : 景点
+        tagFlag = 1;
+        if(!$(this).hasClass('item01-hover')){
+            $(this).addClass('item01-hover').removeClass('item01-normal');
+            tab02.removeClass('item02-hover').addClass('item02-normal');
+            item02.hide();
+            item01.show();
+        }else{
+            return false;
+        }
+    })
+    
+    tab02.click(function(){
+        // tag置位 : 酒店
+        tagFlag = 0;
+        if(!$(this).hasClass('item02-hover')){
+            $(this).addClass('item02-hover').removeClass('item02-normal');
+            tab01.removeClass('item01-hover').addClass('item01-normal');
+            $(this).addClass('item01-hover').removeClass('item01-normal');
+            item01.hide();
+            item02.show();
+        }else{
+            return false;
+        }
+    })
+    
+
     // 定位到左边图片区域
     var imgs = $('.imgs');
     
@@ -55,7 +96,7 @@ $(function () {
             items: ':not(.disabled)',
             connectWith: '.edit-list'
         }).on('sortupdate',function(e, ui){
-                console.dir(ui.item);
+                //console.dir(ui.item);
                 //ui.item.animate({height:0},200,'swing');
             });
         cur_day++;
@@ -104,7 +145,7 @@ $(function () {
             top : objY,
             left: objX
         }, 1000, function () {
-            //  添加title
+            //  添加title, id, type (hotel|view-spot)
             clear(title, id, type); // 传递三个参数给clear
         });
     }
@@ -133,7 +174,7 @@ $(function () {
             items: ':not(.disabled)',
             connectWith: '.edit-list'
         }).on('sortupdate',function(e,ui){
-                console.dir(ui.item);
+                //console.dir(ui.item);
                 //ui.item.animate({height:0},200,'swing');
             });
     }
@@ -276,15 +317,13 @@ $(function () {
         dataObj.fromLocId = fromLocId;
         dataObj.ugcId = ugcId;
         dataObj.spotArray = spotArray;
-        
-        console.log(dataObj);
+
         $.ajax({  //动画结束，写入数据
                 url    : '/plans/edit/post',
                 data   : dataObj,
                 dataType : "json",           
                 type : 'POST',
                 success: function (msg) {
-                    console.dir(msg);
                     if (msg.code == 0) {
                         alert('保存成功');
                     } else {
@@ -293,20 +332,107 @@ $(function () {
                                 
                 },
                 error  : function () {
-                    alert('保存失败');
+                    alert('保存失败...');
                 }
         });
     });
 
-
+    
     // 获得url参数
     function getQueryString(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
         var r = window.location.search.substr(1).match(reg);
         if (r != null) return unescape(r[2]); return null;
+    }
+    
+    
+    // 景点&酒店搜索
+    var searchInput = $(".s-input");
+    var tagViewspot = $("#item01");
+    var tagHotel = $("#item02");
+    searchInput.keypress(function (e) {
+        // 获取搜索文本
+        var searchText = searchInput.val();
+        //e.which是按键的值， 13 是回车键
+        var key = e.which;
+        // tagFlag = 1,搜景点
+        if (key == 13) {
+            ajaxSearch(tagFlag, searchText);
         }
+    });
+    
+    // 搜索并填充文本
+    function ajaxSearch(tagFlag, text) {
+         var requestUrl = ['/hotel/search', '/viewspot/search']; 
+         var data = {
+            searchText : text,
+         }
+         $.ajax({ 
+                url    : requestUrl[tagFlag],
+                data   : data,
+                dataType : "json",           
+                type : 'POST',
+                
+                success: function (msg) {  //成功返回后删除加载状态样式，插入dom
+                    ajaxAddDom (msg, tagFlag);       
+                },
+                error  : function () {
+                    return false;
+                }
+            });
+    }
+    
+    /*
+        搜索景点和酒店--添加DOM
+    */
+    function ajaxAddDom (msg, tagFlag) {
+        var type = ['hotel', 'vs'];
+        // 解析加载特定数据
+        var data = msg.result;
+        var len = data.length;
+        if (len == 0) {
+            return;
+        }
+        if (tagFlag == 1) {
+            tagViewspot.empty();
+            for (var i = 0; i < len; i++) {
+                var temp = data[i];
+                var content = new Object();
+                
+                var taglen = temp.tags.length;
+                var tags = '';
+                for (var j = 0; j < taglen; j++) {
+                    tags += temp.tags[j] + ' ';
+                }
+                
+                content.tags = tags;
+                content.src = temp.imageList[0];
+                content.id = temp._id;
+                content.name = temp.name;
+                content.timeCost = temp.timeCost;
+                
+                var dom = '<a><div><img src=' + content.src + ' width="213" height="144"></div><div style="display:none" class="id">' + content.id + '</div><div style="display:none" class="type">vs</div><em class="spot-name">' + content.name + '</em><br><i class="ico01 ico01-good"></i>0.3<i class="ico01 ico01-sugg"></i>建议游玩' + content.timeCost + '小时<em class="label">' + content.tags + '</em><i class="ico02 ico02-add"></i></a>';
 
+                tagViewspot.append(dom);
+            }
+        } else {
+            tagHotel.empty();
+            for (var i = 0; i < len; i++) {
+                var temp = data[i];
+                var content = new Object();
+
+                content.src = temp.imageList[0];
+                content.phone = temp.contact.phoneList ? temp.contact.phoneList[0] : '';
+                content.address =temp.addr.addr;
+                content.id = temp._id;
+                content.rank = temp.ratings.starLevel;
+                content.name = temp.name;
+                content.price = temp.price;
+                
+                var dom = '<a><div><img src=' + content.src + ' width="213" height="144"></div><div style="display:none" class="id">' + content.id + '</div><div style="display:none" class="type">hotel</div><div class="value"><em class="ranking">' + content.rank + '星级</em><em class="price">￥' + content.price + '起</em></div><div class="hotel-name"><em>' + content.name + '</em></div><div class="phone"><i class="ico-phone"></i>' + content.phone + '</div><div class="addr"><i class="ico-addr"></i>' + content.address + '</div><i class="ico02 ico02-add"></i></a>';
+                
+                tagHotel.append(dom);    
+            }
+        } 
+    }
 })
-
-
-
