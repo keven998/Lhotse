@@ -315,6 +315,7 @@ router.get('/mine/', function(req, res){
         }
         res.render('plans/mine',{
             myPlans : planList,
+            user_info: req.session.user_info,
         });
     });
 });
