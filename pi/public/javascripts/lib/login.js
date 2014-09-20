@@ -19,10 +19,10 @@ $(function () {
     
     var weibo = $('#weibo_login'),
         qq = $('#qq_login');
-    weibo.mousedown(function(e){
+    weibo.mouseover(function(e){
         $(this).attr("src","/images/common/login/weibo_login_hover.png");
     })
-    weibo.mousedown(function(e){
-        $(this).attr("src","/images/common/login/weibo_login_hover.png");
+    qq.mouseover(function(e){
+        $(this).attr("src","/images/common/login/qq_login_hover.png");
     })   
 })
