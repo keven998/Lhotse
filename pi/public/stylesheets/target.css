@@ -10,7 +10,7 @@ i.line{color:#08DCA9;}
 .view-list{overflow:hidden;height:400px;}
 .col-thin{float:left;width:190px;height:325px;}
 .col-thick{float:left;overflow:hidden;width:295px;height:325px;}
-.row-tall{float:left;width:295px;height:175px;}
+.row-long{float:left;width:295px;height:175px;}
 .row-short{float:left;overflow:hidden;width:295px;height:145px;}
 .bot{margin-bottom:5px;}
 .rig{margin-right:5px;}

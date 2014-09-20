@@ -113,21 +113,23 @@ router.get('/target/', function(req, res){
         },
         function(err, results) {
             var cityList = new Array(),
-                viewList = new Array();
-            for (var i = 0;i < 8;i++){
+                viewList = new Array(),
+                page_size = 8;
+
+            for (var i = 0; i < page_size; i++){
                 var city = results.hotCities.result.loc[i],
                     cityName = city.name,
                     cityAbbr = cityName;
                 if (cityName.substr(6,1) != "")
                     cityAbbr = cityName.substr(4)+'...';
                 cityList.push({
-                    id:     city._id,
-                    abbr:   cityAbbr,
-                    name:   cityName,
-                    img:    city.imageList[0],
+                    id: city._id,
+                    abbr: cityAbbr,
+                    name: cityName,
+                    img: city.imageList[0],
                 });
             }
-            for (var i=0;i<8;i++){
+            for (var i = 0; i < page_size; i++){
                 var view = results.hotViews.result[i],
                     viewName = view.name,
                     viewAbbr = viewName;
@@ -140,10 +142,6 @@ router.get('/target/', function(req, res){
                     img:    view.imageList[0],
                 });
             }
-            console.log({
-                hotCities:  cityList,
-                hotViews:   viewList,
-            });
             res.render('target', {
                 hotCities:  cityList,
                 hotViews:   viewList,
