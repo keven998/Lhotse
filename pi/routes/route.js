@@ -1,9 +1,8 @@
 var express = require('express');
 var router = express.Router();
-
-// 新方法
 var model = require('../model/sup_model.js');
 var apiList = require('../url_api');
+
 
 router.get('/detail/:ROUTEID', function(req, res) { 
     model.setUrl(apiList.apiHost + apiList.routeDetail);
@@ -13,8 +12,8 @@ router.get('/detail/:ROUTEID', function(req, res) {
         model.getdata(req,function(data){
             var notes = JSON.parse(data);
             res.render('route/detail', {
-                "details":  details.result,
-                "notes":    notes.result
+                "details": details.result,
+                "notes": notes.result
             });
         })
     })
