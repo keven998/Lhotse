@@ -1,90 +1,93 @@
 doctype html
 html
-  head
-    block page_var
-    link(href='/stylesheets/common/reset.css', rel='stylesheet')
-    link(href='/stylesheets/common/travepi.css', rel='stylesheet')
-        
-    link(href='/javascripts/lib/jquery-ui/jquery-ui.min.css', rel='stylesheet') 
-    script(src='/javascripts/lib/jquery-1.11.1.min.js', rel='javascripts')
-    script(src='/javascripts/lib/jquery-ui/jquery-ui.js', rel='javascripts')
+    head
+        block page_var
+        link(href='/stylesheets/common/reset.css', rel='stylesheet')
+        link(href='/stylesheets/common/travepi.css', rel='stylesheet')
+        link(href='/javascripts/lib/jquery-ui/jquery-ui.min.css', rel='stylesheet')
+        script(src='/javascripts/lib/jquery-1.11.1.min.js', rel='javascripts')
+        script(src='/javascripts/lib/jquery-ui/jquery-ui.js', rel='javascripts')
+        script(src='/javascripts/lib/login.js', rel='javascripts')
+        script(data-main='/require/main.js', src='/javascripts/lib/require.js')
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=Edge')
+        title 旅行派
 
-    script(src='/javascripts/lib/login.js', rel='javascripts')        
+    body
+        #top.hd
+            h1.logo
+                img(src='/images/common/logo.png')
+            ul.nav.f-cb
+                li
+                    a(href='/')
+                        i.ico01.ico01-home
+                        | 首页
+                li
+                    a(href='/target/')
+                        i.ico01.ico01-add
+                        | 目的地
+                li
+                    a(href='/plans/create/')
+                        i.ico01.ico01-newplan
+                        | 新建计划
+                li
+                    a(href='/plans/mine/')
+                        i.ico01.ico01-myplan
+                        | 我的计划
+                li
+                    a(href='/download/')
+                        i.ico01.ico01-download
+                        | APP下载
+            if user_info
+                .user
+                    img(src='#{user_info.avatar}')
+                    b.b1(data-id=user_info.id) #{user_info.nick_name}
+                    b.b2 2014-01-01
+            else
+                a.btn.btn-login 登录
+        .lg-layer(style='display: none;')
+            h1.logo
+                img(src='/images/common/logo.png')
+            .lg-contain
+                a(href="https://api.weibo.com/oauth2/authorize?client_id=2294159543&response_type=code&redirect_uri=http://www2.lvxingpai.cn/account/callback/weibo/"): img(src="http://www.sinaimg.cn/blog/developer/wiki/32.png")
+                <br>
+                a(href="https://graph.qq.com/oauth2.0/authorize?client_id=101151725&response_type=code&redirect_uri=http://www2.lvxingpai.cn/account/callback/qq/&state=01"): img(src="/images/account/login_qq.png")
+        .layer(style='display: none;')
     
-    script(data-main='/require/main.js', src='/javascripts/lib/require.js')   
-    meta(charset='utf-8')
-    meta(http-equiv='X-UA-Compatible', content='IE=Edge')
-    title 旅行派
+        block content
 
-  body
-    #top.hd
-      h1.logo
-        img(src='/images/common/logo.png')
-      ul.nav.f-cb
-        li
-          a(href='/')
-            i.ico01.ico01-home
-            | 首页
-        li
-          a(href='/target/')
-            i.ico01.ico01-add
-            | 目的地
-        li
-          a(href='/plans/create/')
-            i.ico01.ico01-newplan
-            | 新建计划
-        li
-          a(href='/plans/mine/')
-            i.ico01.ico01-myplan
-            | 我的计划
-        li
-          a(href='/download/')
-            i.ico01.ico01-download
-            | App下载
-      a.btn.btn-login 登录
-    .lg-layer(style='display: none;')
-      h1.logo
-        img(src='/images/common/logo.png')
-      .lg-contain
-        a(href="https://api.weibo.com/oauth2/authorize?client_id=2294159543&response_type=code&redirect_uri=http://www2.lvxingpai.cn/account/callback/weibo/"): img(src="http://www.sinaimg.cn/blog/developer/wiki/32.png")
-        <br>
-        a(href="https://graph.qq.com/oauth2.0/authorize?client_id=101151725&response_type=code&redirect_uri=http://www2.lvxingpai.cn/account/callback/qq/&state=01"): img(src="/images/account/login_qq.png")
-    .layer(style='display: none;')
-    
-    block content
-
-    .ft
-      .ft-c
-        .top
-          .m-p.fl
-            h3 关于我们
-            p
-              | 地址:北京市海淀区海淀西大街70号3层
-              | 邮编:100080
-              | 电话:010-56232857
-              | Email:services@lvxingpai.cn
-          .m-p.fl
-            h3 业务合作
-            p
-              | 产品合作:keven@lvxingpai.cn
-              | 广告业务:steven@lvxingpai.cn
-              | 其它业务:services@lvxingpai.cn
-          .m-p.fl
-            h3 反馈
-            p
-              | 请告诉我们您的需求、建议或意见。
-              |  
-          .m-p.fr
-            h3 联系我们
-            p
-              i.ico02.ico02-qq
-              i.ico02.ico02-weibo
-              <br>
-              b NEWSLETTER
-              input.email-ip(placeholder='Enter your email')
-              a.btn.email email
-      .bottom
-        img(src='/images/common/logo2.png')
-        b ©2012 asodufosdufosj fdslfdj
-        | 北京爱走天下网络科技有限责任公司
+        .ft
+            .ft-c
+                .top
+                    .m-p.fl
+                        h3 关于我们
+                        p
+                            | 地址:北京市海淀区海淀西大街70号3层
+                            | 邮编:100080
+                            | 电话:010-56232857
+                            | Email:services@lvxingpai.cn
+                    .m-p.fl
+                        h3 业务合作
+                        p
+                            | 产品合作:keven@lvxingpai.cn
+                            | 广告业务:steven@lvxingpai.cn
+                            | 其它业务:services@lvxingpai.cn
+                    .m-p.fl
+                        h3 反馈
+                        p
+                            | 请告诉我们您的需求、建议或意见。
+                            |  
+                    .m-p.fr
+                        h3 联系我们
+                        p
+                            i.ico02.ico02-qq
+                            i.ico02.ico02-weibo
+                            <br>
+                            b NEWSLETTER
+                            input.email-ip(placeholder='Enter your email')
+                            a.btn.email email
+            .bottom
+                img(src='/images/common/logo2.png')
+                b ©2012 asodufosdufosj fdslfdj
+                | 北京爱走天下网络科技有限责任公司
     

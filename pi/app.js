@@ -4,6 +4,7 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var expressSession = require('express-session');
 
 var routes = require('./routes/index');
 var account = require('./routes/account');
@@ -11,6 +12,7 @@ var plans = require('./routes/plans');
 var viewspot = require('./routes/viewspot');
 //route是模板路线的所有路由
 var route = require('./routes/route');
+var hotel = require('./routes/hotel');
 
 var app = express();
 
@@ -23,14 +25,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
+app.use(expressSession({secret:'travelpi'}));
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/', routes);
 app.use('/route', route);
 app.use('/account', account);
 app.use('/plans', plans);
 app.use('/viewspot', viewspot);
-
+app.use('/hotel', hotel);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -38,7 +40,6 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
-
 
 // development error handler, will print stacktrace
 if (app.get('env') === 'development') {
@@ -59,6 +60,5 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
 
 module.exports = app;
