@@ -82,10 +82,11 @@ router.get('/search', function(req, res){
         model.getdata(null, function(data){
             data = JSON.parse(data);
             res.render('plans', {
-                plans: data.result,
-                from: fromLocName,
-                fromId: fromId,  // 用于配置“复制路线”的url
-                to: arrLocName,
+                plans : data.result,
+                fromName : fromLocName,
+                arriveId : arriveId,
+                fromId : fromId,  // 用于配置“复制路线”的url
+                arriveName : arrLocName,
                 user_info: req.session.user_info,
             });
         });

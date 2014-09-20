@@ -33,14 +33,15 @@ html
                 li
                     a(href='/download/')
                         | APP下载
-                if user_info
+            if user_info
+                li
                     .user
                         img(src='#{user_info.avatar}')
-                        b.b1 #{user_info.nick_name}
+                        b.b1(data-id=user_info.id) #{user_info.nick_name}
                         b.b2 2014-01-01
-                else
-                    li
-                        a.login 登录
+            else
+                li
+                    a.login 登录
         .lg-layer(style='display: none;')
             h1.logo
                 img(src='/images/common/logo.png')

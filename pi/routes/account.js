@@ -50,7 +50,7 @@ router.get('/callback/weibo/', function(req, ori_res) {
             };
             request(options, function(err, res, data){
                 var user_info = {
-                    _id: data.result._id,
+                    id: data.result._id,
                     nick_name: data.result.nickName,
                     avatar: data.result.avatar,
                 }

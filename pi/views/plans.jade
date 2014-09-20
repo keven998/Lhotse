@@ -9,30 +9,35 @@ block page_var
     
 block content
     .bd
-      h1.t #{from}——#{to}
+      h1.t(data-fromid=fromId data-arriveId=arriveId) #{fromName}——#{arriveName}
     .content.f-cb
       .c
-        i.line |
-        b.t 游玩主题
-        a.btn02.btn02-c1 不限
-        a.btn02.btn02-c2 亲子
-        a.btn02 情侣
-        a.btn02 蜜月
-        a.btn02 美食
-        a.btn02 家庭
-        a.btn02 购物
-        a.btn02 养生
-        a.btn02 白鹭
-        a.btn02 夕阳红
+        .play-theme
+          i.line |
+          b.t 游玩主题
+          a.btn02.btn02-c1 不限
+          a.btn02 亲子
+          a.btn02 情侣
+          a.btn02 蜜月
+          a.btn02 美食
+          a.btn02 购物
+          a.btn02 朋友
+          a.btn02 养生
+          a.btn02 家庭
+          a.btn02 自驾
+          a.btn02 度假
+          a.btn02 徒步
+          a.btn02 青春
+          a.btn02 夕阳红
         <br>
-        i.line |
-        b.t 出行天数
-        a.btn02.btn02-c3 不限
-        a.btn02.btn02-c2 1-3天
-        a.btn02 4-7天
-        a.btn02 7-10天
-        a.btn02 10-15天
-        a.btn02 15天以上
+        .out-days  
+          i.line |
+          b.t 出行天数
+          a.btn02.btn02-c1(data-days='0-99') 不限
+          a.btn02(data-days='0-3') 1-3天
+          a.btn02(data-days='4-7') 4-7天
+          a.btn02(data-days='8-99') 7天以上
+
       ul.routelist.f-cb
         each plan in plans
           li(data-url="/plans/detail/#{plan._id}")
@@ -53,11 +58,16 @@ block content
                   | #{tag} 
               p.ico-g.fl.w50
                 i.ico01.ico01-spot
-                b 12个景点，共#{plan.days}天
+                b #{plan.vsCnt}个景点，共#{plan.days}天
               p.ico-g.fl.w50
                 i.ico01.ico01-cost
                 b 预计花费 ￥#{plan.budget[0]}-￥#{plan.budget[1]}
               a.btn02.btn02-c4(href='/plans/timeline/' + plan._id + '?_fromLoc=' + fromId)复制路线
+      
+      .more
+        i.ico02.ico02-loading
+        a.btn 加载更多···
+      
       .sider(style='display: none;')
         .tab
           a#tab01.item.item01-hover

@@ -97,6 +97,8 @@
             });
         }
     });
+    
+    
     //文本输入框
     var searchInput = $('#search-input'),
         tips = $('.tips'),
