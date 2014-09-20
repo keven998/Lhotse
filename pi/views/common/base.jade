@@ -41,7 +41,7 @@ html
             if user_info
                 .user
                     img(src='#{user_info.avatar}')
-                    b.b1 #{user_info.nick_name}
+                    b.b1(data-id=user_info._id) #{user_info.nick_name}
                     b.b2 2014-01-01
             else
                 a.btn.btn-login 登录
@@ -49,7 +49,7 @@ html
             h1.logo
                 img(src='/images/common/logo.png')
             .lg-contain
-                a(href="https://api.weibo.com/oauth2/authorize?client_id=2294159543&response_type=code&redirect_uri=http://www2.lvxingpai.cn/account/callback/weibo/"): img(src="http://www.sinaimg.cn/blog/developer/wiki/32.png")
+                a(href="https://api.weibo.com/oauth2/authorize?client_id=2294159543&response_type=code&redirect_uri=http://www2.lvxingpai.cn:8880/account/callback/weibo/"): img(src="http://www.sinaimg.cn/blog/developer/wiki/32.png")
                 <br>
                 a(href="https://graph.qq.com/oauth2.0/authorize?client_id=101151725&response_type=code&redirect_uri=http://www2.lvxingpai.cn/account/callback/qq/&state=01"): img(src="/images/account/login_qq.png")
         .layer(style='display: none;')
