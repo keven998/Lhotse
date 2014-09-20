@@ -6,88 +6,27 @@ block page_var
             id: 'mine',
             path: 'plans/',
         }
-        
+
 block content
-  .content
-    .plan_list
-      .plan_item
-        img(src="/images/plans/mine/list.jpg" width="146" height="147")  
-        .plan_desc
-          .plan_title  
-            h2 小明的假日旅行
-          .edit_btn
-            button.confirm 
-            button.cancel 
-          p.date 2014.7.01-2014.7.30 
-          button.viewdetail
-          .plan_ft 
-            更新时间：2014.8.15
-            i.delete  
-      .plan_item
-        img(src="/images/plans/mine/list.jpg" width="146" height="147")  
-        .plan_desc
-          .plan_title  
-            h2 小明的假日旅行
-          .edit_btn
-            button.confirm 
-            button.cancel 
-          p.date 2014.7.01-2014.7.30 
-          button.viewdetail
-          .plan_ft 
-            更新时间：2014.8.15
-            i.delete  
-      .plan_item
-        img(src="/images/plans/mine/list.jpg" width="146" height="147")  
-        .plan_desc
-          .plan_title  
-            h2 小明的假日旅行
-          .edit_btn
-            button.confirm 
-            button.cancel 
-          p.date 2014.7.01-2014.7.30 
-          button.viewdetail
-          .plan_ft 
-            更新时间：2014.8.15
-            i.delete  
-      .plan_item
-        img(src="/images/plans/mine/list.jpg" width="146" height="147")  
-        .plan_desc
-          .plan_title  
-            h2 小明的假日旅行
-          .edit_btn
-            button.confirm 
-            button.cancel 
-          p.date 2014.7.01-2014.7.30 
-          button.viewdetail
-          .plan_ft 
-            更新时间：2014.8.15
-            i.delete  
-      .plan_item
-        img(src="/images/plans/mine/list.jpg" width="146" height="147")  
-        .plan_desc
-          .plan_title  
-            h2 小明的假日旅行
-          .edit_btn
-            button.confirm 
-            button.cancel 
-          p.date 2014.7.01-2014.7.30 
-          button.viewdetail
-          .plan_ft 
-            更新时间：2014.8.15
-            i.delete  
-      .plan_item
-        img(src="/images/plans/mine/list.jpg" width="146" height="147")  
-        .plan_desc
-          .plan_title  
-            h2 小明的假日旅行
-          .edit_btn
-            button.confirm 
-            button.cancel 
-          p.date 2014.7.01-2014.7.30 
-          button.viewdetail
-          .plan_ft 
-            更新时间：2014.8.15
-            i.delete      
-    a(href="/plans/create/")
-      button.newplan_btn
-      
+    .content
+        a(href="/plans/create/")
+            button.newplan_btn
+        .plan_list
+            each plan in myPlans
+                .plan_item
+                    .img_contain
+                        img(src=plan.image width="146" height="147")
+                        .days 共#{plan.days}天
+                    .plan_desc
+                        .plan_title
+                            .plan_name #{plan.name}
+                        .plan_edit
+                            input#plan_input.plan_input(type="text" value=plan.name data-id=plan.id)
+                        .edit_btn
+                            input.confirm(type="button" value="")
+                            input.cancel(type="button" value="")
+                        p.date #{plan.startDate}-#{plan.endDate}
+                        a.viewdetail(href='/plans/timeline/'+plan.id) 查看详情
+                        .plan_ft
+                            更新时间：#{plan.updateDate}
+                            i.delete(data-id=plan.id)

@@ -6,42 +6,43 @@ block page_var
             id: 'create',
             path: 'plans/',
         }
-        
+    script(src='http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js' type='text/ecmascript')
+
 block content
-  .full_bg
-    .center_container
-      h1.title 此刻，我们一起去旅行！
-      .search_form
-        form(name="input" action="/search" method="GET")  
-          .search_in
-            .input
-              i.mypos 
-              h2 我的位置 :  
-              input.s-ip(type="text" name="fromLocName")
-            .input
-              i.dest 
-              h2 想要去哪儿玩 ？
-              input.s-ip(type="text" name="arrLocName")
-          input.s-btn(type="submit" value="")
-      .city_nav
-        a(href="") 
-          b 香港
-        a(href="") 
-          b 澳门
-        a(href="") 
-          b 北京
-        a(href="") 
-          b 杭州
-        a(href="") 
-          b 西藏
-        a(href="") 
-          b 三亚
-        a(href="") 
-          b 黄山
-        a(href="") 
-          b 九寨沟
-        a(href="") 
-          b 上海
-        a(href="/target/") 
-          b 更多>> 
-         
+    .full_bg
+        .center_container
+            h1.title 此刻，我们一起去旅行！
+            .search_layer
+                .search_form
+                    form(name="input" action="/search" method="GET")
+                        .search_in
+                            .text_input
+                                i.mypos
+                                h2 我的位置 :
+                                input.s-ip(type="text" name="fromLocName")
+                            .text_input
+                                i.dest
+                                h2 想要去哪儿玩 ？
+                                input.s-ip#linkDataProperty(type="text" name="arrLocName" onkeyup="getLinkData();")
+                        input.s-btn(type="submit" value="")
+                .city_nav
+                    a(href="/search?arrLocName=%E9%A6%99%E6%B8%AF")
+                        b 香港
+                    a(href="/search?arrLocName=%E6%BE%B3%E9%97%A8")
+                        b 澳门
+                    a(href="/search?arrLocName=%E5%8C%97%E4%BA%AC")
+                        b 北京
+                    a(href="/search?arrLocName=%E6%9D%AD%E5%B7%9E")
+                        b 杭州
+                    a(href="/search?arrLocName=%E8%A5%BF%E8%97%8F")
+                        b 西藏
+                    a(href="/search?arrLocName=%E4%B8%89%E4%BA%9A")
+                        b 三亚
+                    a(href="/search?arrLocName=%E9%BB%84%E5%B1%B1")
+                        b 黄山
+                    a(href="/search?arrLocName=%E4%B9%9D%E5%AF%A8%E6%B2%9F")
+                        b 九寨沟
+                    a(href="/search?arrLocName=%E4%B8%8A%E6%B5%B7")
+                        b 上海
+                    a(href="/target/")
+                        b 更多>>

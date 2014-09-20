@@ -266,8 +266,92 @@ router.post('/edit/post', function(req, res) {
 
 
 router.get('/mine/', function(req, res){
-  res.render('plans/mine', {user_info: req.session.user_info});
+    var user_info = req.session.user_info
+    console.log(user_info);
+    model.setUrl(apiList.apiHost + apiList.myPlans + user_info.id);
+    model.getdata(req, function(data) {
+        var planList = [];
+        data = JSON.parse(data);
+        for (var i = 0;i < data.result.length;i++) {
+            var plan = data.result[i],
+                updateTime = new Date(plan.updateTime),//long毫秒数转Date类型时间
+                updateYear = updateTime.getFullYear(),
+                updateMonth = updateTime.getMonth(),
+                updateDay = updateTime.getDay(),
+                updateDate = updateYear + "." + updateMonth + "." + updateDay;
+            if (plan.startDate != ""){
+                var startYear = plan.startDate.substr(0,4),
+                    startMonth = plan.startDate.substr(5,2),
+                    startDay = plan.startDate.substr(8,2),
+                    startDate = startYear;
+                if (startMonth.substr(0,1) == "0")
+                    startMonth = startMonth.substr(1,1);
+                if (startDay.substr(0,1) == "0")
+                    startDay = startMonth.substr(1,1);
+                startDate += "." + startMonth + "." + startDay;
+            }else
+                startDate = 0;
+            if (plan.endDate != ""){
+                var endYear = plan.endDate.substr(0,4),
+                    endMonth = plan.endDate.substr(5,2),
+                    endDay = plan.endDate.substr(8,2),
+                    endDate = endYear;
+                if (endMonth.substr(0,1) == "0")
+                    endMonth = endMonth.substr(1,1);
+                if (endDay.substr(0,1) == "0")
+                    endDay = endMonth.substr(1,1);
+                endDate += "." + endMonth + "." + endDay;
+            }else
+                endDate = 0;
+            planList[i] = {
+                "id":           plan._id,
+                "name":         plan.title,
+                "image":        plan.imageList[0],
+                "days":         plan.days,
+                "startDate":    startDate,
+                "endDate":      endDate,
+                "updateDate":   updateDate
+            }
+        }
+        res.render('plans/mine',{
+            myPlans : planList,
+        });
+    });
 });
+
+
+router.get('/mine/delete/:planID/', function(req, res) {
+    var options = {
+        url:    "http://api.lvxingpai.cn/web/ugc-plans/" + req.params.planID,
+        method: 'DELETE',
+    };
+    request(options, function(err, respond, result) {
+        if (err) {
+            throw err;
+        }
+        res.json(result);
+    });
+});
+
+
+router.get('/mine/altername', function(req, res) {
+    var data = {
+            "action":   "updateTitle",
+            "_id":       req.query.planId,
+            "title":    req.query.planName
+        };
+    var options = {
+        url : "http://api.lvxingpai.cn/web/ugc-plans",
+        json: data,
+        method: 'POST',
+    };
+    request(options, function(err, respond, result) {
+        if (err) {
+            throw err;
+        }
+    });
+});
+
 
 
 router.get('/create/', function(req, res){

@@ -10,7 +10,7 @@
 .shade .s b{position: relative;top: -8px;*top:-10px;left: 0}
 .shade .s .line{display: inline-block;height: 30px;border-right: 1px solid #08DCA9;top: 0;margin-right: 5px;}
 .shade .s .s-ip{width: 150px;height: 30px;line-height: 30px;padding: 0 10px 0 0; position: relative;top: -8px;*top:-5px;border: 0 none;font-size: 16px;}
-.shade .s .s-btn{position: absolute;right: -70px;top: 0;width: 55px;height: 55px;background-size: cover;background:url("/images/index/go.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/index/go.png',sizingMethod='scale');}
+.shade .s .s-btn{position: absolute;right: -70px;top: 0;width: 55px;height: 55px;background-size: cover;background:url("/images/index/go.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/index/go.png',sizingMethod='scale');border-radius:30px;-moz-border-radius:30px;-webkit-border-radius:30px;}
 .content .t{width: auto;height: 80px;text-align: right;color: #aaa;padding: 20px 10px;line-height: 1.5;}
 .t .txt01{font-size: 24px;font-family: "黑体";}
 .t .txt02{font-size: 14px}
