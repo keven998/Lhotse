@@ -100,14 +100,14 @@ router.get('/download/', function(req, res) {
 
 router.get('/target/', function(req, res){
     async.parallel({
-        hotCities: function(callback){
+        hotCities: function(callback) {
             model.setUrl(urlApi.apiHost+urlApi.hotCities);
             model.getdata(req, function(data){
                 data = JSON.parse(data);
                 callback(null, data);
             });
         },
-        hotViews: function(callback){
+        hotViews: function(callback) {
             model.setUrl(urlApi.apiHost+urlApi.hotViews);
             model.getdata(req, function(data){
                 data = JSON.parse(data);
@@ -115,26 +115,40 @@ router.get('/target/', function(req, res){
             });
         },
     },
-    function(err, results){
+    function(err, results) {
         var cityList = new Array(),
-            viewList = new Array();
-        for (var i=0;i<8;i++){
-            var city = results.hotCities.result.loc[i];
+            viewList = new Array(),
+            page_size = 8;
+
+        for (var i = 0; i < page_size; i++){
+            var city = results.hotCities.result.loc[i],
+                cityName = city.name,
+                cityAbbr = cityName;
+            if (cityName.substr(6,1) != "")
+                cityAbbr = cityName.substr(4)+'...';
             cityList.push({
-                name: city.name,
+                id: city._id,
+                abbr: cityAbbr,
+                name: cityName,
                 img: city.imageList[0],
             });
         }
-        for (var i=0;i<8;i++){
-            var view = results.hotViews.result[i];
+        for (var i = 0; i < page_size; i++){
+            var view = results.hotViews.result[i],
+                viewName = view.name,
+                viewAbbr = viewName;
+            if (viewName.substr(6,1) != "")
+                viewAbbr = viewName.substr(0,5)+'...';
             viewList.push({
-            name: view.name,
-            img: view.imageList[0],
+                id: view._id,
+                abbr: viewAbbr,
+                name: viewName,
+                img: view.imageList[0],
             });
         }
         res.render('target', {
-            hotCities: cityList,
-            hotViews: viewList,
+            hotCities:  cityList,
+            hotViews:   viewList,
             user_info: req.session.user_info,
         });
     });
