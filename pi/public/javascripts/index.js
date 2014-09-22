@@ -167,14 +167,9 @@ $(function(){
 
 
 // 通过IP获取地理地址-城市名字
-function getIpPlace() {
-  //alert("hello,~");          
+(function getIpPlace() {
   input.fromLocName.value = remote_ip_info["province"];// + remote_ip_info["city"];  
-  //alert(remote_ip_info["province"]);
-}
-
-window.onload = getIpPlace;
-
+}())
 
 
 // 联想功能

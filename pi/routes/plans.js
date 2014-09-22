@@ -366,7 +366,7 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
     var fromLocId = req.query._fromLoc;
     model.setUrl(apiList.apiHost + apiList.ugc.timeline);
     model.getdata(req, function(data) {
-        data = JSON.parse(data);         
+        data = JSON.parse(data);
         var requestUrl = req.originalUrl;     
         var lastModified = data.lastModified;
         var result = data.result;
@@ -425,7 +425,7 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
                     tempRoute['timeCost'] = oneDayTempRoutes[routeNum].details.timeCost;
                     tempRoute['lat'] = oneDayTempRoutes[routeNum].details.addr.lat;
                     tempRoute['lng'] = oneDayTempRoutes[routeNum].details.addr.lng;
-                    
+                    tempRoute['openTime'] = oneDayTempRoutes[routeNum].details.openTime;
                     oneDayRoutes.push(tempRoute);
                 } 
                 else if (oneDayTempRoutes[routeNum].type == "traffic") {
@@ -502,7 +502,7 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
                 var oneSpot = oneDayRoutes[routeNum];       
                 if (oneSpot.type != "airRoute" && oneSpot.type != "trainRoute") {
                     var tempSpot = new Object();
-                    tempSpot['itemName'] = oneSpot.itemName;
+                    tempSpot['itemName'] = oneSpot.itemName.length < 5 ? oneSpot.itemName : oneSpot.itemName.substring(0, 5)+ '...';
                     tempSpot['type'] = oneSpot.type;
                     tempSpot['latLng'] = oneSpot.lat + "," + oneSpot.lng;
                     tempActv.push(tempSpot);
@@ -511,7 +511,6 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
             tempDay.actv = tempActv; // 关联地点数组
             navigation.push(tempDay);
         }
-        
         // render to webpage
         res.render('plans/timeline', {
             allRoutes : allRoutes,

@@ -54,9 +54,11 @@ $(function () {
     
     
     radioToggle(timeLineList.eq(0).next().children(),'btn02-c1'); //左侧时间线首相展开初始化切换事件绑定
+    
+
     /*
-    * 时间线详细列表图片事件绑定，隐藏侧栏切换
-    * */
+        时间线详细列表图片点击事件绑定，隐藏侧栏切换
+    */
     var timeLineSpotImg = $('.timeline-detail ul').find('img'),
         sider = $('.sider'),
         layer = $('.layer'),
@@ -65,7 +67,7 @@ $(function () {
         $(this).on('click', function (e) {
             var requestUrl = $(this).attr('data-url');
             sider.css('height', wheight);
-            layer.fadeIn("slow");
+            layer.fadeIn("fast");
             sider.animate({
                 right: 0
             }, 300, "swing", function () {
@@ -74,7 +76,25 @@ $(function () {
                     data   : {},
                     success: function (msg) {
                         console.dir(msg) //请求成功后，写入dom,打开侧栏、遮罩
-                    },
+                        sider.show();
+    
+                        var result = msg.result,
+                            name = result.name,
+                            favor = result.ratings.favorCnt,
+                            viewed = result.ratings.viewCnt,
+                            desc = result.desc,
+                            content = "门票:¥" + result.price + "元" + "\n" + 
+                                        "开放时间:" + result.openTime + "\n" + 
+                                        "建议游玩时间:" + result.timeCost + "小时" + "\n" + 
+                                        "最佳月份:" + (result.travelMonth.length == 0 ? "全年" : result.travelMonth + "月份");
+                        $('.right p.p2').text(content);
+                        $('.c p')[1].innerText = desc;
+                        $('.right i.ico01.ico01-flag').text(viewed);
+                        $('.right i.ico01.ico01-heart').text(favor);
+                        $('.right h3').text(result.name);
+                        $('.left img').attr('src', result.imageList[0]);
+
+                                            },
                     error  : function () {
                         console.log('error!!!')
                     }
@@ -83,7 +103,7 @@ $(function () {
                     sider.animate({
                         right: -600
                     }, 300, 'swing')
-                    $(this).fadeOut("slow")
+                    $(this).hide();//("fast")
                 })
             });
         })
@@ -93,13 +113,14 @@ $(function () {
     timelineDetailCon.css('height', wHeight - 100); //初始化时间线详细列表外围容器高度
 
     /*
-    * 时间线项目、时间线详情列表项数据关联
-    * */
+        时间线项目、时间线详情列表项数据关联
+    */
     var timelineDetailList = $('.timeline-detail>ul'),//详情列表，按天
         timelineList = $('#timeLine>li'), //时间线项，按天
         timelineDetailListItem=$('.timeline-detail li'), //详情列表，按子项
         timelineListItem=$('#timeLine>div>a'); //时间线项，按子项，同上一一对应
     var itemArr = [];//按天项，滚动条位置
+    
     timelineDetailList.each(function (index) {   //数据关联写入
         var self = $(this),
             Index = index,
@@ -111,6 +132,7 @@ $(function () {
         timelineList.eq(Index).attr('data-item', count+time);
         itemArr.push(count);
     })
+
     var subitemArr=[];  //按子项，滚动条位置
     timelineDetailListItem.each(function (index) {  //数据关联写入
         var self = $(this),
@@ -181,11 +203,6 @@ $(function () {
         $('.d-title').text(title);
     }
     
-    // 保存PDF
-    function downloadPDF() {
-      //
-      
-    }
 })
 
 
