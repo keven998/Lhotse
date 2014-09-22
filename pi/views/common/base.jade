@@ -33,21 +33,22 @@ html
                 li
                     a(href='/download/')
                         | APP下载
-            if user_info
-                li
+                if user_info
                     .user
                         img(src='#{user_info.avatar}')
-                        b.b1(data-id=user_info.id) #{user_info.nick_name}
-                        b.b2 2014-01-01
-            else
-                li
-                    a.login 登录
+                        .txt
+                            b.b1(data-id=user_info.id) #{user_info.nick_name}
+                            b.b2 2014-01-01
+                else
+                    li
+                        a.login 登录
         .lg-layer(style='display: none;')
             h1.logo
                 img(src='/images/common/logo.png')
             .lg-contain
-                a(href="https://api.weibo.com/oauth2/authorize?client_id=2294159543&response_type=code&redirect_uri=http://www2.lvxingpai.cn/account/callback/weibo/"): img#weibo_login(src="/images/common/login/weibo_login.png")
-                a(href="https://graph.qq.com/oauth2.0/authorize?client_id=101151725&response_type=code&redirect_uri=http://www2.lvxingpai.cn/account/callback/qq/&state=01"): img#qq_login(src="/images/common/login/qq_login.png")
+                h2 请用第三方平台登录
+                a.weibo(href="https://api.weibo.com/oauth2/authorize?client_id=2294159543&response_type=code&redirect_uri=http://www2.lvxingpai.cn/account/callback/weibo/")
+                a.qq(href="https://graph.qq.com/oauth2.0/authorize?client_id=101151725&response_type=code&redirect_uri=http://www2.lvxingpai.cn/account/callback/qq/&state=01")
         .layer(style='display: none;')
     
         block content

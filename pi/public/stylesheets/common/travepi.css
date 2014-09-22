@@ -47,10 +47,15 @@ html body{height: 100%;position: relative;}
 .logo{float:left;width: 100px;height: 100%;line-height: 80px;*line-height:50px;margin-left: 50px;text-align: center;}
 .logo img{width: 80px;height: auto}
 .nav{width: 700px;height: auto;overflow: hidden;float: right;text-align: center;}
-.nav li{display: inline-block;_zoom:1;*display:inline;width: 80px;height: 40px;*height: 50px;line-height: 40px;*line-height:70px;padding: 10px;margin-right: 3px;}
+.nav li{display: inline-block;_zoom:1;*display:inline;width: 70px;height: 40px;*height: 50px;line-height: 40px;*line-height:70px;padding: 10px;margin-right: 3px;}
 .nav li a{display: inline-block;_zoom:1;*display:inline;color: #fff;font-size: 14px;width: 100%;height: 30px;text-align: center;}
 .nav li .login{color: #08DCA9;}
 .bd{width: 100%;height: auto;}
+.user{display:inline-block;_zoom:1;*display:inline;height: 40px;*height: 50px;width:100px;line-height: 40px;*line-height:70px;color: #fff;padding-top: 10px;vertical-align: top;}
+.user img{display:inline-block;_zoom:1;*display:inline;width: 30px;height: 30px;padding-top:5px;}
+.user .txt{display:inline-block;_zoom:1;*display:inline;height: 40px;width:70px;}
+.user .b1{display:block;line-height: 15px;}
+.user .b2{display:block;font-size: 12px;line-height: 15px;}
 /**/
 .content{width: 1002px;height: auto;margin: 0 auto;padding-bottom: 280px;}
 /*travepi-----footer*/
@@ -69,13 +74,14 @@ html body{height: 100%;position: relative;}
 .backToTop:hover{background-position: 0 -43px;-webkit-transition:background 0.2s ease 0s;-moz-transition:background 0.2s ease 0s;-o-transition:background 0.2s ease 0s;-ms-transition:background 0.2s ease 0s;transition:background 0.2s ease 0s;}
 /*登录*/
 .lg-layer{position: fixed;top: 0;right: 0;width: 400px;height:550px;padding: 80px 0 40px;z-index: 1111111;background:url(/images/common/login/bg-webLogin.png);font-family: '黑体';/* display: none; */}
-.lg-contain{margin:180px auto;}
 h1.logo{height:150px;}
-.lg-contain a{width:174px;height:31px;margin:0 120px;}
-.user{float: right;width: 150px;height: 60px;padding-left: 50px;position: relative;color: #fff;}
-.user img{width: 50px;height: 50px;position: absolute;left: 0;top: 5px;}
-.user .b1{line-height: 40px;}
-.user .b2{font-size: 12px;position: absolute;left: 55px;top: 20px;}
+.lg-contain{width:180px;margin:180px auto;text-align:center;}
+.lg-contain h2{font-size:20px;color:#fff;}
+.lg-contain a{display:block;width:174px;height:31px;margin:20px auto;}
+.lg-contain .weibo{background:url(/images/common/login/weibo_login.png) no-repeat;}
+.lg-contain .weibo:hover{background:url(/images/common/login/weibo_login_hover.png) no-repeat;}
+.lg-contain .qq{background:url(/images/common/login/qq_login.png) no-repeat;}
+.lg-contain .qq:hover{background:url(/images/common/login/qq_login_hover.png) no-repeat;}
 /*sider css*/
 .sider{position: fixed;top: 0;right: 0;width: 550px;height: 600px;padding: 80px 25px 40px;z-index: 111111;background: #fff;font-family: '黑体';/* display: none; */}
 .layer{position: fixed;left: 0;top: 0;width: 100%;height: 100%;background: #555;opacity: .5;filter:alpha(opacity:50)z-index: 11;/* display: none; */z-index: 115;}
