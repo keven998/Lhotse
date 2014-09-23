@@ -67,11 +67,18 @@ function setSpots(map) {
         var title = $("#vs_" + i).children("h3").text();
         var locarr = loc.split(",");
         var latlng = new google.maps.LatLng(locarr[0], locarr[1]);
+        // 计算icon的位置
+        var height = i * 50;
+        var image = {
+                      url: "http://zanbai.com/images/pin.png",
+                      size: new google.maps.Size(27,31),
+                      origin: new google.maps.Point(50,height),
+                    };
         var spot = new google.maps.Marker({
             position : latlng,
             map : map,
             title : title,
-            //icon : ,
+            icon : image,
             clickable : true,
         });
         // 获得一些重要的全局变量
