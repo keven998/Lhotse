@@ -127,10 +127,12 @@ function calculateCenterPoint() {
 
 // 异步加载地图
 function loadScript() {
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&' +
-      'callback=initialize';
-    document.body.appendChild(script);
+    initialize();
+    // var script1 = document.createElement('script');
+    // script1.type = 'text/javascript';
+    // script1.src = 'http://ditu.google.cn/maps/api/js?v=3.8&sensor=false&language=zh_cn';
+    // document.body.appendChild(script1);
+
+  
 }
 window.onload = loadScript;
