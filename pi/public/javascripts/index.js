@@ -1,5 +1,51 @@
-// JavaScript DIVCSS5 Document
+//切换"路线推荐"维度
+$(function(){
+    $(".new").click( function() {
+        $(".new_routes").show();
+        $(".editor_routes").hide();
+        $(".mustgo_routes").hide();
+        $(".pop_routes").hide();
+        $(this).css("color",'#a22');
+        $(".editor").css("color",'#08DCA9');
+        $(".mustgo").css("color",'#08DCA9');
+        $(".pop").css("color",'#08DCA9');
+    });
 
+    $(".editor").click( function() {
+        $(".new_routes").hide();
+        $(".editor_routes").show();
+        $(".mustgo_routes").hide();
+        $(".pop_routes").hide();
+        $(this).css("color",'#a22');
+        $(".new").css("color",'#08DCA9');
+        $(".mustgo").css("color",'#08DCA9');
+        $(".pop").css("color",'#08DCA9');
+    });
+
+    $(".mustgo").click( function() {
+        $(".new_routes").hide();
+        $(".editor_routes").hide();
+        $(".mustgo_routes").show();
+        $(".pop_routes").hide();
+        $(this).css("color",'#a22');
+        $(".editor").css("color",'#08DCA9');
+        $(".new").css("color",'#08DCA9');
+        $(".pop").css("color",'#08DCA9');
+    });
+
+    $(".pop").click( function() {
+        $(".new_routes").hide();
+        $(".editor_routes").hide();
+        $(".mustgo_routes").hide();
+        $(".pop_routes").show();
+        $(this).css("color",'#a22');
+        $(".editor").css("color",'#08DCA9');
+        $(".mustgo").css("color",'#08DCA9');
+        $(".new").css("color",'#08DCA9');
+    });
+});
+
+// JavaScript DIVCSS5 Document
 
 (function($){
     var goToTopTime;
