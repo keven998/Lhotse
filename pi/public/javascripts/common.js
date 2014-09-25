@@ -1,4 +1,6 @@
 $(function () {
+
+    /* ---- BEGIN: login layer ---- */
     var topHd = $('#top'),
         lgLayer = $('.lg-layer');
         layer = $('.layer');
@@ -16,4 +18,5 @@ $(function () {
             })
         });
     })
+    /* ---- END: login layer ---- */
 })
