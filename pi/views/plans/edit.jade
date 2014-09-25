@@ -5,7 +5,7 @@ block page_var
         var page_var = {
             id: 'edit',
             path: 'plans/',
-        }
+        };
       
     link(href="/stylesheets/plans/jquery.datetimepicker.css" rel="stylesheet")
     
@@ -15,6 +15,7 @@ block content
       h1.t
         | #{locName.from}--#{locName.arr}
         .ugcId(style='display:none') #{id}
+      
     
     .content.f-cb     
       .t-left

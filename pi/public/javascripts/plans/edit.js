@@ -130,7 +130,27 @@ $(function () {
     deleteBind();//注册删除事件
     dayActive();
     
-    
+    /*
+        固定导航栏的位置
+    */
+    // $(document).ready(function(e) {         
+    //     t = $('.t-left').offset().top; // 起始头部离顶部的位置
+    //     mh = $('.t-right').height();
+    //     fh = $('.t-left').height(); //高度
+
+    //     $(window).scroll(function(e){
+    //         s = $(document).scrollTop();    
+    //         if(s > t - 10){
+    //             $('.t-left').css('position','fixed');
+    //              // if(s + fh > mh){    
+    //              //     $('.t-left').css('top',mh-s-fh + 60+'px');    
+    //              // }               
+    //         }else{
+    //             $('.t-left').css('position','');
+    //         }
+    //     })
+    // });
+
     /*
      * 添加景点飞行轨迹开始回调函数
      * */
@@ -289,6 +309,10 @@ $(function () {
     *   路线编辑，保存时的操作
     */
     $('a.btn02.btn02-c4').click(function () {
+        // 检测是否登录
+        if (checkLogin() === "unlogin") {
+            return ;
+        }
         //$('.edit-list')[0].children[1].children[1].innerText  
         var dayList = $('.edit-list');
         var dayCount = dayList.length;
@@ -319,6 +343,7 @@ $(function () {
         //获取其它参数
         var startDate = $('#datetimepicker').val();
         var uid = $('.user .b1').attr('data-id');
+        //var uid = userId;
         var fromLocId = getQueryString('fromLocId');
         var ugcId = $('.ugcId').text();
             

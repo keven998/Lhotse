@@ -26,6 +26,7 @@ router.get('/detail/:PLANID', function(req, res) {
 router.post('/timeline/save', function(req, res) {
     var postData = req.body;
     var requestUrl = apiList.apiHost + apiList.ugc.saveUgc;
+    console.log(requestUrl);
     // http post
     var options = {
         url :  requestUrl,
@@ -161,6 +162,7 @@ router.get('/edit/:UGCID',function(req, res) {
             var spots = results.spots;
             var locName = results.locName;
             var hotels = results.hotels;
+            console.log("+++" + req.session.user_info);
             res.render('plans/edit', {
                 daysRoute : dataObj.dayRoute,
                 id : dataObj._id,   // 表明这个ugc id，ajax传递给node后，获取别的信息，减少前段任务
@@ -266,9 +268,10 @@ router.post('/edit/post', function(req, res) {
 
 
 router.get('/mine/', function(req, res){
-    var user_info = req.session.user_info
+    var user_info = req.session.user_info;
     console.log(user_info);
     model.setUrl(apiList.apiHost + apiList.myPlans + user_info.id);
+    console.log(model.getUrl());
     model.getdata(req, function(data) {
         var planList = [];
         data = JSON.parse(data);

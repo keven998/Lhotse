@@ -1,6 +1,6 @@
 $(function () {
     var topHd=$('#top'),
-        lgLayer=$('.lg-layer');
+        lgLayer=$('.lg-layer'),
         layer=$('.layer');
     topHd.on('click','a.btn-login',function(e){
         

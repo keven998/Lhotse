@@ -82,13 +82,15 @@ $(function () {
                             name = result.name,
                             favor = result.ratings.favorCnt,
                             viewed = result.ratings.viewCnt,
-                            desc = result.desc,
-                            content = "门票:¥" + result.price + "元" + "\n" + 
+                            desc = result.description.desc,
+                            tips = result.description.tips,
+                            content = "门票:¥" + (result.price || "~") + "元" + "\n" + 
                                         "开放时间:" + result.openTime + "\n" + 
                                         "建议游玩时间:" + result.timeCost + "小时" + "\n" + 
                                         "最佳月份:" + (result.travelMonth.length == 0 ? "全年" : result.travelMonth + "月份");
                         $('.right p.p2').text(content);
                         $('.c p')[1].innerText = desc;
+                        $('.c p')[2].innerText = tips || "暂无";
                         $('.right i.ico01.ico01-flag').text(viewed);
                         $('.right i.ico01.ico01-heart').text(favor);
                         $('.right h3').text(result.name);
@@ -210,6 +212,10 @@ $(function () {
     用户直接保存路线
 */
 $('a.save').click( function(e) {
+    // 检测是否登录
+    if (checkLogin() === "unlogin") {
+        return ;
+    }
     var uid = getUid();
     var ugcId = $('p.id').text();
     
@@ -261,6 +267,11 @@ function getQueryString(name) {
     PDF下载
 */ 
 $('a.pdf').click( function(e){
+  // 检测是否登录
+  if (checkLogin() === "unlogin") {
+    return ;
+  }
+  
   var doc = new jsPDF();
   var requestUrl = $('b.requestUrl').text();
   $.ajax({  //动画结束，写入数据
