@@ -2,10 +2,6 @@ var express = require('express');
 var router = express.Router();
 var async = require('async');
 var urlApi = require('../url_api');
-var hotRoute = require('../model/hot_route');
-var mustgoRoute = require('../model/mustgo_route');
-var newestRoute = require('../model/newest_route');
-var recommondRoute = require('../model/recommond_route');
 var plans = require('../model/plans');
 var request = require('request')
 var model = require('../model/sup_model.js');
@@ -13,38 +9,41 @@ var model = require('../model/sup_model.js');
 
 router.get('/', function(req, res) {
     async.parallel({
-        hotRoute: function(callback) {
-            hotRoute.getdata(req, function(data){
+        newRoute: function(callback) {
+            model.setUrl(urlApi.apiHost+urlApi.newRoute);
+            model.getdata(req, function(data){
+                callback(null, data);
+            });
+        },
+        editorRoute: function(callback) {
+            model.setUrl(urlApi.apiHost+urlApi.editorRoute);
+            model.getdata(req, function(data){
                 callback(null, data);
             });
         },
         mustgoRoute: function(callback) {
-            mustgoRoute.getdata(req, function(data){
+            model.setUrl(urlApi.apiHost+urlApi.mustgoRoute);
+            model.getdata(req, function(data){
                 callback(null, data);
             });
         },
-        newestRoute: function(callback) {
-            mustgoRoute.getdata(req, function(data){
-                callback(null, data);
-            });
-        },
-        recommondRoute: function(callback) {
-            recommondRoute.getdata(req, function(data){
+        popRoute: function(callback) {
+            model.setUrl(urlApi.apiHost+urlApi.popRoute);
+            model.getdata(req, function(data){
                 callback(null, data);
             });
         },
     }, 
     function(err, results) {
-        results.hotRoute = JSON.parse(results.hotRoute);
+        results.newRoute = JSON.parse(results.newRoute);
+        results.editorRoute = JSON.parse(results.editorRoute);
         results.mustgoRoute = JSON.parse(results.mustgoRoute);
-        results.newestRoute = JSON.parse(results.newestRoute);
-        results.recommondRoute = JSON.parse(results.recommondRoute);
+        results.popRoute = JSON.parse(results.popRoute);
         res.render('index', {
-            //现在只展示hotRoute
-            hotRoute: results.hotRoute.result,
+            newRoute: results.newRoute.result,
+            editorRoute: results.editorRoute.result,
             mustgoRoute: results.mustgoRoute.result,
-            newestRoute: results.newestRoute.result,
-            recommondRoute: results.recommondRoute.result,
+            popRoute: results.popRoute.result,
             user_info: req.session.user_info,
         });
     });
