@@ -9,7 +9,6 @@ html
         link(href='/javascripts/lib/jquery-ui/jquery-ui.min.css', rel='stylesheet')
         script(src='/javascripts/lib/jquery-1.11.1.min.js', rel='javascripts')
         script(src='/javascripts/lib/jquery-ui/jquery-ui.js', rel='javascripts')
-        script(src='/javascripts/lib/login.js', rel='javascripts')
         script(src='/javascripts/lib/checklogin.js', rel='javascripts')
         script(data-main='/require/main.js', src='/javascripts/lib/require.js')
         meta(charset='utf-8')
@@ -23,38 +22,35 @@ html
             ul.nav.f-cb
                 li
                     a(href='/')
-                        i.ico01.ico01-home
                         | 首页
                 li
                     a(href='/target/')
-                        i.ico01.ico01-add
                         | 目的地
                 li
                     a(href='/plans/create/')
-                        i.ico01.ico01-newplan
                         | 新建计划
                 li
                     a(class='myplans')
-                        i.ico01.ico01-myplan
                         | 我的计划
                 li
                     a(href='/download/')
-                        i.ico01.ico01-download
                         | APP下载
-            if user_info
-                .user
-                    img(src='#{user_info.avatar}')
-                    b.b1(data-id=user_info.id) #{user_info.nick_name}
-                    b.b2 2014-01-01
-            else
-                a.btn.btn-login 登录
+                if user_info
+                    .user
+                        img(src='#{user_info.avatar}')
+                        .txt
+                            b.b1(data-id=user_info.id) #{user_info.nick_name}
+                            b.b2 2014-01-01
+                else
+                    li
+                        a.login 登录
         .lg-layer(style='display: none;')
             h1.logo
                 img(src='/images/common/logo.png')
             .lg-contain
-                a(href="https://api.weibo.com/oauth2/authorize?client_id=2294159543&response_type=code&redirect_uri=http://www2.lvxingpai.cn:8880/account/callback/weibo/"): img(src="http://www.sinaimg.cn/blog/developer/wiki/32.png")
-                <br>
-                a(href="https://graph.qq.com/oauth2.0/authorize?client_id=101151725&response_type=code&redirect_uri=http://www2.lvxingpai.cn/account/callback/qq/&state=01"): img(src="/images/account/login_qq.png")
+                h2 请用第三方平台登录
+                a.weibo(href="https://api.weibo.com/oauth2/authorize?client_id=2294159543&response_type=code&redirect_uri=http://www2.lvxingpai.cn/account/callback/weibo/")
+                a.qq(href="https://graph.qq.com/oauth2.0/authorize?client_id=101151725&response_type=code&redirect_uri=http://www2.lvxingpai.cn/account/callback/qq/&state=01")
         .layer(style='display: none;')
     
         block content
