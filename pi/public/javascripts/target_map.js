@@ -1,13 +1,13 @@
 $(function(){
     //切换
-    $('.dMapSwch a').eq(0).click(function(){
+    $('.dMapSwch a').eq(1).click(function(){
         $(this).addClass('cur').siblings().removeClass('cur');
         $('.mapTabSpWord').removeClass('sphl');
         $('.mapTabSpCn').addClass('sphl').find('.dMapLayer').addClass('sphl');
         $('.jvectormap-region').attr({'fill':'#f7b552','stroke':'none','stroke-width':'0'})
         return false
     });
-    $('.dMapSwch a').eq(1).click(function(){
+    $('.dMapSwch a').eq(0).click(function(){
         $(this).addClass('cur').siblings().removeClass('cur');
         $('.mapTabSpCn').removeClass('sphl');
         $('.mapTabSpWord').addClass('sphl').find('.dMapLayer').addClass('sphl');
@@ -26,7 +26,7 @@ $(function(){
         })    
     });
     $('.AsiaCn').click(function(){
-        $('.dMapSwch a').eq(1).click();
+        $('.dMapSwch a').eq(0).click();
         return false
     })
 
