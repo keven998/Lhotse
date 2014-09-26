@@ -3,15 +3,11 @@ extends common/base
 block page_var
     link(href='http://css.lotour.net/destn.css?z', rel='stylesheet')
     link(href='http://css.lotour.net/lt_top.css', rel='stylesheet')
-    //- script(src='http://js.lotour.net/jquery-1.8.3.min.js' type='text/ecmascript')
-    //- script(src='http://js.lotour.net/jquery-jvectormap-1.2.2.min.js' type='text/ecmascript')
-    //- script(src='http://js.lotour.net/jquery-jvectormap-china-en.js' type='text/ecmascript')
     script.
         var page_var = {
             id: 'target',
             path: '',
         }
-
 
 block content
     .content
@@ -40,14 +36,145 @@ block content
                       a.Australia(href='#', data='name106')
                         i 大洋洲
                     .dMapLayer.dMapbg101.sphl(name='亚洲', layer-data='name101')
-                      .dMapLayerCon
-                        i.bor41
-                        .dMapList
-                          dl.clear
-                            dt
-                              a(href='http://jpn.lotour.com/', target='_blank', title='') 日本
-                            dd
-                              a(href='http://jpn.lotour.com/dongjing1/', target='_blank', title='') 东京
+                        .dMapLayerCon
+                            i.bor41
+                            .dMapList
+                              dl.clear
+                                dt
+                                  a(href='http://jpn.lotour.com/', target='_blank', title='') 日本
+                                dd
+                                  a(href='http://jpn.lotour.com/dongjing1/', target='_blank', title='') 东京
+                                dd
+                                  a(href='http://jpn.lotour.com/dazuo/', target='_blank', title='') 大阪
+                                dd
+                                  a(href='http://jpn.lotour.com/chongsheng/', target='_blank', title='') 冲绳
+                                dd
+                                  a(href='http://jpn.lotour.com/fushishan1/', target='_blank', title='') 富士山
+                                dd
+                                  a(href='http://jpn.lotour.com/beihaidao/', target='_blank', title='') 北海道
+                              dl.clear
+                                dt
+                                  a(href='http://kor.lotour.com/', target='_blank', title='') 韩国
+                                dd
+                                  a(href='http://kor.lotour.com/shouer/', target='_blank', title='') 首尔
+                                dd
+                                  a(href='http://kor.lotour.com/jizhoudao/', target='_blank', title='') 济州岛
+                                dd
+                                  a(href='http://kor.lotour.com/fushan/', target='_blank', title='') 釜山
+                                dd
+                                  a(href='http://kor.lotour.com/jingjidao/', target='_blank', title='') 京畿道
+                                dd
+                                  a(href='http://kor.lotour.com/mingdong/', target='_blank', title='') 明洞
+                              dl.clear
+                                dt
+                                  a(href='http://tha.lotour.com/', target='_blank', title='') 泰国
+                                dd
+                                  a(href='http://tha.lotour.com/mangu1/', target='_blank', title='') 曼谷
+                                dd
+                                  a(href='http://tha.lotour.com/qingmai/', target='_blank', title='') 清迈
+                                dd
+                                  a(href='http://tha.lotour.com/batiya/', target='_blank', title='') 芭提雅
+                                dd
+                                  a(href='http://tha.lotour.com/pjdjq/', target='_blank', title='') 普吉岛
+                                dd
+                                  a(href='http://tha.lotour.com/sumeidao/', target='_blank', title='') 苏梅岛
+                              dl.clear
+                                dt
+                                  a(href='http://vie.lotour.com/', target='_blank', title='') 越南
+                                dd
+                                  a(href='http://vie.lotour.com/huzhimingshi1/', target='_blank', title='') 胡志明市
+                                dd
+                                  a(href='http://vie.lotour.com/heneishi/', target='_blank', title='') 河内市
+                                dd
+                                  a(href='http://vie.lotour.com/xialongwan1/', target='_blank', title='') 下龙湾
+                                dd
+                                  a(href='http://vie.lotour.com/xiangang/', target='_blank', title='') 岘港
+                                dd
+                                  a(href='http://vie.lotour.com/xigongly/', target='_blank', title='') 西贡河
+                              dl.clear
+                                dt
+                                  a(href='http://mas.lotour.com/', target='_blank', title='') 马来西亚
+                                dd
+                                  a(href='http://mas.lotour.com/jilongpo/', target='_blank', title='') 吉隆坡
+                                dd
+                                  a(href='http://mas.lotour.com/shaba/', target='_blank', title='') 沙巴
+                                dd
+                                  a(href='http://mas.lotour.com/maliujia/', target='_blank', title='') 马六甲
+                                dd
+                                  a(href='http://mas.lotour.com/Langkawi/', target='_blank', title='') 兰卡威
+                                dd
+                                  a(href='http://mas.lotour.com/bingcheng/', target='_blank', title='') 槟城
+                        .dMapLayer.dMapbg102.sphl(name='欧洲', layer-data='name102')
+                            .dMapLayerCon
+                                i.borLT
+                                .dMapList
+                                  dl.clear
+                                    dt
+                                      a(href='http://fra.lotour.com/', target='_blank', title='') 法国
+                                    dd
+                                      a(href='http://fra.lotour.com/baliqu/', target='_blank', title='') 巴黎
+                                    dd
+                                      a(href='http://fra.lotour.com/nisi1/', target='_blank', title='') 尼斯
+                                    dd
+                                      a(href='http://fra.lotour.com/puluowangsi/', target='_blank', title='') 普罗旺斯
+                                    dd
+                                      a(href='http://fra.lotour.com/lufugong1/', target='_blank', title='') 卢浮宫
+                                    dd
+                                      a(href='http://fra.lotour.com/aifeiertieta1/', target='_blank', title='') 埃菲尔铁塔
+                                  dl.clear
+                                    dt
+                                      a(href='http://ita.lotour.com/', target='_blank', title='') 意大利
+                                    dd
+                                      a(href='http://ita.lotour.com/weinisi1/', target='_blank', title='') 威尼斯
+                                    dd
+                                      a(href='http://ita.lotour.com/luoma1/', target='_blank', title='') 罗马
+                                    dd
+                                      a(href='http://ita.lotour.com/foluolunsa1/', target='_blank', title='') 佛罗伦萨
+                                    dd
+                                      a(href='http://ita.lotour.com/milan1/', target='_blank', title='') 米兰
+                                    dd
+                                      a(href='http://ita.lotour.com/shengmakeguangchang/', target='_blank', title='') 圣马可广场
+                                  dl.clear
+                                    dt
+                                      a(href='http://ger.lotour.com/', target='_blank', title='')
+                                        | 德国
+                                    dd
+                                      a(href='http://ger.lotour.com/bolin/', target='_blank', title='') 柏林
+                                    dd
+                                      a(href='http://ger.lotour.com/munihei1/', target='_blank', title='') 慕尼黑
+                                    dd
+                                      a(href='http://ger.lotour.com/falankefu1/', target='_blank', title='') 法兰克福
+                                    dd
+                                      a(href='http://ger.lotour.com/hanbao/', target='_blank', title='') 汉堡
+                                    dd
+                                      a(href='http://ger.lotour.com/bailinqiang/', target='_blank', title='') 柏林墙
+                                  dl.clear
+                                    dt
+                                      a(href='http://esp.lotour.com/', target='_blank', title='') 西班牙
+                                    dd
+                                      a(href='http://esp.lotour.com/madeli/', target='_blank', title='') 马德里
+                                    dd
+                                      a(href='http://esp.lotour.com/basailuona/', target='_blank', title='') 巴塞罗那
+                                    dd
+                                      a(href='http://esp.lotour.com/saiweiliya/', target='_blank', title='') 塞维利亚
+                                    dd
+                                      a(href='http://esp.lotour.com/douniuchang/', target='_blank', title='') 斗牛场
+                                    dd
+                                      a(href='http://esp.lotour.com/xibanyaguangchang1/', target='_blank', title='')
+                                        | 西班牙广场
+                                  dl.clear
+                                    dt
+                                      a(href='http://gbr.lotour.com/', target='_blank', title='') 英国
+                                    dd
+                                      a(href='http://gbr.lotour.com/lundun1/', target='_blank', title='') 伦敦
+                                    dd
+                                      a(href='http://gbr.lotour.com/aidingbao1/', target='_blank', title='') 爱丁堡
+                                    dd
+                                      a(href='http://gbr.lotour.com/liwupu/', target='_blank', title='') 利物浦
+                                    dd
+                                      a(href='http://gbr.lotour.com/damanchesite1/', target='_blank', title='') 大曼彻斯特
+                                    dd
+                                      a(href='http://gbr.lotour.com/baijinhangong1/', target='_blank', title='') 白金汉宫
                     .dMapLayer.dMapbg103.sphl(name='非洲', layer-data='name103')
                       .dMapLayerCon
                         i.borLT
@@ -263,8 +390,7 @@ block content
                             dd
                               a(href='http://fij.lotour.com/chenshuijurengongyuan1/', target='_blank', title='') 沉睡巨人公园
                   .mapTabSp.mapTabSpCn
-                    //
-                      ==S 地域名称 
+                    // ==S 地域名称
                     .dMapName
                       h2.name15 内蒙古
                       h2.name22 吉林
@@ -300,10 +426,8 @@ block content
                       h2.name18 台湾
                       h2.name99 香港
                       h2.name95 澳门
-                    //
-                      ==E 地域名称 
-                    //
-                      ==S 地图层 
+                    // ==E 地域名称
+                    // ==S 地图层
                     .destnMap-merc(data-projection='merc', data-name='cn_merc_en')
                     .dMapLayer.dMapbg15.CN-15.sphl(name='内蒙古', layer-data='CN-15')
                       .dMapLayerCon
@@ -2266,13 +2390,7 @@ block content
                               a(href='http://macao.lotour.com/aomenlishi/', target='_blank', title='') 澳门历史城区
                             dd
                               a(href='http://macao.lotour.com/dpt/', target='_blank', title='') 大炮台
-                    //
-                      ==E 地图层 
-        
-
-
-
-
+                    // ==E 地图层
         .hot_cities
             .title
                 i.line |

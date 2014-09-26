@@ -1,24 +1,3 @@
-var NewLine = '\n';
-var temp = '';
-temp += '<style>' + NewLine;
-temp += '.ltQRCode{z-index:9;width:155px;height:189px;position:fixed;background:url(http://img1.lotour.com/home/QRCode.png) no-repeat;left:50%;margin-left:500px;bottom:250px;_background-image:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'http://img1.lotour.com/home/QRCode.png\');_position:absolute;_top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||0)-250));}.ltQRCode a{position:absolute;width:12px;height:12px;background:url(http://img1.lotour.com/home/QRCls.png) no-repeat;_background-image:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'http://img1.lotour.com/home/QRCls.png\');display:block;left:25px;bottom:3px}.ltQRCode a:hover{-webkit-transition-property:-webkit-transform;-webkit-transition-duration:1s;-moz-transition-property:-moz-transform;-moz-transition-duration:1s;-webkit-animation:rotate 2s linear infinite;-moz-animation:rotate 2s linear infinite;-o-animation:rotate 2s linear infinite;animation:rotate 2s linear infinite;}@-webkit-keyframes rotate{from{-webkit-transform:rotate(0deg)}to{-webkit-transform:rotate(360deg)}}@-o-keyframes rotate{from{-o-transform:rotate(0deg)}to{-o-transform:rotate(359deg)}}@keyframes rotate{from{transform:rotate(0deg)}to{transform:rotate(359deg)}}@-webkit-keyframes rotate2{from{-webkit-transform:rotate(0deg)}to{-webkit-transform:rotate(360deg)}}@-moz-keyframes rotate2{from{-moz-transform:rotate(0deg)}to{-moz-transform:rotate(359deg)}}@-o-keyframes rotate2{from{-o-transform:rotate(0deg)}to{-o-transform:rotate(359deg)}}@keyframes rotate2{from{transform:rotate(0deg)}to{transform:rotate(359deg)}}' + NewLine;
-temp += '</style>' + NewLine;
-temp += '<div class="ltQRCode" id="ltQRCode">' + NewLine;
-temp += '<a href="javascript:void(0)" onclick="javascript:document.getElementById(\'ltQRCode\').style.display=\'none\'"></a>' + NewLine;
-temp += '</div>' + NewLine;
-$('body').append(temp);
-          
-//Scroll to Top
-(function () {
-    var $backToTopTxt = "", $backToTopEle = $('<a title="回到顶部" class="gotop"></a>').appendTo($("body")).text($backToTopTxt).attr("title", $backToTopTxt).click(function () { $("html, body").animate({ scrollTop: 0 }, 120); }), $backToTopFun = function () {
-        var st = $(document).scrollTop(), winh = $(window).height();
-        (st > 0) ? $backToTopEle.show() : $backToTopEle.hide();
-    };
-    $(window).bind("scroll", $backToTopFun);
-    $(function () { $backToTopFun(); });
-})();
-
-
 $(function(){
     //切换
     $('.dMapSwch a').eq(0).click(function(){
