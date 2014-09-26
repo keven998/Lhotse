@@ -6,11 +6,13 @@
 .user .b1{line-height: 40px;}
 .user .b2{font-size: 12px;position: absolute;left: 55px;top: 20px;}
 .opt{width: 1000px;height: 30px;line-height: 30px;margin:0 auto;margin-top: 60px;text-align: right;font-size: 16px;font-family: "黑体";}
-.t-bd{position: relative;margin-top: 0;}
-.t-bd .t{width: 950px;height: 40px;line-height: 50px;margin-left: auto;margin-right: auto;padding: 20px 25px 10px 25px;border-bottom: 1px solid #BDBDBD;font-size: 32px;color: #21B699;font-family: '黑体';position: relative;}
-.t-bd .t b{font-size: 14px;position: absolute;left: 240px;}
-.t-bd .t .b1{top: 10px}
-.t-bd .t .b2{top: 30px;}
+.ct{width:1020px;margin:10px auto;color: #21B699;}
+.t-bd .t{display:inline-block;height: 40px;line-height: 50px;padding:0 20px 5px;font-size: 32px;font-family: '黑体';border-right:1px solid #21B699;}
+.b-ct{display:inline-block;height:50px;margin-left:20px;font-weight:bold;vertical-align:top;}
+.t-bd .b1{height:25px;line-height:25px;font-size: 15px;}
+.t-bd .b2{height:25px;line-height:25px;font-size: 15px;}
+
+
 .cur_day{height: 30px;width:420px;text-align:center;line-height: 35px;color: #08DCA9;font-size: 20px;margin-left: 180px;border-bottom: 1px solid;}
 .t-left{float:left;width: 600px;height: auto;margin-right: -600px;overflow-y: auto;overflow-x: hidden;}
 .t-left .timeline{position: absolute;top: 125px;width: 130px;height: auto;z-index: 111;background: #fff;margin-left: 5px;}
@@ -42,7 +44,7 @@ li .m .hotal{width:300px;height: 60px;line-height: 1.5;padding: 35px 30px 0 20px
 li .m .hotal .point{color: #08DCA9;font-size: 40px;line-height: 0;position: relative;top: 8px;left: 5px;}
 .t-right{float: right;width: 350px;height: 350px;}
 .t-right .map{width: 100%;height: 100%}
-.tab-c .c{width: auto;height: auto;padding: 0;margin-top: 25px;font-size: 16px;}
+.tab-c .c{width: auto;height: 150px;padding: 0;margin-top: 25px;font-size: 16px; overflow: auto;}
 .c .t1{height: 40px;line-height: 40px;width: 100%;white-space: nowrap;font-size: 20px;}
 .c .p1{height: 80px;border-left: 5px solid #08DCA9 !important;border:1px solid #aaa;padding: 15px 0 10px;}
 .c .t2{color: #08DCA9;}

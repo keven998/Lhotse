@@ -17,7 +17,7 @@ router.post('/search', function(req, res) {
 });
 
 
-// 路线编辑 ajax请求更多
+// 路线编辑中的搜索酒店的ajax请求更多
 router.post('/ajax/more', function(req, res) {
     var text = req.body.searchText,
         page = req.body.page;

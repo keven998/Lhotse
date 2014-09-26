@@ -10,6 +10,10 @@ block page_var
     script(src='/javascripts/gmap/googlemap.js', rel='javascripts')
     script(src='/javascripts/FileSaver.js', rel='javascripts')
     script(src='/javascripts/jspdf.js', rel='javascripts')
+    script(src='http://maps.google.cn/maps/api/js?sensor=false&amp;key=AIzaSyCuXDkC1uoHaSctnrsGSGfpj9QVCUrfw1w', rel='javascripts')
+    //
+      script(src='http://google-maps-utility-library-v3.googlecode.com/svn/trunk/styledmarker/src/StyledMarker.js', rel='javascripts')
+    script(src='/javascripts/jspdf.js', rel='javascripts')
 
 block content
     .opt
@@ -20,18 +24,24 @@ block content
       a 发送朋友
       a &nbsp;/
       a.pdf PDF下载
-    .bd.t-bd
+    .bd.t-bd.ct
+
       h1.t
         | #{basicInfo.title}
         p.id(style='display:none') #{basicInfo._id}
-        b.b1 全程#{basicInfo.days}天
-        b.b2 ￥#{basicInfo.budget[0]}-￥#{basicInfo.budget[1]}
         b.requestUrl(style='display:none') #{basicInfo.requestUrl}
+      
+      .b-ct
+        .b1 全程#{basicInfo.days}天
+        .b2 ￥#{basicInfo.budget[0]}-￥#{basicInfo.budget[1]}
+    
+    hr
     .content.f-cb
       h1.cur_day
         b.d-title 第一天
         //
           b 2014-01-01
+      
       .t-left
         .timeline
           ul#timeLine
@@ -85,51 +95,61 @@ block content
               
         .timeline-detail
           - var dayCount = 0
-          - var vsCount = 0          
+          - var vsCount = 0
+          - var arrHome = 0          
           each day in allRoutes
             - dayCount++
             
             if dayCount < 10
-              ul(data-day='0'+dayCount)
+              ul(data-day='0'+dayCount class="day")
                 - var flag = 0            
                 each spot in day.actv
                   - flag++
-                  li
-                                      
-                    if (spot.type == "airport" || spot.type == "trainStation") && spot.stopType == "dep"
+                                                        
+                  if (spot.type == "airport" || spot.type == "trainStation") && spot.stopType == "dep"
+                    li  
                       i.ico03.ico03-car
                       .m
                         h3 #{spot.itemName}  #{day.date}
                         a.btn02.btn02-c4 #{day.actv[flag].itemName}
                         | #{day.actv[flag].ts}出发——#{day.actv[flag].arrTime}到达 
-                        
-                    if (spot.type == "airport" || spot.type == "trainStation") && spot.stopType == "arr"  
+                      
+                  if (spot.type == "airport" || spot.type == "trainStation") && spot.stopType == "arr"  
+                    - arrHome++
+                    li
                       i.ico03.ico03-car
                       .m
                         h3 #{spot.itemName}
-                        p.suggest
-                          i.ico01.ico01-km
-                          | 距离12.3公里  建议打车
-                      
-                    if spot.type == "vs"
+                        if arrHome == 1
+                          p.suggest
+                            i.ico01.ico01-km
+                            | 距离12.3公里  建议打车                            
+                        else
+                          p.suggest
+                            | 旅途结束，祝您快乐!
+
+                        
+                  if spot.type == "vs"
+                    li
                       - vsCount++
                       i.ico03.ico03-spot
-                      .m(id="vs_" + vsCount)
+                      .m(id="vs_" + vsCount class="viewspot" data-latlng=spot.lat + '-' + spot.lng)
                         .latlng(style="display:none;") #{spot.lat},#{spot.lng}
                         h3 #{spot.itemName}
                         img.spot-img(data-url='/viewspot/detail/' + spot.itemId, src=spot.imageList[0] width=300 height=160)
                         br
-                        b 1、建议游玩：#{spot.timeCost}  2、开放时间08:00-18:00  3、门票￥#{spot.price}
+                        b 1、建议游玩:#{spot.timeCost}小时  2、开放时间:#{spot.openTime}  3、门票:￥#{spot.price}
+                      
                         p.suggest
                           i.ico01.ico01-km
-                          | 距离12.8公里  建议公交  
-                      
-                    if spot.type == "hotel"
+                          | 距离12.8公里  建议公交
+                        
+                  if spot.type == "hotel"
+                    li
                       i.ico03.ico03-hotal
                       .m
                         h3
                           | #{spot.itemName}
-                          a.btn02.btn02-c1 更多选择
                         p.hotal
                           i.point ·
                           | ￥#{spot.price}起
@@ -159,10 +179,8 @@ block content
             .right
               h3.t3 loading...
               em.color-02 AAAAA
-              i.ico01.ico01-flag
-              | 333人
-              i.ico01.ico01-heart
-              | 6666人
+              i.ico01.ico01-flag 333人
+              i.ico01.ico01-heart 6666人
               p.p2
                 | 门票：￥999
                 | 开放时间：19:00-20:00  建议游玩：2小时
@@ -172,6 +190,7 @@ block content
             p 简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介
           .c
             a.btn02.btn02-c1 景区攻略
+            p ~~
     .layer(style='display: none;')
     
     

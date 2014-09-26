@@ -1,8 +1,7 @@
 $(function () {
-
     /* ---- BEGIN: login layer ---- */
     var topHd = $('#top'),
-        lgLayer = $('.lg-layer');
+        lgLayer = $('.lg-layer'),
         layer = $('.layer');
         
     topHd.on('click','a.login',function(e){

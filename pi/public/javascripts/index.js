@@ -194,6 +194,8 @@ $(function(){
         }, 6000);
     }
 })(jQuery);
+
+
 $(function(){
     $('<a href="javascript:;" class="backToTop" title="返回顶部"></a>').appendTo("body");
 });
@@ -213,45 +215,40 @@ $(function(){
 
 
 // 通过IP获取地理地址-城市名字
-function getIpPlace() {
-  //alert("hello,~");          
+(function getIpPlace() {
   input.fromLocName.value = remote_ip_info["province"];// + remote_ip_info["city"];  
-  //alert(remote_ip_info["province"]);
-}
-
-window.onload = getIpPlace;
-
+}())
 
 
 // 联想功能
 function getLinkData() {
-                var popupDiv = document.getElementById("popup");//获得对应的div对象
-                var popupBody = document.getElementById("popupBody");//获得对应的tbody对象
-                var linkDataProperty = document.getElementById("linkDataProperty"); //获得对应的输入框对象
-                
-                //clearModels();//清除联想输入提示框的内容
-                
+    var popupDiv = document.getElementById("popup");//获得对应的div对象
+    var popupBody = document.getElementById("popupBody");//获得对应的tbody对象
+    var linkDataProperty = document.getElementById("linkDataProperty"); //获得对应的输入框对象
+    
+    //clearModels();//清除联想输入提示框的内容
+    
 
-                //利用ajax获取后台的模糊查询的数据，并且封装成下拉列表的形式展现出来
-                $.ajax({
-                    type : "GET",   //提交的方法为post
-                    contentType: 'application/json', 
-                    url : "/suggestion",   //对应的Action提交的路径
-                    data  : {input : linkDataProperty.value},   //从前台传递到后台的查询语句的参数
-                    dataType : "json",  //从Action中返回的数据的类型为json类型的
-                    error : function(){
-                        //alert("没有对应的数据，请查看输入的查询条件！");
-                    },
-                    success : function(data) {//当Ajax提交成功时调用的方法
-                              //返回的是json对象！键值对 alert(data.key);   
-                              data = data.suggestion;                          
-                              if(data.length==0){return;}
-                              $( "#linkDataProperty" ).autocomplete({
-                                source: data,
-                              });
-                   } 
-                }); 
-             }         
+    //利用ajax获取后台的模糊查询的数据，并且封装成下拉列表的形式展现出来
+    $.ajax({
+        type : "GET",   //提交的方法为post
+        contentType: 'application/json', 
+        url : "/suggestion",   //对应的Action提交的路径
+        data  : {input : linkDataProperty.value},   //从前台传递到后台的查询语句的参数
+        dataType : "json",  //从Action中返回的数据的类型为json类型的
+        error : function(){
+            //alert("没有对应的数据，请查看输入的查询条件！");
+        },
+        success : function(data) {//当Ajax提交成功时调用的方法
+                  //返回的是json对象！键值对 alert(data.key);   
+                  data = data.suggestion;                          
+                  if(data.length==0){return;}
+                  $( "#linkDataProperty" ).autocomplete({
+                    source: data,
+                  });
+       } 
+    }); 
+}         
 //                              setOffsets();//设置联想输入下拉列表提示框的位置
 //                              var tr,td,text;
 //                              for (var i = 0; i < data.length; i++) {//根据返回的值，手动的拼tbody的内容

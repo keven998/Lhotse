@@ -26,6 +26,7 @@ router.get('/detail/:PLANID', function(req, res) {
 router.post('/timeline/save', function(req, res) {
     var postData = req.body;
     var requestUrl = apiList.apiHost + apiList.ugc.saveUgc;
+    console.log(requestUrl);
     // http post
     var options = {
         url :  requestUrl,
@@ -161,6 +162,7 @@ router.get('/edit/:UGCID',function(req, res) {
             var spots = results.spots;
             var locName = results.locName;
             var hotels = results.hotels;
+            console.log("+++" + req.session.user_info);
             res.render('plans/edit', {
                 daysRoute : dataObj.dayRoute,
                 id : dataObj._id,   // 表明这个ugc id，ajax传递给node后，获取别的信息，减少前段任务
@@ -266,9 +268,10 @@ router.post('/edit/post', function(req, res) {
 
 
 router.get('/mine/', function(req, res){
-    var user_info = req.session.user_info
+    var user_info = req.session.user_info;
     console.log(user_info);
     model.setUrl(apiList.apiHost + apiList.myPlans + user_info.id);
+    console.log(model.getUrl());
     model.getdata(req, function(data) {
         var planList = [];
         data = JSON.parse(data);
@@ -366,7 +369,7 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
     var fromLocId = req.query._fromLoc;
     model.setUrl(apiList.apiHost + apiList.ugc.timeline);
     model.getdata(req, function(data) {
-        data = JSON.parse(data);         
+        data = JSON.parse(data);
         var requestUrl = req.originalUrl;     
         var lastModified = data.lastModified;
         var result = data.result;
@@ -425,7 +428,7 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
                     tempRoute['timeCost'] = oneDayTempRoutes[routeNum].details.timeCost;
                     tempRoute['lat'] = oneDayTempRoutes[routeNum].details.addr.lat;
                     tempRoute['lng'] = oneDayTempRoutes[routeNum].details.addr.lng;
-                    
+                    tempRoute['openTime'] = oneDayTempRoutes[routeNum].details.openTime;
                     oneDayRoutes.push(tempRoute);
                 } 
                 else if (oneDayTempRoutes[routeNum].type == "traffic") {
@@ -502,7 +505,7 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
                 var oneSpot = oneDayRoutes[routeNum];       
                 if (oneSpot.type != "airRoute" && oneSpot.type != "trainRoute") {
                     var tempSpot = new Object();
-                    tempSpot['itemName'] = oneSpot.itemName;
+                    tempSpot['itemName'] = oneSpot.itemName.length < 5 ? oneSpot.itemName : oneSpot.itemName.substring(0, 5)+ '...';
                     tempSpot['type'] = oneSpot.type;
                     tempSpot['latLng'] = oneSpot.lat + "," + oneSpot.lng;
                     tempActv.push(tempSpot);
@@ -511,7 +514,6 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
             tempDay.actv = tempActv; // 关联地点数组
             navigation.push(tempDay);
         }
-        
         // render to webpage
         res.render('plans/timeline', {
             allRoutes : allRoutes,
