@@ -1,5 +1,5 @@
 /*删除一个计划*/
-$("i.delete").on("click",function(){;
+$("i.delete").on("click",function(){
     var planID = $(this).attr("data-id");
     $.ajax({
         url:    '/plans/mine/delete/' + planID + '/',

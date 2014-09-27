@@ -26,7 +26,6 @@ router.get('/plans/detail/:ROUTEID', function(req, res){
         model.setUrl(apiList.apiHost + apiList.routeNotes);
         model.getdata(req,function(data){
             var notes = JSON.parse(data);
-            console.log(notes.result);
             res.json({
                 "details": details.result,
                 "notes": notes.result

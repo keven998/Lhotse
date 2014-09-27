@@ -13,10 +13,10 @@
 .shade .s .s-btn{position: absolute;right: -70px;top: 0;width: 55px;height: 55px;background-size: cover;background:url("/images/index/go.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/index/go.png',sizingMethod='scale');border-radius:30px;-moz-border-radius:30px;-webkit-border-radius:30px;}
 .content .t{width: auto;height: 80px;text-align: right;color: #aaa;padding: 20px 10px;line-height: 1.5;}
 .t .txt01{font-size: 24px;font-family: "黑体";}
-.t .txt02{font-size: 14px}
 .content .c-nav{height: 30px;line-height: 30px;padding: 0px 30px 30px 20px;font-size: 16px;}
-.c-nav a{display: inline-block;width: 80px;height: auto;margin-right: 10px;line-height: 1;color: #111;text-align: left;font-weight: bold;font-family: "黑体";}
-.c-nav a b{color: #08DCA9;font-size: 16px;}
+.c-nav a{display: inline-block;width: 80px;height: auto;margin-right: 10px;line-height: 1;color: #08DCA9;text-align: left;font-weight: bold;font-family: "黑体";}
+.c-nav a:hover{color: #a22;}
+.c-nav a span{margin-left:5px;color: #111;font-size: 16px;vertical-align:middle;}
 .c-nav .line{color: #a22;}
 .content .c-left{float:left;width: 180px;height: auto;padding-left: 30px;margin-right: -220px}
 .content .c-left h2{font-size: 16px;white-space: normal;margin-bottom: 15px;}

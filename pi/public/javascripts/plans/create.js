@@ -5,6 +5,14 @@ $(function(){
 })
 
 
+//城市的跳转需要获取出发城市
+$('.city_nav').children('a').click(function(){
+    var fromLocName = input.fromLocName.value,
+        arrLocName = $(this).text();
+    $(this).attr('href','/search?fromLocName=' + fromLocName + '&arrLocName=' + arrLocName);
+})
+
+
 //搜索框的联想功能
 function getLinkData() {
     var linkDataProperty = document.getElementById("linkDataProperty");
@@ -26,11 +34,11 @@ function getLinkData() {
                             if(data.length==0){
                                 return;
                             }
-                            console.log(data);
                             $("#linkDataProperty").autocomplete({
                                 source: data,
                             });
                         }
     });
 }
+
 

@@ -1,11 +1,12 @@
 var urlApi = {
     // 域名地址
     apiHost : 'http://api.lvxingpai.cn',
+    //首页推荐
+    newRoute : "/web/recommend/newitem",
+    editorRoute : "/web/recommend/editor",
+    mustgoRoute : "/web/recommend/mustgo",
+    popRoute : "/web/recommend/popularity",
 
-    hotRoute : "http://api.lvxingpai.com/explore/plans?loc=53b60ee610114e189763fce3",
-    mustgoRoute : "http://api.lvxingpai.com/explore/plans?loc=53b60ee810114e189763fce6",
-    newestRoute : "http://api.lvxingpai.com/explore/plans?loc=53aa9a6510114e3fd4783acf",
-    recommondRoute : "http://api.lvxingpai.com/explore/plans?loc=53aa9a6510114e3fd4783ca6",
 
     //热门城市，热门景点
     hotCities : '/explore?showDetails=1&pageSize=8&loc=1',
@@ -14,7 +15,7 @@ var urlApi = {
     //落地页面
     routeDetail:  '/web/plans/ROUTEID',
     routeNotes:    '/misc/notes/search?planId=ROUTEID',
-
+  
     // 根据现有城市名字查询城市ID
     searchCityIdByName : "http://api.lvxingpai.com/geo/localities/search?keyword=", 
     searchCityNameById : "/web/geo/localities/fromLocId",   //:fromLocId

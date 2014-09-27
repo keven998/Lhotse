@@ -1,9 +1,7 @@
 var page_id = page_var.id;
 var page_path = page_var.path;
 
-// load css
-// loadCss('common', 'reset');
-// loadCss('common', 'travelpi');
+/* load css */
 loadCss(page_path, page_id);
 
 function loadCss(page_path, page_id) {
@@ -14,13 +12,15 @@ function loadCss(page_path, page_id) {
     document.getElementsByTagName("head")[0].appendChild(link);
 }
 
-// load js
+/* load js */
 requirejs.config({
     baseUrl: '/javascripts/',
-    path: {
-    }
+    path: {}
 });
 
-requirejs([page_path + page_id], function(page_id) {
-    // alert(page_id.index_name);
+requirejs(
+    [
+        'common',
+        page_path + page_id
+    ], function(page_id) {
 });

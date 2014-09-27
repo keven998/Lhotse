@@ -71,6 +71,7 @@ $(function () {
                         noteList.append('<li><a class="n' + i + '"></a></li>');
                         noteItem = noteList.find('a.n'+ i);//在DOM中定位
                         noteItem.attr('href',note.sourceUrl);
+                        noteItem.attr('target', '_blank');
                         noteItem.append('<img class="sider-userimg" src="/images/plans/user02.png">');
                         if (!note.authorAvator)
                             noteItem.find('img').attr('src',note.authorAvator);

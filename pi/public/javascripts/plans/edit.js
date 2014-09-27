@@ -4,6 +4,17 @@
     1：景点
 */
 var tagFlag = 1;
+// page的计数器，存放两个tab下的已请求page数,当用户主动输入搜索信息时，置位[0，0]
+var pageArr = [0, 0];
+// 缓存用户上次输入的搜索信息，方便用户切换tab时，不失去相应tab中输入的信息
+var uesrInput = ['', ''];
+
+// 景点&酒店搜索
+var searchInput = $(".s-input");
+var tagViewspot = $("#item01");
+var tagHotel = $("#item02");
+// 目的地页面
+var arrLocName = $('h1.t').html().substring($('h1.t').html().indexOf('--') + 2, $('h1.t').html().indexOf('<'));
 
 $(function () {
     // tab切换
@@ -15,6 +26,9 @@ $(function () {
     tab01.click(function(){
         // tag置位 : 景点
         tagFlag = 1;
+        uesrInput[0] = searchInput.val();
+        searchInput.val(uesrInput[tagFlag]);
+
         if(!$(this).hasClass('item01-hover')){
             $(this).addClass('item01-hover').removeClass('item01-normal');
             tab02.removeClass('item02-hover').addClass('item02-normal');
@@ -28,6 +42,9 @@ $(function () {
     tab02.click(function(){
         // tag置位 : 酒店
         tagFlag = 0;
+        uesrInput[1] = searchInput.val();
+        searchInput.val(uesrInput[tagFlag]);
+
         if(!$(this).hasClass('item02-hover')){
             $(this).addClass('item02-hover').removeClass('item02-normal');
             tab01.removeClass('item01-hover').addClass('item01-normal');
@@ -113,7 +130,27 @@ $(function () {
     deleteBind();//注册删除事件
     dayActive();
     
-    
+    /*
+        固定导航栏的位置
+    */
+    // $(document).ready(function(e) {         
+    //     t = $('.t-left').offset().top; // 起始头部离顶部的位置
+    //     mh = $('.t-right').height();
+    //     fh = $('.t-left').height(); //高度
+
+    //     $(window).scroll(function(e){
+    //         s = $(document).scrollTop();    
+    //         if(s > t - 10){
+    //             $('.t-left').css('position','fixed');
+    //              // if(s + fh > mh){    
+    //              //     $('.t-left').css('top',mh-s-fh + 60+'px');    
+    //              // }               
+    //         }else{
+    //             $('.t-left').css('position','');
+    //         }
+    //     })
+    // });
+
     /*
      * 添加景点飞行轨迹开始回调函数
      * */
@@ -124,10 +161,16 @@ $(function () {
             // 是否选中某一天
             addC = $('.edit-list .active'),
             img = $this.find('div').html(),
-            // 作为clear函数的参数
-            title = $this.find('.spot-name').text();
-            id = $this.find('.id').text();
+            title = '',
+            id = $this.find('.id').text(),
             type = $this.find('.type').text();
+            // 作为clear函数的参数
+            if (tagFlag == 1) {
+                title = $this.find('.spot-name').text();    
+            } else {
+                title = $this.find('.hotel-name').text();    
+            }
+            
         
         if(addC.length<1) {
              alert('请在左侧选择添加到哪一天！');
@@ -216,14 +259,16 @@ $(function () {
                 self=$(this);
             self.off('click');
             self.on('click',function(e){
+                // 获取所有同胞，为景点和酒店数据
                 var childList=$(this).parent().children('li');
                 if($(this).hasClass('active')){
-                     $(this).removeClass('active');
-                    childList.each(function(index){
-                        if(index!==0){
-                            $(this).animate({height:0},200,'swing');
-                        }
-                    })
+                    // 下面的代码注视掉，但不要删除
+                    //  $(this).removeClass('active');
+                    // childList.each(function(index){
+                    //     if(index!==0){
+                    //         $(this).animate({height:0},200,'swing');
+                    //     }
+                    // })
                 }else{
                     $(this).addClass('active');
                     childList.each(function(index){
@@ -264,6 +309,10 @@ $(function () {
     *   路线编辑，保存时的操作
     */
     $('a.btn02.btn02-c4').click(function () {
+        // 检测是否登录
+        if (checkLogin() === "unlogin") {
+            return ;
+        }
         //$('.edit-list')[0].children[1].children[1].innerText  
         var dayList = $('.edit-list');
         var dayCount = dayList.length;
@@ -294,6 +343,7 @@ $(function () {
         //获取其它参数
         var startDate = $('#datetimepicker').val();
         var uid = $('.user .b1').attr('data-id');
+        //var uid = userId;
         var fromLocId = getQueryString('fromLocId');
         var ugcId = $('.ugcId').text();
             
@@ -346,17 +396,17 @@ $(function () {
     }
     
     
-    // 景点&酒店搜索
-    var searchInput = $(".s-input");
-    var tagViewspot = $("#item01");
-    var tagHotel = $("#item02");
+    
     searchInput.keypress(function (e) {
         // 获取搜索文本
-        var searchText = searchInput.val();
+        var searchText = searchInput.val() || arrLocName;
         //e.which是按键的值， 13 是回车键
         var key = e.which;
         // tagFlag = 1,搜景点
         if (key == 13) {
+            // 将当前的tag的page计数置零
+            pageArr[tagFlag] = 0;
+            
             ajaxSearch(tagFlag, searchText);
         }
     });
@@ -364,6 +414,7 @@ $(function () {
     // 搜索并填充文本
     function ajaxSearch(tagFlag, text) {
          var requestUrl = ['/hotel/search', '/viewspot/search']; 
+
          var data = {
             searchText : text,
          }
@@ -455,9 +506,11 @@ $(function () {
     
     /*
         ajax滚动加载
+        分为两种情况：
+        1. 搜索栏有输入信息，代表是特定的查找
+        2. 搜索栏没有输入信息，代表是特定城市的景点或者酒店的信息
     */
-    // page设置
-    var page = 0;
+    
     // 记录滚动加载是否结束
     var dataOver = false;
     var ajaxStatus = true;
@@ -470,14 +523,19 @@ $(function () {
         if ( textheight - top - $(window).height() <= 50  && !dataOver && ajaxStatus ) {
             ajaxStatus = false;           
             
-            var searchText = searchInput.val();                                    
+            // 如果搜索输入框为空，则代表时按照地点来加载数据(景点和酒店）
+            var searchText = searchInput.val() || arrLocName;                                    
+            
+
+            // 记录当前的page数
+            pageArr[tagFlag] =  pageArr[tagFlag] + 1;
             
             // ajax的post数据
             var data = {
                 searchText : searchText,
-                page : ++page,
+                page : pageArr[tagFlag],
             };
-
+            
             // 显示缓冲图标
             if (!dataOver) {
                 $('.more').show();
@@ -490,7 +548,6 @@ $(function () {
                 type : 'POST',
                 
                 success: function (msg) {  //成功返回后删除加载状态样式，插入dom
-                    console.dir(msg);
                     $('.more').hide();
                     ajaxAddMore(msg);       
                     ajaxStatus = true;                    
