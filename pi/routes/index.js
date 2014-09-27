@@ -15,7 +15,6 @@ router.get('/', function(req, res) {
             popRoute: {},
             user_info: req.session.user_info,
     });
-    /*
     async.parallel({
         newRoute: function(callback) {
             model.setUrl(urlApi.apiHost+urlApi.newRoute);
@@ -55,13 +54,16 @@ router.get('/', function(req, res) {
             user_info: req.session.user_info,
         });
     });
-    */
 });
 
 
-router.get('/search', function(req, res) {
+router.get('/route/include/', function(req, res) {
+});
+
+router.get('/route/city/', function(req, res) {
     var fromLocName = req.query.fromLocName;
     var arrLocName = req.query.arrLocName;
+    var poi_type = req.query.poi_type;
     var queryFromName = urlApi.searchCityIdByName + fromLocName;
     var queryArrName = urlApi.searchCityIdByName + arrLocName;
     async.parallel({
@@ -180,9 +182,6 @@ router.get('/suggestion', function(req, res){
     else {
         requestUrl = suggestionUrl(tempInput, 0, 0, 1, 1);
     }
-
-    console.log(requestUrl);
-
     model.setUrl(encodeURI(requestUrl));
     model.getdata(null, function(data) {
       var result = JSON.parse(data).result;
@@ -190,12 +189,11 @@ router.get('/suggestion', function(req, res){
       for (type in result) {
         var arrData = result[type];
         for (var i = 0; i < arrData.length; i++) {
-          var tempName = arrData[i].name;
+          var tempName = {type: type, name: arrData[i].name};
           suggestionArray.push(tempName);
         }
       }
-      console.log(suggestionArray);
-      res.json({suggestion: suggestionArray});
+      res.json(suggestionArray);
     });
   }
 });
