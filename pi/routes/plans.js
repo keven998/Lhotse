@@ -78,7 +78,7 @@ router.get('/edit/:UGCID', function(req, res) {
 
 
 /* edit route */
-router.get('/modify/:UGCID', function(req, res) {
+router.get('/edit/customized/:UGCID', function(req, res) {
     async.parallel([
         function route(callback) {
             ugcDataEdit.route(req, callback);
@@ -317,8 +317,8 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
 });
 
 
-  /* user's plan detail */
-router.get('/planshow/:UGCID', function(req, res) {
+/* user's plan detail */
+router.get('/timeline/customized/:UGCID', function(req, res) {
     model.setUrl(apiList.apiHost + apiList.ugc.detail);
     model.getdata(req, function(data) {
     console.log('-=-=' + model.getUrl());
