@@ -343,6 +343,7 @@ $(function () {
         //获取其它参数
         var startDate = $('#datetimepicker').val();
         var uid = $('.user .b1').attr('data-id');
+        console.log(uid);
         //var uid = userId;
         var fromLocId = getQueryString('fromLocId');
         var ugcId = $('.ugcId').text();
@@ -374,6 +375,7 @@ $(function () {
                 dataType : "json",           
                 type : 'POST',
                 success: function (msg) {
+                    console.log(msg);
                     if (msg.code == 0) {
                         window.location.href="/plans/mine/";
                     } else {

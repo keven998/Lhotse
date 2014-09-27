@@ -8,6 +8,14 @@ var model = require('../model/sup_model.js');
 
 
 router.get('/', function(req, res) {
+    res.render('index', {
+            newRoute: {},
+            editorRoute: {},
+            mustgoRoute: {},
+            popRoute: {},
+            user_info: req.session.user_info,
+    });
+    /*
     async.parallel({
         newRoute: function(callback) {
             model.setUrl(urlApi.apiHost+urlApi.newRoute);
@@ -47,10 +55,11 @@ router.get('/', function(req, res) {
             user_info: req.session.user_info,
         });
     });
+    */
 });
 
 
-router.get('/search', function(req, res){
+router.get('/search', function(req, res) {
     var fromLocName = req.query.fromLocName;
     var arrLocName = req.query.arrLocName;
     var queryFromName = urlApi.searchCityIdByName + fromLocName;
@@ -157,14 +166,25 @@ router.get('/target/', function(req, res){
 //  联想功能
 router.get('/suggestion', function(req, res){
   var tempInput = req.query.input;
+  var type = req.query.type;
+  var requestUrl = '';
   // 如果未有输入则推送空
   if (tempInput == "") {
     res.json();
-  } 
+  }
   else {
-    var requestUrl = "http://api.lvxingpai.cn/web/suggestions?restaurant=0&vs=1&hotel=0&loc=1&word=" + tempInput;
+    if(type === "from"){
+        requestUrl = suggestionUrl(tempInput, 0, 0, 1, 0);
+    }
+    // to : vs and loc 
+    else {
+        requestUrl = suggestionUrl(tempInput, 0, 0, 1, 1);
+    }
+
+    console.log(requestUrl);
+
     model.setUrl(encodeURI(requestUrl));
-    model.getdata(null, function(data){
+    model.getdata(null, function(data) {
       var result = JSON.parse(data).result;
       var suggestionArray = new Array();
       for (type in result) {
@@ -174,14 +194,41 @@ router.get('/suggestion', function(req, res){
           suggestionArray.push(tempName);
         }
       }
+      console.log(suggestionArray);
       res.json({suggestion: suggestionArray});
     });
   }
 });
 
-// 联想推荐开关
-var suggestion = function () {
-  
+/* 
+    suggestion switch
+    e.x.    suggestionUrl("北", 0, 0, 1, 0)    loc suggsetion ON
+            suggestionUrl("北", 0, 0, 1, 1)    loc and vs suggsetion ON
+
+*/
+var suggestionUrl = function (input, restaurant, hotel, loc, vs) {
+    // set default value, don't give suggestion
+    restaurant = restaurant || 0;
+    hotel = hotel || 0;
+    loc = loc || 0;
+    vs = vs || 0;
+    input = input || 0;
+
+    var requestUrl = urlApi.apiHost + urlApi.inputSuggestion;
+    var querys = {
+        restaurant : restaurant,
+        hotel : hotel,
+        loc : loc,
+        vs : vs,
+        word : input,
+    };
+
+    var queryStr = '';
+    for (var query in querys) {
+        queryStr += '&' + query + '=' + querys[query];
+    }
+
+    return requestUrl + '?' + queryStr;
 }
 
 

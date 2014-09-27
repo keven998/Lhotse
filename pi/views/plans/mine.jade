@@ -26,7 +26,7 @@ block content
                             input.confirm(type="button" value="")
                             input.cancel(type="button" value="")
                         p.date #{plan.startDate}-#{plan.endDate}
-                        a.viewdetail(href='/plans/timeline/'+plan.id) 查看详情
+                        a.viewdetail(href='/plans/planshow/'+plan.id) 查看详情
                         .plan_ft
                             更新时间：#{plan.updateDate}
                             i.delete(data-id=plan.id)

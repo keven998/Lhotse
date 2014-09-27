@@ -17,13 +17,14 @@ block page_var
 
 block content
     .opt
-      a.save 保存
-      a &nbsp;/
-      a.color-01(href="/plans/edit/" + basicInfo._id + '/?DEST=' + basicInfo.destinaton.name + '&fromLocId=' + basicInfo.fromLocId) 编辑路线
-      a &nbsp;/
+      //
+        a.save 保存
+        a &nbsp;/
+      a.color-01(href="/plans/modify/" + basicInfo._id + '/?DEST=' + basicInfo.destinaton.name) 编辑路线
       //
         a 发送朋友
         a &nbsp;/
+      a &nbsp;/
       a.pdf PDF下载
     .bd.t-bd.ct
 

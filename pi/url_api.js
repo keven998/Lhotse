@@ -34,13 +34,15 @@ var urlApi = {
         searchByLoc : '/web/poi/view-spots/search?keyword=DEST&page=0&pageSize=10&sortField=viewCnt&sort=desc',
     },
   
-  
+  inputSuggestion : '/web/suggestions',
+
   ugc : {
     getUgcById : '/web/ugc-plans/UGCID',
     getUgcByIdNone : '/web/ugc-plans/',
     saveUgc : '/web/ugc-plans',
     display : '/web/ugc-plans/UGCID',
     editSave : "http://api.lvxingpai.cn/web/plans/optimizers",
+    detail : '/web/ugc-plans/UGCID',
     // 有待扩充
     timeline : '/web/ugc-plans/templates/TEMPLATES?fromLoc=_fromLoc&uid=5409b6dde4b043c0eff098fe',
     // 暂时不能保存路线，所以用查询某个模板路线的数据代替

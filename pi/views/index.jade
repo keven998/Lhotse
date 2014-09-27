@@ -41,13 +41,18 @@ block content
                         i.ico02.ico02-position
                         b
                             | 我的位置 :
+                        
                             i.tips 请输入您的位置
-                        input#search-input.s-ip(type="text" name="fromLocName")
+                        input.s-ip(type="text" name="fromName" id="from" onkeyup="suggestionData.from()" autocomplete="off")
+                        td
+                            div(id="popup" style="position: absolute;")
+                                table(width="100%" bgcolor="#fffafa")
+                                    tbody(id="popupBody")
                         b.line
                         i.ico02.ico02-where
                         b 想要去哪玩 :
                         td
-                            input.s-ip(type="text" name="arrLocName" id="linkDataProperty" onkeyup="getLinkData();" autocomplete="off")
+                            input.s-ip(type="text" name="arrName" id="arrive" onkeyup="suggestionData.arrive()" autocomplete="off")
                             div(id="popup" style="position: absolute;")
                                 table(width="100%" bgcolor="#fffafa")
                                     tbody(id="popupBody")
