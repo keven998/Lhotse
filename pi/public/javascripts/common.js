@@ -54,7 +54,7 @@ function suggestion(slug, input){
             var obj = result;
 
             if(obj.length == 0){
-                html += '很遗憾，没有为您找到对应的单词，请尝试重新输入~<br>';
+                html += '很遗憾，没有找到相关内容～<br>';
             }else{
                 for(var k=0;k<obj.length;k++){
                     html += "<a onclick='select_" + slug + "(\"" + obj[k].name + "\", \""+obj[k].type+"\")'>" + obj[k].name + "</a><br>";

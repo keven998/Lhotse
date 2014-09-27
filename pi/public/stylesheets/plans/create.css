@@ -8,7 +8,7 @@ h1.title{color:#08DCA9;font-size:32px;padding-top:200px;padding-left:30px;}
 .text_input i{display:inline-block;margin:7px 10px;width:30px;height:30px;}
 .mypos{background:url("/images/plans/create/spot_icon.png") no-repeat;}
 .dest{background:url("/images/plans/create/fly_icon.png") no-repeat;}
-.text_input h2{display:inline-block;vertical-align:top;font-size:20px;color:#08DCA9;line-height:45px;width:150px;}
+.text_input h2{display:inline-block;vertical-align:top;font-size:20px;color:#08DCA9;line-height:45px;width:100px;}
 .s-ip{width:250px;height:45px;line-height: 30px;display:inline-block;vertical-align:top;border: 0 none;font-size: 20px;background:#fff;}
 .s-btn{display:inline-block;vertical-align:top;width:110px;height:110px;background:url("/images/plans/create/go_button.png") no-repeat;border:none;cursor:pointer;margin-left:10px;}
 .s-btn:hover{position:relative;left:1px;top:1px;border:2px black;}

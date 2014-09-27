@@ -6,7 +6,7 @@ block page_var
             id: 'detail',
             path: 'route/',
         }
-        
+
 block content
     .main_container
         h1 #{details.title}
@@ -52,7 +52,7 @@ block content
                 h1.t1
                 ul.about-list
                     each note in notes
-                        li
+                        li(data-url=note.sourceUrl)
                             if  (note.authorAvator != NULL)
                                 img.sider-userimg(src=note.authorAvator)
                             else
