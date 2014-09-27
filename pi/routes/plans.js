@@ -10,16 +10,6 @@ var model = require('../model/sup_model.js');
 var apiList = require('../url_api');
 
 
-/* GET users listing. */
-router.get('/detail/:PLANID', function(req, res) {
-  routeDetail.getdata(req, function(data){
-    res.render('plan/plandetail', {
-      plandetail : JSON.parse(data).result,
-    });
-  });
-});
-
-
 /*
     user save the ugc in timeline 
 */

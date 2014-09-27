@@ -26,5 +26,9 @@ $(function () {
         }else{
             return false;
         }
-    })  
+    })
+
+    item02.find('li').click(function(){
+        location.href = $(this).attr("data-url");
+    });
 })

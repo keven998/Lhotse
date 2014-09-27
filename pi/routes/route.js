@@ -4,10 +4,10 @@ var model = require('../model/sup_model.js');
 var apiList = require('../url_api');
 
 
-router.get('/detail/:ROUTEID', function(req, res){ 
+router.get('/detail/:ROUTEID', function(req, res){
     model.setUrl(apiList.apiHost + apiList.routeDetail);
     model.getdata(req, function(data) {
-        details = JSON.parse(data);
+        var details = JSON.parse(data);
         model.setUrl(apiList.apiHost + apiList.routeNotes);
         model.getdata(req,function(data){
             var notes = JSON.parse(data);
@@ -19,7 +19,20 @@ router.get('/detail/:ROUTEID', function(req, res){
     });
 });
 
-
+router.get('/plans/detail/:ROUTEID', function(req, res){
+    model.setUrl(apiList.apiHost + apiList.routeDetail);
+    model.getdata(req, function(data) {
+        var details = JSON.parse(data);
+        model.setUrl(apiList.apiHost + apiList.routeNotes);
+        model.getdata(req,function(data){
+            var notes = JSON.parse(data);
+            res.json({
+                "details": details.result,
+                "notes": notes.result
+            });
+        });
+    });
+});
 /*
     接收路线列表中的用户筛选信息
 */

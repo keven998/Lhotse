@@ -37,41 +37,67 @@ $(function () {
         sider=$('.sider'),
         layer=$('.layer'),
         wheight=$(window).height();
-    
     /*
     * 将线路列表项的事件委托在外围容器上
     */
     routeList.on('click','a.c-img,h2,a.btn02-c1',function(e){
         var requestUrl = $(this).parents('li').attr('data-url');//假设单项的数据请求地址写在父级dom li中
-        sider.css('height',wheight);
+        sider.css('height' , wheight);
         layer.show();
         sider.show(500,function(){
             $.ajax({
-                url    : requestUrl,
-                data   : {},
-                success: function (msg) {
-                    // 加标题
-                    $("div").children("h1.t1").text(msg.plandetail.title);
-                    // 路线时间开销
-                    $("span.day").text("全程：" + msg.plandetail.days+ "天");
-                    // 路线资金开销
-                    $("span.cost").text("人均：" + msg.plandetail.budget[0] + "~" +msg.plandetail.budget[1] + "元");
-                    // 加tags
-                    var tags = "旅途印象：";
-                    for (var i = 0; i < msg.plandetail.tags.length - 1; i++) {
-                      tags += msg.plandetail.tags[i] + ", ";
+                url : requestUrl,
+                data : {},
+                success : function (msg) {
+                    $("span.day span").text("全程 " + msg.details.days+ " 天");
+                    $("span.cost span").text("人均 " + msg.details.budget[0] + "-" +msg.details.budget[1] + "元");
+                    var tags = "旅途印象: ";
+                    for (var i = 0; i < msg.details.tags.length-1; i++) {
+                        tags += msg.details.tags[i] + ", ";
                     }
-                    tags += msg.plandetail.tags[i];
-                    $("span.tags").text(tags);
-                    
-                    // 加旅游日程路线
+                    tags += msg.details.tags[i];
+                    $("span.tags span").text(tags);
                     $("ul.l").empty();
-                    for (var i = 0; i < msg.plandetail.summary.length; i++) {
-                      $("ul.l").append("<li><b>D" + (i+1) + " : " + msg.plandetail.summary[i] + "</b></li>");
+                    for (var i = 0; i < msg.details.summary.length; i++) {
+                        $("ul.l").append("<li><b class='date'>D" + (i+1) + "</b>" + msg.details.summary[i] + "</li>");
                     }
+                    $(".c .routename").text(msg.details.title);
+                    $(".c .moredesc").append(msg.details.moreDesc);
                     //请求成功后，写入dom,打开侧栏、遮罩
+                    var noteList = $('#item02').children('ul'),
+                        note, noteItem;
+                    for (var i = 0; i < msg.notes.length; i++){
+                        note = msg.notes[i];
+                        noteList.append('<li><a class="n' + i + '"></a></li>');
+                        noteItem = noteList.find('a.n'+ i);//在DOM中定位
+                        noteItem.attr('href',note.sourceUrl);
+                        noteItem.attr('target', '_blank');
+                        noteItem.append('<img class="sider-userimg" src="/images/plans/user02.png">');
+                        if (!note.authorAvator)
+                            noteItem.find('img').attr('src',note.authorAvator);
+                        noteItem.append('<h1 class="t1">' + note.title +'</h1>');
+                        noteItem.append('<em class="time">' + '2014-10-01' + '</em>');//时间未提供
+                        noteItem.append('<em><span class="au">' + note.authorName + '</span>发表</em>');
+                        noteItem.append('<p class="txt">' + note.summary.substring(0,100) + "..." + '</p>');
+                        noteItem.append('<p class="ico-g"><i class="ico01 ico01-eye"></i><b>浏览' + note.viewCnt + '</b></p>');
+                        var source;
+                        switch (msg.notes[0].source){
+                            case 'baidu':
+                                source = "来自百度旅游";
+                                break;
+                            case 'qyer':
+                                source = "来自穷游网";
+                                break;
+                            case 'mafengwo':
+                                source = "来自蚂蜂窝";
+                                break;
+                            default:
+                                source = "";
+                        }
+                        noteItem.append('<p class="ico-g"><i class="ico01 ico01-source"></i><b>' + source + '</b></p>');
+                    }
                 },
-                error  : function () {
+                error : function () {
                     console.log('error!!!')
                 }
             });
@@ -81,7 +107,6 @@ $(function () {
             });
         });
     });
-    
     
     
     var playthemeList=$('.play-theme a'),

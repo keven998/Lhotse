@@ -37,10 +37,9 @@ block content
           a.btn02(data-days='0-3') 1-3天
           a.btn02(data-days='4-7') 4-7天
           a.btn02(data-days='8-99') 7天以上
-
       ul.routelist.f-cb
         each plan in plans
-          li(data-url="/plans/detail/#{plan._id}")
+          li(data-url="/route/plans/detail/#{plan._id}")
             a.c-img
               img(src='#{plan.imageList}')
             .c2
@@ -48,14 +47,13 @@ block content
               p.txt
                 if plan.desc
                   - var short_desc = plan.desc.substring(0, 60)
-                  | #{short_desc}... 
-                
+                  | #{short_desc}...
                 a.btn02.btn02-c1 点击更多
               p.ico-g.fl.w50
                 i.ico01.ico01-route
-                b 线路特色- 
+                b 线路特色-
                 each tag in plan.tags
-                  | #{tag} 
+                  | #{tag}
               p.ico-g.fl.w50
                 i.ico01.ico01-spot
                 b #{plan.vsCnt}个景点，共#{plan.days}天
@@ -63,110 +61,37 @@ block content
                 i.ico01.ico01-cost
                 b 预计花费 ￥#{plan.budget[0]}-￥#{plan.budget[1]}
               a.btn02.btn02-c4(href='/plans/timeline/' + plan._id + '?_fromLoc=' + fromId)复制路线
-      
       .more
         i.ico02.ico02-loading
         a.btn 加载更多···
-      
       .sider(style='display: none;')
         .tab
           a#tab01.item.item01-hover
           a#tab02.item.item02-normal
         #item01.tab-c
           .c
-            h1.t1 
+            h1.routename
             p
               span.day
                 b.dot ·
-                | 全程12天
+                span 全程12天
               span.cost
                 b.dot ·
-                | 人均3000-40000元
-              br
-              span.goodtime
-                b.dot ·
-                | 适合月份：四季皆宜
+                span 人均3000-40000元
               br
               span.tags
                 b.dot ·
-                | 旅途印象：感官盛宴，美景不暇，摄影的天堂，沧桑怀古
+                span 旅途印象：感官盛宴，美景不暇，摄影的天堂，沧桑怀古
           .c
-            h2.t1.t2 |路线速览
-            ul.l 
+            h2.t1.t2
+                i.ico02.ico02-circle
+                b 路线速览
+            ul.l
           .c
             h3.t1.t2
-              i.ico02.ico02-circle
-              b 台北三日深度体验之旅
+                i.ico02.ico02-circle
+                b.routename 台北三日深度体验之旅
+                .moredesc
         #item02.tab-c(style='display: none;')
           ul.about-list
-            li
-              img.sider-userimg(src='/images/plans/user02.png')
-              h1.t1 表面上是现代大都会，但内心却又但内心却又但内心却又但内心却又，抹不掉的电缆附件
-              em.au SAFSREWAG　FLFJ 发表
-              em.time 2014-10-1
-              p.txt
-                | 他是亚洲的一颗明珠，在静谧的男孩中熠熠生辉。他是张爱玲那座
-                | 货没到的是悲哀的成，里几是悲哀的成，里几是悲哀的成，里几个
-              p.ico-g.fl
-                i.ico01.ico01-eye
-                b 浏览2345
-              p.ico-g.fl
-                i.ico01.ico01-source
-                b 文章来自穷游网
-            li
-              img.sider-userimg(src='/images/plans/headpic.png')
-              h1.t1 表面上是现代大都会，但内心却又但内心却又但内心却又但内心却又，抹不掉的电缆附件
-              em.au SAFSREWAG　FLFJ 发表
-              em.time 2014-10-1
-              p.txt
-                | 他是亚洲的一颗明珠，在静谧的男孩中熠熠生辉。他是张爱玲那座
-                | 货没到的是悲哀的成，里几是悲哀的成，里几是悲哀的成，里几个
-              p.ico-g.fl
-                i.ico01.ico01-eye
-                b 浏览2345
-              p.ico-g.fl
-                i.ico01.ico01-source
-                b 文章来自穷游网
-            li
-              img.sider-userimg(src='/images/plans/headpic.png')
-              h1.t1 表面上是现代大都会，但内心却又但内心却又但内心却又但内心却又，抹不掉的电缆附件
-              em.au SAFSREWAG　FLFJ 发表
-              em.time 2014-10-1
-              p.txt
-                | 他是亚洲的一颗明珠，在静谧的男孩中熠熠生辉。他是张爱玲那座
-                | 货没到的是悲哀的成，里几是悲哀的成，里几是悲哀的成，里几个
-              p.ico-g.fl
-                i.ico01.ico01-eye
-                b 浏览2345
-              p.ico-g.fl
-                i.ico01.ico01-source
-                b 文章来自穷游网
-            li
-              img.sider-userimg(src='/images/plans/headpic.png')
-              h1.t1 表面上是现代大都会，但内心却又但内心却又但内心却又但内心却又，抹不掉的电缆附件
-              em.au SAFSREWAG　FLFJ 发表
-              em.time 2014-10-1
-              p.txt
-                | 他是亚洲的一颗明珠，在静谧的男孩中熠熠生辉。他是张爱玲那座
-                | 货没到的是悲哀的成，里几是悲哀的成，里几是悲哀的成，里几个
-              p.ico-g.fl
-                i.ico01.ico01-eye
-                b 浏览2345
-              p.ico-g.fl
-                i.ico01.ico01-source
-                b 文章来自穷游网
-            li
-              img.sider-userimg(src='/images/plans/headpic.png')
-              h1.t1 表面上是现代大都会，但内心却又但内心却又但内心却又但内心却又，抹不掉的电缆附件
-              em.au SAFSREWAG　FLFJ 发表
-              em.time 2014-10-1
-              p.txt
-                | 他是亚洲的一颗明珠，在静谧的男孩中熠熠生辉。他是张爱玲那座
-                | 货没到的是悲哀的成，里几是悲哀的成，里几是悲哀的成，里几个
-              p.ico-g.fl
-                i.ico01.ico01-eye
-                b 浏览2345
-              p.ico-g.fl
-                i.ico01.ico01-source
-                b 文章来自穷游网
     .layer(style='display: none;')
