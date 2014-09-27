@@ -95,7 +95,7 @@ router.get('/search', function(req, res){
 
 router.get('/download/', function(req, res) {
     res.render('download', {user_info: req.session.user_info});
-}); 
+});
 
 
 router.get('/target/', function(req, res){
@@ -149,6 +149,53 @@ router.get('/target/', function(req, res){
         res.render('target', {
             hotCities:  cityList,
             hotViews:   viewList,
+            left_nav_data: {
+                '华北': {
+                    '北京': 1,
+                    '秦皇岛': 1,
+                    '天津': 1,
+                    '承德': 1,
+                    '平遥': 1,
+                    '唐山': 1,
+                    '包头': 1,
+                    '五台山': 2,
+                    '白洋淀': 2,
+                    '张家口': 1,
+                    '石家庄': 1,
+                    '太原': 1,
+                    '大同': 1,
+                    '邯郸': 1,
+                    '易县': 1,
+                    '呼和浩特': 1,
+                },
+                '东北': {
+                    '沈阳': 1,
+                    '长白山': 2,
+                    '哈尔滨': 1,
+                    '长春': 1,
+                    '呼伦贝尔': 1,
+                    '大连': 1,
+                    '漠河': 1,
+                    '丹东': 1,
+                    '葫芦岛': 1,
+                    '五大连池': 1,
+                    '海拉尔': 1,
+                    '满洲里': 1,
+                    '锦州': 1,
+                    '阿尔山': 1,
+                },
+                '西北': {
+                    '西安': 1,
+                    '兰州': 1,
+                    '嘉峪关': 1,
+                    '酒泉': 1,
+                    '敦煌': 1,
+                    '乌鲁木齐': 1,
+                    '银川': 1,
+                    '吐鲁番': 1,
+                    '伊犁': 1,
+                },
+            },
             user_info: req.session.user_info,
         });
     });

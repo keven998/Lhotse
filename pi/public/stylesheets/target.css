@@ -20,3 +20,12 @@ i.line{color:#08DCA9;}
 .type04{width:145px;height:145px;}
 .fl-l{float:left;}
 .fl-r{float:right;}
+
+/*left navigation*/
+.left-nav {width:275px; padding-left:15px;padding-top:50px; float:left; display:block;}
+.left-nav ul {padding:0; margin:0; list-style-type: none;;}
+.left-nav ul li .left-nav-second-level {display:none; margin-left: 105px; padding-top:10px; padding-bottom:10px; line-height: 20px;}
+.left-nav ul li .left-nav-second-level a {margin-left: 10px;}
+.left-nav ul li {position:relative;display:block; text-align:center; text-decoration:none; width:104px; height:35px; color:#FFF; border:1px solid #fff; border-width:1px 1px 0 0; background:#CCCCCC;font-size:20px; padding-top:15px; }
+.left-nav ul li:hover a {color:#fff;}
+.left-nav ul li:hover .left-nav-second-level {display:block; position:absolute; top:0px; left:200; width:200px; font-size: 14px; background-color: gray;}

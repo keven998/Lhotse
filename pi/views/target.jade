@@ -12,421 +12,53 @@ block page_var
 block content
     .content
         .wrapGray
+            .left-nav
+                ul
+                    each city_list, regin_name in left_nav_data
+                        li= regin_name
+                            .left-nav-second-level
+                                each poi_type, city_name in city_list
+                                    a()= city_name
             .destnMap.clear
                 .destnMapL
-                  // ==S 切换
-                  .dMapSwch
-                    a.cur(href='#', target='_blank', title='') 国内
-                    a(href='#', target='_blank', title='') 出境
-                  // ==E 切换
-                  .mapTabSp.mapTabSpWord
-                    .wordMap
-                      a.Asia(href='#', data='name101')
-                        i 亚洲
-                        b.AsiaCn(data='name107')
-                          i 中国
-                      a.Europe(href='#', data='name102')
-                        i 欧洲
-                      a.Africa(href='#', data='name103')
-                        i 非洲
-                      a.NorthAmerica(href='#', data='name104')
-                        i 北美洲
-                      a.SouthAmerica(href='#', data='name105')
-                        i 南美洲
-                      a.Australia(href='#', data='name106')
-                        i 大洋洲
-                    .dMapLayer.dMapbg101.sphl(name='亚洲', layer-data='name101')
-                        .dMapLayerCon
-                            i.bor41
-                            .dMapList
-                              dl.clear
-                                dt
-                                  a(href='http://jpn.lotour.com/', target='_blank', title='') 日本
-                                dd
-                                  a(href='http://jpn.lotour.com/dongjing1/', target='_blank', title='') 东京
-                                dd
-                                  a(href='http://jpn.lotour.com/dazuo/', target='_blank', title='') 大阪
-                                dd
-                                  a(href='http://jpn.lotour.com/chongsheng/', target='_blank', title='') 冲绳
-                                dd
-                                  a(href='http://jpn.lotour.com/fushishan1/', target='_blank', title='') 富士山
-                                dd
-                                  a(href='http://jpn.lotour.com/beihaidao/', target='_blank', title='') 北海道
-                              dl.clear
-                                dt
-                                  a(href='http://kor.lotour.com/', target='_blank', title='') 韩国
-                                dd
-                                  a(href='http://kor.lotour.com/shouer/', target='_blank', title='') 首尔
-                                dd
-                                  a(href='http://kor.lotour.com/jizhoudao/', target='_blank', title='') 济州岛
-                                dd
-                                  a(href='http://kor.lotour.com/fushan/', target='_blank', title='') 釜山
-                                dd
-                                  a(href='http://kor.lotour.com/jingjidao/', target='_blank', title='') 京畿道
-                                dd
-                                  a(href='http://kor.lotour.com/mingdong/', target='_blank', title='') 明洞
-                              dl.clear
-                                dt
-                                  a(href='http://tha.lotour.com/', target='_blank', title='') 泰国
-                                dd
-                                  a(href='http://tha.lotour.com/mangu1/', target='_blank', title='') 曼谷
-                                dd
-                                  a(href='http://tha.lotour.com/qingmai/', target='_blank', title='') 清迈
-                                dd
-                                  a(href='http://tha.lotour.com/batiya/', target='_blank', title='') 芭提雅
-                                dd
-                                  a(href='http://tha.lotour.com/pjdjq/', target='_blank', title='') 普吉岛
-                                dd
-                                  a(href='http://tha.lotour.com/sumeidao/', target='_blank', title='') 苏梅岛
-                              dl.clear
-                                dt
-                                  a(href='http://vie.lotour.com/', target='_blank', title='') 越南
-                                dd
-                                  a(href='http://vie.lotour.com/huzhimingshi1/', target='_blank', title='') 胡志明市
-                                dd
-                                  a(href='http://vie.lotour.com/heneishi/', target='_blank', title='') 河内市
-                                dd
-                                  a(href='http://vie.lotour.com/xialongwan1/', target='_blank', title='') 下龙湾
-                                dd
-                                  a(href='http://vie.lotour.com/xiangang/', target='_blank', title='') 岘港
-                                dd
-                                  a(href='http://vie.lotour.com/xigongly/', target='_blank', title='') 西贡河
-                              dl.clear
-                                dt
-                                  a(href='http://mas.lotour.com/', target='_blank', title='') 马来西亚
-                                dd
-                                  a(href='http://mas.lotour.com/jilongpo/', target='_blank', title='') 吉隆坡
-                                dd
-                                  a(href='http://mas.lotour.com/shaba/', target='_blank', title='') 沙巴
-                                dd
-                                  a(href='http://mas.lotour.com/maliujia/', target='_blank', title='') 马六甲
-                                dd
-                                  a(href='http://mas.lotour.com/Langkawi/', target='_blank', title='') 兰卡威
-                                dd
-                                  a(href='http://mas.lotour.com/bingcheng/', target='_blank', title='') 槟城
-                        .dMapLayer.dMapbg102.sphl(name='欧洲', layer-data='name102')
-                          .dMapLayerCon
-                            i.borLT
-                            .dMapList
-                              dl.clear
-                                dt
-                                  a(href='http://fra.lotour.com/', target='_blank', title='') 法国
-                                dd
-                                  a(href='http://fra.lotour.com/baliqu/', target='_blank', title='') 巴黎
-                                dd
-                                  a(href='http://fra.lotour.com/nisi1/', target='_blank', title='') 尼斯
-                                dd
-                                  a(href='http://fra.lotour.com/puluowangsi/', target='_blank', title='') 普罗旺斯
-                                dd
-                                  a(href='http://fra.lotour.com/lufugong1/', target='_blank', title='') 卢浮宫
-                                dd
-                                  a(href='http://fra.lotour.com/aifeiertieta1/', target='_blank', title='') 埃菲尔铁塔
-                              dl.clear
-                                dt
-                                  a(href='http://ita.lotour.com/', target='_blank', title='') 意大利
-                                dd
-                                  a(href='http://ita.lotour.com/weinisi1/', target='_blank', title='') 威尼斯
-                                dd
-                                  a(href='http://ita.lotour.com/luoma1/', target='_blank', title='') 罗马
-                                dd
-                                  a(href='http://ita.lotour.com/foluolunsa1/', target='_blank', title='') 佛罗伦萨
-                                dd
-                                  a(href='http://ita.lotour.com/milan1/', target='_blank', title='') 米兰
-                                dd
-                                  a(href='http://ita.lotour.com/shengmakeguangchang/', target='_blank', title='') 圣马可广场
-                              dl.clear
-                                dt
-                                  a(href='http://ger.lotour.com/', target='_blank', title='')
-                                    | 德国
-                                dd
-                                  a(href='http://ger.lotour.com/bolin/', target='_blank', title='') 柏林
-                                dd
-                                  a(href='http://ger.lotour.com/munihei1/', target='_blank', title='') 慕尼黑
-                                dd
-                                  a(href='http://ger.lotour.com/falankefu1/', target='_blank', title='') 法兰克福
-                                dd
-                                  a(href='http://ger.lotour.com/hanbao/', target='_blank', title='') 汉堡
-                                dd
-                                  a(href='http://ger.lotour.com/bailinqiang/', target='_blank', title='') 柏林墙
-                              dl.clear
-                                dt
-                                  a(href='http://esp.lotour.com/', target='_blank', title='') 西班牙
-                                dd
-                                  a(href='http://esp.lotour.com/madeli/', target='_blank', title='') 马德里
-                                dd
-                                  a(href='http://esp.lotour.com/basailuona/', target='_blank', title='') 巴塞罗那
-                                dd
-                                  a(href='http://esp.lotour.com/saiweiliya/', target='_blank', title='') 塞维利亚
-                                dd
-                                  a(href='http://esp.lotour.com/douniuchang/', target='_blank', title='') 斗牛场
-                                dd
-                                  a(href='http://esp.lotour.com/xibanyaguangchang1/', target='_blank', title='')
-                                    | 西班牙广场
-                              dl.clear
-                                dt
-                                  a(href='http://gbr.lotour.com/', target='_blank', title='') 英国
-                                dd
-                                  a(href='http://gbr.lotour.com/lundun1/', target='_blank', title='') 伦敦
-                                dd
-                                  a(href='http://gbr.lotour.com/aidingbao1/', target='_blank', title='') 爱丁堡
-                                dd
-                                  a(href='http://gbr.lotour.com/liwupu/', target='_blank', title='') 利物浦
-                                dd
-                                  a(href='http://gbr.lotour.com/damanchesite1/', target='_blank', title='') 大曼彻斯特
-                                dd
-                                  a(href='http://gbr.lotour.com/baijinhangong1/', target='_blank', title='') 白金汉宫
-                    .dMapLayer.dMapbg103.sphl(name='非洲', layer-data='name103')
-                      .dMapLayerCon
-                        i.borLT
-                        .dMapList
-                          dl.clear
-                            dt
-                              a(href='http://egy.lotour.com/', target='_blank', title='') 埃及
-                            dd
-                              a(href='http://egy.lotour.com/AlQahirah/', target='_blank', title='') 开罗
-                            dd
-                              a(href='http://egy.lotour.com/ajlukesuo/', target='_blank', title='') 卢克索
-                            dd
-                              a(href='http://egy.lotour.com/asiwang1/', target='_blank', title='') 阿斯旺
-                            dd
-                              a(href='http://egy.lotour.com/hufujinzita1/', target='_blank', title='') 胡夫金字塔
-                            dd
-                              a(href='http://egy.lotour.com/lukesuoshenmiao1/', target='_blank', title='') 卢克索神庙
-                          dl.clear
-                            dt
-                              a(href='http://ken.lotour.com/', target='_blank', title='') 肯尼亚
-                            dd
-                              a(href='http://ken.lotour.com/neiluobi/', target='_blank', title='') 内罗毕
-                            dd
-                              a(href='http://ken.lotour.com/dongfeidaliegu/', target='_blank', title='') 东非大裂谷
-                            dd
-                              a(href='http://ken.lotour.com/anbosaili/', target='_blank', title='') 安博塞利
-                            dd
-                              a(href='http://ken.lotour.com/qilimazhaluoshan/', target='_blank', title='') 乞力马扎罗山
-                            dd
-                              a(href='http://ken.lotour.com/nakulu1/', target='_blank', title='') 纳库鲁
-                          dl.clear
-                            dt
-                              a(href='http://mar.lotour.com/', target='_blank', title='') 摩洛哥
-                            dd
-                              a(href='http://mar.lotour.com/kasabulanka/', target='_blank', title='') 卡萨布兰卡
-                            dd
-                              a(href='http://mar.lotour.com/malakashicity/', target='_blank', title='') 马拉喀什
-                            dd
-                              a(href='http://mon.lotour.com/labate1/', target='_blank', title='') 拉巴特
-                            dd
-                              a(href='http://mar.lotour.com/feisicity/', target='_blank', title='') 非斯
-                            dd
-                              a(href='http://mar.lotour.com/shefushawan/', target='_blank', title='') 舍夫沙万
-                          dl.clear
-                            dt
-                              a(href='http://rsa.lotour.com/', target='_blank', title='') 南非
-                            dd
-                              a(href='http://rsa.lotour.com/kaipudun1/', target='_blank', title='') 开普敦
-                            dd
-                              a(href='http://rsa.lotour.com/yuehanneisibaoshi/', target='_blank', title='') 约翰内斯堡
-                            dd
-                              a(href='http://rsa.lotour.com/biletuoliya1/', target='_blank', title='') 比勒陀利亚
-                            dd
-                              a(href='http://rsa.lotour.com/taiyangcheng1/', target='_blank', title='') 太阳城
-                            dd
-                              a(href='http://rsa.lotour.com/haowangjiao1/', target='_blank', title='') 好望角
-                          dl.clear
-                            dt
-                              a(href='http://zim.lotour.com/', target='_blank', title='') 津巴布韦
-                            dd
-                              a(href='http://zim.lotour.com/halalei/', target='_blank', title='') 哈拉雷
-                            dd
-                              a(href='http://zim.lotour.com/pubudaqiao/', target='_blank', title='') 瀑布大桥
-                            dd
-                              a(href='http://zim.lotour.com/dajinbabuweiyizhi/', target='_blank', title='') 大津巴布韦遗址
-                    .dMapLayer.dMapbg104.sphl(name='北美洲', layer-data='name104')
-                      .dMapLayerCon
-                        i.borLT
-                        .dMapList
-                          dl.clear
-                            dt
-                              a(href='http://usa.lotour.com/', target='_blank', title='') 美国
-                            dd
-                              a(href='http://usa.lotour.com/niuyuezhou/', target='_blank', title='') 纽约
-                            dd
-                              a(href='http://usa.lotour.com/huashengdungelunbiyatequ/', target='_blank', title='') 华盛顿
-                            dd
-                              a(href='http://usa.lotour.com/luoshanzuo/', target='_blank', title='') 洛杉矶
-                            dd
-                              a(href='http://usa.lotour.com/lasiweijiasi1/', target='_blank', title='') 拉斯维加斯
-                            dd
-                              a(href='http://usa.lotour.com/xiaweiyizhou/', target='_blank', title='') 夏威夷州
-                          dl.clear
-                            dt
-                              a(href='http://mex.lotour.com/', target='_blank', title='') 墨西哥
-                            dd
-                              a(href='http://mex.lotour.com/mosico/', target='_blank', title='') 墨西哥州
-                            dd
-                              a(href='http://mex.lotour.com/youkatan/', target='_blank', title='') 尤卡坦州
-                            dd
-                              a(href='http://mex.lotour.com/nanxiaklfly/', target='_blank', title='') 南下加利福尼亚
-                          dl.clear
-                            dt
-                              a(href='http://can.lotour.com/', target='_blank', title='') 加拿大
-                            dd
-                              a(href='http://can.lotour.com/duolunduo1/', target='_blank', title='') 多伦多
-                            dd
-                              a(href='http://can.lotour.com/wengehua1/', target='_blank', title='') 温哥华
-                            dd
-                              a(href='http://can.lotour.com/mengtelier1/', target='_blank', title='') 蒙特利尔
-                            dd
-                              a(href='http://can.lotour.com/kuibeikecheng/', target='_blank', title='') 魁北克省
-                            dd
-                              a(href='http://can.lotour.com/zuotaihua/', target='_blank', title='') 渥太华
-                          dl.clear
-                            dt
-                              a(href='http://cub.lotour.com/', target='_blank', title='') 古巴
-                            dd
-                              a(href='http://cub.lotour.com/hawana/', target='_blank', title='') 哈瓦那
-                            dd
-                              a(href='http://cub.lotour.com/baladeluohaitan/', target='_blank', title='') 巴拉德罗海滩
-                            dd
-                              a(href='http://cub.lotour.com/shengdiyag/', target='_blank', title='') 圣地亚哥省
-                          dl.clear
-                            dt
-                              a(href='http://pan.lotour.com/', target='_blank', title='') 巴拿马
-                            dd
-                              a(href='http://pan.lotour.com/banamac/', target='_blank', title='') 巴拿马城
-                    .dMapLayer.dMapbg105.sphl(name='南美洲', layer-data='name105')
-                      .dMapLayerCon
-                        i.borLT
-                        .dMapList
-                          dl.clear
-                            dt
-                              a(href='http://arg.lotour.com/', target='_blank', title='') 阿根廷
-                            dd
-                              a(href='http://arg.lotour.com/buyinuosiailisi1/', target='_blank', title='') 布宜诺斯艾利斯
-                            dd
-                              a(href='http://arg.lotour.com/nvrenqiao/', target='_blank', title='') 女人桥
-                            dd
-                              a(href='http://arg.lotour.com/kelongdajuyuan/', target='_blank', title='') 科隆大剧院
-                            dd
-                              a(href='http://arg.lotour.com/laohuzhou/', target='_blank', title='') 老虎洲
-                          dl.clear
-                            dt
-                              a(href='http://bra.lotour.com/', target='_blank', title='') 巴西
-                            dd
-                              a(href='http://bra.lotour.com/liyuereneilu/', target='_blank', title='') 里约热内卢
-                            dd
-                              a(href='http://bra.lotour.com/shengbaoluoshi1/', target='_blank', title='') 圣保罗
-                            dd
-                              a(href='http://bra.lotour.com/yamaxunhe/', target='_blank', title='') 亚马逊河
-                          dl.clear
-                            dt
-                              a(href='http://per.lotour.com/', target='_blank', title='') 秘鲁
-                            dd
-                              a(href='http://per.lotour.com/lima/', target='_blank', title='') 利马
-                            dd
-                              a(href='http://per.lotour.com/maqiubiqiu1/', target='_blank', title='') 马丘比丘
-                            dd
-                              a(href='http://per.lotour.com/kusikes/', target='_blank', title='') 库斯科
-                          dl.clear
-                            dt
-                              a(href='http://bol.lotour.com/', target='_blank', title='') 玻利维亚
-                            dd
-                              a(href='http://bol.lotour.com/wulongniyanzhao/', target='_blank', title='') 乌尤尼盐沼
-                          dl.clear
-                            dt
-                              a(href='http://chi.lotour.com/', target='_blank', title='') 智利
-                            dd
-                              a(href='http://chi.lotour.com/shengdiyageshoudu/', target='_blank', title='') 圣地亚哥首都
-                            dd
-                              a(href='http://chi.lotour.com/shengdiyagewuqiguangchang/', target='_blank', title='') 圣地亚哥武器广场
-                    .dMapLayer.dMapbg106.sphl(name='大洋洲', layer-data='name106')
-                      .dMapLayerCon
-                        i.bor41
-                        .dMapList
-                          dl.clear
-                            dt
-                              a(href='http://aus.lotour.com/', target='_blank', title='') 澳大利亚
-                            dd
-                              a(href='http://aus.lotour.com/weiduoliyazhou/', target='_blank', title='') 维多利亚洲
-                            dd
-                              a(href='http://aus.lotour.com/moerben1/', target='_blank', title='') 墨尔本
-                            dd
-                              a(href='http://aus.lotour.com/xini1/', target='_blank', title='') 悉尼
-                            dd
-                              a(href='http://aus.lotour.com/kunshilanzhou/', target='_blank', title='') 昆士兰州
-                            dd
-                              a(href='http://aus.lotour.com/bulisiban1/', target='_blank', title='') 布里斯班
-                          dl.clear
-                            dt
-                              a(href='http://nzl.lotour.com/', target='_blank', title='') 新西兰
-                            dd
-                              a(href='http://nzl.lotour.com/aokl/', target='_blank', title='') 奥克兰
-                            dd
-                              a(href='http://nzl.lotour.com/huanghouzhen/', target='_blank', title='') 皇后镇
-                            dd
-                              a(href='http://nzl.lotour.com/huilingdun/', target='_blank', title='') 惠灵顿
-                            dd
-                              a(href='http://nzl.lotour.com/huayuanzhicheng/', target='_blank', title='') 花园之城
-                          dl.clear
-                            dt
-                              a(href='http://cnmi.lotour.com/', target='_blank', title='') 北马里亚纳
-                            dd
-                              a(href='http://cnmi.lotour.com/saibandao1/', target='_blank', title='') 塞班岛
-                            dd
-                              a(href='http://cnmi.lotour.com/tianningdao/', target='_blank', title='') 天宁岛
-                          dl.clear
-                            dt
-                              a(href='http://pf.lotour.com/', target='_blank', title='') 波利尼西亚
-                            dd
-                              a(href='http://pf.lotour.com/daxidi1/', target='_blank', title='') 大溪地
-                            dd
-                              a(href='http://pf.lotour.com/zuoliyahaitandujiacun/', target='_blank', title='') 茉莉雅海滩
-                            dd
-                              a(href='http://pf.lotour.com/zhenzhubowuguan1/', target='_blank', title='') 珍珠博物馆
-                          dl.clear
-                            dt
-                              a(href='http://fij.lotour.com/', target='_blank', title='') 斐济
-                            dd
-                              a(href='http://fij.lotour.com/zhongyangdaqu/', target='_blank', title='') 中央大区
-                            dd
-                              a(href='http://fij.lotour.com/chenshuijurengongyuan1/', target='_blank', title='') 沉睡巨人公园
-                  .mapTabSp.mapTabSpCn
-                    // ==S 地域名称
-                    .dMapName
-                      h2.name15 内蒙古
-                      h2.name22 吉林
-                      h2.name23 黑龙江
-                      h2.name21 辽宁
-                      h2.name13 河北
-                      h2.name11 北京
-                      h2.name12 天津
-                      h2.name37 山东
-                      h2.name32 江苏
-                      h2.name65 新疆
-                      h2.name62 甘肃
-                      h2.name64 宁夏
-                      h2.name14 山西
-                      h2.name63 青海
-                      h2.name61 陕西
-                      h2.name41 河南
-                      h2.name34 安徽
-                      h2.name54 西藏
-                      h2.name51 四川
-                      h2.name50 重庆
-                      h2.name42 湖北
-                      h2.name33 浙江
-                      h2.name31 上海
-                      h2.name53 云南
-                      h2.name52 贵州
-                      h2.name43 湖南
-                      h2.name36 江西
-                      h2.name35 福建
-                      h2.name45 广西
-                      h2.name44 广东
-                      h2.name46 海南
-                      h2.name18 台湾
-                      h2.name99 香港
-                      h2.name95 澳门
-                    // ==E 地域名称
+                    .mapTabSp.mapTabSpCn
+                        // ==S 地域名称
+                        .dMapName
+                            h2.name15 内蒙古
+                            h2.name22 吉林
+                            h2.name23 黑龙江
+                            h2.name21 辽宁
+                            h2.name13 河北
+                            h2.name11 北京
+                            h2.name12 天津
+                            h2.name37 山东
+                            h2.name32 江苏
+                            h2.name65 新疆
+                            h2.name62 甘肃
+                            h2.name64 宁夏
+                            h2.name14 山西
+                            h2.name63 青海
+                            h2.name61 陕西
+                            h2.name41 河南
+                            h2.name34 安徽
+                            h2.name54 西藏
+                            h2.name51 四川
+                            h2.name50 重庆
+                            h2.name42 湖北
+                            h2.name33 浙江
+                            h2.name31 上海
+                            h2.name53 云南
+                            h2.name52 贵州
+                            h2.name43 湖南
+                            h2.name36 江西
+                            h2.name35 福建
+                            h2.name45 广西
+                            h2.name44 广东
+                            h2.name46 海南
+                            h2.name18 台湾
+                            h2.name99 香港
+                            h2.name95 澳门
+                            // ==E 地域名称
                     // ==S 地图层
                     .destnMap-merc(data-projection='merc', data-name='cn_merc_en')
                     .dMapLayer.dMapbg15.CN-15.sphl(name='内蒙古', layer-data='CN-15')
