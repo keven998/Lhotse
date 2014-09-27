@@ -39,13 +39,11 @@ block content
                 .s
                     form(name="input" action="/search/" method="GET")
                         i.ico02.ico02-position
-                        b
-                            | 我的位置 :
-                            i.tips 请输入您的位置
+                        b 我的位置 : 
                         input#search-input.s-ip(type="text" name="fromLocName")
                         b.line
                         i.ico02.ico02-where
-                        b 想要去哪玩 :
+                        b 想要去哪玩 : 
                         td
                             input.s-ip(type="text" name="arrLocName" id="linkDataProperty" onkeyup="getLinkData();" autocomplete="off")
                             div(id="popup" style="position: absolute;")
