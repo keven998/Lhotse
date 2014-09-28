@@ -216,7 +216,9 @@ $(function(){
 
 // 通过IP获取地理地址-城市名字
 (function getIpPlace() {
-  input.from.value = remote_ip_info["city"];// + remote_ip_info["city"];  
+  var cityName = remote_ip_info["city"];// + remote_ip_info["city"];
+  $('#from').val(cityName);
+  $('#from').attr("poi_type","loc");  
 }())
 
 

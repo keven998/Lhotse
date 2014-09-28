@@ -35,7 +35,6 @@ router.post('/timeline/save', function(req, res) {
 
 /* edit route */
 router.get('/edit/:UGCID', function(req, res) {
-    console.log('in....');
     async.parallel([
         function route(callback) {
             ugcDataEdit.route(req, callback);

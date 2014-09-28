@@ -77,10 +77,10 @@ function go_plan_list(){
     if (from_poi_type == 'loc'){
         if (arr_poi_type == 'loc'){
             url += '/city/';
-        }else if(arr_poi_type == 'loc'){
+        }else if(arr_poi_type == 'vs'){
             url += '/include/';
         }
-        url += '?arrNme=' + arr_name + '&fromName' + from_name;
+        url += '?arrName=' + arr_name + '&fromName=' + from_name;
         window.location.href = url;
     }else{
         alert('not support');

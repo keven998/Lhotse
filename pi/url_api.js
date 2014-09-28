@@ -6,7 +6,7 @@ var urlApi = {
     editorRoute : "/web/recommend/editor",
     mustgoRoute : "/web/recommend/mustgo",
     popRoute : "/web/recommend/popularity",
-
+    
 
     //热门城市，热门景点
     hotCities : '/explore?showDetails=1&pageSize=8&loc=1',
@@ -28,6 +28,9 @@ var urlApi = {
     searchViewspotByName : '/web/poi/view-spots/search?&page=0&pageSize=9&sortField=viewCnt&sort=desc&keyword=',
     searchViewspot : '/web/poi/view-spots/search?pageSize=9&sortField=viewCnt&sort=desc&',
 
+    // 获得路线列表
+    getRouteList : '/web/plans/explore',
+    
     viewspot : {
         detail : '/web/poi/view-spots/SPOTID',
         searchByLoc : '/web/poi/view-spots/search?keyword=DEST&page=0&pageSize=10&sortField=viewCnt&sort=desc',

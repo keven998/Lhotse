@@ -56,14 +56,10 @@ router.get('/', function(req, res) {
     });
 });
 
-
+// router for viewspot
 router.get('/route/include/', function(req, res) {
-});
-
-router.get('/route/city/', function(req, res) {
-    var fromLocName = req.query.fromLocName;
-    var arrLocName = req.query.arrLocName;
-    var poi_type = req.query.poi_type;
+    var fromLocName = req.query.fromName;
+    var arrLocName = req.query.arrName;
     var queryFromName = urlApi.searchCityIdByName + fromLocName;
     var queryArrName = urlApi.searchCityIdByName + arrLocName;
     async.parallel({
@@ -86,8 +82,54 @@ router.get('/route/city/', function(req, res) {
     },
     function(err, results) {
         var fromId = results.from;
+        console.log(fromLocName);
         var arriveId = results.arrive;
-        var indexGoUrl = "http://api.lvxingpai.cn/web/plans/explore?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
+        var indexGoUrl = urlApi.apiHost + urlApi.getRouteList + "?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
+        model.setUrl(encodeURI(indexGoUrl));
+        model.getdata(null, function(data){
+            data = JSON.parse(data);
+            res.render('plans', {
+                plans : data.result,
+                fromName : fromLocName,
+                arriveId : arriveId,
+                fromId : fromId,  // 用于配置“复制路线”的url
+                arriveName : arrLocName,
+                user_info: req.session.user_info,
+            });
+        });
+    });
+});
+
+
+//router for city
+router.get('/route/city/', function(req, res) {
+    var fromLocName = req.query.fromName;
+    var arrLocName = req.query.arrName;
+    var queryFromName = urlApi.searchCityIdByName + fromLocName;
+    var queryArrName = urlApi.searchCityIdByName + arrLocName;
+    async.parallel({
+        from: function(callback) {
+            model.setUrl(encodeURI(queryFromName));
+            model.getdata(req, function(data){
+                data = JSON.parse(data);
+                var id = selectCityId(data.result);
+                callback(null, id);
+            });
+        },
+        arrive: function(callback) {
+            model.setUrl(encodeURI(queryArrName));
+            model.getdata(req, function(data){
+                data = JSON.parse(data);
+                var id = selectCityId(data.result);
+                callback(null, id);
+            });
+        },
+    },
+    function(err, results) {
+        var fromId = results.from;
+        console.log(fromLocName);
+        var arriveId = results.arrive;
+        var indexGoUrl = urlApi.apiHost + urlApi.getRouteList + "?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
         model.setUrl(encodeURI(indexGoUrl));
         model.getdata(null, function(data){
             data = JSON.parse(data);
@@ -167,20 +209,21 @@ router.get('/target/', function(req, res){
 
 //  联想功能
 router.get('/suggestion', function(req, res){
-  var tempInput = req.query.input;
-  var type = req.query.type;
-  var requestUrl = '';
-  // 如果未有输入则推送空
-  if (tempInput == "") {
-    res.json();
-  }
-  else {
-    if(type === "from"){
-        requestUrl = suggestionUrl(tempInput, 0, 0, 1, 0);
+    var tempInput = req.query.input;
+    var type = req.query.type;
+    var requestUrl = '';
+    // 如果未有输入则推送空
+    if (tempInput == "") {
+        res.json();
     }
-    // to : vs and loc 
     else {
-        requestUrl = suggestionUrl(tempInput, 0, 0, 1, 1);
+        if(type === "from"){
+            requestUrl = suggestionUrl(tempInput, 0, 0, 1, 0);
+        }
+        // to : vs and loc 
+        else {
+            requestUrl = suggestionUrl(tempInput, 0, 0, 1, 1);
+        }
     }
     model.setUrl(encodeURI(requestUrl));
     model.getdata(null, function(data) {
@@ -195,7 +238,6 @@ router.get('/suggestion', function(req, res){
       }
       res.json(suggestionArray);
     });
-  }
 });
 
 /* 
