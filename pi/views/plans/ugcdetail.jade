@@ -17,13 +17,14 @@ block page_var
 
 block content
     .opt
-      a.save 保存
-      a &nbsp;/
-      a.color-01(href="/plans/edit/" + basicInfo._id + '/?DEST=' + basicInfo.destinaton.name + '&fromLocId=' + basicInfo.fromLocId) 编辑路线
-      a &nbsp;/
+      //
+        a.save 保存
+        a &nbsp;/
+      a.color-01(href="/plans/edit/customized/" + basicInfo._id + '/?DEST=' + basicInfo.destinaton.name) 编辑路线
       //
         a 发送朋友
         a &nbsp;/
+      a &nbsp;/
       a.pdf PDF下载
     .bd.t-bd.ct
 
@@ -122,8 +123,11 @@ block content
                       .m
                         h3 #{spot.itemName}
                         if arrHome == 1
-                            p   (☆_☆) 一大波好玩的景点扑过来了
+                          p.suggest
+                            i.ico01.ico01-km
+                            | 距离12.3公里  建议打车                            
                         else
+                          p.suggest
                             | 旅途结束，祝您快乐!
 
                         
@@ -138,10 +142,9 @@ block content
                         br
                         b 1、建议游玩:#{spot.timeCost}小时  2、开放时间:#{spot.openTime}  3、门票:￥#{spot.price}
                       
-                        //
-                            p.suggest
-                              i.ico01.ico01-km
-                              | 距离12.8公里  建议公交
+                        p.suggest
+                          i.ico01.ico01-km
+                          | 距离12.8公里  建议公交
                         
                   if spot.type == "hotel"
                     li

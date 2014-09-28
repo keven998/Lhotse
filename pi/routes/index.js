@@ -8,6 +8,13 @@ var model = require('../model/sup_model.js');
 
 
 router.get('/', function(req, res) {
+    res.render('index', {
+            newRoute: {},
+            editorRoute: {},
+            mustgoRoute: {},
+            popRoute: {},
+            user_info: req.session.user_info,
+    });
     async.parallel({
         newRoute: function(callback) {
             model.setUrl(urlApi.apiHost+urlApi.newRoute);
@@ -49,10 +56,10 @@ router.get('/', function(req, res) {
     });
 });
 
-
-router.get('/search', function(req, res){
-    var fromLocName = req.query.fromLocName;
-    var arrLocName = req.query.arrLocName;
+// router for viewspot
+router.get('/route/include/', function(req, res) {
+    var fromLocName = req.query.fromName;
+    var arrLocName = req.query.arrName;
     var queryFromName = urlApi.searchCityIdByName + fromLocName;
     var queryArrName = urlApi.searchCityIdByName + arrLocName;
     async.parallel({
@@ -75,8 +82,54 @@ router.get('/search', function(req, res){
     },
     function(err, results) {
         var fromId = results.from;
+        console.log(fromLocName);
         var arriveId = results.arrive;
-        var indexGoUrl = "http://api.lvxingpai.cn/web/plans/explore?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
+        var indexGoUrl = urlApi.apiHost + urlApi.getRouteList + "?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
+        model.setUrl(encodeURI(indexGoUrl));
+        model.getdata(null, function(data){
+            data = JSON.parse(data);
+            res.render('plans', {
+                plans : data.result,
+                fromName : fromLocName,
+                arriveId : arriveId,
+                fromId : fromId,  // 用于配置“复制路线”的url
+                arriveName : arrLocName,
+                user_info: req.session.user_info,
+            });
+        });
+    });
+});
+
+
+//router for city
+router.get('/route/city/', function(req, res) {
+    var fromLocName = req.query.fromName;
+    var arrLocName = req.query.arrName;
+    var queryFromName = urlApi.searchCityIdByName + fromLocName;
+    var queryArrName = urlApi.searchCityIdByName + arrLocName;
+    async.parallel({
+        from: function(callback) {
+            model.setUrl(encodeURI(queryFromName));
+            model.getdata(req, function(data){
+                data = JSON.parse(data);
+                var id = selectCityId(data.result);
+                callback(null, id);
+            });
+        },
+        arrive: function(callback) {
+            model.setUrl(encodeURI(queryArrName));
+            model.getdata(req, function(data){
+                data = JSON.parse(data);
+                var id = selectCityId(data.result);
+                callback(null, id);
+            });
+        },
+    },
+    function(err, results) {
+        var fromId = results.from;
+        console.log(fromLocName);
+        var arriveId = results.arrive;
+        var indexGoUrl = urlApi.apiHost + urlApi.getRouteList + "?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
         model.setUrl(encodeURI(indexGoUrl));
         model.getdata(null, function(data){
             data = JSON.parse(data);
@@ -156,32 +209,66 @@ router.get('/target/', function(req, res){
 
 //  联想功能
 router.get('/suggestion', function(req, res){
-  var tempInput = req.query.input;
-  // 如果未有输入则推送空
-  if (tempInput == "") {
-    res.json();
-  } 
-  else {
-    var requestUrl = "http://api.lvxingpai.cn/web/suggestions?restaurant=0&vs=1&hotel=0&loc=1&word=" + tempInput;
+    var tempInput = req.query.input;
+    var type = req.query.type;
+    var requestUrl = '';
+    // 如果未有输入则推送空
+    if (tempInput == "") {
+        res.json();
+    }
+    else {
+        if(type === "from"){
+            requestUrl = suggestionUrl(tempInput, 0, 0, 1, 0);
+        }
+        // to : vs and loc 
+        else {
+            requestUrl = suggestionUrl(tempInput, 0, 0, 1, 1);
+        }
+    }
     model.setUrl(encodeURI(requestUrl));
-    model.getdata(null, function(data){
+    model.getdata(null, function(data) {
       var result = JSON.parse(data).result;
       var suggestionArray = new Array();
       for (type in result) {
         var arrData = result[type];
         for (var i = 0; i < arrData.length; i++) {
-          var tempName = arrData[i].name;
+          var tempName = {type: type, name: arrData[i].name};
           suggestionArray.push(tempName);
         }
       }
-      res.json({suggestion: suggestionArray});
+      res.json(suggestionArray);
     });
-  }
 });
 
-// 联想推荐开关
-var suggestion = function () {
-  
+/* 
+    suggestion switch
+    e.x.    suggestionUrl("北", 0, 0, 1, 0)    loc suggsetion ON
+            suggestionUrl("北", 0, 0, 1, 1)    loc and vs suggsetion ON
+
+*/
+var suggestionUrl = function (input, restaurant, hotel, loc, vs) {
+    // set default value, don't give suggestion
+    restaurant = restaurant || 0;
+    hotel = hotel || 0;
+    loc = loc || 0;
+    vs = vs || 0;
+    input = input || 0;
+
+    var requestUrl = urlApi.apiHost + urlApi.inputSuggestion;
+    var querys = {
+        restaurant : restaurant,
+        hotel : hotel,
+        loc : loc,
+        vs : vs,
+        word : input,
+    };
+
+    var queryStr = '';
+    for (var query in querys) {
+        queryStr += '&' + query + '=' + querys[query];
+    }
+
+    return requestUrl + '?' + queryStr;
 }
 
 

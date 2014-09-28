@@ -11,37 +11,38 @@ block content
     .content.f-cb
       .bd
         h1.t(data-fromid=fromId data-arriveId=arriveId) #{fromName}——#{arriveName}
-      .c
-        .play-theme
-          i.line |
-          b.t 游玩主题
-          a.btn02.btn02-c1 不限
-          a.btn02 亲子
-          a.btn02 情侣
-          a.btn02 蜜月
-          a.btn02 美食
-          a.btn02 购物
-          a.btn02 朋友
-          a.btn02 养生
-          a.btn02 家庭
-          a.btn02 自驾
-          a.btn02 度假
-          a.btn02 徒步
-          a.btn02 青春
-          a.btn02 夕阳红
-        <br>
-        .out-days  
-          i.line |
-          b.t 出行天数
-          a.btn02.btn02-c1(data-days='0-99') 不限
-          a.btn02(data-days='0-3') 1-3天
-          a.btn02(data-days='4-7') 4-7天
-          a.btn02(data-days='8-99') 7天以上
+      //
+        .c
+          .play-theme
+            i.line |
+            b.t 游玩主题
+            a.btn02.btn02-c1 不限
+            a.btn02 亲子
+            a.btn02 情侣
+            a.btn02 蜜月
+            a.btn02 美食
+            a.btn02 购物
+            a.btn02 朋友
+            a.btn02 养生
+            a.btn02 家庭
+            a.btn02 自驾
+            a.btn02 度假
+            a.btn02 徒步
+            a.btn02 青春
+            a.btn02 夕阳红
+          <br>
+          .out-days  
+            i.line |
+            b.t 出行天数
+            a.btn02.btn02-c1(data-days='0-99') 不限
+            a.btn02(data-days='0-3') 1-3天
+            a.btn02(data-days='4-7') 4-7天
+            a.btn02(data-days='8-99') 7天以上
       ul.routelist.f-cb
         each plan in plans
           li(data-url="/route/plans/detail/#{plan._id}")
             a.c-img
-              img(src='#{plan.imageList}')
+              img(src='#{plan.imageList}' + '?imageView2/1/w/285/h/215')
             .c2
               h2 #{plan.title}
               p.txt
