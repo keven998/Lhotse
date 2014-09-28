@@ -43,6 +43,18 @@ $(function(){
         $(".mustgo").css("color",'#08DCA9');
         $(".new").css("color",'#08DCA9');
     });
+
+
+    //图片的二态
+    var mList = $('.main');
+    $(mList).on('mouseenter', '.m-list', function (e) {
+        $('.layer').stop(false,true);
+        $(this).find('.layer').fadeIn(200);
+    });
+    $(mList).on('mouseleave', '.m-list', function (e) {
+        $('.layer').stop(false,true);
+        $(this).find('.layer').fadeOut(200);
+    })
 });
 
 // JavaScript DIVCSS5 Document
@@ -162,37 +174,27 @@ $(function(){
     searchInput.on('blur', function (e) {
         tips.hide(200)
     })
-    //图片的二态    
-    var mList = $('#m-list');
-    $(mList).on('mouseenter', '.m-list', function (e) {
-        $('.layer').stop(false,true);
-        $(this).find('.layer').fadeIn(200);
-    });
-    $(mList).on('mouseleave', '.m-list', function (e) {
-        $('.layer').stop(false,true);
-        $(this).find('.layer').fadeOut(200);
-    })
     /*
      * 图片轮播
      * */
-    startTimer();
-    /** Main Slider **/
-    var timer;
-    var slideCount = 3;
-    var currSlide = 0;
-    var nextSlide = currSlide + 1;
-    var fadeSpeed = 1000;
-    //Start slides timer functions
-    function startTimer() {
-        timer = setInterval(function () {
-            $('.slide-item').eq(currSlide).fadeOut(fadeSpeed);
-            $('.slide-item').removeClass('curr');
-            $('.slide-item').eq(nextSlide).addClass('curr').fadeIn(fadeSpeed);
-            $('.thumbs li').eq(nextSlide).addClass('curr');
-            currSlide = nextSlide;
-            nextSlide = currSlide + 1 < slideCount ? currSlide + 1 : 0;
-        }, 6000);
-    }
+//    startTimer();
+//    /** Main Slider **/
+//    var timer;
+//    var slideCount = 3;
+//    var currSlide = 0;
+//    var nextSlide = currSlide + 1;
+//    var fadeSpeed = 1000;
+//    //Start slides timer functions
+//    function startTimer() {
+//        timer = setInterval(function () {
+//            $('.slide-item').eq(currSlide).fadeOut(fadeSpeed);
+//            $('.slide-item').removeClass('curr');
+//            $('.slide-item').eq(nextSlide).addClass('curr').fadeIn(fadeSpeed);
+//            $('.thumbs li').eq(nextSlide).addClass('curr');
+//            currSlide = nextSlide;
+//            nextSlide = currSlide + 1 < slideCount ? currSlide + 1 : 0;
+//        }, 6000);
+//    }
 })(jQuery);
 
 
