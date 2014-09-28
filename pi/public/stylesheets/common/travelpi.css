@@ -57,7 +57,7 @@ html body{height: 100%;position: relative;}
 .user .b1{display:block;line-height: 15px;}
 .user .b2{display:block;font-size: 12px;line-height: 15px;}
 /**/
-.content{width: 1002px;height: auto;margin: 0 auto;padding-bottom: 280px;padding-top: 65px;}
+.content{width: 1002px;height: auto;margin: 0 auto;padding-bottom: 280px;padding-top: 25px;}
 /*travepi-----footer*/
 .ft{position: absolute;left: 0;bottom: 0;width: 100%;background: #08DCA9;z-index: 112;}
 .ft .top{width: auto;height: 150px;padding: 20px 60px;background: #08DCA9}
