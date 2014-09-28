@@ -14,17 +14,19 @@ block content
             h1.title 此刻，我们一起去旅行！
             .search_layer
                 .search_form
-                    form(name="input" action="/search" method="GET")
-                        .search_in
-                            .text_input
-                                i.mypos
-                                h2 我的位置 :
-                                input.s-ip(type="text" name="fromLocName")
-                            .text_input
-                                i.dest
-                                h2 想要去哪儿玩 :
-                                input.s-ip#linkDataProperty(type="text" name="arrLocName" onkeyup="getLinkData();" autocomplete="off")
-                        input.s-btn(type="submit" value="")
+                    .search_in
+                        .text_input
+                            i.mypos
+                            h2 我的位置 :
+                            input.s-ip(type="text" name="fromName" id="from" onkeyup="suggestion_from(this.value)" autocomplete="off")
+                            #suggestion_from.suggestion(style="width:435px;margin-left:150px;")
+                        .text_input
+                            i.dest
+                            h2 想去哪儿 :
+                            input.s-ip(type="text" name="arrName" id="arrive" onkeyup="suggestion_to(this.value)" autocomplete="off")
+                            #suggestion_to.suggestion(style="width:435px;margin-left:150px;")
+                    a(href="#" onclick="go_plan_list()")
+                        .s-btn()
                 .city_nav
                     a
                         b 香港

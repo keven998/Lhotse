@@ -138,8 +138,8 @@ $(function () {
                 page = 0;
                 dataOver = false;
                 // 读取主题tag 和 天数 days
-                var tag = $('.play-theme').children('a.btn02-c1').text(),
-                    days = $('.out-days').children('a.btn02-c1').attr('data-days');
+                var tag = $('.play-theme').children('a.btn02-c1').text() || '不限',
+                    days = $('.out-days').children('a.btn02-c1').attr('data-days') || '0-99';
                 
                 // ajax的post数据
                 var selection = {
@@ -180,8 +180,8 @@ $(function () {
         if ( textheight - top - $(window).height() <= 50  && !dataOver && ajaxStatus ) {
             ajaxStatus = false;           
             // 下面函数将要用到这四个参数
-            var tag = $('.play-theme').children('a.btn02-c1').text(),
-                days = $('.out-days').children('a.btn02-c1').attr('data-days');
+            var tag = $('.play-theme').children('a.btn02-c1').text() || '不限',
+                    days = $('.out-days').children('a.btn02-c1').attr('data-days') || '0-99';
                     
             // ajax的post数据
             var selection = {

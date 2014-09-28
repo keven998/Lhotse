@@ -12,12 +12,11 @@ block page_var
     
     
 block content
-    .content.f-cb
+    .content.f-cb     
       .bd.t-bd
-      h1.t
-        | #{locName.from}--#{locName.arr}
-        .ugcId(style='display:none') #{id}
-
+        h1.t
+          | #{title}
+          .ugcId(style='display:none') #{id}
       .t-left
         h1.time
           | 出发时间：

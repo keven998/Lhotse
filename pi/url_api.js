@@ -6,7 +6,7 @@ var urlApi = {
     editorRoute : "/web/recommend/editor",
     mustgoRoute : "/web/recommend/mustgo",
     popRoute : "/web/recommend/popularity",
-
+    
 
     //热门城市，热门景点
     hotCities : '/explore?showDetails=1&pageSize=8&loc=1',
@@ -28,11 +28,15 @@ var urlApi = {
     searchViewspotByName : '/web/poi/view-spots/search?&page=0&pageSize=9&sortField=viewCnt&sort=desc&keyword=',
     searchViewspot : '/web/poi/view-spots/search?pageSize=9&sortField=viewCnt&sort=desc&',
 
+    // 获得路线列表
+    getRouteList : '/web/plans/explore',
+    
     viewspot : {
         detail : '/web/poi/view-spots/SPOTID',
         searchByLoc : '/web/poi/view-spots/search?keyword=DEST&page=0&pageSize=10&sortField=viewCnt&sort=desc',
     },
-
+  
+    inputSuggestion : '/web/suggestions',
 
     ugc : {
         getUgcById : '/web/ugc-plans/UGCID',
@@ -40,12 +44,13 @@ var urlApi = {
         saveUgc : '/web/ugc-plans',
         display : '/web/ugc-plans/UGCID',
         editSave : "http://api.lvxingpai.cn/web/plans/optimizers",
+        detail : '/web/ugc-plans/UGCID',
         // 有待扩充
         timeline : '/web/ugc-plans/templates/TEMPLATES?fromLoc=_fromLoc&uid=5409b6dde4b043c0eff098fe',
         // 暂时不能保存路线，所以用查询某个模板路线的数据代替
         edit : '/web/ugc-plans/UGCID',
     },
-
+  
     //mine页面，根据用户ID获取我的计划列表
     myPlans: '/web/ugc-plans/users/',
 };

@@ -1,10 +1,3 @@
-//我所在位置
-$(function(){
-    var pro = remote_ip_info["province"];
-    input.fromLocName.value = pro;
-})
-
-
 //城市的跳转需要获取出发城市
 $('.city_nav').children('a').click(function(){
     var fromLocName = input.fromLocName.value,
