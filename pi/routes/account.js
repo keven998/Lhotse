@@ -67,7 +67,7 @@ router.get('/callback/qq/', function(req, ori_res) {
         client_id: '101151725',
         client_secret: '124f82692bc1080c0af901da4c379ac5',
         grant_type: 'authorization_code',
-        redirect_uri: encodeURI('http://www2.lvxingpai.cn/account/callback/qq/'),
+        redirect_uri: encodeURI('http://www2.lvxingpai.cn:8880/account/callback/qq/'),
         code: req.query.code,
     };
     var options = {
