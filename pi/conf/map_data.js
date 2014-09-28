@@ -2,6 +2,7 @@ var map_data = [
     {
         "name": "黑龙江",
         "id": 23,
+        "dMapLayerCon": "bor41",
         "cities": [
         	{"name": "哈尔滨", "type": "loc"},
         	{"name": "漠河", "type": "loc"},
@@ -13,6 +14,7 @@ var map_data = [
     },{
         "name": "吉林",
         "id": 22,
+        "dMapLayerCon": "bor41",
         "cities": [
         	{"name": "长白山", "type": "loc"},
         	{"name": "长春", "type": "loc"},
@@ -21,6 +23,7 @@ var map_data = [
     },{
         "name": "辽宁",
         "id": 21,
+        "dMapLayerCon": "bor41",
         "cities": [
             {"name": "沈阳", "type": "loc"},
             {"name": "大连", "type": "loc"},
@@ -33,6 +36,7 @@ var map_data = [
     },{
         "name": "内蒙古",
         "id": 15,
+        "dMapLayerCon": "bor41",
         "cities": [
             {"name": "包头", "type": "loc"},
             {"name": "呼和浩特", "type": "loc"},
@@ -44,18 +48,21 @@ var map_data = [
     },{
         "name": "北京",
         "id": 11,
+        "dMapLayerCon": "bor41",
         "cities": [
             {"name": "北京", "type": "loc"},
         ],
     },{
         "name": "天津",
         "id": 12,
+        "dMapLayerCon": "bor41",
         "cities": [
             {"name": "天津", "type": "loc"},
         ],
     },{
         "name": "河北",
         "id": 13,
+        "dMapLayerCon": "bor41",
         "cities": [
             {"name": "秦皇岛", "type": "loc"},
             {"name": "承德", "type": "loc"},
@@ -69,6 +76,7 @@ var map_data = [
     }, {
         "name": "山东",
         "id": 37,
+        "dMapLayerCon": "bor41",
         "cities": [
             {"name": "青岛", "type": "loc"},
             {"name": "济南", "type": "loc"},
@@ -82,6 +90,7 @@ var map_data = [
     },{
         "name": "山西",
         "id": 14,
+        "dMapLayerCon": "bor41",
         "cities": [
             {"name": "平遥", "type": "loc"},
             {"name": "五台山", "type": "loc"},
@@ -93,6 +102,7 @@ var map_data = [
     },{
         "name": "河南",
         "id": 41,
+        "dMapLayerCon": "bor41",
         "cities": [
             {"name": "洛阳", "type": "loc"},
             {"name": "开封", "type": "loc"},
@@ -104,6 +114,7 @@ var map_data = [
     },{
         "name": "江苏",
         "id": 32,
+        "dMapLayerCon": "bor41",
         "cities": [
             {"name": "扬州", "type": "loc"},
             {"name": "南京", "type": "loc"},
@@ -114,6 +125,7 @@ var map_data = [
     },{
         "name": "安徽",
         "id": 34,
+        "dMapLayerCon": "bor41",
         "cities": [
             {"name": "黄山", "type": "loc"},
             {"name": "合肥", "type": "loc"},
@@ -126,12 +138,14 @@ var map_data = [
     },{
         "name": "上海",
         "id": 31,
+        "dMapLayerCon": "bor41",
         "cities": [
             {"name": "上海", "type": "loc"}
         ],
     },{
         "name": "浙江",
         "id": 33,
+        "dMapLayerCon": "bor41",
         "cities": [
             {"name": "杭州", "type": "loc"},
             {"name": "乌镇", "type": "loc"},
@@ -145,6 +159,7 @@ var map_data = [
     },{
         "name": "江西",
         "id": 36,
+        "dMapLayerCon": "bor41",
         "cities": [
             {"name": "南昌", "type": "loc"},
             {"name": "九江", "type": "loc"},
@@ -157,6 +172,7 @@ var map_data = [
     },{
         "name": "广东",
         "id": 44,
+        "dMapLayerCon": "borBL",
         "cities": [
             {"name": "广州", "type": "loc"},
             {"name": "珠海", "type": "loc"},
@@ -168,6 +184,7 @@ var map_data = [
     },{
         "name": "广西",
         "id": 45,
+        "dMapLayerCon": "borBL",
         "cities": [
             {"name": "桂林", "type": "loc"},
             {"name": "北海", "type": "loc"},
@@ -178,6 +195,7 @@ var map_data = [
     },{
         "name": "海南",
         "id": 46,
+        "dMapLayerCon": "borBL",
         "cities": [
             {"name": "三亚", "type": "loc"},
             {"name": "海口", "type": "loc"},
@@ -186,6 +204,7 @@ var map_data = [
     },{
         "name": "湖南",
         "id": 43,
+        "dMapLayerCon": "bor41",
         "cities": [
             {"name": "张家界", "type": "loc"},
             {"name": "长沙", "type": "loc"},
@@ -199,6 +218,7 @@ var map_data = [
     },{
         "name": "湖北",
         "id": 42,
+        "dMapLayerCon": "bor41",
         "cities": [
             {"name": "武汉", "type": "loc"},
             {"name": "神龙架", "type": "loc"},
@@ -209,6 +229,7 @@ var map_data = [
     },{
         "name": "陕西",
         "id": 61,
+        "dMapLayerCon": "borLT",
         "cities": [
             {"name": "西安", "type": "loc"},
             {"name": "延安", "type": "loc"},
@@ -217,12 +238,14 @@ var map_data = [
     },{
         "name": "重庆",
         "id": 50,
+        "dMapLayerCon": "borBL",
         "cities": [
             {"name": "重庆", "type": "loc"}
         ],
     },{
         "name": "贵州",
         "id": 52,
+        "dMapLayerCon": "borBL",
         "cities": [
             {"name": "贵阳", "type": "loc"},
             {"name": "黔东南", "type": "loc"},
@@ -233,6 +256,7 @@ var map_data = [
     },{
         "name": "云南",
         "id": 53,
+        "dMapLayerCon": "borBL",
         "cities": [
             {"name": "丽江", "type": "loc"},
             {"name": "西双版纳", "type": "loc"},
@@ -245,6 +269,7 @@ var map_data = [
     },{
         "name": "四川",
         "id": 51,
+        "dMapLayerCon": "borLT",
         "cities": [
             {"name": "成都", "type": "loc"},
             {"name": "九寨沟", "type": "loc"},
@@ -261,12 +286,14 @@ var map_data = [
     },{
         "name": "宁夏",
         "id": 64,
+        "dMapLayerCon": "borLT",
         "cities": [
             {"name": "银川", "type": "loc"}
         ],
     },{
         "name": "青海",
         "id": 63,
+        "dMapLayerCon": "borLT",
         "cities": [
             {"name": "西宁", "type": "loc"},
             {"name": "玉树", "type": "loc"},
@@ -275,6 +302,7 @@ var map_data = [
     },{
         "name": "西藏",
         "id": 54,
+        "dMapLayerCon": "borLT",
         "cities": [
             {"name": "西藏", "type": "loc"},
             {"name": "林芝", "type": "loc"},
@@ -285,6 +313,7 @@ var map_data = [
     },{
         "name": "新疆",
         "id": 65,
+        "dMapLayerCon": "borLT",
         "cities": [
             {"name": "乌鲁木齐", "type": "loc"},
             {"name": "吐鲁番", "type": "loc"},
@@ -298,14 +327,27 @@ var map_data = [
     },{
         "name": "香港",
         "id": 99,
+        "dMapLayerCon": "borBR",
         "cities": [],
     },{
         "name": "澳门",
         "id": 95,
+        "dMapLayerCon": "borBR",
         "cities": [],
     },{
         "name": "台湾",
         "id": 18,
+        "dMapLayerCon": "borBR",
+        "cities": [],
+    },{
+        "name": "福建",
+        "id": 35,
+        "dMapLayerCon": "bor41",
+        "cities": [],
+    },{
+        "name": "甘肃",
+        "id": 62,
+        "dMapLayerCon": "borLT",
         "cities": [],
     }
 ]

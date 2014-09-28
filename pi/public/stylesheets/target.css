@@ -22,7 +22,7 @@ i.line{color:#08DCA9;}
 .fl-r{float:right;}
 
 /*left navigation*/
-.left-nav {width:275px; padding-left:15px;padding-top:50px; float:left; display:block;}
+.left-nav {width:275px; padding-left:15px;padding-top:30px; float:left; display:block;}
 .left-nav ul {padding:0; margin:0; list-style-type: none;;}
 .left-nav ul li .left-nav-second-level {display:none; margin-left: 105px; padding-top:10px; padding-bottom:10px; line-height: 20px;}
 .left-nav ul li .left-nav-second-level a {margin-left: 10px;}

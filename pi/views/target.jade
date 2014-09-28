@@ -14,51 +14,26 @@ block content
         .wrapGray
             .left-nav
                 ul
+                    .search_in
+                        .text_input
+                                i.mypos
+                                h2 我的位置 :
+                                input.s-ip(type="text" name="fromName" id="from" onkeyup="suggestion_from(this.value)" autocomplete="off")
+                                #suggestion_from.suggestion(style="width:435px;")
                     each city_list, regin_name in left_nav_data
                         li= regin_name
                             .left-nav-second-level
                                 each city in city_list
-                                    a(type= city.type)= city.name
+                                    a(type= city.type onclick="target_go_plan_list('" + city.name + "','"+ city.type + "')")= city.name
             .destnMap.clear
                 .destnMapL
                     .mapTabSp.mapTabSpCn
                         // ==S 地域名称
                         .dMapName
-                            h2.name15 内蒙古
-                            h2.name22 吉林
-                            h2.name23 黑龙江
-                            h2.name21 辽宁
-                            h2.name13 河北
-                            h2.name11 北京
-                            h2.name12 天津
-                            h2.name37 山东
-                            h2.name32 江苏
-                            h2.name65 新疆
-                            h2.name62 甘肃
-                            h2.name64 宁夏
-                            h2.name14 山西
-                            h2.name63 青海
-                            h2.name61 陕西
-                            h2.name41 河南
-                            h2.name34 安徽
-                            h2.name54 西藏
-                            h2.name51 四川
-                            h2.name50 重庆
-                            h2.name42 湖北
-                            h2.name33 浙江
-                            h2.name31 上海
-                            h2.name53 云南
-                            h2.name52 贵州
-                            h2.name43 湖南
-                            h2.name36 江西
-                            h2.name35 福建
-                            h2.name45 广西
-                            h2.name44 广东
-                            h2.name46 海南
-                            h2.name18 台湾
-                            h2.name99 香港
-                            h2.name95 澳门
-                            // ==E 地域名称
+                            each province in map_data
+                                - var class_name = 'name'+province.id
+                                h2(class=class_name) #{province.name}
+                        // ==E 地域名称
                         // ==S 地图层
                         .destnMap-merc(data-projection='merc', data-name='cn_merc_en')
                         each province in map_data
@@ -66,12 +41,12 @@ block content
                             - var layer_data = 'CN-' + province.id
                             div(class=province_class, name=province.name, layer-data=layer_data)
                                 .dMapLayerCon
-                                  i.bor41
-                                  .dMapList
-                                    dl.clear
-                                      each city in province.cities
-                                        dd
-                                          a(title='', target='_blank', href='http://eerduosi.lotour.com/chengjisihanling/') #{city.name}
+                                    - var dMapLayerCon_class = province.dMapLayerCon
+                                    i(class=dMapLayerCon_class)
+                                    .dMapList
+                                        each city in province.cities
+                                            dd(style="margin-left:10px;")
+                                                a(title='', target='_blank', style="color:#666;", onclick="target_go_plan_list('" + city.name + "','"+ city.type + "')") #{city.name}
                         // ==E 地图层
         .hot_cities
             .title
