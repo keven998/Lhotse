@@ -5,6 +5,8 @@ var urlApi = require('../url_api');
 var plans = require('../model/plans');
 var request = require('request')
 var model = require('../model/sup_model.js');
+var left_nav_data = require('../conf/country_nav');
+var map_data = require('../conf/map_data');
 
 
 router.get('/', function(req, res) {
@@ -141,7 +143,7 @@ router.get('/route/city/', function(req, res) {
 
 router.get('/download/', function(req, res) {
     res.render('download', {user_info: req.session.user_info});
-}); 
+});
 
 
 router.get('/target/', function(req, res){
@@ -195,6 +197,8 @@ router.get('/target/', function(req, res){
         res.render('target', {
             hotCities:  cityList,
             hotViews:   viewList,
+            left_nav_data: left_nav_data,
+            map_data: map_data,
             user_info: req.session.user_info,
         });
     });
