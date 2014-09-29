@@ -53,12 +53,18 @@ router.get('/', function(req, res) {
     });
 });
 
-// router for viewspot
+/* 
+    router for viewspot
+    logic : first, use viewspot name to get viewspot id,
+            then, use the id to get the routelist.
+    tips : fromLoc should be captured for copying route  
+
+*/
 router.get('/route/include/', function(req, res) {
     var fromLocName = req.query.fromName;
     var arrLocName = req.query.arrName;
-    var queryFromName = urlApi.searchCityIdByName + fromLocName;
-    var queryArrName = urlApi.searchCityIdByName + arrLocName;
+    var queryFromName = urlApi.searchCityIdByName + decodeURIComponent(fromLocName);
+    var queryArrName = urlApi.apiHost + urlApi.searchViewspotIdByName + decodeURIComponent(arrLocName) + "&sort=desc";
     async.parallel({
         from: function(callback) {
             model.setUrl(encodeURI(queryFromName));
@@ -68,26 +74,26 @@ router.get('/route/include/', function(req, res) {
                 callback(null, id);
             });
         },
-        arrive: function(callback) {
+        spotId: function(callback) {
             model.setUrl(encodeURI(queryArrName));
             model.getdata(req, function(data){
                 data = JSON.parse(data);
-                var id = selectCityId(data.result);
+                var id = data.result[0]['_id'];
                 callback(null, id);
             });
         },
     },
     function(err, results) {
         var fromId = results.from;
-        var arriveId = results.arrive;
-        var indexGoUrl = urlApi.apiHost + urlApi.getRouteList + "?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
+        var spotId = results.spotId;
+        var indexGoUrl = urlApi.apiHost + urlApi.searchRouteIncludeViewspot + spotId + "&tag=&minDays=0&maxDays=99";
         model.setUrl(encodeURI(indexGoUrl));
         model.getdata(null, function(data){
             data = JSON.parse(data);
             res.render('plans', {
                 plans : data.result,
                 fromName : fromLocName,
-                arriveId : arriveId,
+                arriveId : spotId,
                 fromId : fromId,  // 用于配置“复制路线”的url
                 arriveName : arrLocName,
                 user_info: req.session.user_info,
@@ -196,7 +202,10 @@ router.get('/target/', function(req, res){
                 img: view.imageList[0],
             });
         }
+        // get fromLoc from cookies
+        var fromLoc = req.cookies.fromLoc;
         res.render('target', {
+            fromLoc : fromLoc,
             hotCities:  cityList,
             hotViews:   viewList,
             left_nav_data: left_nav_data,

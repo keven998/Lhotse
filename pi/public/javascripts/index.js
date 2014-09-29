@@ -218,9 +218,13 @@ $(function(){
 
 // 通过IP获取地理地址-城市名字
 (function getIpPlace() {
-  var cityName = remote_ip_info["city"];// + remote_ip_info["city"];
-  $('#from').val(cityName);
-  $('#from').attr("poi_type","loc");  
+    var cityName = remote_ip_info["city"];// + remote_ip_info["city"];
+    $('#from').val(cityName);
+    $('#from').attr("poi_type","loc");
+    
+    setCookie('fromLoc',encodeURI(cityName),3);
+
+
 }())
 
 
