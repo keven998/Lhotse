@@ -101,9 +101,10 @@ $(function () {
                     console.log('error!!!')
                 }
             });
+
             layer.on('click',function(e){
                 sider.hide(500);
-                $(this).hide();
+                layer.fadeOut("fast");
             });
         });
     });
