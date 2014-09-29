@@ -74,6 +74,12 @@ function go_plan_list(){
         from_poi_type = $('#from').attr('poi_type'),
         url = '/route';
 
+    if (! arr_poi_type){
+        arr_poi_type = 'loc';
+    };
+    if (! from_poi_type){
+        from_poi_type = 'loc';
+    };
     if (from_poi_type == 'loc'){
         if (arr_poi_type == 'loc'){
             url += '/city/';

@@ -135,26 +135,26 @@ $(function(){
     /*
      * 滚动加载
      * */
-    $(window).on("scroll", function () {
-        var top = document.documentElement.scrollTop + document.body.scrollTop;
-        var textheight = $(document).height();
-        if ( textheight - top - $(window).height() <= 100 ) {
-            //$('.more').show();
-            $.ajax({ //ajax获取加载的数据
-                type   : "get",
-                url    : ".../listLoad.php",
-                success: function (msg) {  //成功返回后删除加载状态样式，插入dom
-                    console.dir(msg);
-                    $('.more').hide();
-                    //todo insert dom
-                },
-                error  : function () {
-                    //alert("参数出错，刷新后重试");
-                    return false;
-                }
-            });
-        }
-    });
+    // $(window).on("scroll", function () {
+    //     var top = document.documentElement.scrollTop + document.body.scrollTop;
+    //     var textheight = $(document).height();
+    //     if ( textheight - top - $(window).height() <= 100 ) {
+    //         $('.more').show();
+    //         $.ajax({ //ajax获取加载的数据
+    //             type   : "get",
+    //             url    : ".../listLoad.php",
+    //             success: function (msg) {  //成功返回后删除加载状态样式，插入dom
+    //                 console.dir(msg);
+    //                 $('.more').hide();
+    //                 //todo insert dom
+    //             },
+    //             error  : function () {
+    //                 //alert("参数出错，刷新后重试");
+    //                 return false;
+    //             }
+    //         });
+    //     }
+    // });
     
     
     //文本输入框

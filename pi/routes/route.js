@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var model = require('../model/sup_model.js');
 var apiList = require('../url_api');
+var config = require('../conf/system');
 
 
 router.get('/detail/:ROUTEID', function(req, res){
@@ -12,8 +13,10 @@ router.get('/detail/:ROUTEID', function(req, res){
         model.getdata(req,function(data){
             var notes = JSON.parse(data);
             res.render('route/detail', {
-                "details": details.result,
-                "notes": notes.result
+                details: details.result,
+                notes: notes.result,
+                user_info: req.session.user_info,
+                config: config,
             });
         });
     });
@@ -27,8 +30,10 @@ router.get('/plans/detail/:ROUTEID', function(req, res){
         model.getdata(req,function(data){
             var notes = JSON.parse(data);
             res.json({
-                "details": details.result,
-                "notes": notes.result
+                details: details.result,
+                notes: notes.result,
+                user_info: req.session.user_info,
+                config: config,
             });
         });
     });
