@@ -15,7 +15,7 @@ router.get('/callback/weibo/', function(req, ori_res) {
         client_id: '2294159543',
         client_secret: 'a35ae59c1883bf184e7b76c667e88cee',
         grant_type: 'authorization_code',
-        redirect_uri: 'http://www2.lvxingpai.cn:8880/account/callback/weibo/',
+        redirect_uri: 'http://www2.lvxingpai.cn/account/callback/weibo/',
         code: req.query.code,
     };
 
@@ -67,7 +67,7 @@ router.get('/callback/qq/', function(req, ori_res) {
         client_id: '101151725',
         client_secret: '124f82692bc1080c0af901da4c379ac5',
         grant_type: 'authorization_code',
-        redirect_uri: encodeURI('http://www2.lvxingpai.cn:8880/account/callback/qq/'),
+        redirect_uri: encodeURI('http://www2.lvxingpai.cn/account/callback/qq/'),
         code: req.query.code,
     };
     var options = {
