@@ -3,6 +3,7 @@ var router = express.Router();
 var routeDetail = require('../model/route_detail');
 var request = require('request'); 
 var async = require('async');
+var config = require('../conf/system');
 
 
 // 新方法
@@ -61,6 +62,7 @@ router.get('/edit/:UGCID', function(req, res) {
                 locName : locName,  // 对象：起点和目的地
                 hotels : hotels,
                 user_info: req.session.user_info,
+                config: config,
             });
         })
 });
@@ -92,6 +94,7 @@ router.get('/edit/customized/:UGCID', function(req, res) {
                 //locName : locName,  // 对象：起点和目的地
                 hotels : hotels,
                 user_info: req.session.user_info,
+                config: config,
             });
         })
 });
@@ -241,6 +244,7 @@ router.get('/mine/', function(req, res){
         res.render('plans/mine',{
             myPlans : planList,
             user_info: req.session.user_info,
+            config: config,
         });
     });
 });
@@ -281,7 +285,7 @@ router.get('/mine/altername', function(req, res) {
 
 
 router.get('/create/', function(req, res){
-  res.render('plans/create', {user_info: req.session.user_info});
+  res.render('plans/create', {user_info: req.session.user_info, config: config,});
 });
 
 
@@ -301,6 +305,7 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
             basicInfo : basicInfo,
             navigation : navigation,
             user_info: req.session.user_info,
+            config: config,
         });
     });
 });
@@ -315,13 +320,13 @@ router.get('/timeline/customized/:UGCID', function(req, res) {
         var basicInfo = dataExtract.basicData(req, data);
         var allRoutes = dataExtract.detailData(req, data);
         var navigation = dataExtract.navigationData(allRoutes);
-        //res.send(navigation);
 
         res.render('plans/ugcdetail', {
             allRoutes : allRoutes,
             basicInfo : basicInfo,
             navigation : navigation,
-          user_info: req.session.user_info,
+            user_info: req.session.user_info,
+            config: config,
         });
     });
 });
