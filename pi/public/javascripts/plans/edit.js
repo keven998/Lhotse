@@ -307,7 +307,7 @@ $(function () {
     /* 
     *   路线编辑，保存时的操作
     */
-    $('a.btn02.btn02-c4').click(function () {
+    $('a.confirm').click(function () {
         // 检测是否登录
         if (checkLogin() === "unlogin") {
             return ;
