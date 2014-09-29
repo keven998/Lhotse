@@ -42,8 +42,13 @@ block content
         if plans.length > 0
           each plan in plans
             li(data-url="/route/plans/detail/#{plan._id}")
-              a.c-img
+              a.c-img.rel
                 img(src='#{plan.imageList}' + '?imageView2/1/w/285/h/215')
+                img.most_tag(src='/images/route/triangle.png')
+                h2.most_tag #{plan.lxpTag}
+                | <!--[if lte IE 8]>
+                .most_tag_ie #{plan.lxpTag}
+                | <![endif]-->
               .c2
                 h2 #{plan.title}
                 p.txt
