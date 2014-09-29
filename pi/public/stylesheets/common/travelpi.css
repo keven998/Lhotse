@@ -60,8 +60,8 @@ html body{height: 100%;position: relative;}
 .content{width: 1002px;height: auto;margin: 0 auto;padding-bottom: 280px;padding-top: 70px;}
 /*travepi-----footer*/
 .ft{position: absolute;left: 0;bottom: 0;width: 100%;background: #08DCA9;z-index: 112;}
-.ft .top{width: auto;height: 130px;padding: 20px 60px;background: #08DCA9}
-.ft .top .company-name{text-align: center;width: 1000px;display: block; float:left; margin-top: 20px;color: white;}
+.ft .top{width: auto;height: 150px;padding: 20px 60px;background: #08DCA9}
+.ft .top .company-name{text-align: center;width: 1000px;display: block; float:left; margin-top: 10px;color: white;}
 .ft .ft-c{width: 1200px;margin-left:120px;}
 .m-p{width: 250px;height: auto;color: #fff; margin-right: 20px;}
 .m-p h3{font-weight: bold;font-size: 18px;margin-bottom: 10px;}
