@@ -75,29 +75,34 @@ $(function () {
                     url    : requestUrl,
                     data   : {},
                     success: function (msg) {
-                        console.dir(msg) //请求成功后，写入dom,打开侧栏、遮罩
-                        
+                        //console.dir(msg)
+                        //请求成功后，写入dom,打开侧栏、遮罩
                         sider.show();
-    
+
                         var result = msg.result,
                             name = result.name,
                             favor = result.ratings.favorCnt,
                             viewed = result.ratings.viewCnt,
                             desc = result.description.desc,
                             tips = result.description.tips,
-                            content = "门票:¥" + (result.price || "~") + "元" + "\n" + 
-                                        "开放时间:" + result.openTime + "\n" + 
-                                        "建议游玩时间:" + result.timeCost + "小时" + "\n" + 
-                                        "最佳月份:" + (result.travelMonth.length == 0 ? "全年" : result.travelMonth + "月份");
-                        $('.right p.p2').text(content);
-                        $('.c p')[1].innerText = desc;
-                        $('.c p')[2].innerText = tips || "暂无";
+                            bestmonth,playtime,opentime,price;
+
+                        price = "门票: ¥ " + (result.price || "~") + " 元";
+                        bestmonth = "最佳月份: " + (result.travelMonth.length == 0 ? "全年" : result.travelMonth + "月份");
+                        opentime = "开放时间: " + result.openTime;
+                        playtime = "建议游玩时间: " + result.timeCost + " 小时";
+
+                        $('.right .price').text(price);
+                        $('.right .bestmonth').text(bestmonth);
+                        $('.right .opentime').text(opentime);
+                        $('.right .playtime').text(playtime);
+                        $('.desc').children('p').text(desc);
+                        $('.tips').children('p').text(tips || "暂无");
                         $('.right i.ico01.ico01-flag').text(viewed);
                         $('.right i.ico01.ico01-heart').text(favor);
                         $('.right h3').text(result.name);
                         $('.left img').attr('src', result.imageList[0]);
-
-                                            },
+                    },
                     error  : function () {
                         console.log('error!!!')
                     }
@@ -283,7 +288,8 @@ $('a.pdf').click( function(e){
       dataType : "json",           
       type : 'GET',
       success: function (result) {
-        //console.dir(msg) //请求成功后，写入dom,打开侧栏、遮罩
+        //console.dir(msg)
+        //请求成功后，写入dom,打开侧栏、遮罩
         for (var i = 0; i < result.length; i++) {
           var dateCount = '第' + (i + 1) + '天';
           doc.text(20, 20 * (i+1), "第一天");
