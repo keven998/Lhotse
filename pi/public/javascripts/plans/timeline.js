@@ -76,6 +76,7 @@ $(function () {
                     data   : {},
                     success: function (msg) {
                         console.dir(msg) //请求成功后，写入dom,打开侧栏、遮罩
+                        
                         sider.show();
     
                         var result = msg.result,
@@ -105,7 +106,9 @@ $(function () {
                     sider.animate({
                         right: -600
                     }, 300, 'swing')
+
                     $(this).hide();//("fast")
+                    layer.fadeOut("fast");
                 })
             });
         })

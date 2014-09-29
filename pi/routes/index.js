@@ -10,13 +10,6 @@ var map_data = require('../conf/map_data');
 
 
 router.get('/', function(req, res) {
-    res.render('index', {
-            newRoute: {},
-            editorRoute: {},
-            mustgoRoute: {},
-            popRoute: {},
-            user_info: req.session.user_info,
-    });
     async.parallel({
         newRoute: function(callback) {
             model.setUrl(urlApi.apiHost+urlApi.newRoute);
