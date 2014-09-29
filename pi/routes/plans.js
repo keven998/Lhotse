@@ -3,6 +3,7 @@ var router = express.Router();
 var routeDetail = require('../model/route_detail');
 var request = require('request'); 
 var async = require('async');
+var config = require('../conf/system');
 
 
 // 新方法
@@ -16,7 +17,6 @@ var apiList = require('../url_api');
 router.post('/timeline/save', function(req, res) {
     var postData = req.body;
     var requestUrl = apiList.apiHost + apiList.ugc.saveUgc;
-    console.log(requestUrl);
     // http post
     var options = {
         url :  requestUrl,
@@ -61,6 +61,7 @@ router.get('/edit/:UGCID', function(req, res) {
                 locName : locName,  // 对象：起点和目的地
                 hotels : hotels,
                 user_info: req.session.user_info,
+                config: config,
             });
         })
 });
@@ -92,6 +93,7 @@ router.get('/edit/customized/:UGCID', function(req, res) {
                 //locName : locName,  // 对象：起点和目的地
                 hotels : hotels,
                 user_info: req.session.user_info,
+                config: config,
             });
         })
 });
@@ -240,6 +242,7 @@ router.get('/mine/', function(req, res){
             num : i,
             myPlans : planList,
             user_info: req.session.user_info,
+            config: config,
         });
     });
 });
@@ -280,7 +283,7 @@ router.get('/mine/altername', function(req, res) {
 
 
 router.get('/create/', function(req, res){
-  res.render('plans/create', {user_info: req.session.user_info});
+  res.render('plans/create', {user_info: req.session.user_info, config: config,});
 });
 
 
@@ -300,6 +303,7 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
             basicInfo : basicInfo,
             navigation : navigation,
             user_info: req.session.user_info,
+            config: config,
         });
     });
 });
@@ -309,18 +313,17 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
 router.get('/timeline/customized/:UGCID', function(req, res) {
     model.setUrl(apiList.apiHost + apiList.ugc.detail);
     model.getdata(req, function(data) {
-    console.log('-=-=' + model.getUrl());
         var data = dataExtract.preProcess(req, data);
         var basicInfo = dataExtract.basicData(req, data);
         var allRoutes = dataExtract.detailData(req, data);
         var navigation = dataExtract.navigationData(allRoutes);
-        //res.send(navigation);
 
         res.render('plans/ugcdetail', {
             allRoutes : allRoutes,
             basicInfo : basicInfo,
             navigation : navigation,
-          user_info: req.session.user_info,
+            user_info: req.session.user_info,
+            config: config,
         });
     });
 });
@@ -566,7 +569,6 @@ var dataExtract = (function () {
 var ugcDataEdit = (function() {
     // 获取ugc基本信息，作为编辑页面左侧栏信息
     var route = function(req, callback) {
-        console.log('route');
         model.setUrl(apiList.apiHost + apiList.ugc.getUgcById);  
         model.getdata(req, function(data) {
             data = JSON.parse(data);
@@ -603,7 +605,6 @@ var ugcDataEdit = (function() {
 
     // 获得对应目的地的景点信息
     var spots = function(req, callback) {
-        console.log('spots');
         var requestUrl = '/web/poi/view-spots/search?keyword=' + req.query.DEST + '&page=0&pageSize=9&sortField=viewCnt&sort=desc'
         model.setUrl(encodeURI(apiList.apiHost + requestUrl));
         model.getdata(req, function(data) {
@@ -639,9 +640,7 @@ var ugcDataEdit = (function() {
     
     // 获得对应目的地的酒店信息
     var hotels = function(req, callback) {
-        console.log('hotels');
         var requestUrl = '/web/poi/hotels/search?keyword=' + req.query.DEST + '&page=0&pageSize=9';
-        console.log(requestUrl);
         model.setUrl(encodeURI(apiList.apiHost + requestUrl));
         model.getdata(req, function(data){
             data = JSON.parse(data);

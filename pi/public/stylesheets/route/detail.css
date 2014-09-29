@@ -4,6 +4,10 @@
 h1{font-size:32px;color:#000;}
 hr{border:1px solid #08DCA9;margin:10px 0 30px;}
 
+/*add copy route button*/
+/*.btn02{display: inline-block;width: auto;height: 10px;line-height: 10px;background: #F7F7F7;color: #333;padding: 5px;text-align: center;border-radius: 5px;margin-right: 10px;}
+.btn02-c4{background: #F30D0D;color: #fff;padding: 10px 20px;font-size: 16px;position: absolute;left: 0;bottom: 10px;*bottom: 0}
+*/
 .tab{margin-bottom:50px;}
 .tab .item{float: left;*display: inline;width: 135px;height: 40px;line-height: 40px;font-size: 16px;text-align: center;}
 .tab .item01-normal{background: url(/images/route/detail/detail_normal.png) no-repeat;}

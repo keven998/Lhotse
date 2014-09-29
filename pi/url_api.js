@@ -20,6 +20,12 @@ var urlApi = {
     searchCityIdByName : "http://api.lvxingpai.com/geo/localities/search?keyword=", 
     searchCityNameById : "/web/geo/localities/fromLocId",   //:fromLocId
 
+    // 通过景点名字获取景点ID
+    searchViewspotIdByName : "/web/poi/view-spots/search?keyword=",
+
+    // 获取包含XX景点的路线列表
+    searchRouteIncludeViewspot : "/web/plans/explore?poi=",
+
     // 根据名字搜索酒店
     searchHotelByName : '/web/poi/hotels/search?page=0&pageSize=9&keyword=',
     searchHotel : '/web/poi/hotels/search?pageSize=9&',

@@ -29,9 +29,9 @@ $(function () {
         uesrInput[0] = searchInput.val();
         searchInput.val(uesrInput[tagFlag]);
 
-        if(!$(this).hasClass('item01-hover')){
-            $(this).addClass('item01-hover').removeClass('item01-normal');
-            tab02.removeClass('item02-hover').addClass('item02-normal');
+        if(!$(this).hasClass('item01-select')){
+            $(this).addClass('item01-select').removeClass('item01-normal');
+            tab02.removeClass('item02-select').addClass('item02-normal');
             item02.hide();
             item01.show();
         }else{
@@ -45,10 +45,9 @@ $(function () {
         uesrInput[1] = searchInput.val();
         searchInput.val(uesrInput[tagFlag]);
 
-        if(!$(this).hasClass('item02-hover')){
-            $(this).addClass('item02-hover').removeClass('item02-normal');
-            tab01.removeClass('item01-hover').addClass('item01-normal');
-            $(this).addClass('item01-hover').removeClass('item01-normal');
+        if(!$(this).hasClass('item02-select')){
+            $(this).addClass('item02-select').removeClass('item02-normal');
+            tab01.removeClass('item01-select').addClass('item01-normal');
             item01.hide();
             item02.show();
         }else{
@@ -308,7 +307,7 @@ $(function () {
     /* 
     *   路线编辑，保存时的操作
     */
-    $('a.btn02.btn02-c4').click(function () {
+    $('a.confirm').click(function () {
         // 检测是否登录
         if (checkLogin() === "unlogin") {
             return ;
@@ -342,7 +341,7 @@ $(function () {
         
         //获取其它参数
         var startDate = $('#datetimepicker').val();
-        var uid = $('.user .b1').attr('data-id');
+        var uid = $('.user').attr('data-id');
         console.log(uid);
         //var uid = userId;
         var fromLocId = getQueryString('fromLocId');
@@ -575,7 +574,7 @@ $(function () {
         if (len == 0) {
             if (!dataOver) {
                 dataOver = true;
-                routeList.append("<h1 font='50px'>数据加载完了...</h1>");
+                // routeList.append("<h1 font='50px'>数据加载完了...</h1>");
             }
             return ;
         }

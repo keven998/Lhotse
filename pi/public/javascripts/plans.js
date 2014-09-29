@@ -101,9 +101,10 @@ $(function () {
                     console.log('error!!!')
                 }
             });
+
             layer.on('click',function(e){
                 sider.hide(500);
-                $(this).hide();
+                layer.fadeOut("fast");
             });
         });
     });
@@ -230,11 +231,11 @@ $(function () {
         if (len == 0) {
             if (switchTag == 0) {
                 routeList.empty();
-                routeList.append("<h1 font='50px'>没有数据...</h1>");
+                //routeList.append("<h1 font='50px'>没有数据...</h1>");
             } else {
                 if (!dataOver) {
                     dataOver = true;
-                    routeList.append("<h1 font='50px'>数据加载完了...</h1>");
+                    // routeList.append("<h1 font='50px'>客官，你还想要？优质路线全在这儿了，赶快搞一条吧～</h1>");
                 }
             }
             return ;

@@ -5,6 +5,7 @@ var async = require('async');
 var urlApi = require('../url_api');
 var request = require('request')
 var model = require('../model/sup_model.js');
+var config = require('../conf/system');
 
 
 //  时间轴的景点详情弹层

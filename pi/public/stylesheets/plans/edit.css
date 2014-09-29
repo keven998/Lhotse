@@ -1,13 +1,10 @@
 /*
 @timeList css
 */
-.user{float: right;width: 150px;height: 60px;padding-left: 50px;position: relative;color: #fff;}
-.user img{width: 50px;height: 50px;position: absolute;left: 0;top: 5px;}
-.user .b1{line-height: 40px;}
-.user .b2{font-size: 12px;position: absolute;left: 55px;top: 20px;}
 .opt{width: 1000px;height: 30px;line-height: 30px;margin:0 auto;margin-top: 60px;text-align: right;font-size: 16px;font-family: "黑体";}
-.t-bd .t{width: 950px;height: 40px;line-height: 50px;margin-left: auto;margin-right: auto;padding: 20px 25px 10px 25px;border-bottom: 1px solid #BDBDBD;font-size: 32px;color: #21B699;font-family: '黑体';position: relative;text-align: center;}
-.t-left{float:left;width: 315px;height: auto;margin-right: -600px;border-top: 3px solid #08DCA9;border-left: 1px solid #C9C9C9;font-family: '黑体';position: relative;padding-bottom: 42px;}
+.t-bd .t{width: 950px;height: 40px;line-height: 50px;margin-left: auto;margin-right: auto;padding: 20px 25px 10px 25px;border-bottom: 3px solid #08dca9;font-size: 32px;color: #21B699;font-family: '黑体';position: relative;text-align: center;}
+.t-left{float:left;width: 315px;height: auto;margin-right: -600px;border-left: 1px solid #C9C9C9;font-family: '黑体';position: relative;padding-bottom: 42px;}
+.t-left .confirm{display:inline-block;background:url(/images/plans/edit/confirm.png) no-repeat;width:61px;height:24px;vertical-align:middle;margin-left:50px;padding-bottom:5px;}
 .t-left .time{height: 60px;line-height: 60px;font-size: 18px;color: #777;padding-left: 10px;position: relative;}
 .t-left .edit-list{width: auto;height: auto;font-size: 18px;border-top: 1px solid #E4E4E4;}
 .t-left .edit-list li{position: relative;height: 40px;line-height: 40px;text-align: center;border-bottom: 1px solid #E4E4E4;overflow: hidden;}
@@ -20,10 +17,10 @@
 .btn02-c4{right: 10px;left:auto;top:18px;bottom:auto;width:35px;padding: 9px 10px 7px;}
 .btn02-c1{float: right;*float:none;margin-top: 13px;padding: 10px;}
 .t-right{float: right;width: 685px;border-left: 1px solid #C9C9C9;}
-.t-right .search{display:inline-block;vertical-align:top;height: 35px;line-height: 35px;margin:23px 10px;}
-.ico02-search{background: url(/images/plans/edit/search.png) no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/edit/search.png',sizingMethod='scale');}
+.t-right .search{display:inline-block;vertical-align:top;height: 35px;line-height: 35px;margin:30px 0px;}
+.ico02-search{background: url(/images/plans/edit/search.png) no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/edit/search.png',sizingMethod='scale');width:20px;height:20px;margin:0 0 -5px -25px;}
 
-.t-right .imgs a{float: left;margin: 0 0 15px 15px;width: 213px;background-color: #F7F7F9;position: relative;padding-bottom: 15px;}
+.t-right .imgs a{float: left;margin: 0 0 15px 15px;width: 213px;background-color: #F7F7F9;position: relative;padding-bottom: 15px;border-bottom:1px solid #ddd;}
 .t-right .imgs a img{width: 100%;margin-bottom: 15px;}
 .imgs a .spot-name{font-size: 18px;color: #08DCA9;display: block;margin-left: 10px;}
 .imgs a .hotel-name{font-size: 18px;color: #08DCA9;display: block;margin-left: 10px;height:40px;}
@@ -31,7 +28,6 @@
 .imgs a .value{position: absolute;left: 0;top: 110px;overflow: hidden;display:inline-block;height: 20px;width:110px;line-height: 1.5;padding: 2px 5px;}
 .imgs a .ranking{float: left;*display: inline;width:42px;background:url(/images/plans/edit/ranking.png) no-repeat;color:#fff;text-align:center;}
 .imgs a .price{float: left;*display: inline;width:65px;background:url(/images/plans/edit/price.png) no-repeat;text-align:center;}
-
 .imgs a .ico02{position: absolute;top: 5px;right: 5px;background: url(/images/plans/edit/add_day.png) no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/edit/add_day.png',sizingMethod='scale');}
 .phone{margin:0 0 0 15px;line-height:20px;height:20px;}
 .addr{margin:0 0 5px 15px;line-height:20px;height:20px;}
@@ -43,11 +39,12 @@
 .sortable-placeholder{border: 1px dashed #08DCA9;background-color: none}
 .date_picker{width: 95px;color: #777;font-size: 18px;border: 0 none;cursor: pointer;}
 
-.t-right .search .s-input{width: 200px;height: 25px;padding: 3px 40px 3px 10px;background: #eee;border: 0 none;line-height: 25px;font-size: 16px;margin-left: 25px}
+.t-right .search .s-input{width: 250px;height: 30px;padding: 3px 40px 3px 10px;background: #eee;border: 0 none;line-height: 25px;font-size: 16px;margin-left: 115px;}
 /*tab*/
-.tab{overflow: hidden;display:inline-block;margin:30px 10px;}
+.tab{overflow: hidden;display:inline-block;margin:30px 15px;}
 .tab .item{float: left;*display: inline;width: 117px;height: 35px;line-height: 35px;font-size: 16px;text-align: center;}
 .tab .item01-normal{background: url(/images/plans/edit/spot_normal.png) no-repeat;}
-.tab .item01-hover{background: url(/images/plans/edit/spot_hover.png) no-repeat;}
+.tab .item01-select{background: url(/images/plans/edit/spot_select.png) no-repeat;}
 .tab .item02-normal{background: url(/images/plans/edit/hotel_normal.png) no-repeat;}
-.tab .item02-hover{background: url(/images/plans/edit/hotel_hover.png) no-repeat;}
+.tab .item02-select{background: url(/images/plans/edit/hotel_select.png) no-repeat;}
+.more {text-align: center;}
