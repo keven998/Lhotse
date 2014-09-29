@@ -9,40 +9,42 @@ block page_var
     script(src='http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js' type='text/ecmascript')
 
 block content
-    .full_bg
-        .center_container
-            h1.title 此刻，我们一起去旅行！
-            .search_layer
-                .search_form
-                    .search_in
-                        .text_input
-                            i.mypos
-                            h2 我的位置 :
-                            input.s-ip(type="text" name="fromName" id="from" onkeyup="suggestion_from(this.value)" autocomplete="off")
-                            #suggestion_from.suggestion(style="width:435px;margin-left:150px;")
-                        .text_input
-                            i.dest
-                            h2 想去哪儿 :
-                            input.s-ip(type="text" name="arrName" id="arrive" onkeyup="suggestion_to(this.value)" autocomplete="off")
-                            #suggestion_to.suggestion(style="width:435px;margin-left:150px;")
-                    a(href="#" onclick="go_plan_list()")
-                        .s-btn()
-                .city_nav
-                    a
-                        b 香港
-                    a
-                        b 澳门
-                    a
-                        b 北京
-                    a
-                        b 杭州
-                    a
-                        b 西藏
-                    a
-                        b 三亚
-                    a
-                        b 黄山
-                    a
-                        b 九寨沟
-                    a
-                        b 上海
+    .rel
+        img.full_bg(src='/images/plans/create/background.png')
+        .abs_container
+            .center_container
+                h1.title 此刻，我们一起去旅行！
+                .search_layer
+                    .search_form
+                        .search_in
+                            .text_input
+                                i.mypos
+                                h2 我的位置 :
+                                input.s-ip(type="text" name="fromName" id="from" onkeyup="suggestion_from(this.value)" autocomplete="off")
+                                #suggestion_from.suggestion(style="width:435px;margin-left:150px;")
+                            .text_input
+                                i.dest
+                                h2 想去哪儿 :
+                                input.s-ip(type="text" name="arrName" id="arrive" onkeyup="suggestion_to(this.value)" autocomplete="off")
+                                #suggestion_to.suggestion(style="width:435px;margin-left:150px;")
+                        a(href="#" onclick="go_plan_list()")
+                            .s-btn()
+                    .city_nav
+                        a
+                            b 香港
+                        a
+                            b 澳门
+                        a
+                            b 北京
+                        a
+                            b 杭州
+                        a
+                            b 西藏
+                        a
+                            b 三亚
+                        a
+                            b 黄山
+                        a
+                            b 九寨沟
+                        a
+                            b 上海

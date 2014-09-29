@@ -191,13 +191,11 @@ router.post('/edit/post', function(req, res) {
 
 router.get('/mine/', function(req, res){
     var user_info = req.session.user_info;
-    console.log(user_info);
     model.setUrl(apiList.apiHost + apiList.myPlans + user_info.id);
-    console.log(model.getUrl());
     model.getdata(req, function(data) {
-        var planList = [];
+        var planList = [], i;
         data = JSON.parse(data);
-        for (var i = 0;i < data.result.length;i++) {
+        for (i = 0;i < data.result.length;i++) {
             var plan = data.result[i],
                 updateTime = new Date(plan.updateTime),//long毫秒数转Date类型时间
                 updateYear = updateTime.getFullYear(),
@@ -239,6 +237,7 @@ router.get('/mine/', function(req, res){
             }
         }
         res.render('plans/mine',{
+            num : i,
             myPlans : planList,
             user_info: req.session.user_info,
         });
