@@ -31,4 +31,38 @@ $(function () {
     item02.find('li').click(function(){
         location.href = $(this).attr("data-url");
     });
+
+
 })
+
+
+$(function(){
+    var bn = $('p.bn'),
+        url = bn.attr('data-url');
+    bn.on('click', function(e){
+        var cityName = remote_ip_info["city"];
+
+        console.log(bn.attr('data-url'));
+        $.ajax({  //动画结束，写入数据
+                url    : '/route/city',
+                data   : {cityName : cityName},
+                dataType : "json",           
+                type : 'POST',
+                success: function (msg) {
+                    var id = msg.id;
+                    if (id) {
+                        window.location.href= url + id;
+                    } else {
+                       alert('复制失败'); 
+                    }
+                                
+                },
+                error  : function () {
+                    alert('复制失败...');
+                }
+        });
+    })
+         
+})
+
+

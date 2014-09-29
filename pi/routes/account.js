@@ -1,7 +1,7 @@
 var express = require('express');
 var request = require('request');
 var router = express.Router();
-var app = express();
+var config = require('../conf/system');
 
 
 /*
@@ -12,10 +12,10 @@ http://open.weibo.com/wiki/%E5%BE%AE%E5%8D%9AAPI
 */
 router.get('/callback/weibo/', function(req, ori_res) {
     var form = {
-        client_id: '2294159543',
-        client_secret: 'a35ae59c1883bf184e7b76c667e88cee',
+        client_id: config.weibo_client_id,
+        client_secret: config.weibo_client_secret,
         grant_type: 'authorization_code',
-        redirect_uri: 'http://www2.lvxingpai.cn/account/callback/weibo/',
+        redirect_uri: 'http://' + config.domain + '/account/callback/weibo/',
         code: req.query.code,
     };
 
@@ -64,10 +64,10 @@ router.get('/callback/weibo/', function(req, ori_res) {
 
 router.get('/callback/qq/', function(req, ori_res) {
     var form = {
-        client_id: '101151725',
-        client_secret: '124f82692bc1080c0af901da4c379ac5',
+        client_id: config.qq_client_id,
+        client_secret: config.weibo_client_secret,
         grant_type: 'authorization_code',
-        redirect_uri: encodeURI('http://www2.lvxingpai.cn/account/callback/qq/'),
+        redirect_uri: encodeURI('http://' + config.domain+' /account/callback/qq/'),
         code: req.query.code,
     };
     var options = {

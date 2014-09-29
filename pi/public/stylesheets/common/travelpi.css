@@ -61,10 +61,12 @@ html body{height: 100%;position: relative;}
 /*travepi-----footer*/
 .ft{position: absolute;left: 0;bottom: 0;width: 100%;background: #08DCA9;z-index: 112;}
 .ft .top{width: auto;height: 150px;padding: 20px 60px;background: #08DCA9}
-.ft .ft-c{width: 1000px;margin: 0 auto;}
-.m-p{width: 200px;height: auto;color: #fff}
-.m-p h3{font-weight: bold;font-size: 16px;margin-bottom: 10px;}
-.m-p p{font-size: 14px;line-height: 1.5;}
+.ft .top .company-name{text-align: center;width: 1000px;display: block; float:left; margin-top: 10px;color: white;}
+.ft .ft-c{width: 1200px;margin-left:120px;}
+.m-p{width: 250px;height: auto;color: #fff; margin-right: 20px;}
+.m-p h3{font-weight: bold;font-size: 18px;margin-bottom: 10px;}
+.m-p p{font-size: 13px;line-height: 1.5;}
+.m-p p a{font-size: 15px;line-height: 1.5;color: white;vertical-align: super;margin-left: 5px;}
 .email-ip{width: 150px;height: 20px;padding: 5px 30px 5px 15px;border: 0 none;border-radius: 30px;}
 .email{margin-right: -30px;margin-top: -30px;background: #a22;position: relative;float: right;}
 .ft .bottom{width: auto;height: 50px;line-height: 1.5;padding: 10px 80px;background: #fff;color: #555;text-align: right;}

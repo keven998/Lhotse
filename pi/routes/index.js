@@ -5,6 +5,9 @@ var urlApi = require('../url_api');
 var plans = require('../model/plans');
 var request = require('request')
 var model = require('../model/sup_model.js');
+var left_nav_data = require('../conf/country_nav');
+var map_data = require('../conf/map_data');
+var config = require('../conf/system');
 
 
 router.get('/', function(req, res) {
@@ -33,7 +36,7 @@ router.get('/', function(req, res) {
                 callback(null, data);
             });
         },
-    }, 
+    },
     function(err, results) {
         results.newRoute = JSON.parse(results.newRoute);
         results.editorRoute = JSON.parse(results.editorRoute);
@@ -45,6 +48,7 @@ router.get('/', function(req, res) {
             mustgoRoute: results.mustgoRoute.result,
             popRoute: results.popRoute.result,
             user_info: req.session.user_info,
+            config: config,
         });
     });
 });
@@ -75,7 +79,6 @@ router.get('/route/include/', function(req, res) {
     },
     function(err, results) {
         var fromId = results.from;
-        console.log(fromLocName);
         var arriveId = results.arrive;
         var indexGoUrl = urlApi.apiHost + urlApi.getRouteList + "?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
         model.setUrl(encodeURI(indexGoUrl));
@@ -88,6 +91,7 @@ router.get('/route/include/', function(req, res) {
                 fromId : fromId,  // 用于配置“复制路线”的url
                 arriveName : arrLocName,
                 user_info: req.session.user_info,
+                config: config,
             });
         });
     });
@@ -120,7 +124,6 @@ router.get('/route/city/', function(req, res) {
     },
     function(err, results) {
         var fromId = results.from;
-        console.log(fromLocName);
         var arriveId = results.arrive;
         var indexGoUrl = urlApi.apiHost + urlApi.getRouteList + "?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
         model.setUrl(encodeURI(indexGoUrl));
@@ -133,6 +136,7 @@ router.get('/route/city/', function(req, res) {
                 fromId : fromId,  // 用于配置“复制路线”的url
                 arriveName : arrLocName,
                 user_info: req.session.user_info,
+                config: config,
             });
         });
     });
@@ -140,8 +144,8 @@ router.get('/route/city/', function(req, res) {
 
 
 router.get('/download/', function(req, res) {
-    res.render('download', {user_info: req.session.user_info});
-}); 
+    res.render('download', {user_info: req.session.user_info, config: config});
+});
 
 
 router.get('/target/', function(req, res){
@@ -195,7 +199,10 @@ router.get('/target/', function(req, res){
         res.render('target', {
             hotCities:  cityList,
             hotViews:   viewList,
+            left_nav_data: left_nav_data,
+            map_data: map_data,
             user_info: req.session.user_info,
+            config: config,
         });
     });
 });
