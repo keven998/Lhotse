@@ -17,7 +17,6 @@ var apiList = require('../url_api');
 router.post('/timeline/save', function(req, res) {
     var postData = req.body;
     var requestUrl = apiList.apiHost + apiList.ugc.saveUgc;
-    console.log(requestUrl);
     // http post
     var options = {
         url :  requestUrl,
@@ -194,9 +193,7 @@ router.post('/edit/post', function(req, res) {
 
 router.get('/mine/', function(req, res){
     var user_info = req.session.user_info;
-    console.log(user_info);
     model.setUrl(apiList.apiHost + apiList.myPlans + user_info.id);
-    console.log(model.getUrl());
     model.getdata(req, function(data) {
         var planList = [];
         data = JSON.parse(data);
@@ -315,7 +312,6 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
 router.get('/timeline/customized/:UGCID', function(req, res) {
     model.setUrl(apiList.apiHost + apiList.ugc.detail);
     model.getdata(req, function(data) {
-    console.log('-=-=' + model.getUrl());
         var data = dataExtract.preProcess(req, data);
         var basicInfo = dataExtract.basicData(req, data);
         var allRoutes = dataExtract.detailData(req, data);
@@ -572,7 +568,6 @@ var dataExtract = (function () {
 var ugcDataEdit = (function() {
     // 获取ugc基本信息，作为编辑页面左侧栏信息
     var route = function(req, callback) {
-        console.log('route');
         model.setUrl(apiList.apiHost + apiList.ugc.getUgcById);  
         model.getdata(req, function(data) {
             data = JSON.parse(data);
@@ -609,7 +604,6 @@ var ugcDataEdit = (function() {
 
     // 获得对应目的地的景点信息
     var spots = function(req, callback) {
-        console.log('spots');
         var requestUrl = '/web/poi/view-spots/search?keyword=' + req.query.DEST + '&page=0&pageSize=9&sortField=viewCnt&sort=desc'
         model.setUrl(encodeURI(apiList.apiHost + requestUrl));
         model.getdata(req, function(data) {
@@ -645,9 +639,7 @@ var ugcDataEdit = (function() {
     
     // 获得对应目的地的酒店信息
     var hotels = function(req, callback) {
-        console.log('hotels');
         var requestUrl = '/web/poi/hotels/search?keyword=' + req.query.DEST + '&page=0&pageSize=9';
-        console.log(requestUrl);
         model.setUrl(encodeURI(apiList.apiHost + requestUrl));
         model.getdata(req, function(data){
             data = JSON.parse(data);

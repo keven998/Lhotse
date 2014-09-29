@@ -79,7 +79,6 @@ router.get('/route/include/', function(req, res) {
     },
     function(err, results) {
         var fromId = results.from;
-        console.log(fromLocName);
         var arriveId = results.arrive;
         var indexGoUrl = urlApi.apiHost + urlApi.getRouteList + "?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
         model.setUrl(encodeURI(indexGoUrl));
@@ -125,7 +124,6 @@ router.get('/route/city/', function(req, res) {
     },
     function(err, results) {
         var fromId = results.from;
-        console.log(fromLocName);
         var arriveId = results.arrive;
         var indexGoUrl = urlApi.apiHost + urlApi.getRouteList + "?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
         model.setUrl(encodeURI(indexGoUrl));
