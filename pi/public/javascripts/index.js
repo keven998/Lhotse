@@ -139,7 +139,7 @@ $(function(){
         var top = document.documentElement.scrollTop + document.body.scrollTop;
         var textheight = $(document).height();
         if ( textheight - top - $(window).height() <= 100 ) {
-            $('.more').show();
+            //$('.more').show();
             $.ajax({ //ajax获取加载的数据
                 type   : "get",
                 url    : ".../listLoad.php",
@@ -218,9 +218,13 @@ $(function(){
 
 // 通过IP获取地理地址-城市名字
 (function getIpPlace() {
-  var cityName = remote_ip_info["city"];// + remote_ip_info["city"];
-  $('#from').val(cityName);
-  $('#from').attr("poi_type","loc");  
+    var cityName = remote_ip_info["city"];// + remote_ip_info["city"];
+    $('#from').val(cityName);
+    $('#from').attr("poi_type","loc");
+    
+    setCookie('fromLoc',encodeURI(cityName),3);
+
+
 }())
 
 
