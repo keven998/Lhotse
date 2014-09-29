@@ -14,7 +14,7 @@ function initialize() {
     //计算地图中心点
     var center = calculateCenterPoint();
     var mapOptions = {
-        zoom: 10,
+        zoom: 14,
         center: new google.maps.LatLng(center[0], center[1]),
         mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
@@ -34,8 +34,10 @@ function initialize() {
         });
         // hover二态
         $(v).hover(
+
             // over
-            function() {    
+            function() {
+                map.panTo(spotArray[num-1].getPosition());
                 if (spotArray[num-1].getAnimation() == null) {
                     spotArray[num-1].setAnimation(google.maps.Animation.BOUNCE);
                 }
@@ -43,6 +45,7 @@ function initialize() {
             },
             // leave
             function() {
+                map.panTo(spotArray[num-1].getPosition());
                 if (spotArray[num-1].getAnimation() != null) {
                     spotArray[num-1].setAnimation(null);
                 }
