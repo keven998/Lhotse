@@ -16,7 +16,7 @@ block content
             .slider-container
                 .main-slider
                     .slide-item(style='display: block;')
-                        img(src='/images/index/banner.png')
+                        img(src='/images/index/banner.jpg')
                         .slide-cont.top30
                             h1 旅行派
                             | 最全最完整的行程攻略
@@ -96,9 +96,6 @@ block content
                                           - var short_desc = route.description.desc.toString().substring(0, 40)
                                           | #{short_desc}...
                                     .label #{route.editor}
-                    .more
-                        i.ico02.ico02-loading
-                        a.btn 加载更多···
         .editor_routes(style='display: none;')
             .c-left
                 .num 2
