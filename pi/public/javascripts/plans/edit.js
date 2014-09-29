@@ -574,7 +574,7 @@ $(function () {
         if (len == 0) {
             if (!dataOver) {
                 dataOver = true;
-                routeList.append("<h1 font='50px'>数据加载完了...</h1>");
+                // routeList.append("<h1 font='50px'>数据加载完了...</h1>");
             }
             return ;
         }

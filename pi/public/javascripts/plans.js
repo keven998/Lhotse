@@ -235,7 +235,7 @@ $(function () {
             } else {
                 if (!dataOver) {
                     dataOver = true;
-                    routeList.append("<h1 font='50px'>客官，你还想要？优质路线全在这儿了，赶快搞一条吧～</h1>");
+                    // routeList.append("<h1 font='50px'>客官，你还想要？优质路线全在这儿了，赶快搞一条吧～</h1>");
                 }
             }
             return ;

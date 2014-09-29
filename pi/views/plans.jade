@@ -39,29 +39,33 @@ block content
             a.btn02(data-days='4-7') 4-7天
             a.btn02(data-days='8-99') 7天以上
       ul.routelist.f-cb
-        each plan in plans
-          li(data-url="/route/plans/detail/#{plan._id}")
-            a.c-img
-              img(src='#{plan.imageList}' + '?imageView2/1/w/285/h/215')
-            .c2
-              h2 #{plan.title}
-              p.txt
-                if plan.desc
-                  - var short_desc = plan.desc.substring(0, 60)
-                  | #{short_desc}...
-                a.btn02.btn02-c1 点击更多
-              p.ico-g.fl.w50
-                i.ico01.ico01-route
-                b 线路特色-
-                each tag in plan.tags
-                  | #{tag}
-              p.ico-g.fl.w50
-                i.ico01.ico01-spot
-                b #{plan.vsCnt}个景点，共#{plan.days}天
-              p.ico-g.fl.w50
-                i.ico01.ico01-cost
-                b 预计花费 ￥#{plan.budget[0]}-￥#{plan.budget[1]}
-              a.btn02.btn02-c4(href='/plans/timeline/' + plan._id + '?_fromLoc=' + fromId)复制路线
+        if plans.length > 0
+          each plan in plans
+            li(data-url="/route/plans/detail/#{plan._id}")
+              a.c-img
+                img(src='#{plan.imageList}' + '?imageView2/1/w/285/h/215')
+              .c2
+                h2 #{plan.title}
+                p.txt
+                  if plan.desc
+                    - var short_desc = plan.desc.substring(0, 60)
+                    | #{short_desc}...
+                  a.btn02.btn02-c1 点击更多
+                p.ico-g.fl.w50
+                  i.ico01.ico01-route
+                  b 线路特色-
+                  each tag in plan.tags
+                    | #{tag}
+                p.ico-g.fl.w50
+                  i.ico01.ico01-spot
+                  b #{plan.vsCnt}个景点，共#{plan.days}天
+                p.ico-g.fl.w50
+                  i.ico01.ico01-cost
+                  b 预计花费 ￥#{plan.budget[0]}-￥#{plan.budget[1]}
+                a.btn02.btn02-c4(href='/plans/timeline/' + plan._id + '?_fromLoc=' + fromId)复制路线
+        else
+          .no-data 很遗憾，没有为您找到相关路线，请尝试输入其他目的地。
+            a(href='/') 回首页
       .more
         i.ico02.ico02-loading
         a.btn 加载更多···
