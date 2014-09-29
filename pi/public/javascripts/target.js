@@ -8,7 +8,7 @@ function href_plan_list(from_name, from_poi_type, arr_name, arr_poi_type){
     url = '/route';
 
     if(from_name == ""){
-        alert('请先填写出发地／目的地');
+        alert('请先填写起点。');
     }else if (from_poi_type == 'loc'){
         if (arr_poi_type == 'loc'){
             url += '/city/';
