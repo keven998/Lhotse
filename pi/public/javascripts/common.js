@@ -37,20 +37,36 @@ function select_to(input, poi_type){
     $("#suggestion_to").hide();
 }
 
+// 设置一个监听位
+var slug = '';
 // onclick event
 function suggestion_to(input){
-    var slug = 'to';
-    suggestion(slug, input);
+    slug = 'to';
+    var inputText = myTrim($('#arrive').val());
+    if(inputText !== $('#arrive').attr('tem')){
+        $('#arrive').attr('tem', inputText);
+        if (inputText) {
+            suggestion(slug, input);                    
+        }
+    }
+    
 }
 
 // onclick event
 function suggestion_from(input){
-    var slug = 'from';
-    suggestion(slug, input);
+    slug = 'from';
+    var inputText = myTrim($('#from').val());
+    if(inputText !== $('#from').attr('tem')){
+        $('#from').attr('tem', inputText);
+        if (inputText) {
+            suggestion(slug, input);                    
+        }
+    }
 }
 
 
 function suggestion(slug, input){
+    console.log('联想');
     $.ajax({
         url: "/suggestion?type=" + slug +"&input="+input,
         cache: false,
@@ -62,14 +78,14 @@ function suggestion(slug, input){
                 html += '很遗憾，没有找到相关内容～<br>';
             }else{
                 for(var k=0;k<obj.length;k++){
-                    html += "<a onclick='select_" + slug + "(\"" + obj[k].name + "\", \""+obj[k].type+"\")'>" + obj[k].name + "</a>";
+                    html += "<p onclick='select_" + slug + "(\"" + obj[k].name + "\", \""+obj[k].type+"\")'>" + obj[k].name + "</p>";
                 }
             }
             $("#suggestion_"+slug).css("display","block");
             $("#suggestion_"+slug).empty();
             $("#suggestion_"+slug).append(html);
         }
-    });
+    });    
 }
 
 
@@ -79,77 +95,33 @@ function myTrim(x) {
 }
 
 var arriveInput = $('#arrive'),
-    arriveSuggestions = $('#suggestion_to');
+    arriveSuggestions = $('#suggestion_to'),
 
-//// focus事件，清楚默认提示文字，设置输入框颜色
-arriveInput.on('focus', function(e){
-    var that = $(this);
-    if (myTrim(that.val()) === '请输入') {
-        that.val('');
-        that.css({
-            color: '#000'
-        });
-    }
-});
+    fromInput = $('#from'),
+    fromSuggestions = $('#suggestion_from');
 
-//// 失去焦点的时候填写默认提示
-arriveInput.on('blur', function(e){
-    var that = $(this);
-    if (myTrim(that.val()) === '') {
-        that.val('请输入');
-        that.css({
-            color: '#999'
-        });
-    }
-});
 
-// //// ajax 请求联想输入的数据
-// arriveInput.on('keyup', function(e) {
-//     var $this = $(this);
-//     if ($this.val() !== $this.data('val')) {
-//         $this.data('val', $this.val());
-//         if (util.str.trim($this.val())) {
-//             $.ajax({
-//                 url: config.AJAX.SEARCH_SUGGESTION + $this.val(),
-//                 dataType: 'jsonp',
-//                 jsonp: 'callback',
-//                 success: function(data) {
-//                     if (data && data.shop) {
-//                         var html = '';
-//                         var len  = data.shop.length;
-//                         for (var i = 0; i < len; i++) {
-//                             html += '<a target="_blank" '
-//                                  + 'href="http://www.zanbai.com/shop?shop_id='
-//                                  + data.shop[i].word_id
-//                                  + '">'
-//                                  + data.shop[i].word
-//                                  + '</a>';
-//                         }
-//                         arriveSuggestions.css({
-//                             'display': ''
-//                         });
-//                         arriveSuggestions.html(html);
-//                     }
-//                     else {
-//                         arriveSuggestions.css({
-//                             'display': 'none'
-//                         });
-//                         arriveSuggestions.html('');
-//                     }
-//                 }
-//             });
-//         }
-//         else {
-//             arriveSuggestions.css({
-//                 'display': 'none'
-//             });
-//             arriveSuggestions.html('');
-//         }
+// arriveInput.on('focus', function(e){
+//     var that = $(this);
+//     if (myTrim(that.val()) === '请输入') {
+//         that.val('');
+//         that.css({
+//             color: '#000'
+//         });
 //     }
-//     // 阻止事件冒泡
-//     e.stopPropagation();
-//     e.preventDefault();
 // });
+
+
+// arriveInput.on('blur', function(e){
+//     var that = $(this);
+//     if (myTrim(that.val()) === '') {
+//         that.val('请输入');
+//         that.css({
+//             color: '#999'
+//         });
+//     }
+// });
+
 
 // 鼠标点击屏幕
 $(document).click(function(e) {
@@ -182,106 +154,120 @@ $(document).click(function(e) {
 
 });
 
-//// 清除‘选中’
-function clearSelectedStyle() {
-    var items = arriveSuggestions.children();
-    var len = items.length;
-    for (var i = 0; i < len; i++) {
-        if ($(items[i]).hasClass('selected')) {
-            $(items[i]).removeClass('selected');
-        }
-    }
-}
-
-//// 上下方向键选择联想的输入
-$(document).keydown(function(e) {
-    var keyCode = e.keyCode ? e.keyCode : e.which;
-    var display = arriveSuggestions.css('display');
-    if (display !== 'none') {
-        var items = arriveSuggestions.children();
+var array = [arriveSuggestions, fromSuggestions];
+array.forEach(function(t){
+    //// 清除‘选中’
+    function clearSelectedStyle() {
+        var items = t.find('p');
         var len = items.length;
-        var curSelectedObj; // 当前选中的那一个，即上下键盘按下时选择的起始位置
-        // 获取当前选中的提示
+        console.log('clear');
         for (var i = 0; i < len; i++) {
             if ($(items[i]).hasClass('selected')) {
-                curSelectedObj = {
-                    elem: items[i],
-                    index: i
-                }
-                break;
+                $(items[i]).removeClass('selected');
             }
-        }
-        if (keyCode == 40) { // 下
-            // 当前有选中提示
-            if (curSelectedObj) {
-                // 当前位置到了末尾
-                if (curSelectedObj.index + 1 === len) {
-                    // 先清除当前选中，然后跳到第一个
-                    clearSelectedStyle();
-                    $(items[0]).addClass('selected');
-                }
-                else {
-                    clearSelectedStyle();
-                    $(items[curSelectedObj.index + 1]).addClass('selected');
-                }
-            }
-            // 当前没有选中的提示，将第一个选中
-            else {
-                curSelectedObj = {
-                    elem: items[0],
-                    index: 0
-                }
-                $(items[curSelectedObj.index]).addClass('selected');
-            }
-            e.stopPropagation();
-            e.preventDefault();
-        }
-        else if (keyCode == 38) { // 上
-            if (curSelectedObj) {
-                if (curSelectedObj.index === 0) {
-                    clearSelectedStyle();
-                    $(items[len - 1]).addClass('selected');
-                }
-                else {
-                    clearSelectedStyle();
-                    $(items[curSelectedObj.index - 1]).addClass('selected');
-                }
-            }
-            else {
-                curSelectedObj = {
-                    elem: items[len - 1],
-                    index: len - 1
-                }
-                $(items[curSelectedObj.index]).addClass('selected');
-            }
-            e.stopPropagation();
-            e.preventDefault();
-        }
-        else if(keyCode == 13) { // 回车
-            setTimeout(function(){
-                // window.location.href = curSelectedObj.elem.getAttribute('href');
-                curSelectedObj.elem && curSelectedObj.elem.click();
-            }, 10);
-            e.stopPropagation();
-            e.preventDefault();
         }
     }
-});
 
-//// 设置鼠标在联想选项中移动的效果
-arriveSuggestions.mouseover(function(e) {
-    var target = e.target || e.srcElement;
-    var targetTagName = target.tagName.toLowerCase();
-    if (targetTagName == 'a') {
-        $(target).addClass('selected');
-    }
-}).mouseout(function(e) {
-    var target = e.target || e.srcElement;
-    var targetTagName = target.tagName.toLowerCase();
-    if (targetTagName == 'a') {
-        clearSelectedStyle();
-    }
+    //// 上下方向键选择联想的输入
+    $(document).keydown(function(e) {
+        var keyCode = e.keyCode ? e.keyCode : e.which;
+        var display = t.css('display');
+
+        if (display !== 'none') {
+            var items = t.find('p');
+            var len = items.length;
+            //console.log(len);
+            var curSelectedObj; // 当前选中的那一个，即上下键盘按下时选择的起始位置
+            // 获取当前选中的提示
+            for (var i = 0; i < len; i++) {
+                if ($(items[i]).hasClass('selected')) {
+                    curSelectedObj = {
+                        elem: items[i],
+                        index: i
+                    }
+                    break;
+                }
+            }
+            console.log('当前' + curSelectedObj);
+
+            if (keyCode == 40) { // 下
+                // 当前有选中提示
+                if (curSelectedObj) {
+                    // 当前位置到了末尾
+                    if (curSelectedObj.index + 1 === len) {
+                        // 先清除当前选中，然后跳到第一个
+                        clearSelectedStyle();
+                        $(items[0]).addClass('selected');
+                    }
+                    else {
+                        clearSelectedStyle();
+                        $(items[curSelectedObj.index + 1]).addClass('selected');
+                    }
+                }
+                // 当前没有选中的提示，将第一个选中
+                else {
+                    curSelectedObj = {
+                        elem: items[0],
+                        index: 0
+                    }
+                    console.log(curSelectedObj);
+                    $(items[curSelectedObj.index]).addClass('selected');
+                    console.log($(items[curSelectedObj.index]).attr('class'));
+                }
+                e.stopPropagation();
+                e.preventDefault();
+            }
+            else if (keyCode == 38) { // 上
+                if (curSelectedObj) {
+                    if (curSelectedObj.index === 0) {
+                        clearSelectedStyle();
+                        $(items[len - 1]).addClass('selected');
+                    }
+                    else {
+                        clearSelectedStyle();
+                        $(items[curSelectedObj.index - 1]).addClass('selected');
+                    }
+                }
+                else {
+                    curSelectedObj = {
+                        elem: items[len - 1],
+                        index: len - 1
+                    }
+                    $(items[curSelectedObj.index]).addClass('selected');
+                }
+                e.stopPropagation();
+                e.preventDefault();
+            }
+            else if(keyCode == 13) { // 回车
+                setTimeout(function(){
+                    // window.location.href = curSelectedObj.elem.getAttribute('href');
+                    curSelectedObj.elem && curSelectedObj.elem.click();
+                }, 10);
+                e.stopPropagation();
+                e.preventDefault();
+            }
+        }
+    });
+    
+
+    //// 设置鼠标在联想选项中移动的效果
+    t.mouseover(function(e) {
+        var target = e.target || e.srcElement;
+        var targetTagName = target.tagName.toLowerCase();
+        if (targetTagName == 'p') {
+            $(target).addClass('selected');
+        }
+    }).mouseout(function(e) {
+        var target = e.target || e.srcElement;
+        var targetTagName = target.tagName.toLowerCase();
+        if (targetTagName == 'p') {
+            clearSelectedStyle();
+        }
 });
+})
+
+
+
 
 /* ---- zanbai code ---- */
 
