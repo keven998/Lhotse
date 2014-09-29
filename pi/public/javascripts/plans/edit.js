@@ -29,9 +29,9 @@ $(function () {
         uesrInput[0] = searchInput.val();
         searchInput.val(uesrInput[tagFlag]);
 
-        if(!$(this).hasClass('item01-hover')){
-            $(this).addClass('item01-hover').removeClass('item01-normal');
-            tab02.removeClass('item02-hover').addClass('item02-normal');
+        if(!$(this).hasClass('item01-select')){
+            $(this).addClass('item01-select').removeClass('item01-normal');
+            tab02.removeClass('item02-select').addClass('item02-normal');
             item02.hide();
             item01.show();
         }else{
@@ -45,10 +45,9 @@ $(function () {
         uesrInput[1] = searchInput.val();
         searchInput.val(uesrInput[tagFlag]);
 
-        if(!$(this).hasClass('item02-hover')){
-            $(this).addClass('item02-hover').removeClass('item02-normal');
-            tab01.removeClass('item01-hover').addClass('item01-normal');
-            $(this).addClass('item01-hover').removeClass('item01-normal');
+        if(!$(this).hasClass('item02-select')){
+            $(this).addClass('item02-select').removeClass('item02-normal');
+            tab01.removeClass('item01-select').addClass('item01-normal');
             item01.hide();
             item02.show();
         }else{
