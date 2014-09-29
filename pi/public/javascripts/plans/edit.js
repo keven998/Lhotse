@@ -341,7 +341,7 @@ $(function () {
         
         //获取其它参数
         var startDate = $('#datetimepicker').val();
-        var uid = $('.user .b1').attr('data-id');
+        var uid = $('.user').attr('data-id');
         console.log(uid);
         //var uid = userId;
         var fromLocId = getQueryString('fromLocId');

@@ -255,7 +255,7 @@ $('a.save').click( function(e) {
     从cookies中获得uid
 */
 function getUid() {
-    return $('.user .b1').attr('data-id');
+    return $('.user').attr('data-id');
 }
 
 

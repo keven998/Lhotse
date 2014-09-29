@@ -32,10 +32,8 @@ html
                     a(href='/download/')
                         | APP下载
                 if user_info
-                    .user
+                    .user(data-id=user_info.id)
                         img(src='#{user_info.avatar}')
-                        .txt
-                            b.b1(data-id=user_info.id)
                 else
                     li
                         a.login 登录
