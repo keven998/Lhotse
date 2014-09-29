@@ -6,10 +6,11 @@ block page_var
             id: 'detail',
             path: 'route/',
         }
-        
+    script(src='http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js' type='text/ecmascript')
 block content
     .main_container
         h1 #{details.title}
+        p.bn(data-url='/plans/timeline/' + details._id + '?_fromLoc=') 复制路线
         hr
         .tab
             a#tab01.item.item01-hover
@@ -52,7 +53,7 @@ block content
                 h1.t1
                 ul.about-list
                     each note in notes
-                        li
+                        li(data-url=note.sourceUrl)
                             if  (note.authorAvator != NULL)
                                 img.sider-userimg(src=note.authorAvator)
                             else

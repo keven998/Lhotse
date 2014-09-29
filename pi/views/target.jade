@@ -1,6 +1,8 @@
 extends common/base
 
 block page_var
+    link(href='http://css.lotour.net/destn.css?z', rel='stylesheet')
+    link(href='http://css.lotour.net/lt_top.css', rel='stylesheet')
     script.
         var page_var = {
             id: 'target',
@@ -9,7 +11,46 @@ block page_var
 
 block content
     .content
-        #map_container
+        .wrapGray
+            .left-nav
+                .search_layer
+                    .search_form
+                        .search_in
+                            .text_input
+                                h4 起点:
+                                input.s-ip(type="text" name="fromName" id="from" onkeyup="suggestion_from(this.value)" autocomplete="off")
+                                #suggestion_from.suggestion(style="width:190px;z-index:999;font-size:17px;")
+                ul
+                    each city_list, regin_name in left_nav_data
+                        li= regin_name
+                            - var city_num = city_list.length
+                            .city-num= city_num
+                            .left-nav-second-level
+                                each city in city_list
+                                    a(type= city.type onclick="target_go_plan_list('" + city.name + "','"+ city.type + "')")= city.name
+            .destnMap.clear
+                .destnMapL
+                    .mapTabSp.mapTabSpCn
+                        // ==S 地域名称
+                        .dMapName
+                            each province in map_data
+                                - var class_name = 'name'+province.id
+                                h2(class=class_name) #{province.name}
+                        // ==E 地域名称
+                        // ==S 地图层
+                        .destnMap-merc(data-projection='merc', data-name='cn_merc_en')
+                        each province in map_data
+                            - var province_class = 'dMapLayer dMapbg' + province.id +' CN-' + province.id + ' sphl'
+                            - var layer_data = 'CN-' + province.id
+                            div(class=province_class, name=province.name, layer-data=layer_data)
+                                .dMapLayerCon
+                                    - var dMapLayerCon_class = province.dMapLayerCon
+                                    i(class=dMapLayerCon_class)
+                                    .dMapList
+                                        each city in province.cities
+                                            dd(style="margin-left:10px;")
+                                                a(title='', target='_blank', style="color:#666;", onclick="target_go_plan_list('" + city.name + "','"+ city.type + "')") #{city.name}
+                        // ==E 地图层
         .hot_cities
             .title
                 i.line |
@@ -118,3 +159,8 @@ block content
                             img.type01(src=hotViews[7].img)
                             .text_layer
                                 h2 #{hotViews[7].abbr}
+
+    script(src='http://js.lotour.net/jquery-1.8.3.min.js' type='text/ecmascript')
+    script(src='http://js.lotour.net/jquery-jvectormap-1.2.2.min.js' type='text/ecmascript')
+    script(src='http://js.lotour.net/jquery-jvectormap-china-en.js' type='text/ecmascript')
+    script(src='/javascripts/target_map.js' rel='javascript')

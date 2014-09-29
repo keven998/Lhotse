@@ -4,6 +4,10 @@
 h1{font-size:32px;color:#000;}
 hr{border:1px solid #08DCA9;margin:10px 0 30px;}
 
+/*add copy route button*/
+/*.btn02{display: inline-block;width: auto;height: 10px;line-height: 10px;background: #F7F7F7;color: #333;padding: 5px;text-align: center;border-radius: 5px;margin-right: 10px;}
+.btn02-c4{background: #F30D0D;color: #fff;padding: 10px 20px;font-size: 16px;position: absolute;left: 0;bottom: 10px;*bottom: 0}
+*/
 .tab{margin-bottom:50px;}
 .tab .item{float: left;*display: inline;width: 135px;height: 40px;line-height: 40px;font-size: 16px;text-align: center;}
 .tab .item01-normal{background: url(/images/route/detail/detail_normal.png) no-repeat;}
@@ -28,7 +32,7 @@ hr{border:1px solid #08DCA9;margin:10px 0 30px;}
 .date{display:inline-block;border-radius:30px;background:#62b9b0;color:#fff;padding:4px 3px 3px;margin-right:15px;}
 
 .about-list{overflow: auto;margin-top: 20px;}
-ul.about-list li{background: #eee;position: relative;padding: 10px 10px 5px 70px;margin-bottom: 15px;font-size:16px;color: #999;border-bottom:1px solid #888;}
+ul.about-list li{background: #eee;position: relative;padding: 10px 10px 5px 70px;margin-bottom: 15px;font-size:16px;color: #999;border-bottom:1px solid #888;cursor:pointer;}
 .sider-userimg{position: absolute;left: 10px;top: 10px;width: 50px;height: 50px;border-radius:30px;-moz-border-radius:30px;-webkit-border-radius:30px;}
 .about-list .t1{height: 30px;width: 100%;line-height: 30px;font-size: 20px;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
 .about-list .name{margin:0 10px 0 20px;display:inline-block;color: #08DCA9;}

@@ -111,7 +111,9 @@ $(function () {
                     sider.animate({
                         right: -600
                     }, 300, 'swing')
+
                     $(this).hide();//("fast")
+                    layer.fadeOut("fast");
                 })
             });
         })

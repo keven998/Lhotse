@@ -43,6 +43,18 @@ $(function(){
         $(".mustgo").css("color",'#08DCA9');
         $(".new").css("color",'#08DCA9');
     });
+
+
+    //图片的二态
+    var mList = $('.main');
+    $(mList).on('mouseenter', '.m-list', function (e) {
+        $('.layer').stop(false,true);
+        $(this).find('.layer').fadeIn(200);
+    });
+    $(mList).on('mouseleave', '.m-list', function (e) {
+        $('.layer').stop(false,true);
+        $(this).find('.layer').fadeOut(200);
+    })
 });
 
 // JavaScript DIVCSS5 Document
@@ -123,26 +135,26 @@ $(function(){
     /*
      * 滚动加载
      * */
-    $(window).on("scroll", function () {
-        var top = document.documentElement.scrollTop + document.body.scrollTop;
-        var textheight = $(document).height();
-        if ( textheight - top - $(window).height() <= 100 ) {
-            $('.more').show();
-            $.ajax({ //ajax获取加载的数据
-                type   : "get",
-                url    : ".../listLoad.php",
-                success: function (msg) {  //成功返回后删除加载状态样式，插入dom
-                    console.dir(msg);
-                    $('.more').hide();
-                    //todo insert dom
-                },
-                error  : function () {
-                    //alert("参数出错，刷新后重试");
-                    return false;
-                }
-            });
-        }
-    });
+    // $(window).on("scroll", function () {
+    //     var top = document.documentElement.scrollTop + document.body.scrollTop;
+    //     var textheight = $(document).height();
+    //     if ( textheight - top - $(window).height() <= 100 ) {
+    //         $('.more').show();
+    //         $.ajax({ //ajax获取加载的数据
+    //             type   : "get",
+    //             url    : ".../listLoad.php",
+    //             success: function (msg) {  //成功返回后删除加载状态样式，插入dom
+    //                 console.dir(msg);
+    //                 $('.more').hide();
+    //                 //todo insert dom
+    //             },
+    //             error  : function () {
+    //                 //alert("参数出错，刷新后重试");
+    //                 return false;
+    //             }
+    //         });
+    //     }
+    // });
     
     
     //文本输入框
@@ -162,37 +174,27 @@ $(function(){
     searchInput.on('blur', function (e) {
         tips.hide(200)
     })
-    //图片的二态    
-    var mList = $('#m-list');
-    $(mList).on('mouseenter', '.m-list', function (e) {
-        $('.layer').stop(false,true);
-        $(this).find('.layer').fadeIn(200);
-    });
-    $(mList).on('mouseleave', '.m-list', function (e) {
-        $('.layer').stop(false,true);
-        $(this).find('.layer').fadeOut(200);
-    })
     /*
      * 图片轮播
      * */
-    startTimer();
-    /** Main Slider **/
-    var timer;
-    var slideCount = 3;
-    var currSlide = 0;
-    var nextSlide = currSlide + 1;
-    var fadeSpeed = 1000;
-    //Start slides timer functions
-    function startTimer() {
-        timer = setInterval(function () {
-            $('.slide-item').eq(currSlide).fadeOut(fadeSpeed);
-            $('.slide-item').removeClass('curr');
-            $('.slide-item').eq(nextSlide).addClass('curr').fadeIn(fadeSpeed);
-            $('.thumbs li').eq(nextSlide).addClass('curr');
-            currSlide = nextSlide;
-            nextSlide = currSlide + 1 < slideCount ? currSlide + 1 : 0;
-        }, 6000);
-    }
+//    startTimer();
+//    /** Main Slider **/
+//    var timer;
+//    var slideCount = 3;
+//    var currSlide = 0;
+//    var nextSlide = currSlide + 1;
+//    var fadeSpeed = 1000;
+//    //Start slides timer functions
+//    function startTimer() {
+//        timer = setInterval(function () {
+//            $('.slide-item').eq(currSlide).fadeOut(fadeSpeed);
+//            $('.slide-item').removeClass('curr');
+//            $('.slide-item').eq(nextSlide).addClass('curr').fadeIn(fadeSpeed);
+//            $('.thumbs li').eq(nextSlide).addClass('curr');
+//            currSlide = nextSlide;
+//            nextSlide = currSlide + 1 < slideCount ? currSlide + 1 : 0;
+//        }, 6000);
+//    }
 })(jQuery);
 
 
@@ -216,39 +218,60 @@ $(function(){
 
 // 通过IP获取地理地址-城市名字
 (function getIpPlace() {
-  input.fromLocName.value = remote_ip_info["province"];// + remote_ip_info["city"];  
+  var cityName = remote_ip_info["city"];// + remote_ip_info["city"];
+  $('#from').val(cityName);
+  $('#from').attr("poi_type","loc");  
 }())
 
 
 // 联想功能
-function getLinkData() {
+var suggestionData = (function() {
     var popupDiv = document.getElementById("popup");//获得对应的div对象
     var popupBody = document.getElementById("popupBody");//获得对应的tbody对象
-    var linkDataProperty = document.getElementById("linkDataProperty"); //获得对应的输入框对象
-    
-    //clearModels();//清除联想输入提示框的内容
-    
-
+        
     //利用ajax获取后台的模糊查询的数据，并且封装成下拉列表的形式展现出来
-    $.ajax({
-        type : "GET",   //提交的方法为post
-        contentType: 'application/json', 
-        url : "/suggestion",   //对应的Action提交的路径
-        data  : {input : linkDataProperty.value},   //从前台传递到后台的查询语句的参数
-        dataType : "json",  //从Action中返回的数据的类型为json类型的
-        error : function(){
-            //alert("没有对应的数据，请查看输入的查询条件！");
-        },
-        success : function(data) {//当Ajax提交成功时调用的方法
-                  //返回的是json对象！键值对 alert(data.key);   
-                  data = data.suggestion;                          
-                  if(data.length==0){return;}
-                  $( "#linkDataProperty" ).autocomplete({
-                    source: data,
-                  });
-       } 
-    }); 
-}         
+    var ajaxSuggestion = function (domElement, type) {
+        $.ajax({
+            type : "GET",   //提交的方法为post
+            contentType: 'application/json', 
+            url : "/suggestion?type=" + type,   //对应的Action提交的路径
+            data  : {input : domElement.value},   //从前台传递到后台的查询语句的参数
+            dataType : "json",  //从Action中返回的数据的类型为json类型的
+            
+            error : function() {
+                //alert("没有对应的数据，请查看输入的查询条件！");
+            },
+
+            success : function(data) {//当Ajax提交成功时调用的方法
+                    //返回的是json对象！键值对 alert(data.key);   
+                    data = data.suggestion;
+                    console.log(data);                          
+                    if(data.length==0){return;}
+                    // todo
+                    // $( "#" + type ).autocomplete({
+                    //     source: data,
+                    // });
+            } 
+        });
+    };
+
+    var from = function() {
+        var type = "from";
+        var fromDom = document.getElementById("from");
+        ajaxSuggestion(fromDom, type);
+    };
+
+    var arrive = function(arrive) {
+        var type = "arrive";
+        var arriveDom = document.getElementById("arrive");
+        ajaxSuggestion(arriveDom, type);
+    };
+
+    return {
+        from : from,
+        arrive : arrive,
+    };
+})();         
 //                              setOffsets();//设置联想输入下拉列表提示框的位置
 //                              var tr,td,text;
 //                              for (var i = 0; i < data.length; i++) {//根据返回的值，手动的拼tbody的内容

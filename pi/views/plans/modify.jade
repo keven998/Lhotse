@@ -12,20 +12,18 @@ block page_var
     
     
 block content
-    .content.f-cb
+    .content.f-cb     
       .bd.t-bd
         h1.t
-          | #{locName.from}--#{locName.arr}
+          | #{title}
           .ugcId(style='display:none') #{id}
-
       .t-left
         h1.time
           | 出发时间：
           input#datetimepicker.date_picker(type='text')
-          //
-              a.btn02.btn02-c4
-                | 确定
-          a.confirm
+          a.btn02.btn02-c4
+            | 确定
+        
         - var dayCount = 0
         each oneDayRoute in daysRoute
           - dayCount++
@@ -47,7 +45,7 @@ block content
       
       .t-right
         .tab
-          a#tab01.item.item01-select
+          a#tab01.item.item01-hover
           a#tab02.item.item02-normal 
         
         
@@ -96,8 +94,8 @@ block content
                     i.ico02.ico02-add
         
         .more
-          i.ico02.ico02-loading
-          a.btn 加载更多···
+        i.ico02.ico02-loading
+        a.btn 加载更多···
                     
     script(src='/javascripts/plans/jquery.sortable.min.js' rel='javascript')
     script(src='/javascripts/plans/jquery.datetimepicker.js' rel='javascript')

@@ -17,13 +17,14 @@ block page_var
 
 block content
     .opt
-      a.save 保存
-      a &nbsp;/
-      a.color-01(href="/plans/edit/" + basicInfo._id + '/?DEST=' + basicInfo.destinaton.name + '&fromLocId=' + basicInfo.fromLocId) 编辑路线
-      a &nbsp;/
+      //
+        a.save 保存
+        a &nbsp;/
+      a.color-01(href="/plans/edit/customized/" + basicInfo._id + '/?DEST=' + basicInfo.destinaton.name) 编辑路线
       //
         a 发送朋友
         a &nbsp;/
+      a &nbsp;/
       a.pdf PDF下载
     .bd.t-bd.ct
 
@@ -45,7 +46,6 @@ block content
       
       .t-left
         .timeline
-          hr
           ul#timeLine
             - var flag = 0
             - var numToChinese = {1: "一",2: "二",3: "三",4: "四",5: "五",6: "六",7: "七",8: "八",9: "九",10: "十",11: "十一",12: "十二",13: "十三",14: "十四",15: "十五",16: "十六",17: "十七",}
@@ -123,8 +123,11 @@ block content
                       .m
                         h3 #{spot.itemName}
                         if arrHome == 1
-                            p   (☆_☆) 一大波好玩的景点扑过来了
+                          p.suggest
+                            i.ico01.ico01-km
+                            | 距离12.3公里  建议打车                            
                         else
+                          p.suggest
                             | 旅途结束，祝您快乐!
 
                         
@@ -137,34 +140,26 @@ block content
                         h3 #{spot.itemName}
                         img.spot-img(data-url='/viewspot/detail/' + spot.itemId, src=spot.imageList[0] width=300 height=160)
                         br
-                        b
-                            i 1.
-                            | 建议游玩: #{spot.timeCost}小时
-                        b
-                            i 2.
-                            | 门票: ￥#{spot.price}
-                        br
-                        b.opentime
-                            i 3.
-                            | 开放时间: #{spot.openTime}
-                        br
+                        b 1、建议游玩:#{spot.timeCost}小时  2、开放时间:#{spot.openTime}  3、门票:￥#{spot.price}
+                      
+                        p.suggest
+                          i.ico01.ico01-km
+                          | 距离12.8公里  建议公交
                         
                   if spot.type == "hotel"
                     li
-                      i.ico03.ico03-hotel
+                      i.ico03.ico03-hotal
                       .m
                         h3
                           | #{spot.itemName}
-                        .hotel
-                          .hotel_info
-                            i.point · 
-                            | ￥#{spot.price}起
-                            i.point · 
-                            | 电话 #{spot.phoneList[0]}
-                            br
-                            i.point · 
-                            | #{spot.addr}
-
+                        p.hotal
+                          i.point ·
+                          | ￥#{spot.price}起
+                          i.point ·
+                          | 电话 #{spot.phoneList[0]}
+                          i.point ·
+                          | #{spot.addr}
+                
             else
               ul(data-day=dayCount)     
           
@@ -182,33 +177,22 @@ block content
         .tab-c
           .c.f-cb
             .left
-              img(src='')
+              img(src='/images/plans/timeline/list.jpg')
             .right
               h3.t3 loading...
-              em AAAAA
-              span
-                i.ico-flag 
-                | 333人
-              span
-                i.ico-heart 
-                | 6666人
-              .info
-                .price 门票：￥999
-                br
-                .playtime 建议游玩：2小时
-                .bestmonth 最佳月份：全年
-                br
-                .opentime 开放时间：19:00-20:00
-          .c.desc
-            h2.t1.t2
-              i.ico02-circle
-              | 简介
-            p
-          .c.tips
-            h2.t1.t2
-              i.ico02-circle
-              景区攻略
-            p
+              em.color-02 AAAAA
+              i.ico01.ico01-flag 333人
+              i.ico01.ico01-heart 6666人
+              p.p2
+                | 门票：￥999
+                | 开放时间：19:00-20:00  建议游玩：2小时
+                | 最佳月份：全年
+          .c
+            h2.t1.t2 |简介
+            p 简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介
+          .c
+            a.btn02.btn02-c1 景区攻略
+            p ~~
     .layer(style='display: none;')
     
     

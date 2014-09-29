@@ -16,46 +16,37 @@ block content
             .slider-container
                 .main-slider
                     .slide-item(style='display: block;')
-                        img(src='/images/index/01.jpg')
-                        .slide-cont
-                            h1 景点介绍
-                            p
-                                | 景点介绍
-                                br
-                                | 景点介绍景点介绍景点介绍
-                    .slide-item
-                        img(src='/images/index/02.jpg')
-                        .slide-cont
-                            h1 标题标题标题
-                            | 文字文字文字文字文字文字文字文字
-                    .slide-item
-                        img(src='/images/index/03.jpg')
-                        .slide-cont
-                            h1 标题标题标题
-                            | 文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字
-                            | 文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字
+                        img(src='/images/index/banner.jpg')
+                        .slide-cont.top30
+                            h1 旅行派
+                            | 最全最完整的行程攻略
+                    //
+                        .slide-item(style='display: block;')
+                            img(src='/images/index/01.jpg')
+                            .slide-cont
+                                h1 景点介绍
+                                p
+                                    | 景点介绍
+                                    br
+                                    | 景点介绍景点介绍景点介绍
             .shade
                 .bg
                 .s
-                    form(name="input" action="/search/" method="GET")
-                        i.ico02.ico02-position
-                        b
-                            | 我的位置 :
-                            i.tips 请输入您的位置
-                        input#search-input.s-ip(type="text" name="fromLocName")
-                        b.line
-                        i.ico02.ico02-where
-                        b 想要去哪玩 :
-                        td
-                            input.s-ip(type="text" name="arrLocName" id="linkDataProperty" onkeyup="getLinkData();" autocomplete="off")
-                            div(id="popup" style="position: absolute;")
-                                table(width="100%" bgcolor="#fffafa")
-                                    tbody(id="popupBody")
-                        input#search-btn.s-btn(type="submit" value="")
+                    i.ico02.ico02-position
+                    b
+                        | 我的位置 : 
+                    input.s-ip(type="text" name="fromName" id="from" onkeyup="suggestion_from(this.value)" autocomplete="off")
+                    #suggestion_from.suggestion(style="width:250px;")
+                    b.line
+                    i.ico02.ico02-where
+                    b 想要去哪玩 : 
+                    input.s-ip(type="text" name="arrivName" id="arrive" onkeyup="suggestion_to(this.value)" autocomplete="off")
+                    a(href="#" onclick="go_plan_list()")
+                        #search-btn.s-btn()
+                    #suggestion_to.suggestion(style="margin-left:270px;width:373px;")
     .content.f-cb
         p.t
             b.txt01 精彩的旅程，也需要你的发现
-            b.txt02 发现你喜欢的旅行
         .c-nav
             a.new
                 b |
@@ -71,129 +62,96 @@ block content
                 span 人气之旅
         .new_routes
             .c-left
-                h2 title title titl etitlsdfdfd dsfsd sdfds fds tletitle
-                p contex tcontex tcontex tco ntex tcont extcon textco ntex tcontext
-                a.arr-c
-                    i.ico01.ico01-arr
-                    | View all blog posts
+                .num 1
+                p 这里汇集了旅行达人们最新发布的旅行攻略。信息够准确，旅行参考最靠谱
             .c-right.f-cb
                 #m-list.main
                     each route in newRoute
                         .m-list.fl.w50
-                            .layer
-                            a(href='/plan/detail/#{route._id}')
-                                img(src=route.image[0].url width=342 height=180)
+                            a(href='/route/detail/#{route.id}')
+                                .layer
+                                img(src=route.image[0].url+"?imageView2/1/w/342/h/180" width=342 height=180)
                             .left
-                                .top
-                                    img(src='/images/index/ca.png')
                                 .bottom
-                                    img(src=route.editorAvatar width=40 height=40)
+                                    img(src=route.editorAvatar width=35 height=35)
                             .right
                                 .m
                                     h2
                                         a(href='/route/detail/#{route.id}') #{route.name}
-                                    .label Posted by #{route.editor}
                                     p
-                            .bottom
-                                a(href='/plan/detail/#{route._id}').arr-c
-                                    i.ico01.ico01-arr
-                                    | 点击更多
-                    .more
-                        i.ico02.ico02-loading
-                        a.btn 加载更多···
+                                        if route.description.desc
+                                          - var short_desc = route.description.desc.toString().substring(0, 40)
+                                          | #{short_desc}...
+                                    .label #{route.editor}
         .editor_routes(style='display: none;')
             .c-left
-                h2 title title titl etitlsdfdfd dsfsd sdfds fds tletitle
-                p contex tcontex tcontex tco ntex tcont extcon textco ntex tcontext
-                a.arr-c
-                    i.ico01.ico01-arr
-                    | View all blog posts
+                .num 2
+                p 软妹子小编每日加班为您精选，篇篇攻略是经典，内容已审有保证。
             .c-right.f-cb
                 #m-list.main
                     each route in editorRoute
                         .m-list.fl.w50
-                            .layer
-                            a(href='/plan/detail/#{route._id}')
-                                img(src=route.image[0].url width=342 height=180)
+                            a(href='/route/detail/#{route.id}')
+                                .layer
+                                img(src=route.image[0].url+"?imageView2/1/w/342/h/180" width=342 height=180)
                             .left
-                                .top
-                                    img(src='/images/index/ca.png')
+                                //
+                                    .top
+                                        img(src='/images/index/ca.png')
                                 .bottom
-                                    img(src=route.editorAvatar width=40 height=40)
+                                    img(src=route.editorAvatar width=35 height=35)
                             .right
                                 .m
                                     h2
                                         a(href='/route/detail/#{route.id}') #{route.name}
-                                    .label Posted by #{route.editor}
                                     p
-                            .bottom
-                                a(href='/plan/detail/#{route._id}').arr-c
-                                    i.ico01.ico01-arr
-                                    | 点击更多
-                    .more
-                        i.ico02.ico02-loading
-                        a.btn 加载更多···
+                                        if route.description.desc
+                                            - var short_desc = route.description.desc.toString().substring(0, 40)
+                                            | #{short_desc}...
+                                    .label #{route.editor}
         .mustgo_routes(style='display: none;')
             .c-left
-                h2 title title titl etitlsdfdfd dsfsd sdfds fds tletitle
-                p contex tcontex tcontex tco ntex tcont extcon textco ntex tcontext
-                a.arr-c
-                    i.ico01.ico01-arr
-                    | View all blog posts
+                .num 3
+                p 有人说旅行是一种生活，我们说每样的生活都有一些不可不去的旅行。
             .c-right.f-cb
                 #m-list.main
                     each route in mustgoRoute
                         .m-list.fl.w50
-                            .layer
-                            a(href='/plan/detail/#{route._id}')
-                                img(src=route.image[0].url width=342 height=180)
+                            a(href='/route/detail/#{route.id}')
+                                .layer
+                                img(src=route.image[0].url+"?imageView2/1/w/342/h/180" width=342 height=180)
                             .left
-                                .top
-                                    img(src='/images/index/ca.png')
                                 .bottom
-                                    img(src=route.editorAvatar width=40 height=40)
+                                    img(src=route.editorAvatar width=35 height=35)
                             .right
                                 .m
                                     h2
                                         a(href='/route/detail/#{route.id}') #{route.name}
-                                    .label Posted by #{route.editor}
                                     p
-                            .bottom
-                                a(href='/plan/detail/#{route._id}').arr-c
-                                    i.ico01.ico01-arr
-                                    | 点击更多
-                    .more
-                        i.ico02.ico02-loading
-                        a.btn 加载更多···
+                                        if route.description.desc
+                                            - var short_desc = route.description.desc.toString().substring(0, 40)
+                                            | #{short_desc}...
+                                    .label #{route.editor}
         .pop_routes(style='display: none;')
             .c-left
-                h2 title title titl etitlsdfdfd dsfsd sdfds fds tletitle
-                p contex tcontex tcontex tco ntex tcont extcon textco ntex tcontext
-                a.arr-c
-                    i.ico01.ico01-arr
-                    | View all blog posts
+                .num 4
+                p 这里收集有当下最热门目的地的旅行攻略，你只需copy下来，简单DIY玩出自己的风格
             .c-right.f-cb
                 #m-list.main
                     each route in popRoute
                         .m-list.fl.w50
-                            .layer
-                            a(href='/plan/detail/#{route._id}')
-                                img(src=route.image[0].url width=342 height=180)
+                            a(href='/route/detail/#{route.id}')
+                                .layer
+                                img(src=route.image[0].url+"?imageView2/1/w/342/h/180" width=342 height=180)
                             .left
-                                .top
-                                    img(src='/images/index/ca.png')
                                 .bottom
-                                    img(src=route.editorAvatar width=40 height=40)
+                                    img(src=route.editorAvatar width=35 height=35)
                             .right
                                 .m
                                     h2
                                         a(href='/route/detail/#{route.id}') #{route.name}
-                                    .label Posted by #{route.editor}
                                     p
-                            .bottom
-                                a(href='/plan/detail/#{route._id}').arr-c
-                                    i.ico01.ico01-arr
-                                    | 点击更多
-                    .more
-                        i.ico02.ico02-loading
-                        a.btn 加载更多···
+                                        if route.description.desc
+                                            - var short_desc = route.description.desc.toString().substring(0, 40)
+                                            | #{short_desc}...
+                                    .label #{route.editor}

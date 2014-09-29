@@ -2,24 +2,42 @@ var express = require('express');
 var router = express.Router();
 var model = require('../model/sup_model.js');
 var apiList = require('../url_api');
+var config = require('../conf/system');
 
 
-router.get('/detail/:ROUTEID', function(req, res){ 
+router.get('/detail/:ROUTEID', function(req, res){
     model.setUrl(apiList.apiHost + apiList.routeDetail);
     model.getdata(req, function(data) {
-        details = JSON.parse(data);
+        var details = JSON.parse(data);
         model.setUrl(apiList.apiHost + apiList.routeNotes);
         model.getdata(req,function(data){
             var notes = JSON.parse(data);
             res.render('route/detail', {
-                "details": details.result,
-                "notes": notes.result
+                details: details.result,
+                notes: notes.result,
+                user_info: req.session.user_info,
+                config: config,
             });
         });
     });
 });
 
-
+router.get('/plans/detail/:ROUTEID', function(req, res){
+    model.setUrl(apiList.apiHost + apiList.routeDetail);
+    model.getdata(req, function(data) {
+        var details = JSON.parse(data);
+        model.setUrl(apiList.apiHost + apiList.routeNotes);
+        model.getdata(req,function(data){
+            var notes = JSON.parse(data);
+            res.json({
+                details: details.result,
+                notes: notes.result,
+                user_info: req.session.user_info,
+                config: config,
+            });
+        });
+    });
+});
 /*
     接收路线列表中的用户筛选信息
 */
@@ -46,7 +64,39 @@ router.post('/selection', function(req, res) {
     model.getdata(null, function(data) {
         res.json(JSON.parse(data));
     }); 
-})
+});
+
+/* get city id by city name */
+router.post('/city', function(req, res){
+    var fromLocName = req.body.cityName;
+    var queryFromName = apiList.searchCityIdByName + fromLocName;
+    console.log(queryFromName);
+    model.setUrl(encodeURI(queryFromName));
+    model.getdata(req, function(data){
+        data = JSON.parse(data);
+        var id = selectCityId(data.result);
+        res.json({
+            id : id,
+        });
+    });
+});
+
+
+
+// 输入一个城市名字后，会得到一个列表，level = 1 是省会和level = 2是市
+// 通常选取【市】作为出发地
+var selectCityId = function(result) {
+  var cityId = "";
+  for (var i = 0; i < result.length; i++) {
+    var tempCity = result[i];
+    if (tempCity.level == 2) {
+      cityId = tempCity._id;
+      break;
+    } 
+  }
+  return cityId;
+}
+
 
 /* 
     配置路线列表筛选url

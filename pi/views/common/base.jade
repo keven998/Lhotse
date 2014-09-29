@@ -1,18 +1,14 @@
 doctype html
 html
     head
-        block page_var
-            script.
-
-        link(href='/stylesheets/common/reset.css', rel='stylesheet')
-        link(href='/stylesheets/common/travepi.css', rel='stylesheet')
-        link(href='/javascripts/lib/jquery-ui/jquery-ui.min.css', rel='stylesheet')
-        script(src='/javascripts/lib/jquery-1.11.1.min.js', rel='javascripts')
-        script(src='/javascripts/lib/jquery-ui/jquery-ui.js', rel='javascripts')
-        script(src='/javascripts/lib/checklogin.js', rel='javascripts')
-        script(data-main='/require/main.js', src='/javascripts/lib/require.js')
         meta(charset='utf-8')
         meta(http-equiv='X-UA-Compatible', content='IE=Edge')
+        block page_var
+        link(href='/stylesheets/common/reset.css', rel='stylesheet')
+        link(href='/stylesheets/common/travelpi.css', rel='stylesheet')
+        script(src='/javascripts/lib/jquery-1.11.1.min.js', rel='javascripts')
+        script(src='/javascripts/lib/checklogin.js', rel='javascripts')
+        script(data-main='/require/main.js', src='/javascripts/lib/require.js')
         title 旅行派
 
     body
@@ -39,8 +35,7 @@ html
                     .user
                         img(src='#{user_info.avatar}')
                         .txt
-                            b.b1(data-id=user_info.id) #{user_info.nick_name}
-                            b.b2 2014-01-01
+                            b.b1(data-id=user_info.id)
                 else
                     li
                         a.login 登录
@@ -49,8 +44,8 @@ html
                 img(src='/images/common/logo.png')
             .lg-contain
                 h2 请用第三方平台登录
-                a.weibo(href="https://api.weibo.com/oauth2/authorize?client_id=2294159543&response_type=code&redirect_uri=http://www2.lvxingpai.cn/account/callback/weibo/")
-                a.qq(href="https://graph.qq.com/oauth2.0/authorize?client_id=101151725&response_type=code&redirect_uri=http://www2.lvxingpai.cn/account/callback/qq/&state=01")
+                a.weibo(href= config.weibo_call_back)
+                a.qq(href= config.qq_call_back)
         .layer(style='display: none;')
     
         block content
@@ -61,32 +56,25 @@ html
                     .m-p.fl
                         h3 关于我们
                         p
-                            | 地址:北京市海淀区海淀西大街70号3层
-                            | 邮编:100080
-                            | 电话:010-56232857
-                            | Email:services@lvxingpai.cn
+                            | 地址:北京市海淀区海淀西大街70号3层 <br>
+                            | 邮编:100080 <br>
+                            | 电话:010-56232857 <br>
+                            | Email:services@lvxingpai.cn <br>
                     .m-p.fl
                         h3 业务合作
                         p
-                            | 产品合作:keven@lvxingpai.cn
-                            | 广告业务:steven@lvxingpai.cn
-                            | 其它业务:services@lvxingpai.cn
+                            | 产品合作:keven@lvxingpai.cn <br>
+                            | 广告业务:steven@lvxingpai.cn <br>
+                            | 其它业务:services@lvxingpai.cn <br>
                     .m-p.fl
                         h3 反馈
                         p
                             | 请告诉我们您的需求、建议或意见。
                             |  
-                    .m-p.fr
+                    .m-p.fl
                         h3 联系我们
                         p
-                            i.ico02.ico02-qq
-                            i.ico02.ico02-weibo
-                            <br>
-                            b NEWSLETTER
-                            input.email-ip(placeholder='Enter your email')
-                            a.btn.email email
-            .bottom
-                img(src='/images/common/logo2.png')
-                b ©2012 asodufosdufosj fdslfdj
-                | 北京爱走天下网络科技有限责任公司
-    
+                            //- i.ico02.ico02-qq
+                            i.ico02.ico02-weibo 
+                            a(href="http://weibo.com/lvxingpai" target="_blank") 旅行派
+                    b.company-name ©2014 | 北京爱走天下网络科技有限责任公司
