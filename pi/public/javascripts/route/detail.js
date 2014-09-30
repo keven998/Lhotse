@@ -37,7 +37,7 @@ $(function () {
 
 
 $(function(){
-    var bn = $('p.bn'),
+    var bn = $('.copy_route'),
         url = bn.attr('data-url');
     bn.on('click', function(e){
         var cityName = remote_ip_info["city"];

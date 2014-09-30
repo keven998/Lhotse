@@ -10,7 +10,8 @@ block page_var
 block content
     .main_container
         h1 #{details.title}
-        p.bn(data-url='/plans/timeline/' + details._id + '?_fromLoc=') 复制路线
+        .copy_route(data-url='/plans/timeline/' + details._id + '?_fromLoc=')
+            a.btn02.btn02-c4 复制路线
         hr
         .tab
             a#tab01.item.item01-hover
