@@ -116,7 +116,7 @@ router.get('/callback/qq/', function(req, ori_res) {
                     }
                     req.session.user_info = user_info;
                     if (req.headers.referer){
-                    ori_res.redirect(req.headers.referer);
+                        ori_res.redirect(req.headers.referer);
                     }else{
                         ori_res.redirect('/');
                     }
