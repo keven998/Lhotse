@@ -14,7 +14,7 @@
 .content .t{width: auto;height: 40px;text-align: center;color: #aaa;padding: 20px 10px;line-height: 1.5;}
 .t .txt01{font-size: 28px;font-family: "黑体";}
 .content .c-nav{height: 30px;line-height: 30px;padding: 0px 30px 30px 20px;font-size: 16px;}
-.c-nav a{display: inline-block;width: 80px;height: auto;margin-right: 10px;line-height: 1;color: #08DCA9;text-align: left;font-weight: bold;font-family: "黑体";}
+.c-nav a{display: inline-block;height: auto;margin-right: 10px;line-height: 1;color: #08DCA9;text-align: left;font-weight: bold;font-family: "黑体";}
 .c-nav a:hover{background-color:#ddd;}
 .c-nav a.new{color: #a22;}
 .c-nav a b{font-size:20px;font-weight:900;}
