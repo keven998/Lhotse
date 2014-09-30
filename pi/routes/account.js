@@ -55,7 +55,11 @@ router.get('/callback/weibo/', function(req, ori_res) {
                     avatar: data.result.avatar,
                 }
                 req.session.user_info = user_info;
-                ori_res.redirect(req.headers.referer);
+                if (req.headers.referer){
+                    ori_res.redirect(req.headers.referer);
+                }else{
+                    ori_res.redirect('/');
+                }
             })
         });
     });
@@ -105,7 +109,17 @@ router.get('/callback/qq/', function(req, ori_res) {
                 };
 
                 request(options, function(err, res, data){
-                    ori_res.render('index', data);
+                    var user_info = {
+                        id: data.result._id,
+                        nick_name: data.result.nickName,
+                        avatar: data.result.avatar,
+                    }
+                    req.session.user_info = user_info;
+                    if (req.headers.referer){
+                    ori_res.redirect(req.headers.referer);
+                    }else{
+                        ori_res.redirect('/');
+                    }
                 })
             })
         })

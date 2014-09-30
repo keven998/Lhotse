@@ -4,6 +4,8 @@ html
         meta(charset='utf-8')
         meta(http-equiv='X-UA-Compatible', content='IE=Edge')
         block page_var
+        script.
+            var page_url = location.search; 
         link(href='/stylesheets/common/reset.css', rel='stylesheet')
         link(href='/stylesheets/common/travelpi.css', rel='stylesheet')
         script(src='/javascripts/lib/jquery-1.11.1.min.js', rel='javascripts')
@@ -43,6 +45,7 @@ html
                 img(src='/images/common/logo.png')
             .lg-contain
                 h2 请用第三方平台登录
+                - var source_url = 
                 a.weibo(href= config.weibo_call_back)
                 a.qq(href= config.qq_call_back)
         .layer(style='display: none;')
