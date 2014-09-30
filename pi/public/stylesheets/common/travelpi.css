@@ -75,7 +75,7 @@ html body{height: 100%;position: relative;}
 .backToTop{bottom: 0px!important;bottom: auto;position:fixed;_position:absolute;width:43px;height:43px;background: url(/images/common/gotop.png) no-repeat 0 0;cursor: pointer;z-index:1990;bottom:0;display:none;}
 .backToTop:hover{background-position: 0 -43px;-webkit-transition:background 0.2s ease 0s;-moz-transition:background 0.2s ease 0s;-o-transition:background 0.2s ease 0s;-ms-transition:background 0.2s ease 0s;transition:background 0.2s ease 0s;}
 /*登录*/
-.lg-layer{position: fixed;top: 0;right: 0;width: 400px;height:550px;padding: 80px 0 40px;z-index: 1111111;background:url(/images/common/login/bg-webLogin.png);font-family: '黑体';/* display: none; */}
+.lg-layer{position: fixed;top: 0;right: 0;width: 400px;height:100%;padding: 80px 0 40px;z-index: 9999999999;background:url(/images/common/login/bg-webLogin.png);font-family: '黑体';/* display: none; */}
 h1.logo{height:150px;}
 .lg-contain{width:180px;margin:180px auto;text-align:center;}
 .lg-contain h2{font-size:20px;color:#fff;}
