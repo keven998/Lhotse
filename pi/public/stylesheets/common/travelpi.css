@@ -12,7 +12,7 @@ html body{height: 100%;position: relative;}
 /*ico 图标*/
 .ico01{display: inline-block;width: 20px;height: 20px;position: relative;top: 7px;*top:9px;left: 0;margin-right: 2px;}
 .ico01-route{background-size:24px;background:url("/images/common/map.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/map.png',sizingMethod='scale');}
-.ico01-spot{background-size:24px;background:url("/images/common/calendar.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/calendar.png',sizingMethod='scale');top: 8px;left: 10px;}
+.ico01-spot{background-size:24px;background:url("/images/common/calendar.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/calendar.png',sizingMethod='scale');}
 .ico01-cost{background-size:24px;background:url("/images/common/cost.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/cost.png',sizingMethod='scale');top: 8px;left: 5px;}
 .ico01-eye{background-size:24px;background:url("/images/common/eye.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/eye.png',sizingMethod='scale');top: 8px;left: 5px;}
 .ico01-source{background-size:24px;background:url("/images/common/source.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/source.png',sizingMethod='scale');top: 8px;left: 10px;}
