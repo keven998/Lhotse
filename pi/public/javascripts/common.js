@@ -37,16 +37,14 @@ function select_to(input, poi_type){
     $("#suggestion_to").hide();
 }
 
-// 设置一个监听位
-var slug = '';
 // onclick event
 function suggestion_to(input){
-    slug = 'to';
-    var inputText = myTrim($('#arrive').val());
+    var slug = 'to';
+    var inputText = $('#arrive').val();
     if(inputText !== $('#arrive').attr('tem')){
         $('#arrive').attr('tem', inputText);
         if (inputText) {
-            suggestion(slug, input);                    
+            suggestion(slug, myTrim(input));                    
         }
     }
     
@@ -54,19 +52,18 @@ function suggestion_to(input){
 
 // onclick event
 function suggestion_from(input){
-    slug = 'from';
-    var inputText = myTrim($('#from').val());
+    var slug = 'from';
+    var inputText = $('#from').val();
     if(inputText !== $('#from').attr('tem')){
         $('#from').attr('tem', inputText);
         if (inputText) {
-            suggestion(slug, input);                    
+            suggestion(slug, myTrim(input));                    
         }
     }
 }
 
 
 function suggestion(slug, input){
-    console.log('联想');
     $.ajax({
         url: "/suggestion?type=" + slug +"&input="+input,
         cache: false,
@@ -89,69 +86,40 @@ function suggestion(slug, input){
 }
 
 
-/* ---- zanbai code ---- */
+/* ---- BEGIN: select suggestion ---- */
 function myTrim(x) {
     return x.replace(/^\s+|\s+$/gm,'');
 }
 
 var arriveInput = $('#arrive'),
     arriveSuggestions = $('#suggestion_to'),
-
     fromInput = $('#from'),
     fromSuggestions = $('#suggestion_from');
 
-
-// arriveInput.on('focus', function(e){
-//     var that = $(this);
-//     if (myTrim(that.val()) === '请输入') {
-//         that.val('');
-//         that.css({
-//             color: '#000'
-//         });
-//     }
-// });
-
-
-// arriveInput.on('blur', function(e){
-//     var that = $(this);
-//     if (myTrim(that.val()) === '') {
-//         that.val('请输入');
-//         that.css({
-//             color: '#999'
-//         });
-//     }
-// });
-
-
-// 鼠标点击屏幕
-$(document).click(function(e) {
-    
-    var el = e.srcElement || e.target;
-    if (
-        el.parentNode
-            && el.parentNode.id !== 'suggestion_to'
-            && el.id !== 'arrive'
-        )
-    {
-        // 鼠标点开后，清除输入
-        arriveInput.val('')
-        arriveSuggestions.css({
-            'display': 'none'
+var arrInput = [[arriveInput, arriveSuggestions, "suggestion_to", "arrive"],
+                [fromInput, fromSuggestions, "suggestion_from", "from"]];
+arrInput.forEach(function(t){
+    if (!t[0].val()) {
+        t[1].css({
+            'display' : 'none'
         });
-    }
+    } 
+    // 鼠标点击屏幕
+    $(document).click(function(e) {
+        var el = e.srcElement || e.target;
+        if (
+            el.parentNode
+                && el.parentNode.id !== t[2]
+                && el.id !== t[3]
+            )
+        {
+            // $(t[1]).find('p')[0].click();
+            // t[1].css({
+            //     'display': 'none'
+            // });
 
-    // var cityLayer = view.$cityLayer[0];
-    // if (cityLayer && cityLayer.style.display !== 'none') {
-    //     if (
-    //         !util.dom.contains(cityLayer, el)
-    //         &&
-    //         el.getAttribute('id') != 'change-city'
-    //     ) {
-    //         cityLayer.style.display = 'none';
-    //         popup.createModuleMask.hide();
-    //     }
-    // }
-
+        }
+    }); 
 });
 
 var array = [arriveSuggestions, fromSuggestions];
