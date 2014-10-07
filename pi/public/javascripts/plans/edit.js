@@ -367,14 +367,13 @@ $(function () {
         dataObj.fromLocId = fromLocId;
         dataObj.ugcId = ugcId;
         dataObj.spotArray = spotArray;
-
+        console.log(dataObj);
         $.ajax({  //动画结束，写入数据
                 url    : '/plans/edit/post',
                 data   : dataObj,
                 dataType : "json",           
                 type : 'POST',
                 success: function (msg) {
-                    console.log(msg);
                     if (msg.code == 0) {
                         window.location.href="/plans/mine/";
                     } else {
@@ -407,7 +406,6 @@ $(function () {
         if (key == 13) {
             // 将当前的tag的page计数置零
             pageArr[tagFlag] = 0;
-            
             ajaxSearch(tagFlag, searchText);
         }
     });

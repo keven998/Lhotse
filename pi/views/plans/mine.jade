@@ -18,21 +18,22 @@ block content
                 | 快去规划您的行程吧 ！
         else
             .plan_list
-                each plan in myPlans
-                    .plan_item
-                        .img_contain
-                            img(src=plan.image width="146" height="147")
-                            .days 共#{plan.days}天
-                        .plan_desc
-                            .plan_title
-                                .plan_name #{plan.name}
-                            .plan_edit
-                                input#plan_input.plan_input(type="text" value=plan.name data-id=plan.id)
-                            .edit_btn
-                                input.confirm(type="button" value="")
-                                input.cancel(type="button" value="")
-                            p.date #{plan.startDate}-#{plan.endDate}
-                            a.viewdetail(href='/plans/timeline/customized/'+plan.id) 查看详情
-                            .plan_ft
-                                更新时间：#{plan.updateDate}
-                                i.delete(data-id=plan.id)
+                if myPlans.length != 0
+                    each plan in myPlans
+                        .plan_item
+                            .img_contain
+                                img(src=plan.image width="146" height="147")
+                                .days 共#{plan.days}天
+                            .plan_desc
+                                .plan_title
+                                    .plan_name #{plan.name}
+                                .plan_edit
+                                    input#plan_input.plan_input(type="text" value=plan.name data-id=plan.id)
+                                .edit_btn
+                                    input.confirm(type="button" value="")
+                                    input.cancel(type="button" value="")
+                                p.date #{plan.startDate}-#{plan.endDate}
+                                a.viewdetail(href='/plans/timeline/customized/'+plan.id) 查看详情
+                                .plan_ft
+                                    更新时间：#{plan.updateDate}
+                                    i.delete(data-id=plan.id)

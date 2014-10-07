@@ -49,7 +49,7 @@ var urlApi = {
         getUgcByIdNone : '/web/ugc-plans/',
         saveUgc : '/web/ugc-plans',
         display : '/web/ugc-plans/UGCID',
-        editSave : "http://api.lvxingpai.cn/web/plans/optimizers",
+        editSave : '/web/plans/optimizers',
         detail : '/web/ugc-plans/UGCID',
         // 有待扩充
         timeline : '/web/ugc-plans/templates/TEMPLATES?fromLoc=_fromLoc&uid=5409b6dde4b043c0eff098fe',

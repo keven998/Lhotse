@@ -20,6 +20,35 @@ $(function () {
     /* ---- END: login layer ---- */
 })
 
+/* ---- BEGIN: cookies ---- */
+function getCookie(c_name)
+{
+    if (document.cookie.length>0)
+        {
+            c_start=document.cookie.indexOf(c_name + "=")
+            if (c_start!=-1)
+                { 
+                c_start=c_start + c_name.length+1 
+                c_end=document.cookie.indexOf(";",c_start)
+                
+                if (c_end==-1) c_end=document.cookie.length
+                    return unescape(document.cookie.substring(c_start,c_end))
+            }
+        }
+    return ""
+}
+
+function setCookie(c_name,value,expiredays)
+    {
+        var exdate=new Date()
+        exdate.setDate(exdate.getDate()+expiredays)
+        
+        document.cookie=c_name+ "=" + escape(value)+ ((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
+    }
+
+/* ---- END: cookies ---- */
+
+
 /* ---- BEGIN: suggestion ---- */
 // from location
 function select_from(input, poi_type){
@@ -27,7 +56,18 @@ function select_from(input, poi_type){
     $('#from').attr('poi_type', poi_type);
     $("#suggestion_from").empty();
     $("#suggestion_from").hide();
+    setCookie('userInputFrom', input, 1);//将用户自己的选择记录好
 }
+
+// 若用户有输入目的地，则记录到cookies
+$(function(){
+    var userInput = getCookie('userInputFrom');
+    if (!userInput) {
+        userInput = getCookie('fromLoc');
+    };
+    $('#from').val(userInput);
+})
+
 
 //  arrive location
 function select_to(input, poi_type){
@@ -43,11 +83,10 @@ function suggestion_to(input){
     var inputText = $('#arrive').val();
     if(inputText !== $('#arrive').attr('tem')){
         $('#arrive').attr('tem', inputText);
-        if (inputText) {
-            suggestion(slug, myTrim(input));                    
+        if (myTrim(inputText)) {
+            suggestion(slug, myTrim(inputText));                    
         }
-    }
-    
+    }    
 }
 
 // onclick event
@@ -56,8 +95,8 @@ function suggestion_from(input){
     var inputText = $('#from').val();
     if(inputText !== $('#from').attr('tem')){
         $('#from').attr('tem', inputText);
-        if (inputText) {
-            suggestion(slug, myTrim(input));                    
+        if (myTrim(inputText)) {
+            suggestion(slug, myTrim(inputText));                    
         }
     }
 }
@@ -113,22 +152,22 @@ arrInput.forEach(function(t){
                 && el.id !== t[3]
             )
         {
-            // $(t[1]).find('p')[0].click();
-            // t[1].css({
-            //     'display': 'none'
-            // });
+            t[1].css({
+                'display': 'none'
+            });
 
         }
     }); 
+
 });
 
-var array = [arriveSuggestions, fromSuggestions];
+var array = [[arriveSuggestions, arriveInput], [fromSuggestions, fromInput]];
 array.forEach(function(t){
     //// 清除‘选中’
     function clearSelectedStyle() {
-        var items = t.find('p');
+        var items = t[0].find('p');
         var len = items.length;
-        console.log('clear');
+        //console.log('clear');
         for (var i = 0; i < len; i++) {
             if ($(items[i]).hasClass('selected')) {
                 $(items[i]).removeClass('selected');
@@ -139,12 +178,11 @@ array.forEach(function(t){
     //// 上下方向键选择联想的输入
     $(document).keydown(function(e) {
         var keyCode = e.keyCode ? e.keyCode : e.which;
-        var display = t.css('display');
+        var display = t[0].css('display');
 
         if (display !== 'none') {
-            var items = t.find('p');
+            var items = t[0].find('p');
             var len = items.length;
-            //console.log(len);
             var curSelectedObj; // 当前选中的那一个，即上下键盘按下时选择的起始位置
             // 获取当前选中的提示
             for (var i = 0; i < len; i++) {
@@ -156,7 +194,7 @@ array.forEach(function(t){
                     break;
                 }
             }
-            console.log('当前' + curSelectedObj);
+            //console.log('当前' + curSelectedObj);
 
             if (keyCode == 40) { // 下
                 // 当前有选中提示
@@ -178,9 +216,7 @@ array.forEach(function(t){
                         elem: items[0],
                         index: 0
                     }
-                    console.log(curSelectedObj);
                     $(items[curSelectedObj.index]).addClass('selected');
-                    console.log($(items[curSelectedObj.index]).attr('class'));
                 }
                 e.stopPropagation();
                 e.preventDefault();
@@ -206,11 +242,13 @@ array.forEach(function(t){
                 e.stopPropagation();
                 e.preventDefault();
             }
-            else if(keyCode == 13) { // 回车
+            //加入display判别，以免别的页面中得enter被这里吃掉
+            else if(display && keyCode == 13) { // 回车
                 setTimeout(function(){
                     // window.location.href = curSelectedObj.elem.getAttribute('href');
                     curSelectedObj.elem && curSelectedObj.elem.click();
-                }, 10);
+                    t[1].attr('tem', curSelectedObj.elem.innerText);
+                }, 50);
                 e.stopPropagation();
                 e.preventDefault();
             }
@@ -219,7 +257,7 @@ array.forEach(function(t){
     
 
     //// 设置鼠标在联想选项中移动的效果
-    t.mouseover(function(e) {
+    t[0].mouseover(function(e) {
         var target = e.target || e.srcElement;
         var targetTagName = target.tagName.toLowerCase();
         if (targetTagName == 'p') {
@@ -269,30 +307,4 @@ function go_plan_list(){
 
 /* ---- END: suggestion ---- */
 
-/* ---- BEGIN: cookies ---- */
-function getCookie(c_name)
-{
-    if (document.cookie.length>0)
-        {
-            c_start=document.cookie.indexOf(c_name + "=")
-            if (c_start!=-1)
-                { 
-                c_start=c_start + c_name.length+1 
-                c_end=document.cookie.indexOf(";",c_start)
-                
-                if (c_end==-1) c_end=document.cookie.length
-                    return unescape(document.cookie.substring(c_start,c_end))
-            }
-        }
-    return ""
-}
 
-function setCookie(c_name,value,expiredays)
-    {
-        var exdate=new Date()
-        exdate.setDate(exdate.getDate()+expiredays)
-        
-        document.cookie=c_name+ "=" + escape(value)+ ((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
-    }
-
-/* ---- END: cookies ---- */

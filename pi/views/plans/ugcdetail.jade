@@ -123,9 +123,10 @@ block content
                       .m
                         h3 #{spot.itemName}
                         if arrHome == 1
-                          p.suggest
-                            i.ico01.ico01-km
-                            | 距离12.3公里  建议打车                            
+                          //
+                            p.suggest
+                              i.ico01.ico01-km
+                              | 距离12.3公里  建议打车                            
                         else
                           p.suggest
                             | 旅途结束，祝您快乐!
@@ -141,10 +142,10 @@ block content
                         img.spot-img(data-url='/viewspot/detail/' + spot.itemId, src=spot.imageList[0] width=300 height=160)
                         br
                         b 1、建议游玩:#{spot.timeCost}小时  2、开放时间:#{spot.openTime}  3、门票:￥#{spot.price}
-                      
-                        p.suggest
-                          i.ico01.ico01-km
-                          | 距离12.8公里  建议公交
+                        //
+                          p.suggest
+                            i.ico01.ico01-km
+                            | 距离12.8公里  建议公交
                         
                   if spot.type == "hotel"
                     li

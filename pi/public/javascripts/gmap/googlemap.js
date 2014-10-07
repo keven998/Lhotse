@@ -14,7 +14,7 @@ function initialize() {
     //计算地图中心点
     var center = calculateCenterPoint();
     var mapOptions = {
-        zoom: 14,
+        zoom: 12,
         center: new google.maps.LatLng(center[0], center[1]),
         mapTypeId: google.maps.MapTypeId.ROADMAP,
     };

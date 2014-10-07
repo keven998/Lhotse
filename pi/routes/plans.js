@@ -173,10 +173,10 @@ router.post('/edit/post', function(req, res) {
             }
         }
         ugcData.details = details; 
-   
+        //ugcData = JSON.stringify(ugcData);
         // http post
         var options = {
-            url : apiList.ugc.editSave,
+            url : apiList.apiHost + apiList.ugc.editSave,
             json: ugcData,
             method: 'POST',
         };
@@ -184,7 +184,7 @@ router.post('/edit/post', function(req, res) {
         request(options, function(err, respond, result) {
             if (err) {
                 throw err;
-            }     
+            }
             res.json(result);
         });
     });  
@@ -193,6 +193,7 @@ router.post('/edit/post', function(req, res) {
 
 router.get('/mine/', function(req, res){
     var user_info = req.session.user_info;
+    console.log(user_info);
     model.setUrl(apiList.apiHost + apiList.myPlans + user_info.id);
     model.getdata(req, function(data) {
         var planList = [], i;
