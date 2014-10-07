@@ -212,7 +212,7 @@ router.get('/mine/', function(req, res){
                 if (startMonth.substr(0,1) == "0")
                     startMonth = startMonth.substr(1,1);
                 if (startDay.substr(0,1) == "0")
-                    startDay = startMonth.substr(1,1);
+                    startDay = startDay.substr(1,1);
                 startDate += "." + startMonth + "." + startDay;
             }else
                 startDate = 0;
