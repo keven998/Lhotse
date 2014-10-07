@@ -224,7 +224,7 @@ router.get('/mine/', function(req, res){
                 if (endMonth.substr(0,1) == "0")
                     endMonth = endMonth.substr(1,1);
                 if (endDay.substr(0,1) == "0")
-                    endDay = endMonth.substr(1,1);
+                    endDay = endDay.substr(1,1);
                 endDate += "." + endMonth + "." + endDay;
             }else
                 endDate = 0;
