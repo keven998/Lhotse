@@ -108,6 +108,8 @@ $(function () {
                 sider.hide(500);
                 $(".c").hide();
                 $(".loading").show();
+                $(".c .moredesc").empty();
+                $("ul.about-list").empty();
                 layer.fadeOut("fast");
             });
         });
