@@ -201,18 +201,14 @@ router.get('/mine/', function(req, res){
             var plan = data.result[i],
                 updateTime = new Date(plan.updateTime),//long毫秒数转Date类型时间
                 updateYear = updateTime.getFullYear(),
-                updateMonth = updateTime.getMonth(),
-                updateDay = updateTime.getDay(),
+                updateMonth = updateTime.getMonth()+1,
+                updateDay = updateTime.getDate(),
                 updateDate = updateYear + "." + updateMonth + "." + updateDay;
             if (plan.startDate != ""){
                 var startYear = plan.startDate.substr(0,4),
                     startMonth = plan.startDate.substr(5,2),
                     startDay = plan.startDate.substr(8,2),
                     startDate = startYear;
-                if (startMonth.substr(0,1) == "0")
-                    startMonth = startMonth.substr(1,1);
-                if (startDay.substr(0,1) == "0")
-                    startDay = startDay.substr(1,1);
                 startDate += "." + startMonth + "." + startDay;
             }else
                 startDate = 0;
@@ -221,10 +217,6 @@ router.get('/mine/', function(req, res){
                     endMonth = plan.endDate.substr(5,2),
                     endDay = plan.endDate.substr(8,2),
                     endDate = endYear;
-                if (endMonth.substr(0,1) == "0")
-                    endMonth = endMonth.substr(1,1);
-                if (endDay.substr(0,1) == "0")
-                    endDay = endDay.substr(1,1);
                 endDate += "." + endMonth + "." + endDay;
             }else
                 endDate = 0;
