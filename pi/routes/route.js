@@ -69,7 +69,7 @@ router.post('/selection', function(req, res) {
 /* get city id by city name */
 router.post('/city', function(req, res){
     var fromLocName = req.body.cityName;
-    var queryFromName = apiList.searchCityIdByName + fromLocName;
+    var queryFromName = apiList.apiHost + apiList.searchCityIdByName + fromLocName;
     console.log(queryFromName);
     model.setUrl(encodeURI(queryFromName));
     model.getdata(req, function(data){
@@ -106,7 +106,7 @@ function selectUrl(tag, minDay, maxDay, arrId, fromId, page, pageSize) {
     page = page || 0;
     pageSize = pageSize || 10;
     
-    var requestUrl = "http://api.lvxingpai.cn/web/plans/explore?" + 
+    var requestUrl = apiList.apiHost + "/web/plans/explore?" + 
             "loc=" + arrId + 
             "&fromLoc=" + fromId + 
             "&minDays=" + minDay + 

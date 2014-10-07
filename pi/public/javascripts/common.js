@@ -60,13 +60,13 @@ function select_from(input, poi_type){
 }
 
 // 若用户有输入目的地，则记录到cookies
-$(function(){
+(function(){
     var userInput = getCookie('userInputFrom');
     if (!userInput) {
         userInput = getCookie('fromLoc');
     };
     $('#from').val(userInput);
-})
+})()
 
 
 //  arrive location
@@ -304,6 +304,8 @@ function go_plan_list(){
         alert('not support');
     }
 }
+
+
 
 /* ---- END: suggestion ---- */
 

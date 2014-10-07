@@ -251,7 +251,7 @@ router.get('/mine/', function(req, res){
 
 router.get('/mine/delete/:planID/', function(req, res) {
     var options = {
-        url:    "http://api.lvxingpai.cn/web/ugc-plans/" + req.params.planID,
+        url:    apiList.apiHost + "/web/ugc-plans/" + req.params.planID,
         method: 'DELETE',
     };
     request(options, function(err, respond, result) {
@@ -270,7 +270,7 @@ router.get('/mine/altername', function(req, res) {
             "title":    req.query.planName
         };
     var options = {
-        url : "http://api.lvxingpai.cn/web/ugc-plans",
+        url : apiList.apiHost + "/web/ugc-plans",
         json: data,
         method: 'POST',
     };
