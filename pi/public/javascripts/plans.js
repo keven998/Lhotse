@@ -36,13 +36,12 @@ $(function () {
     var routeList=$('.routelist'),
         sider=$('.sider'),
         layer=$('.layer'),
-        wheight=$(window).height();
+        height=$(window).height();
     /*
     * 将线路列表项的事件委托在外围容器上
     */
     routeList.on('click','a.c-img,h2,a.btn02-c1',function(e){
         var requestUrl = $(this).parents('li').attr('data-url');//假设单项的数据请求地址写在父级dom li中
-        sider.css('height' , wheight);
         layer.show();
         sider.show(500,function(){
             $.ajax({
