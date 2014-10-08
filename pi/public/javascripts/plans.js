@@ -36,13 +36,12 @@ $(function () {
     var routeList=$('.routelist'),
         sider=$('.sider'),
         layer=$('.layer'),
-        wheight=$(window).height();
+        height=$(window).height();
     /*
     * 将线路列表项的事件委托在外围容器上
     */
     routeList.on('click','a.c-img,h2,a.btn02-c1',function(e){
         var requestUrl = $(this).parents('li').attr('data-url');//假设单项的数据请求地址写在父级dom li中
-        sider.css('height' , wheight);
         layer.show();
         sider.show(500,function(){
             $.ajax({
@@ -63,6 +62,8 @@ $(function () {
                     }
                     $(".c .routename").text(msg.details.title);
                     $(".c .moredesc").append(msg.details.moreDesc);
+                    $(".c").show();
+                    $(".loading").hide();
                     //请求成功后，写入dom,打开侧栏、遮罩
                     var noteList = $('#item02').children('ul'),
                         note, noteItem;
@@ -104,6 +105,10 @@ $(function () {
 
             layer.on('click',function(e){
                 sider.hide(500);
+                $(".c").hide();
+                $(".loading").show();
+                $(".c .moredesc").empty();
+                $("ul.about-list").empty();
                 layer.fadeOut("fast");
             });
         });

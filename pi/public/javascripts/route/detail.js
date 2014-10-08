@@ -29,7 +29,7 @@ $(function () {
     })
 
     item02.find('li').click(function(){
-        location.href = $(this).attr("data-url");
+        window.open($(this).attr("data-url"));
     });
 
 

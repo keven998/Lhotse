@@ -102,6 +102,8 @@ $(function () {
                         $('.right i.ico01.ico01-heart').text(favor);
                         $('.right h3').text(result.name);
                         $('.left img').attr('src', result.imageList[0]);
+                        $(".c").show();
+                        $(".loading").hide();
                     },
                     error  : function () {
                         console.log('error!!!')
@@ -113,6 +115,8 @@ $(function () {
                     }, 300, 'swing')
 
                     $(this).hide();//("fast")
+                    $(".c").hide();
+                    $(".loading").show();
                     layer.fadeOut("fast");
                 })
             });
