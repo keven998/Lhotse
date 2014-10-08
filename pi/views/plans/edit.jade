@@ -1,5 +1,4 @@
 extends ../common/base
-extends ../common/base
 
 block page_var
     script.
@@ -60,7 +59,7 @@ block content
           each spot in spots
             a
               div
-                img(src=spot.pic width='213' height='144')
+                img(src=spot.pic+'?imageView2/1/w/213/h/144' width='213' height='144')
               .id(style='display:none') #{spot._id}
               .type(style='display:none') vs
               em.spot-name #{spot.name}
@@ -79,7 +78,7 @@ block content
             each hotel in hotels
                 a
                     div
-                        img(src=hotel.pic width='213' height='144')
+                        img(src=hotel.pic+'?imageView2/1/w/213/h/144' width='213' height='144')
                     .id(style='display:none') #{hotel._id}
                     .type(style='display:none') hotel
                     .value
@@ -94,10 +93,10 @@ block content
                         i.ico-addr
                         | #{hotel.address}
                     i.ico02.ico02-add
-        
-        .more
-          i.ico02.ico02-loading
-          a.btn 加载更多···
+        //
+          .more
+            i.ico02.ico02-loading
+            a.btn 加载更多···
                     
     script(src='/javascripts/plans/jquery.sortable.min.js' rel='javascript')
     script(src='/javascripts/plans/jquery.datetimepicker.js' rel='javascript')

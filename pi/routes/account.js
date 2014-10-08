@@ -2,7 +2,7 @@ var express = require('express');
 var request = require('request');
 var router = express.Router();
 var config = require('../conf/system');
-
+var urlApi = require('../url_api');
 
 /*
 微博登录文档:
@@ -44,7 +44,7 @@ router.get('/callback/weibo/', function(req, ori_res) {
                 udid: "",
             };
             var options = {
-                url: 'http://api.lvxingpai.cn/users/oauth-login',
+                url: urlApi.apiHost + '/users/oauth-login',
                 json: post_info,
                 method: 'POST',
             };
@@ -103,7 +103,7 @@ router.get('/callback/qq/', function(req, ori_res) {
                 };
 
                 var options = {
-                    url : 'http://api.lvxingpai.cn/web/users/oauth-login',
+                    url : urlApi.apiHost + '/web/users/oauth-login',
                     json: post_info,
                     method: 'POST',
                 };

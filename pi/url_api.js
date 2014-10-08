@@ -15,9 +15,9 @@ var urlApi = {
     //落地页面
     routeDetail:  '/web/plans/ROUTEID',
     routeNotes:    '/misc/notes/search?planId=ROUTEID',
-  
+    
     // 根据现有城市名字查询城市ID
-    searchCityIdByName : "http://api.lvxingpai.com/geo/localities/search?keyword=", 
+    searchCityIdByName : "/geo/localities/search?keyword=", 
     searchCityNameById : "/web/geo/localities/fromLocId",   //:fromLocId
 
     // 通过景点名字获取景点ID
@@ -49,7 +49,7 @@ var urlApi = {
         getUgcByIdNone : '/web/ugc-plans/',
         saveUgc : '/web/ugc-plans',
         display : '/web/ugc-plans/UGCID',
-        editSave : "http://api.lvxingpai.cn/web/plans/optimizers",
+        editSave : '/web/plans/optimizers',
         detail : '/web/ugc-plans/UGCID',
         // 有待扩充
         timeline : '/web/ugc-plans/templates/TEMPLATES?fromLoc=_fromLoc&uid=5409b6dde4b043c0eff098fe',

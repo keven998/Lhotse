@@ -1,8 +1,9 @@
 function target_go_plan_list(arr_name, arr_poi_type){
     from_name = $('#from').val(),
-    from_poi_type = $('#from').attr('poi_type'),
+    from_poi_type = $('#from').attr('poi_type') || 'loc',
     href_plan_list(from_name, from_poi_type, arr_name, arr_poi_type);
 }
+
 
 function href_plan_list(from_name, from_poi_type, arr_name, arr_poi_type){
     url = '/route';
