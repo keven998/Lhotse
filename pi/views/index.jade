@@ -36,7 +36,7 @@ block content
                     b
                         | 我的位置 : 
                     input.s-ip(type="text" name="fromName" id="from" onkeyup="suggestion_from(this.value)" autocomplete="off")
-                    #suggestion_from.suggestion(style="width:250px;")
+                    
                     b.line
                     i.ico02.ico02-where
                     b 想要去哪玩 : 
@@ -44,6 +44,7 @@ block content
                     a(href="#" onclick="go_plan_list()")
                         #search-btn.s-btn()
                     #suggestion_to.suggestion(style="margin-left:270px;width:373px;")
+                    #suggestion_from.suggestion(style="width:250px;")
     .content.f-cb
         //- p.t
         //-     b.txt01 精彩的旅程，也需要你的发现

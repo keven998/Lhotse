@@ -223,128 +223,70 @@ $(function(){
     $('#from').attr("poi_type","loc");
     
     setCookie('fromLoc',encodeURI(cityName),3);
-
-
 }())
 
 
-// 联想功能
-var suggestionData = (function() {
-    var popupDiv = document.getElementById("popup");//获得对应的div对象
-    var popupBody = document.getElementById("popupBody");//获得对应的tbody对象
+// // 联想功能
+// var suggestionData = (function() {
+//     var popupDiv = document.getElementById("popup");//获得对应的div对象
+//     var popupBody = document.getElementById("popupBody");//获得对应的tbody对象
         
-    //利用ajax获取后台的模糊查询的数据，并且封装成下拉列表的形式展现出来
-    var ajaxSuggestion = function (domElement, type) {
-        $.ajax({
-            type : "GET",   //提交的方法为post
-            contentType: 'application/json', 
-            url : "/suggestion?type=" + type,   //对应的Action提交的路径
-            data  : {input : domElement.value},   //从前台传递到后台的查询语句的参数
-            dataType : "json",  //从Action中返回的数据的类型为json类型的
+//     //利用ajax获取后台的模糊查询的数据，并且封装成下拉列表的形式展现出来
+//     var ajaxSuggestion = function (domElement, type) {
+//         $.ajax({
+//             type : "GET",   //提交的方法为post
+//             contentType: 'application/json', 
+//             url : "/suggestion?type=" + type,   //对应的Action提交的路径
+//             data  : {input : domElement.value},   //从前台传递到后台的查询语句的参数
+//             dataType : "json",  //从Action中返回的数据的类型为json类型的
             
-            error : function() {
-                //alert("没有对应的数据，请查看输入的查询条件！");
-            },
+//             error : function() {
+//                 //alert("没有对应的数据，请查看输入的查询条件！");
+//             },
 
-            success : function(data) {//当Ajax提交成功时调用的方法
-                    //返回的是json对象！键值对 alert(data.key);   
-                    data = data.suggestion;
-                    console.log(data);                          
-                    if(data.length==0){return;}
-                    // todo
-                    // $( "#" + type ).autocomplete({
-                    //     source: data,
-                    // });
-            } 
-        });
-    };
+//             success : function(data) {//当Ajax提交成功时调用的方法
+//                     //返回的是json对象！键值对 alert(data.key);   
+//                     data = data.suggestion;
+//                     console.log(data);                          
+//                     if(data.length==0){return;}
+//                     // todo
+//                     // $( "#" + type ).autocomplete({
+//                     //     source: data,
+//                     // });
+//             } 
+//         });
+//     };
 
-    var from = function() {
-        var type = "from";
-        var fromDom = document.getElementById("from");
-        ajaxSuggestion(fromDom, type);
-    };
+//     var from = function() {
+//         var type = "from";
+//         var fromDom = document.getElementById("from");
+//         ajaxSuggestion(fromDom, type);
+//     };
 
-    var arrive = function(arrive) {
-        var type = "arrive";
-        var arriveDom = document.getElementById("arrive");
-        ajaxSuggestion(arriveDom, type);
-    };
+//     var arrive = function(arrive) {
+//         var type = "arrive";
+//         var arriveDom = document.getElementById("arrive");
+//         ajaxSuggestion(arriveDom, type);
+//     };
 
-    return {
-        from : from,
-        arrive : arrive,
-    };
-})();         
-//                              setOffsets();//设置联想输入下拉列表提示框的位置
-//                              var tr,td,text;
-//                              for (var i = 0; i < data.length; i++) {//根据返回的值，手动的拼tbody的内容
-//                              text = document.createTextNode(data[i]);//从Action中返回的数据中取出linkDataProperty的值
-//                              //alert(data[i]);
-//                              td = document.createElement("td");//创建一个td的对象           
-//                              tr = document.createElement("tr");//创建一个tr的对象           
-//                              td.mouseOver = function(){this.className="mouseOver;"};
-//                              td.mouseOut = function(){this.className="mouseOut;"};
-//                              td.onclick = function(){populateModel(this)};//单击td是的方法为populateModel             
-//                              td.appendChild(text);
-//                              tr.appendChild(td);            
-//                              popupBody.appendChild(tr);
-//                          }
-//                    }
-//                });
-//                //点击下拉列表中的某个选项时调用的方法
-//                function populateModel(cell) {
-//                        clearSelect();
-//                        linkDataProperty.value = cell.firstChild.nodeValue;
-//                        //initOtherData(linkDataProperty.value);利用输入框中的数据调用其他方法，初始化其他数据
-//                        clearModels();//清除自动完成行                        
-//                }
-//                //清除自动完成行，只要tbody有子节点就删除掉，并且将将外围的div的边框属性设置为不可见的
-//                function clearModels() {
-//                    while (popupBody.childNodes.length > 0) {
-//                        popupBody.removeChild(popupBody.firstChild);
-//                    }
-//                    popupDiv.style.border = "none";
-//                }
-//                //设置下拉列表的位置和样式
-//                function setOffsets() {
-//                    var width = linkDataProperty.offsetWidth;//获取linkDataProperty输入框的相对宽度
-//                    
-//                    var left = getLeft(linkDataProperty);
-//                    //alert(left);
-//                    
-//                    var top = getTop(linkDataProperty) - 380;// + linkDataProperty.offsetHeight - 380;
-//                    //alert(left + "|" + top);
-//            
-//                    popupDiv.style.border = "black 1px solid";
-//                    popupDiv.style.left = left + "px";
-//                    popupDiv.style.top = top + "px";
-//                    popupDiv.style.width = width + "px";
-//                }
-//                //获取指定元素在页面中的宽度起始位置
-//                function getLeft(e) {
-//                    var offset = e.offsetLeft;
-//                    if (e.offsetParent != null) {
-//                        offset += getLeft(e.offsetParent);
-//                    }
-//                    return offset;
-//                }
-//                //获取指定元素在页面中的高度起始位置
-//                function getTop(e) {
-//                    var offset = e.offsetTop;
-//                    if (e.offsetParent != null) {
-//                        offset += getTop(e.offsetParent);
-//                    }
-//                    return offset;
-//                }
-//                
-//                //清空输入框中的数据
-//                function clearSelect() {
-//                    var linkDataProperty=document.getElementById(linkDataProperty);
-//                    linkDataProperty.value="";
-//                }
-//            }
-        
+//     return {
+//         from : from,
+//         arrive : arrive,
+//     };
+// })(); 
+
+/* 回车后，直接跳转 */
+(function(){
+    $(document).keydown(function(e) {
+        var f1 = arriveSuggestions = $('#suggestion_to').css('display'),
+            f2 = fromSuggestions = $('#suggestion_from').css('display'),
+            keyCode = e.keyCode ? e.keyCode : e.which;
+        if (f1 == 'none' && f2 == 'none' && keyCode === 13) {
+            go_plan_list();
+        }
+    });
+}())
+/* ---end--- */
           
 
 

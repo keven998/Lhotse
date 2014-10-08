@@ -10,7 +10,7 @@ var routes = require('./routes/index');
 var account = require('./routes/account');
 var plans = require('./routes/plans');
 var viewspot = require('./routes/viewspot');
-//route是模板路线的所有路由
+// route是模板路线的所有路由
 var route = require('./routes/route');
 var hotel = require('./routes/hotel');
 

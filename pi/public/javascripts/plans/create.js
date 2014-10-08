@@ -1,8 +1,15 @@
 //城市的跳转需要获取出发城市
 $('.city_nav').children('a').click(function(){
-    var fromLocName = input.fromLocName.value,
+    var fromLocName = $('#from').val(),
         arrLocName = $(this).text();
-    $(this).attr('href','/search?fromLocName=' + fromLocName + '&arrLocName=' + arrLocName);
+    if (!fromLocName) {
+        fromLocName = getCookie('fromLoc');
+    }
+    if ($(this).attr('data-type') === 'city') {
+        $(this).attr('href','/route/city/?&fromName=' + fromLocName + '&arrName=' + arrLocName);
+    } else if ($(this).attr('data-type') === 'viewspot') {
+        $(this).attr('href','/route/include/?&fromName=' + fromLocName + '&arrName=' + arrLocName);
+    }
 })
 
 

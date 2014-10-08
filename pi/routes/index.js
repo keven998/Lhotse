@@ -63,7 +63,7 @@ router.get('/', function(req, res) {
 router.get('/route/include/', function(req, res) {
     var fromLocName = req.query.fromName;
     var arrLocName = req.query.arrName;
-    var queryFromName = urlApi.searchCityIdByName + decodeURIComponent(fromLocName);
+    var queryFromName = urlApi.apiHost + urlApi.searchCityIdByName + decodeURIComponent(fromLocName);
     var queryArrName = urlApi.apiHost + urlApi.searchViewspotIdByName + decodeURIComponent(arrLocName) + "&sort=desc";
     async.parallel({
         from: function(callback) {
@@ -108,8 +108,8 @@ router.get('/route/include/', function(req, res) {
 router.get('/route/city/', function(req, res) {
     var fromLocName = req.query.fromName;
     var arrLocName = req.query.arrName;
-    var queryFromName = urlApi.searchCityIdByName + fromLocName;
-    var queryArrName = urlApi.searchCityIdByName + arrLocName;
+    var queryFromName = urlApi.apiHost + urlApi.searchCityIdByName + fromLocName;
+    var queryArrName = urlApi.apiHost + urlApi.searchCityIdByName + arrLocName;
     async.parallel({
         from: function(callback) {
             model.setUrl(encodeURI(queryFromName));
@@ -278,7 +278,7 @@ var suggestionUrl = function (input, restaurant, hotel, loc, vs) {
     }
 
     return requestUrl + '?' + queryStr;
-}
+};
 
 
 // 输入一个城市名字后，会得到一个列表，level = 1 是省会和level = 2是市
