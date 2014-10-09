@@ -43,7 +43,7 @@ html body{height: 100%;position: relative;}
 .btn02-c3{background: #fff;border: 1px solid #08DCA9;}
 .btn02-c4{background: #F30D0D;color: #fff;padding: 10px 20px;font-size: 16px;position: absolute;left: 0;bottom: 10px;*bottom: 0}
 /*travepi------top*/
-.hd{position: fixed;left: 0;top: 0;width: 100%;height: 60px;line-height: 40px;background-color: rgba(0,0,0,.25);filter: .25;progid: DXImageTransform.Microsoft.Gradient(startColorStr=#40000000,endColorStr=#40000000);z-index: 111111111111;transition: height ease 300ms;overflow: hidden;}
+.hd{position: fixed;left: 0;top: 0;width: 100%;height: 60px;line-height: 40px;background-color: rgba(0,0,0,.25);filter: .25;progid: DXImageTransform.Microsoft.Gradient(startColorStr=#40000000,endColorStr=#40000000);z-index: 111111111111;transition: height ease 300ms;overflow: none;}
 .logo{float:left;width: 100px;height: 100%;line-height: 80px;*line-height:50px;margin-left: 50px;text-align: center;}
 .logo img{width: 100px;height: auto}
 .nav{width: 650px;height: auto;overflow: hidden;float: right;text-align: center;}
@@ -51,7 +51,7 @@ html body{height: 100%;position: relative;}
 .nav li a{display: inline-block;_zoom:1;*display:inline;color: #fff;font-size: 14px;width: 100%;height: 30px;text-align: center;padding-bottom:10px;}
 .nav li a:hover{color: #08DCA9;}
 .bd{width: 100%;height: auto;}
-.user{display:inline-block;_zoom:1;*display:inline;height: 40px;*height: 50px;width:100px;line-height: 40px;*line-height:70px;color: #fff;padding-top: 10px;vertical-align: top;}
+.user{display:inline-block;_zoom:1;*display:inline;height: 40px;*height: 70px;width:100px;line-height: 40px;*line-height:70px;color: #fff;padding-top: 10px;vertical-align: top;}
 .user img{display:inline-block;_zoom:1;*display:inline;width: 30px;height: 30px;border:3px solid #08dca9;border-radius:20px;}
 .user .txt{display:inline-block;_zoom:1;*display:inline;height: 40px;width:70px;}
 .user .b1{display:block;line-height: 15px;}
@@ -89,3 +89,10 @@ h1.logo{height:150px;}
 .layer{position: fixed;left: 0;top: 0;width: 100%;height: 100%;background: #555;opacity: .5;filter:alpha(opacity:50)z-index: 11;/* display: none; */z-index: 115;}
 
 .suggestion {width: 385px; position:relative; margin-left:10px; padding-left:5px; border:2px solid #ddd; display:none; font: 16px/22px arial; background-color: #ededed;}
+
+/* uesr menu panel*/
+.drop-menu {display: none; position:absolute; z-index: 200; text-align: center;}
+.user-logout {padding: 0px;}
+.drop-menu li a:hover {color: #F7FD03;}
+.user-center-menu-list {background-color: rgba(90, 226, 123, 0.5); color: blue; position: absolute; top: 0px; padding: 10px 0; width: 65px; right: -593px;}
+

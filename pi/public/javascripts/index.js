@@ -222,7 +222,7 @@ $(function(){
     $('#from').val(cityName);
     $('#from').attr("poi_type","loc");
     
-    setCookie('fromLoc',encodeURI(cityName),3);
+    setCookie('fromLoc',cityName, 1);
 }())
 
 
@@ -276,7 +276,7 @@ $(function(){
 // })(); 
 
 /* 回车后，直接跳转 */
-(function(){
+$(function(){
     $(document).keydown(function(e) {
         var f1 = arriveSuggestions = $('#suggestion_to').css('display'),
             f2 = fromSuggestions = $('#suggestion_from').css('display'),

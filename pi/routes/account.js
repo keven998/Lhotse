@@ -126,4 +126,20 @@ router.get('/callback/qq/', function(req, ori_res) {
     });
 });
 
+/*
+    注销登录
+*/
+router.get('/logout/', function(req, res) {
+    req.session.user_info = null;
+    
+    var url = req.headers.referer,
+        ans = url.search(/\/plans\/mine\//);
+    // 从需要用户登录的页面跳到主页
+    if (ans > -1) {
+        res.redirect('/');
+    }else {
+        res.redirect(url);
+    }
+})
+
 module.exports = router;
