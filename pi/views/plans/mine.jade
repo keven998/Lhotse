@@ -28,12 +28,12 @@ block content
                                 .plan_title
                                     .plan_name #{plan.name}
                                 .plan_edit
-                                    input#plan_input.plan_input(type="text" value=plan.name data-id=plan.id)
+                                    input.plan_input(type="text" value=plan.name data-id=plan.id)
                                 .edit_btn
                                     input.confirm(type="button" value="")
                                     input.cancel(type="button" value="")
                                 p.date #{plan.startDate}-#{plan.endDate}
                                 a.viewdetail(href='/plans/timeline/customized/'+plan.id) 查看详情
                                 .plan_ft
-                                    更新时间：#{plan.updateDate}
+                                    | 更新时间：#{plan.updateDate}
                                     i.delete(data-id=plan.id)

@@ -1,5 +1,5 @@
 .main_container{margin:0 auto;width:1002px;padding-bottom:280px;}
-h1{margin:150px auto 200px;height:100px;width:500px;font-size:40px;text-align:center;line-height:1.3;}
+.content h1{margin:150px auto 200px;height:100px;width:500px;font-size:40px;text-align:center;line-height:1.3;}
 a .newplan_btn{border:none;background:url("/images/plans/mine/newplan_btn.png") no-repeat;height:55px;width:170px;margin:100px 0 20px;}
 .plan_list{margin-bottom:100px;overflow:hidden;}
 .plan_item{float:left;width:480px;height:170px;background:#f7f8f8;margin:0 20px 20px 0;}
@@ -7,7 +7,7 @@ a .newplan_btn{border:none;background:url("/images/plans/mine/newplan_btn.png") 
 .plan_item img{margin:10px 20px 0 20px;border-radius:73px;-moz-border-radius:73px;-webkit-border-radius:73px;}
 .days{position:absolute;left:55px;top:65px;font-size:30px;color:#fff;}
 .plan_desc{display:inline-block;height:140px;width:280px;vertical-align:top;}
-.plan_title{display:inline-block;height:28px;width:180px;margin-top:25px;}
+.plan_title{display:inline-block;height:28px;width:180px;margin-top:25px;cursor:text;}
 .plan_title:hover{background:#e3e4e4;}
 .plan_name{margin-left:5px;line-height:28px;font-size:19px;color:#08DCA9;}
 .plan_edit{display:none;height:28px;width:180px;margin-top:25px;}

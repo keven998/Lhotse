@@ -17,10 +17,9 @@ $("i.delete").on("click",function(){
 
 /*修改计划名称*/
 $(".plan_title").click(function(){
-    var planTitle = $(this),
-        planEdit = $(this).next(),
+    var planEdit = $(this).next(),
         planInput =  planEdit.children(".plan_input"),
-        planPreName = document.getElementById("plan_input").value,
+        planPreName = $(this).text(),
         planId = planInput.attr("data-id"),
         planEditBtn = planEdit.siblings(".edit_btn");
 
@@ -28,9 +27,10 @@ $(".plan_title").click(function(){
     planEdit.css("display","inline-block");
     planEditBtn.css("display","inline-block");
 
+    var planTitle = $(this);//子函数可以使用
     /*确定按钮*/
     planEditBtn.children('.confirm').click(function(){
-        var planName = document.getElementById("plan_input").value;
+        var planName = planEdit.children(".plan_input").val();
         $.ajax({
             url:    '/plans/mine/altername',
             data:   {
@@ -54,11 +54,10 @@ $(".plan_title").click(function(){
 
     /*取消按钮*/
     planEditBtn.children('.cancel').click(function(){
-        document.getElementById("plan_input").value = planPreName;
         planEdit.css("display","none");
         planEditBtn.css("display","none");
         planTitle.css("display","inline-block");
-        //planInput.value = planPreName;
+        planInput.val(planPreName);
     })
 })
 

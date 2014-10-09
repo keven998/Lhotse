@@ -46,9 +46,10 @@ block content
                 img(src='#{plan.imageList}' + '?imageView2/1/w/285/h/215')
                 img.most_tag(src='/images/route/triangle.png')
                 h2.most_tag #{plan.lxpTag}
-                | <!--[if lte IE 8]>
-                .most_tag_ie #{plan.lxpTag}
-                | <![endif]-->
+                //
+                    | <!--[if lte IE 8]>
+                    .most_tag_ie #{plan.lxpTag}
+                    | <![endif]-->
               .c2
                 h2 #{plan.title}
                 p.txt
@@ -67,7 +68,7 @@ block content
                 p.ico-g.fl.w50
                   i.ico01.ico01-cost
                   b 预计花费 ￥#{plan.budget[0]}-￥#{plan.budget[1]}
-                a.btn02.btn02-c4(href='/plans/timeline/' + plan._id + '?_fromLoc=' + fromId)复制路线
+                a.btn02.btn02-c4(href='/plans/timeline/' + plan._id + '?_fromLoc=' + fromId) 复制路线
         else
           .no-data 很遗憾，没有为您找到相关路线，请尝试输入其他目的地。
             a(href='/') 回首页
