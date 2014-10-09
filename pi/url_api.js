@@ -12,7 +12,7 @@ var urlApi = {
     hotCities : '/explore?showDetails=1&pageSize=8&loc=1',
     hotViews  : '/web/poi/view-spots/explore?page=0&pageSize=8',
 
-    //落地页面
+    //景点详情的落地页面
     routeDetail:  '/web/plans/ROUTEID',
     routeNotes:    '/misc/notes/search?planId=ROUTEID',
     

@@ -4,7 +4,7 @@ var model = require('../model/sup_model.js');
 var apiList = require('../url_api');
 var config = require('../conf/system');
 
-
+//景点详情(../route/detail)页面的数据获取
 router.get('/detail/:ROUTEID', function(req, res){
     model.setUrl(apiList.apiHost + apiList.routeDetail);
     model.getdata(req, function(data) {
@@ -21,6 +21,7 @@ router.get('/detail/:ROUTEID', function(req, res){
         });
     });
 });
+
 
 router.get('/plans/detail/:ROUTEID', function(req, res){
     model.setUrl(apiList.apiHost + apiList.routeDetail);
