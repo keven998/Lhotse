@@ -51,7 +51,7 @@ html body{height: 100%;position: relative;}
 .nav li a{display: inline-block;_zoom:1;*display:inline;color: #fff;font-size: 14px;width: 100%;height: 30px;text-align: center;padding-bottom:10px;}
 .nav li a:hover{color: #08DCA9;}
 .bd{width: 100%;height: auto;}
-.user{display:inline-block;_zoom:1;*display:inline;height: 40px;*height: 70px;width:100px;line-height: 40px;*line-height:70px;color: #fff;padding-top: 10px;vertical-align: top;}
+.user{display:inline-block;_zoom:1;*display:inline;height: 40px;*height: 70px;width:100px;line-height: 40px;*line-height:70px;color: #fff;padding-top: 10px;vertical-align: top;padding-bottom: 10px;}
 .user img{display:inline-block;_zoom:1;*display:inline;width: 30px;height: 30px;border:3px solid #08dca9;border-radius:20px;}
 .user .txt{display:inline-block;_zoom:1;*display:inline;height: 40px;width:70px;}
 .user .b1{display:block;line-height: 15px;}
@@ -91,8 +91,15 @@ h1.logo{height:150px;}
 .suggestion {width: 385px; position:relative; margin-left:10px; padding-left:5px; border:2px solid #ddd; display:none; font: 16px/22px arial; background-color: #ededed;}
 
 /* uesr menu panel*/
-.drop-menu {display: none; position:absolute; z-index: 200; text-align: center;}
-.user-logout {padding: 0px;}
-.drop-menu li a:hover {color: #F7FD03;}
-.user-center-menu-list {background-color: rgba(90, 226, 123, 0.5); color: blue; position: absolute; top: 0px; padding: 10px 0; width: 65px; right: -593px;}
-
+.drop-menu {display: none; width: 65px; right: 57px; top: 46px; position:absolute; z-index: 200; text-align: center;}
+.user-center-menu-list .user-logout {
+	padding: 0px;
+} 
+.drop-menu li {
+width: 65px; right: 57px; height: 41px;z-index: 200; text-align: center;
+}
+.drop-menu li a {
+width: 65px; right: 57px; z-index: 200; text-align: center;padding: 0px; color: black;
+}
+.drop-menu li a:hover {color: #08DCA9;}
+.user-center-menu-list {background-color: rgba(249, 252, 249, 1); color: blue;}

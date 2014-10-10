@@ -296,25 +296,35 @@ array.forEach(function(t){
         }
 });
 })
-
-
-
-
 /* ----END: suggestion code ---- */
+
 
 /* ---- BEGIN : user setting ---- */
 // 鼠标悬停头像时弹出下拉菜单
 $(function (){
-    var userIcon = $('#J-user-icon'),
+    var userIcon = $('.user-avatar'),
         dropMenu = $('.drop-menu');
+    var slug = false;
 
-    userIcon.click(
-        function(){
+    userIcon.mouseover(
+        function(e){
             dropMenu.css('display') == 'none' ? 
-                dropMenu.css({'display': 'block'}) : dropMenu.css({'display': 'none'})
-        })   
-})
+                dropMenu.css({'display': 'block'}) : null//dropMenu.css({'display': 'none'})
+        }).mouseout(
+         function(e){
+            dropMenu.css('display') == 'block' && slug ? null :  dropMenu.css({'display': 'none'});
+            slug = false; 
+        });
 
+    $('.drop-menu').mouseover(
+        function(e){
+            slug = true;
+    }).mouseout(
+        function(e){
+            dropMenu.css({'display': 'none'});
+        });
+    
+})
 /* ---- END : user setting ---- */
 
 
@@ -344,9 +354,4 @@ function go_plan_list(){
         alert('not support');
     }
 }
-
-
-
-/* ---- END: suggestion ---- */
-
 

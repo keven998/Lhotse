@@ -36,10 +36,9 @@ html
                         | APP下载
                 if user_info
                     .user(id='J-user-icon' data-id=user_info.id)
-                        img(src='#{user_info.avatar}')
+                        img.user-avatar(src='#{user_info.avatar}')
                     .drop-menu(id='J-navi-user-center-drop-menu')
                         ul.user-center-menu-list
-                            b
                             li.user-logout
                                 a(href='/account/logout/' class='logout') 退出
 

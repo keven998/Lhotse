@@ -133,6 +133,7 @@ router.get('/route/city/', function(req, res) {
         var arriveId = results.arrive;
         var indexGoUrl = urlApi.apiHost + urlApi.getRouteList + "?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
         model.setUrl(encodeURI(indexGoUrl));
+        //console.log(indexGoUrl);
         model.getdata(null, function(data){
             data = JSON.parse(data);
             res.render('plans', {
@@ -287,7 +288,7 @@ var selectCityId = function(result) {
   var cityId = "";
   for (var i = 0; i < result.length; i++) {
     var tempCity = result[i];
-    if (tempCity.level == 2) {
+    if (tempCity.level > 1) {
       cityId = tempCity._id;
       break;
     } 
