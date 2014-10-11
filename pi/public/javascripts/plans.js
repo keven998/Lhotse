@@ -49,7 +49,7 @@ $(function () {
                 data : {},
                 success : function (msg) {
                     $("span.day span").text("全程 " + msg.details.days+ " 天");
-                    $("span.cost span").text("人均 " + msg.details.budget[0] + "-" +msg.details.budget[1] + "元");
+                    $("span.vsCnt span").text("共 " + msg.details.vsCnt + " 个景点");
                     var tags = "旅途印象: ";
                     for (var i = 0; i < msg.details.tags.length-1; i++) {
                         tags += msg.details.tags[i] + ", ";
@@ -77,8 +77,8 @@ $(function () {
                         if (!note.authorAvator)
                             noteItem.find('img').attr('src',note.authorAvator);
                         noteItem.append('<h1 class="t1">' + note.title +'</h1>');
-                        noteItem.append('<em class="time">' + '2014-10-01' + '</em>');//时间未提供
-                        noteItem.append('<em><span class="au">' + note.authorName + '</span>发表</em>');
+                        noteItem.append('<em><span class="au">' + note.authorName + '</span>发表于</em>');
+                        noteItem.append('<em class="time">' + note.publishDate + '</em>');
                         noteItem.append('<p class="txt">' + note.summary.substring(0,100) + "..." + '</p>');
                         noteItem.append('<p class="ico-g"><i class="ico01 ico01-eye"></i><b>浏览' + note.viewCnt + '</b></p>');
                         var source;

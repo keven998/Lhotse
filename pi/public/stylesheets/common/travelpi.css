@@ -11,11 +11,11 @@ html body{height: 100%;position: relative;}
 .color-02{color: #08DCA9;}
 /*ico 图标*/
 .ico01{display: inline-block;width: 20px;height: 20px;position: relative;top: 7px;*top:9px;left: 0;margin-right: 2px;}
-.ico01-route{background-size:24px;background:url("/images/common/map.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/map.png',sizingMethod='scale');}
-.ico01-spot{background-size:24px;background:url("/images/common/calendar.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/calendar.png',sizingMethod='scale');}
-.ico01-cost{background-size:24px;background:url("/images/common/cost.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/cost.png',sizingMethod='scale');top: 8px;left: 5px;}
-.ico01-eye{background-size:24px;background:url("/images/common/eye.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/eye.png',sizingMethod='scale');top: 8px;left: 5px;}
-.ico01-source{background-size:24px;background:url("/images/common/source.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/source.png',sizingMethod='scale');top: 8px;left: 10px;}
+.ico01-route{background:url("/images/common/map.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/map.png',sizingMethod='scale');background-size:16px;}
+.ico01-spot{background:url("/images/common/calendar.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/calendar.png',sizingMethod='scale');background-size:16px;}
+.ico01-cost{background:url("/images/common/cost.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/cost.png',sizingMethod='scale');background-size:16px;}
+.ico01-eye{background:url("/images/common/eye.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/eye.png',sizingMethod='scale');top:8px;left:3px;background-size:16px;}
+.ico01-source{background:url("/images/common/source.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/source.png',sizingMethod='scale');top:8px;left:5px;background-size:14px;}
 .ico01-d1{background-size:24px;background:url("/images/common/D1.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/D1.png',sizingMethod='scale');top: 5px;left: 5px;}
 .ico01-d2{background-size:24px;background:url("/images/common/D2.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/D2.png',sizingMethod='scale');top: 5px;left: 5px;}
 .ico01-d3{background-size:24px;background:url("/images/common/D3.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/D3.png',sizingMethod='scale');top: 5px;left: 5px;}
@@ -33,7 +33,7 @@ html body{height: 100%;position: relative;}
 .ico02-qq{background-size: 30px;background:url("/images/common/qq.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/qq.png',sizingMethod='scale');width: 32px;height: 32px;}
 .ico02-weibo{background-size:30px;background:url("/images/common/weibo.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/weibo.png',sizingMethod='scale');width: 32px;height: 32px;}
 .ico02-loading{background-size:30px;background:url("/images/common/loading.gif") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/loading.gif',sizingMethod='scale');top: 10px;}
-.ico02-circle{background-size:30px;background:url("/images/common/circle.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/circle.png',sizingMethod='scale');top: 10px;left: 5px;}
+.ico02-circle{background:url("/images/common/circle.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/circle.png',sizingMethod='scale');top: 10px;left: 5px;}
 /*btn*/
 .btn{display: inline-block;width: auto;height: 10px;line-height: 10px;color: #08DCA9;padding: 10px 15px;text-align: center;}
 
@@ -77,7 +77,7 @@ html body{height: 100%;position: relative;}
 /*登录*/
 .lg-layer{position: fixed;top: 0;right: 0;width: 400px;height:100%;padding: 80px 0 40px;z-index: 9999999999;background:url(/images/common/login/bg-webLogin.png);font-family: '黑体';/* display: none; */}
 h1.logo{height:150px;}
-.lg-contain{width:180px;margin:180px auto;text-align:center;}
+.lg-contain{width:250px;margin:180px auto;text-align:center;}
 .lg-contain h2{font-size:20px;color:#fff;}
 .lg-contain a{display:block;width:174px;height:31px;margin:20px auto;}
 .lg-contain .weibo{background:url(/images/common/login/weibo_login.png) no-repeat;}
