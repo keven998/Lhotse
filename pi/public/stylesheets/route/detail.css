@@ -35,7 +35,8 @@ hr{border:1px solid #08DCA9;margin:10px 0 30px;}
 ul.about-list li{background: #eee;position: relative;padding: 10px 10px 5px 70px;margin-bottom: 15px;font-size:16px;color: #999;border-bottom:1px solid #888;cursor:pointer;}
 .sider-userimg{position: absolute;left: 10px;top: 10px;width: 50px;height: 50px;border-radius:30px;-moz-border-radius:30px;-webkit-border-radius:30px;}
 .about-list .t1{height: 30px;width: 100%;line-height: 30px;font-size: 20px;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
-.about-list .name{margin:0 10px 0 20px;display:inline-block;color: #08DCA9;}
+.about-list .name{margin-right:10px;display:inline-block;color: #08DCA9;}
+.about-list .time{margin-left:10px;}
 .about-list .txt{margin-top: 25px;margin-bottom: 10px;line-height: 1.3;overflow: hidden;}
 .about-list .tip{display:inline-block;margin-right:20px;}
 .about-list b{color: #08DCA9;margin-left:10px;}

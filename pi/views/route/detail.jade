@@ -60,10 +60,10 @@ block content
                             else
                                 img.sider-userimg(src='/images/route/detail/user02.png')
                             h1.t1 #{note.title}
-                            em.time 2014-10-1
                             em.au
                                 .name #{note.authorName}
-                                | 发表
+                                | 发表于
+                            em.time #{note.publishDate}
                             .txt #{note.summary}
                             .tip
                                 i.ico01.ico01-eye

@@ -22,8 +22,8 @@
 
 .t-right .imgs a{float: left;margin: 0 0 15px 15px;width: 213px;background-color: #F7F7F9;position: relative;padding-bottom: 15px;border-bottom:1px solid #ddd;}
 .t-right .imgs a img{width: 100%;margin-bottom: 15px;}
-.imgs a .spot-name{font-size: 18px;color: #08DCA9;display: block;margin-left: 10px;}
-.imgs a .hotel-name{font-size: 18px;color: #08DCA9;display: block;margin-left: 10px;height:40px;}
+.imgs a .spot-name{font-size: 18px;color: #000;display: block;margin-left: 10px;}
+.imgs a .hotel-name{font-size: 18px;color: #000;display: block;margin-left: 10px;height:40px;}
 .imgs a .label{position: absolute;left: 0;top: 110px;background: #F9B248;color: #fff;height: 20px;line-height: 1.5;padding: 2px 5px;}
 .imgs a .value{position: absolute;left: 0;top: 110px;overflow: hidden;display:inline-block;height: 20px;width:110px;line-height: 1.5;padding: 2px 5px;}
 .imgs a .ranking{float: left;*display: inline;width:42px;background:url(/images/plans/edit/ranking.png) no-repeat;color:#fff;text-align:center;}
