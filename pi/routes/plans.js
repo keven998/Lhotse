@@ -158,6 +158,7 @@ router.post('/edit/post', function(req, res) {
                         temp.ts = elem.ts;
                         temp.st = elem.ts;
                         temp.itemId = elem.itemId;
+                        temp.transfer = elem.transfer;
                         details.push(temp);
                     } else {
                         var temp = new Object();
@@ -167,13 +168,13 @@ router.post('/edit/post', function(req, res) {
                         temp.depStop = elem.depStop;
                         temp.st = elem.ts;
                         temp.itemId = elem.itemId;
+                        temp.transfer = elem.transfer;
                         details.push(temp);
                     }
                 }
             }
         }
         ugcData.details = details; 
-        //ugcData = JSON.stringify(ugcData);
         // http post
         var options = {
             url : apiList.apiHost + apiList.ugc.editSave,
@@ -193,7 +194,6 @@ router.post('/edit/post', function(req, res) {
 
 router.get('/mine/', function(req, res){
     var user_info = req.session.user_info;
-    console.log(user_info);
     model.setUrl(apiList.apiHost + apiList.myPlans + user_info.id);
     model.getdata(req, function(data) {
         var planList = [], i;
@@ -285,6 +285,7 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
     
     model.setUrl(apiList.apiHost + apiList.ugc.timeline);
     model.getdata(req, function(data) {
+        //res.json(JSON.parse(data));
         var data = dataExtract.preProcess(req, data);
         var basicInfo = dataExtract.basicData(req, data);
         var allRoutes = dataExtract.detailData(req, data);
@@ -376,6 +377,7 @@ var dataExtract = (function () {
     // data preprocess
     var preProcess = function(req, data) {
         data = JSON.parse(data);
+
         return data;
     };
 

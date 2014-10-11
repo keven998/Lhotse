@@ -13,32 +13,15 @@ $('.city_nav').children('a').click(function(){
 })
 
 
-//搜索框的联想功能
-function getLinkData() {
-    var linkDataProperty = document.getElementById("linkDataProperty");
-    $.ajax({
-        type:           "GET",
-        contentType:    "application/json",
-        url:            "/suggestion",
-        data:           {
-                            input : linkDataProperty.value
-                        },
-                        //从前台传递到后台的查询语句的参数
-        dataType:       "json",
-        error:          function(){
-                        },
-        success:        function(data) {
-                            //当Ajax提交成功时调用的方法
-                            //返回的是json对象！键值对 alert(data.key)
-                            data = data.suggestion;
-                            if(data.length==0){
-                                return;
-                            }
-                            $("#linkDataProperty").autocomplete({
-                                source: data,
-                            });
-                        }
+/* 回车后，直接跳转 */
+$(function(){
+    $(document).keydown(function(e) {
+        var f1 = arriveSuggestions = $('#suggestion_to').css('display'),
+            f2 = fromSuggestions = $('#suggestion_from').css('display'),
+            keyCode = e.keyCode ? e.keyCode : e.which;
+        if (f1 == 'none' && f2 == 'none' && keyCode === 13) {
+            go_plan_list();
+        }
     });
-}
-
-
+}())
+/* ---end--- */

@@ -56,18 +56,26 @@ function select_from(input, poi_type){
     $('#from').attr('poi_type', poi_type);
     $("#suggestion_from").empty();
     $("#suggestion_from").hide();
-    setCookie('userInputFrom', input, 1);//将用户自己的选择记录好
+    setCookie('userInputFrom', input, 1);//将用户填写的地址记录到cookies
 }
 
 // 若用户有输入目的地，则记录到cookies
 (function(){
-    var userInput = getCookie('userInputFrom');
+    var userInput = getCookie('userInputFrom');    //userInputFrom用户自己输入的地址
     if (!userInput) {
-        userInput = getCookie('fromLoc');
+        userInput = getCookie('fromLoc');   //fromLoc是IP定位的地址
     };
     $('#from').val(userInput);
 })()
 
+
+var arriveInput = $('#arrive'),
+    arriveSuggestions = $('#suggestion_to'),
+    fromInput = $('#from'),
+    fromSuggestions = $('#suggestion_from');
+
+var arrInput = [[arriveInput, arriveSuggestions, "suggestion_to", "arrive"],
+                [fromInput, fromSuggestions, "suggestion_from", "from"]];
 
 //  arrive location
 function select_to(input, poi_type){
@@ -85,6 +93,10 @@ function suggestion_to(input){
         $('#arrive').attr('tem', inputText);
         if (myTrim(inputText)) {
             suggestion(slug, myTrim(inputText));                    
+        }else {
+            $('#suggestion_to').css({
+                'display' : 'none'
+            });        
         }
     }    
 }
@@ -97,6 +109,10 @@ function suggestion_from(input){
         $('#from').attr('tem', inputText);
         if (myTrim(inputText)) {
             suggestion(slug, myTrim(inputText));                    
+        }else {
+            $('#suggestion_from').css({
+                'display' : 'none'
+            });        
         }
     }
 }
@@ -130,13 +146,6 @@ function myTrim(x) {
     return x.replace(/^\s+|\s+$/gm,'');
 }
 
-var arriveInput = $('#arrive'),
-    arriveSuggestions = $('#suggestion_to'),
-    fromInput = $('#from'),
-    fromSuggestions = $('#suggestion_from');
-
-var arrInput = [[arriveInput, arriveSuggestions, "suggestion_to", "arrive"],
-                [fromInput, fromSuggestions, "suggestion_from", "from"]];
 arrInput.forEach(function(t){
     if (!t[0].val()) {
         t[1].css({
@@ -197,6 +206,7 @@ array.forEach(function(t){
             //console.log('当前' + curSelectedObj);
 
             if (keyCode == 40) { // 下
+                var tempLocName;
                 // 当前有选中提示
                 if (curSelectedObj) {
                     // 当前位置到了末尾
@@ -204,10 +214,13 @@ array.forEach(function(t){
                         // 先清除当前选中，然后跳到第一个
                         clearSelectedStyle();
                         $(items[0]).addClass('selected');
+                        tempLocName = $(items[0]).text();
                     }
                     else {
                         clearSelectedStyle();
                         $(items[curSelectedObj.index + 1]).addClass('selected');
+                        tempLocName = $(items[curSelectedObj.index + 1]).text();
+                        
                     }
                 }
                 // 当前没有选中的提示，将第一个选中
@@ -217,19 +230,25 @@ array.forEach(function(t){
                         index: 0
                     }
                     $(items[curSelectedObj.index]).addClass('selected');
+                    tempLocName = $(items[curSelectedObj.index]).text();
                 }
+                t[1].attr('tem', tempLocName)
+                t[1].val(tempLocName);
                 e.stopPropagation();
                 e.preventDefault();
             }
             else if (keyCode == 38) { // 上
+                var tempLocName;
                 if (curSelectedObj) {
                     if (curSelectedObj.index === 0) {
                         clearSelectedStyle();
                         $(items[len - 1]).addClass('selected');
+                        tempLocName = $(items[len - 1]).text();
                     }
                     else {
                         clearSelectedStyle();
                         $(items[curSelectedObj.index - 1]).addClass('selected');
+                        tempLocName = $(items[curSelectedObj.index - 1]).text();
                     }
                 }
                 else {
@@ -238,7 +257,10 @@ array.forEach(function(t){
                         index: len - 1
                     }
                     $(items[curSelectedObj.index]).addClass('selected');
+                    tempLocName = $(items[curSelectedObj.index]).text();
                 }
+                t[1].attr('tem', tempLocName)
+                t[1].val(tempLocName);
                 e.stopPropagation();
                 e.preventDefault();
             }
@@ -262,6 +284,9 @@ array.forEach(function(t){
         var targetTagName = target.tagName.toLowerCase();
         if (targetTagName == 'p') {
             $(target).addClass('selected');
+            var tempLocName = $(target).text();
+            t[1].attr('tem', tempLocName)
+            t[1].val(tempLocName);
         }
     }).mouseout(function(e) {
         var target = e.target || e.srcElement;
@@ -271,11 +296,36 @@ array.forEach(function(t){
         }
 });
 })
+/* ----END: suggestion code ---- */
 
 
+/* ---- BEGIN : user setting ---- */
+// 鼠标悬停头像时弹出下拉菜单
+$(function (){
+    var userIcon = $('.user-avatar'),
+        dropMenu = $('.drop-menu');
+    var slug = false;
 
+    userIcon.mouseover(
+        function(e){
+            dropMenu.css('display') == 'none' ? 
+                dropMenu.css({'display': 'block'}) : null//dropMenu.css({'display': 'none'})
+        }).mouseout(
+         function(e){
+            dropMenu.css('display') == 'block' && slug ? null :  dropMenu.css({'display': 'none'});
+            slug = false; 
+        });
 
-/* ---- zanbai code ---- */
+    $('.drop-menu').mouseover(
+        function(e){
+            slug = true;
+    }).mouseout(
+        function(e){
+            dropMenu.css({'display': 'none'});
+        });
+    
+})
+/* ---- END : user setting ---- */
 
 
 // 点击GO时, 跳转
@@ -304,9 +354,4 @@ function go_plan_list(){
         alert('not support');
     }
 }
-
-
-
-/* ---- END: suggestion ---- */
-
 
