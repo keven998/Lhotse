@@ -21,7 +21,7 @@ if (app.get('env') === 'development' || app.get('env') === 'local'){
 }
 
 config['weibo_call_back'] = 'https://api.weibo.com/oauth2/authorize?client_id=' + config.weibo_client_id + '&response_type=code&redirect_uri=http://' + config.domain + '/account/callback/weibo/'
-config['qq_call_back'] = 'https://graph.qq.com/oauth2.0/authorize?client_id=' + config.qq_client_id + '&response_type=code&redirect_uri=http://' + config.domain + '/account/callback/qq/&state=01'
+config['qq_call_back'] = 'https://graph.qq.com/oauth2.0/authorize?client_id=' + config.qq_client_id + '&response_type=code&redirect_uri=http://' + config.domain + '/account/callback/qq/?state=01'
 
 
 module.exports = config;

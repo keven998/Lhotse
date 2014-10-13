@@ -24,11 +24,14 @@ router.get('/callback/weibo/', function(req, ori_res) {
         form: form,
         method: 'POST',
     };
-
     request(options, function(err, res, data){
         if (err) {throw err;}
         oauth2 = JSON.parse(data);
-        access_token = oauth2.access_token;
+        var access_token = oauth2.access_token;
+        if (access_token == undefined){
+            ori_res.redirect('/');
+            return ;
+        }
         uid = oauth2.uid;
 
         // need to change to web user login
@@ -69,9 +72,9 @@ router.get('/callback/weibo/', function(req, ori_res) {
 router.get('/callback/qq/', function(req, ori_res) {
     var form = {
         client_id: config.qq_client_id,
-        client_secret: config.weibo_client_secret,
+        client_secret: config.qq_client_secret,
         grant_type: 'authorization_code',
-        redirect_uri: encodeURI('http://' + config.domain+' /account/callback/qq/'),
+        redirect_uri: encodeURI('http://' + config.domain + '/account/callback/qq/'),
         code: req.query.code,
     };
     var options = {
@@ -86,11 +89,9 @@ router.get('/callback/qq/', function(req, ori_res) {
         }
         access_token = data.split('&')[0].substr(13);
         url = 'https://graph.qq.com/oauth2.0/me?access_token=' + access_token;
-
         request(url, function(err, res, data){
             openid = data.split('"')[7];
             url = 'https://graph.qq.com/user/get_user_info?access_token=' + access_token + '&oauth_consumer_key=101151725&openid=' + openid;
-
             request(url, function(err, res, data){
                 data = JSON.parse(data);
                 var post_info = {
@@ -101,13 +102,11 @@ router.get('/callback/qq/', function(req, ori_res) {
                     token: access_token,
                     udid: "",
                 };
-
                 var options = {
                     url : urlApi.apiHost + '/web/users/oauth-login',
                     json: post_info,
                     method: 'POST',
                 };
-
                 request(options, function(err, res, data){
                     var user_info = {
                         id: data.result._id,
@@ -115,8 +114,12 @@ router.get('/callback/qq/', function(req, ori_res) {
                         avatar: data.result.avatar,
                     }
                     req.session.user_info = user_info;
-                    if (req.headers.referer){
-                        ori_res.redirect(req.headers.referer);
+
+                    var referer = req.headers.referer;
+                    var referer_index = referer.indexOf("referer");
+                    source_url = referer.substr(referer_index + 8);
+                    if (source_url){
+                        ori_res.redirect(source_url);
                     }else{
                         ori_res.redirect('/');
                     }
@@ -132,13 +135,18 @@ router.get('/callback/qq/', function(req, ori_res) {
 router.get('/logout/', function(req, res) {
     req.session.user_info = null;
     
-    var url = req.headers.referer,
-        ans = url.search(/\/plans\/mine\//);
+    var source_url = req.headers.referer;
+    var referer_index = source_url.indexOf("referer");
+    if (referer_index > 0){
+        source_url = source_url.substr(referer_index + 8);//假如是qq，则需要截取url
+    }
+
+    var ans = source_url.search(/\/plans\/mine\//);
     // 从需要用户登录的页面跳到主页
     if (ans > -1) {
         res.redirect('/');
     }else {
-        res.redirect(url);
+        res.redirect(source_url);
     }
 })
 

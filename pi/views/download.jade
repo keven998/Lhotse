@@ -11,12 +11,12 @@ block content
     .Download_main
         .Download_phone
             #phone_slider
-                img(src='/images/download/phone1.jpeg',width='320',height='480',alt='')
-                img(src='/images/download/phone2.jpeg',width='320',height='480',alt='')
-                img(src='/images/download/phone3.jpeg',width='320',height='480',alt='')
-                img(src='/images/download/phone4.jpeg',width='320',height='480',alt='')
-                img(src='/images/download/phone5.jpeg',width='320',height='480',alt='')
-        img.reflect(src='/images/download/reflect.png',width='163',height='362',alt='')
+                img(src='/images/download/phone1.jpeg',width='320',height='480',alt='' style='display:block')
+                img(src='/images/download/phone2.jpeg',width='320',height='480',alt='' style='display:none')
+                img(src='/images/download/phone3.jpeg',width='320',height='480',alt='' style='display:none')
+                img(src='/images/download/phone4.jpeg',width='320',height='480',alt='' style='display:none')
+                img(src='/images/download/phone5.jpeg',width='320',height='480',alt='' style='display:none')
+        img.reflect(src='/images/download/reflect.png',width='163',height='362',alt='' style='display:none')
         .Download_intro
             .Download_biglogo
                 img(src='/images/download/BigLogo.png',width='160',height='60',alt='')
@@ -33,4 +33,8 @@ block content
                 a.Download_anddown(href='http://cms.lvxingpai.cn/download/LXP.apk')
             .Download_two_code
                 img(src='/images/download/two_code.png',width='79',height='85',alt='')
+
+    script(src="/javascripts/download/jquery_migrate_v1.1.1.js" rel='javascript')
+    script(src="/javascripts/download/jquery.cycle_v1.0.js" rel='javascript')
+    script(src="/javascripts/download/slider.js" rel='javascript')
 
