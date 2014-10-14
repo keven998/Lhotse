@@ -115,9 +115,7 @@ router.get('/callback/qq/', function(req, ori_res) {
                     }
                     req.session.user_info = user_info;
 
-                    var referer = req.headers.referer;
-                    var referer_index = referer.indexOf("referer");
-                    source_url = referer.substr(referer_index + 8);
+                    var source_url = getUrl(req.headers.referer);
                     if (source_url){
                         ori_res.redirect(source_url);
                     }else{
@@ -129,18 +127,22 @@ router.get('/callback/qq/', function(req, ori_res) {
     });
 });
 
+//从返回的referer中截取url地址
+function getUrl(referer){
+    var referer_index = referer.indexOf("referer=");
+    var OFFSET = 8; //去掉“referer=”
+    var url = referer.substr(referer_index + OFFSET);
+    if (referer_index > 0)
+        url = url.substr(referer_index + 8);
+    return url;
+}
+
 /*
     注销登录
 */
 router.get('/logout/', function(req, res) {
     req.session.user_info = null;
-    
-    var source_url = req.headers.referer;
-    var referer_index = source_url.indexOf("referer");
-    if (referer_index > 0){
-        source_url = source_url.substr(referer_index + 8);//假如是qq，则需要截取url
-    }
-
+    var source_url = getUrl_fromRefer(req.headers.referer);
     var ans = source_url.search(/\/plans\/mine\//);
     // 从需要用户登录的页面跳到主页
     if (ans > -1) {
