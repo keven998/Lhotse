@@ -11,7 +11,6 @@ var config = require('../conf/system');
 
 
 router.get('/', function(req, res) {
-    console.log(req.session);
     async.parallel({
         newRoute: function(callback) {
             model.setUrl(urlApi.apiHost+urlApi.newRoute);

@@ -51,8 +51,6 @@ router.get('/callback/weibo/', function(req, ori_res) {
                 json: post_info,
                 method: 'POST',
             };
-//            console.log("111");
-//            console.log(post_info);
             request(options, function(err, res, data){
                 var user_info = {
                     id: data.result._id,
@@ -60,14 +58,9 @@ router.get('/callback/weibo/', function(req, ori_res) {
                     avatar: data.result.avatar,
                 }
                 req.session.user_info = user_info;
-//                console.log("222");
-//                console.log(req.session.user_info);
                 if (req.headers.referer){
-//                    console.log("3");
-//                    console.log(req.headers.referer);
                     ori_res.redirect(req.headers.referer);
                 }else{
-//                    console.log("4");
                     ori_res.redirect('/');
                 }
             })
