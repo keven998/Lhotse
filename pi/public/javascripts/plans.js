@@ -262,7 +262,16 @@ $(function () {
             
             //alert(route._id);
             // 配置DOM元素                                
-            var childElement = '<li data-url=/plans/detail/' + route._id + '><a class="c-img"><img src=' + route.imageList[0] + '></a><div class="c2"><h2>' + route.title + '</h2><p class="txt">' + (route.desc === undefined ? "" : route.desc.substring(0, 60)) + '... <a class="btn02 btn02-c1">点击更多</a></p><p class="ico-g fl w50"><i class="ico01 ico01-route"></i><b>线路特色- </b>' + tags + '</p><p class="ico-g fl w50"><i class="ico01 ico01-spot"></i><b>' + route.vsCnt + '个景点，共' + route.days + '天</b></p><p class="ico-g fl w50"><i class="ico01 ico01-cost"></i><b>预计花费 ￥' + route.budget[0] + '-￥' + route.budget[1] + '</b></p><a href=/plans/timeline/' + route._id + "?_fromLoc=" + fromId + ' class="btn02 btn02-c4">复制路线</a></div></li>';
+            var childElement = '<li data-url=/route/plans/detail/' +
+                route._id + '><a class="c-img rel"><img src=' +
+                (route.imageList[0] === undefined ? '"/images/route/285-215.png"' : route.imageList[0]) + '><img class="most_tag" src="/images/route/triangle.png"><h2 class="most_tag">' +
+                route.lxpTag + '</h2></a><div class="c2"><h2>' +
+                route.title + '</h2><p class="txt">' +
+                (route.desc === undefined ? "" : route.desc.substring(0, 60)) + '... <a class="btn02 btn02-c1">点击更多</a></p><p class="ico-g fl w50"><i class="ico01 ico01-route"></i><b>线路特色- </b>' +
+                tags + '</p><p class="ico-g fl w50"><i class="ico01 ico01-spot"></i><b>' + route.vsCnt + '个景点，共' +
+                route.days + '天</b></p><p class="ico-g fl w50"><i class="ico01 ico01-cost"></i><b>预计花费 ￥' +
+                route.budget[0] + '-￥' + route.budget[1] + '</b></p><a href=/plans/timeline/' +
+                route._id + "?_fromLoc=" + fromId + ' class="btn02 btn02-c4">复制路线</a></div></li>';
             
             routeList.append(childElement);
         }   

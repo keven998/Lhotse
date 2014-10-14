@@ -7,6 +7,9 @@ $(function () {
     topHd.on('click','a.login',function(e){
         lgLayer.show(500);
         layer.show();
+        //qq登录时的当前页面的记录
+        var qq_call_back = $(".qq").attr("href") + "&referer=" + window.location.href;
+        $(".qq").attr("href",qq_call_back);
         lgLayer.show(500,function(){ 
             $.ajax({
               

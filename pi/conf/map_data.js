@@ -328,27 +328,37 @@ var map_data = [
         "name": "香港",
         "id": 99,
         "dMapLayerCon": "borBR",
-        "cities": [],
+        "cities": [
+            {"name": "香港", "type": "loc"}
+        ],
     },{
         "name": "澳门",
         "id": 95,
         "dMapLayerCon": "borBR",
-        "cities": [],
+        "cities": [
+            {"name": "澳门", "type": "loc"}
+        ],
     },{
         "name": "台湾",
         "id": 18,
         "dMapLayerCon": "borBR",
-        "cities": [],
+        "cities": [
+            {"name": "台北", "type": "loc"}
+        ],
     },{
         "name": "福建",
         "id": 35,
         "dMapLayerCon": "bor41",
-        "cities": [],
+        "cities": [
+            {"name": "厦门", "type": "loc"}
+        ],
     },{
         "name": "甘肃",
         "id": 62,
         "dMapLayerCon": "borLT",
-        "cities": [],
+        "cities": [
+            {"name": "兰州", "type": "loc"}
+        ],
     }
 ]
 
