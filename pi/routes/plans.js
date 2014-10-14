@@ -182,6 +182,7 @@ router.post('/edit/post', function(req, res) {
             method: 'POST',
         };
         
+        //console.log(JSON.stringify(ugcData));
         request(options, function(err, respond, result) {
             if (err) {
                 throw err;
@@ -193,7 +194,9 @@ router.post('/edit/post', function(req, res) {
 
 
 router.get('/mine/', function(req, res){
-    var user_info = req.session.user_info;
+    var sess = req.session,
+        user_info = sess.user_info;
+
     model.setUrl(apiList.apiHost + apiList.myPlans + user_info.id);
     model.getdata(req, function(data) {
         var planList = [], i;
@@ -287,8 +290,13 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
     model.getdata(req, function(data) {
         //res.json(JSON.parse(data));
         var data = dataExtract.preProcess(req, data);
+        if (!data) {
+            res.sender('common/error.jade');
+        }
         var basicInfo = dataExtract.basicData(req, data);
         var allRoutes = dataExtract.detailData(req, data);
+        //res.send(data);
+        //res.send(allRoutes)
         var navigation = dataExtract.navigationData(allRoutes);
         //res.send(navigation);
 
@@ -308,10 +316,12 @@ router.get('/timeline/customized/:UGCID', function(req, res) {
     model.setUrl(apiList.apiHost + apiList.ugc.detail);
     model.getdata(req, function(data) {
         var data = dataExtract.preProcess(req, data);
+        //res.json(data);
         var basicInfo = dataExtract.basicData(req, data);
         var allRoutes = dataExtract.detailData(req, data);
+        //res.json(allRoutes);
         var navigation = dataExtract.navigationData(allRoutes);
-
+        //res.send(navigation);
         res.render('plans/ugcdetail', {
             allRoutes : allRoutes,
             basicInfo : basicInfo,
@@ -323,7 +333,7 @@ router.get('/timeline/customized/:UGCID', function(req, res) {
 });
 
 
-
+                /* ---- 以下代码为调用函数 ---- */
 /*
     addOneDay：计算XXXX-XX-XX 加一天后是多少？
 */
@@ -376,8 +386,10 @@ var calendar = (function() {
 var dataExtract = (function () {
     // data preprocess
     var preProcess = function(req, data) {
+        if (!data) {
+            return null;
+        }
         data = JSON.parse(data);
-
         return data;
     };
 
@@ -445,7 +457,7 @@ var dataExtract = (function () {
 
     var detailData = function(req, data) {
         var result = data.result;
-        var details = result.details;    
+        var details = result.details;
         // extract date, e.x. "2014-08-30 00:00:00+0800" --> "2014-08-30"
         for (var i = 0; i < details.length; i++) {
         details[i].date = details[i].date.split(" ")[0];
@@ -500,8 +512,8 @@ var dataExtract = (function () {
                         tempRoute['itemId'] = oneDayTempRoutes[routeNum].itemId;
                         tempRoute['itemName'] = oneDayTempRoutes[routeNum].itemName;
                         tempRoute['type'] = oneDayTempRoutes[routeNum].subType;
-                        tempRoute['ts'] = oneDayTempRoutes[routeNum].ts.substr(11,8);
-                        tempRoute['arrTime'] = oneDayTempRoutes[routeNum].arrTime.substr(11,8);
+                        tempRoute['ts'] = oneDayTempRoutes[routeNum].ts.substr(11,5);
+                        tempRoute['arrTime'] = oneDayTempRoutes[routeNum].arrTime.substr(11,5);
                         
                         oneDayRoutes.push(tempRoute);
                     } 
@@ -510,8 +522,8 @@ var dataExtract = (function () {
                         tempRoute['itemId'] = oneDayTempRoutes[routeNum].itemId;
                         tempRoute['itemName'] = oneDayTempRoutes[routeNum].itemName;
                         tempRoute['type'] = oneDayTempRoutes[routeNum].subType;
-                        tempRoute['ts'] = oneDayTempRoutes[routeNum].ts.substr(11,8);
-                        tempRoute['arrTime'] = oneDayTempRoutes[routeNum].arrTime.substr(11,8);
+                        tempRoute['ts'] = oneDayTempRoutes[routeNum].ts.substr(11,5);
+                        tempRoute['arrTime'] = oneDayTempRoutes[routeNum].arrTime.substr(11,5);
                         
                         oneDayRoutes.push(tempRoute);
                     }

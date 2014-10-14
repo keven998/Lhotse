@@ -44,7 +44,6 @@ router.get('/plans/detail/:ROUTEID', function(req, res){
 */
 router.post('/selection', function(req, res) { 
     var selection = req.body;
-    console.log(selection)
     var days = selection.days,
          tag = selection.tag,
          arrId = selection.arrId,
@@ -60,7 +59,6 @@ router.post('/selection', function(req, res) {
         maxDay = arr[1];
     
     var requestUrl = selectUrl(tag, minDay, maxDay, arrId, fromId, page); 
-    console.log(requestUrl);
     model.setUrl(requestUrl);
     model.getdata(null, function(data) {
         res.json(JSON.parse(data));
@@ -71,7 +69,6 @@ router.post('/selection', function(req, res) {
 router.post('/city', function(req, res){
     var fromLocName = req.body.cityName;
     var queryFromName = apiList.apiHost + apiList.searchCityIdByName + fromLocName;
-    console.log(queryFromName);
     model.setUrl(encodeURI(queryFromName));
     model.getdata(req, function(data){
         data = JSON.parse(data);

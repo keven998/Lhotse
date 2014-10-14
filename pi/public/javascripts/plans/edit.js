@@ -174,7 +174,7 @@ $(function () {
         if(addC.length<1) {
              alert('请在左侧选择添加到哪一天！');
             return false;
-        };
+        }
         // 设置飞行路径
         objX = addC.offset().left - imgC.offset().left + 150 + "px";
         objY = addC.offset().top - imgC.offset().top + "px";
@@ -242,7 +242,12 @@ $(function () {
                 $(this).find('.ico01-close').on('click', function (e) {
                     var self = $(this),
                         item = $(this).parents('li'),
-                        itemName = item[0].innerText;
+                        //itemName = item[0].innerText;
+                        //innerText在Firefox中不支持，下面用字符串索引截取
+                        itemName = item.html(),
+                        endFlag = itemName.search('<i');
+                    itemName = itemName.substr(0, endFlag);
+
                     if ( confirm('确定要将"' + itemName + '"从D' + day + '中删除？') ){
                         $(this).parents('li').remove();
                     }
@@ -319,6 +324,7 @@ $(function () {
         //$('.edit-list')[0].children[1].children[1].innerText  
         var dayList = $('.edit-list');
         var dayCount = dayList.length;
+        console.log(dayCount);
         var spotArray = new Array();
         var hotelCnt = new Array();
         var hotelFlag = 0;//记录酒店超过一个的天数
@@ -330,11 +336,15 @@ $(function () {
             hotelCnt[i] = 0;
             // 从第一个元素开始
             for (var j = 1; j < spotCount; j++) {
-                var spotObj = new Object();
-                var spot = spotList[j];
-                var name = spot.innerText;
-                var itemId = spot.children[1].innerText;
-                var type = spot.children[2].innerText;
+                var spotObj = new Object(),
+                    spot = spotList[j],
+                    name = $(spot).html(),
+                    //var name = spot.innerText;
+                    itemId = $(spot.children[1]).text(),
+                    type = $(spot.children[2]).text();
+                var endFlag = name.search('<i');
+                name = name.substr(0, endFlag);
+                
                 if (type == 'hotel')
                     hotelCnt[i] = hotelCnt[i] + 1;
                 // 添加景点和酒店
@@ -358,7 +368,10 @@ $(function () {
                 }
             }
             warnWords = warnWords + "有两家以上的酒店，确定要保存吗？";
-            if ( confirm(warnWords) ){
+            if ( !confirm(warnWords) ){
+                return ;
+            }
+        }
                 //获取其它参数
                 var startDate = $('#datetimepicker').val();
                 var uid = $('.user').attr('data-id');
@@ -386,13 +399,14 @@ $(function () {
                 dataObj.fromLocId = fromLocId;
                 dataObj.ugcId = ugcId;
                 dataObj.spotArray = spotArray;
+                console.log(dataObj);
                 $.ajax({  //动画结束，写入数据
                         url    : '/plans/edit/post',
                         data   : dataObj,
                         dataType : "json",
                         type : 'POST',
                         success: function (msg) {
-                            if (msg.code == 0) {
+                            if (msg.code === 0) {
                                 window.location.href="/plans/mine/";
                             } else {
                                alert('保存失败');
@@ -402,8 +416,6 @@ $(function () {
                             alert('保存失败...');
                         }
                 });
-            }
-        }
     });
 
     
@@ -411,7 +423,7 @@ $(function () {
     function getQueryString(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
         var r = window.location.search.substr(1).match(reg);
-        if (r != null) return unescape(r[2]); return null;
+        if (r !== null) return unescape(r[2]); return null;
     }
     
     
@@ -435,7 +447,7 @@ $(function () {
 
          var data = {
             searchText : text,
-         }
+         };
          $.ajax({ 
                 url    : requestUrl[tagFlag],
                 data   : data,
@@ -458,7 +470,7 @@ $(function () {
         
         var data = msg.result;
         var len = data.length;
-        if (len == 0) {
+        if (len === 0) {
             return;
         }
         if (tagFlag == 1) {
