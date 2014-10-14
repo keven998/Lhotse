@@ -51,6 +51,8 @@ router.get('/callback/weibo/', function(req, ori_res) {
                 json: post_info,
                 method: 'POST',
             };
+//            console.log("111");
+//            console.log(post_info);
             request(options, function(err, res, data){
                 var user_info = {
                     id: data.result._id,
@@ -58,9 +60,14 @@ router.get('/callback/weibo/', function(req, ori_res) {
                     avatar: data.result.avatar,
                 }
                 req.session.user_info = user_info;
+//                console.log("222");
+//                console.log(req.session.user_info);
                 if (req.headers.referer){
+//                    console.log("3");
+//                    console.log(req.headers.referer);
                     ori_res.redirect(req.headers.referer);
                 }else{
+//                    console.log("4");
                     ori_res.redirect('/');
                 }
             })
@@ -131,9 +138,7 @@ router.get('/callback/qq/', function(req, ori_res) {
 function getUrl(referer){
     var referer_index = referer.indexOf("referer=");
     var OFFSET = 8; //去掉“referer=”
-    var url = referer.substr(referer_index + OFFSET);
-    if (referer_index > 0)
-        url = url.substr(referer_index + 8);
+    var url = (referer_index > 0) ? referer.substr(referer_index + OFFSET) : referer;
     return url;
 }
 
@@ -142,7 +147,7 @@ function getUrl(referer){
 */
 router.get('/logout/', function(req, res) {
     req.session.user_info = null;
-    var source_url = getUrl_fromRefer(req.headers.referer);
+    var source_url = getUrl(req.headers.referer);
     var ans = source_url.search(/\/plans\/mine\//);
     // 从需要用户登录的页面跳到主页
     if (ans > -1) {
