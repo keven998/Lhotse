@@ -350,6 +350,8 @@ function go_plan_list(){
             url += '/city/';
         }else if(arr_poi_type == 'vs'){
             url += '/include/';
+        }else if(arr_poi_type == 'province'){
+            url += '/province/';
         }
         url += '?arrName=' + arr_name + '&fromName=' + from_name;
         window.location.href = url;

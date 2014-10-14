@@ -150,6 +150,52 @@ router.get('/route/city/', function(req, res) {
 });
 
 
+//router for province
+router.get('/route/province/', function(req, res) {
+    var fromLocName = req.query.fromName;
+    var arrLocName = req.query.arrName;
+    var queryFromName = urlApi.apiHost + urlApi.searchCityIdByName + fromLocName;
+    var queryArrName = urlApi.apiHost + urlApi.searchCityIdByName + arrLocName;
+    async.parallel({
+        from: function(callback) {
+            model.setUrl(encodeURI(queryFromName));
+            model.getdata(req, function(data){
+                data = JSON.parse(data);
+                var id = selectCityId(data.result);
+                callback(null, id);
+            });
+        },
+        arrive: function(callback) {
+            model.setUrl(encodeURI(queryArrName));
+            model.getdata(req, function(data){
+                data = JSON.parse(data);
+                var id = selectCityId(data.result);
+                callback(null, id);
+            });
+        },
+    },
+    function(err, results) {
+        var fromId = results.from;
+        var arriveId = results.arrive;
+        var indexGoUrl = urlApi.apiHost + urlApi.getRouteList + "?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
+        model.setUrl(encodeURI(indexGoUrl));
+        //console.log(indexGoUrl);
+        model.getdata(null, function(data){
+            data = JSON.parse(data);
+            res.render('plans', {
+                plans : data.result,
+                fromName : fromLocName,
+                arriveId : arriveId,
+                fromId : fromId,  // 用于配置“复制路线”的url
+                arriveName : arrLocName,
+                user_info: req.session.user_info,
+                config: config,
+            });
+        });
+    });
+});
+
+
 router.get('/download/', function(req, res) {
     res.render('download', {user_info: req.session.user_info, config: config});
 });
@@ -240,11 +286,22 @@ router.get('/suggestion', function(req, res){
       var result = JSON.parse(data).result;
       var suggestionArray = new Array();
       for (type in result) {
-        var arrData = result[type];
-        for (var i = 0; i < arrData.length; i++) {
-          var tempName = {type: type, name: arrData[i].name};
-          suggestionArray.push(tempName);
-        }
+        var arrData = result[type],
+            len = arrData.length;
+            for (var i = 0; i < len; i++) {
+                var tempName = {};
+                // 分离城市和省份
+                if (type === 'loc') {
+                    if (arrData[i].level === 1) {
+                        tempName = {type: 'province', name: arrData[i].name};
+                    } else if(arrData[i].level > 1) {
+                        tempName = {type: 'loc', name: arrData[i].name};
+                    }
+                } else {
+                    tempName = {type: type, name: arrData[i].name};
+                };
+                suggestionArray.push(tempName);
+            }
       }
       res.json(suggestionArray);
     });
@@ -284,11 +341,12 @@ var suggestionUrl = function (input, restaurant, hotel, loc, vs) {
 
 // 输入一个城市名字后，会得到一个列表，level = 1 是省会和level = 2是市
 // 通常选取【市】作为出发地
+// update ： 最新需求，省份也可以作为目的地
 var selectCityId = function(result) {
   var cityId = "";
   for (var i = 0; i < result.length; i++) {
     var tempCity = result[i];
-    if (tempCity.level > 1) {
+    if (tempCity.level > 0) {
       cityId = tempCity._id;
       break;
     } 

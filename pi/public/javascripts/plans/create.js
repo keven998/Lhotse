@@ -9,6 +9,8 @@ $('.city_nav').children('a').click(function(){
         $(this).attr('href','/route/city/?&fromName=' + fromLocName + '&arrName=' + arrLocName);
     } else if ($(this).attr('data-type') === 'viewspot') {
         $(this).attr('href','/route/include/?&fromName=' + fromLocName + '&arrName=' + arrLocName);
+    } else if ($(this).attr('data-type') === 'province') {
+        $(this).attr('href','/route/province/?&fromName=' + fromLocName + '&arrName=' + arrLocName);
     }
 })
 

@@ -50,6 +50,8 @@ block content
                                         each city in province.cities
                                             dd(style="margin-left:10px;")
                                                 a(title='', target='_blank', style="color:#666;", onclick="target_go_plan_list('" + city.name + "','"+ city.type + "')") #{city.name}
+                                        dd(style="margin-left:10px;")
+                                                a(title='', target='_blank', style="color:#666;", onclick="target_go_plan_list('" + province.name + "','"+ 'province' + "')") 更多
                         // ==E 地图层
         .hot_cities
             .title
