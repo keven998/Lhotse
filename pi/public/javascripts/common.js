@@ -1,3 +1,25 @@
+/* ---- BEGIN: enum var ----*/
+var varEnum = {
+    zoomLevel: {
+        country: 0,
+        province: 1,
+        city: 2,
+    },
+    zoomType: {
+        country: 'country',
+        province: 'province',
+        city: 'loc',
+        viewspot: 'vs',
+    },
+    searchRoutesUrl: {
+        country: '/country/',
+        province: '/province/',
+        city: '/city/',
+        viewspot: '/include/',
+    }
+};
+/* ---- END: enum var---- */
+
 $(function () {
     /* ---- BEGIN: login layer ---- */
     var topHd = $('#top'),
@@ -179,7 +201,6 @@ array.forEach(function(t){
     function clearSelectedStyle() {
         var items = t[0].find('p');
         var len = items.length;
-        //console.log('clear');
         for (var i = 0; i < len; i++) {
             if ($(items[i]).hasClass('selected')) {
                 $(items[i]).removeClass('selected');
@@ -206,7 +227,6 @@ array.forEach(function(t){
                     break;
                 }
             }
-            //console.log('当前' + curSelectedObj);
 
             if (keyCode == 40) { // 下
                 var tempLocName;
@@ -340,23 +360,30 @@ function go_plan_list(){
         url = '/route';
 
     if (! arr_poi_type){
-        arr_poi_type = 'loc';
-    };
+        arr_poi_type = varEnum.zoomType.city;
+    }
     if (! from_poi_type){
-        from_poi_type = 'loc';
-    };
-    if (from_poi_type == 'loc'){
-        if (arr_poi_type == 'loc'){
-            url += '/city/';
-        }else if(arr_poi_type == 'vs'){
-            url += '/include/';
-        }else if(arr_poi_type == 'province'){
-            url += '/province/';
+        from_poi_type = varEnum.zoomType.city;
+    }
+    if (!from_name || !arr_name){
+        alert('请输入出发地和目的地');
+    } 
+    else if (from_poi_type == varEnum.zoomType.city){
+        if (arr_poi_type ==varEnum.zoomType.city){
+            url += varEnum.searchRoutesUrl.city;
+        }else if(arr_poi_type == varEnum.zoomType.viewspot){
+            url += varEnum.searchRoutesUrl.viewspot;
+        }else if(arr_poi_type == varEnum.zoomType.province){
+            url += varEnum.searchRoutesUrl.province;
+        }else {
+            alert('请输入正确的目的地 : 景点/城市/省份')
+            return ;
         }
         url += '?arrName=' + arr_name + '&fromName=' + from_name;
         window.location.href = url;
     }else{
-        alert('not support');
+        alert(from_name + '是省份名，请输入城市名作为出发地');
+        $('#from').val('');
     }
 }
 

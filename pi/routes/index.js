@@ -8,7 +8,7 @@ var model = require('../model/sup_model.js');
 var left_nav_data = require('../conf/country_nav');
 var map_data = require('../conf/map_data');
 var config = require('../conf/system');
-
+var var_enum = require('../conf/var_enum');
 
 router.get('/', function(req, res) {
     async.parallel({
@@ -133,7 +133,6 @@ router.get('/route/city/', function(req, res) {
         var arriveId = results.arrive;
         var indexGoUrl = urlApi.apiHost + urlApi.getRouteList + "?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
         model.setUrl(encodeURI(indexGoUrl));
-        //console.log(indexGoUrl);
         model.getdata(null, function(data){
             data = JSON.parse(data);
             res.render('plans', {
@@ -179,7 +178,6 @@ router.get('/route/province/', function(req, res) {
         var arriveId = results.arrive;
         var indexGoUrl = urlApi.apiHost + urlApi.getRouteList + "?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
         model.setUrl(encodeURI(indexGoUrl));
-        //console.log(indexGoUrl);
         model.getdata(null, function(data){
             data = JSON.parse(data);
             res.render('plans', {
@@ -259,6 +257,7 @@ router.get('/target/', function(req, res){
             map_data: map_data,
             user_info: req.session.user_info,
             config: config,
+            var_enum : var_enum,
         });
     });
 });
@@ -291,11 +290,11 @@ router.get('/suggestion', function(req, res){
             for (var i = 0; i < len; i++) {
                 var tempName = {};
                 // 分离城市和省份
-                if (type === 'loc') {
-                    if (arrData[i].level === 1) {
-                        tempName = {type: 'province', name: arrData[i].name};
-                    } else if(arrData[i].level > 1) {
-                        tempName = {type: 'loc', name: arrData[i].name};
+                if (type === var_enum.suggestionType.locality) {
+                    if (arrData[i].level === var_enum.zoomLevel.province) {
+                        tempName = {type: var_enum.zoomType.province, name: arrData[i].name};
+                    } else if(arrData[i].level > var_enum.zoomLevel.province) {
+                        tempName = {type: var_enum.zoomType.city, name: arrData[i].name};
                     }
                 } else {
                     tempName = {type: type, name: arrData[i].name};
