@@ -16,27 +16,29 @@ var hotel = require('./routes/hotel');
 
 var app = express();
 
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+app.use(cookieParser('travelpi'));
+app.use(expressSession({
+    secret: 'travelpi',
+    cookie: {
+        path: '/',
+        httpOnly: true,
+        secure: false,
+        expires: false,
+        maxAge: 24 * 60 * 60 * 1000,    // one day
+    },
+    resave: true,
+    saveUninitialized: true
+}));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(favicon());
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
-app.use(cookieParser());
-app.use(expressSession({
-    secret: 'travelpi',
-    saveUninitialized: true,
-    resave: true,
-    cookie: {
-        path: '/',
-        httpOnly: true,
-        secure: false,
-        maxAge: 24 * 60 * 60 * 1000,    // one day
-    } 
 
-}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/route', route);

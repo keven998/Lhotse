@@ -68,10 +68,21 @@ function setCookie(c_name,value,expiredays)
         var exdate=new Date()
         exdate.setDate(exdate.getDate()+expiredays)
         
-        document.cookie=c_name+ "=" + escape(value)+ ((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
+        document.cookie=c_name+ "=" + escape(value)+ ((expiredays==null) ? "" : ";expires="+exdate.toGMTString()) + ";path=/";
     }
 
 /* ---- END: cookies ---- */
+
+
+/* ---- BEGIN: innerText ---- */
+function compatible_innerText(domElement) {
+    if (navigator.userAgent.toLowerCase().indexOf("firefox")>0) {
+        return domElement.textContent;
+    }
+
+    return domElement.innerText;
+}
+/* ---- END: innerText ---- */
 
 
 /* ---- BEGIN: suggestion ---- */
@@ -90,7 +101,7 @@ function select_from(input, poi_type){
     if (!userInput) {
         userInput = getCookie('fromLoc');   //fromLoc是IP定位的地址
     };
-    $('#from').val(userInput);
+    $('#from').val(decodeURI(userInput));
 })()
 
 
@@ -152,7 +163,7 @@ function suggestion(slug, input){
             var obj = result;
 
             if(obj.length == 0){
-                html += '很遗憾，没有找到相关内容～<br>';
+                //html += '很遗憾，没有找到相关内容～<br>';
             }else{
                 for(var k=0;k<obj.length;k++){
                     html += "<p onclick='select_" + slug + "(\"" + obj[k].name + "\", \""+obj[k].type+"\")'>" + obj[k].name + "</p>";
@@ -292,7 +303,7 @@ array.forEach(function(t){
                 setTimeout(function(){
                     // window.location.href = curSelectedObj.elem.getAttribute('href');
                     curSelectedObj.elem && curSelectedObj.elem.click();
-                    t[1].attr('tem', curSelectedObj.elem.innerText);
+                    t[1].attr('tem', compatible_innerText(curSelectedObj.elem));
                 }, 50);
                 e.stopPropagation();
                 e.preventDefault();

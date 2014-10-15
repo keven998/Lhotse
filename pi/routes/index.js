@@ -282,6 +282,9 @@ router.get('/suggestion', function(req, res){
     }
     model.setUrl(encodeURI(requestUrl));
     model.getdata(null, function(data) {
+      if (!data) {
+      	res.json(null);
+      }
       var result = JSON.parse(data).result;
       var suggestionArray = new Array();
       for (type in result) {

@@ -27,17 +27,18 @@ block content
           a.confirm
         - var dayCount = 0
         each oneDayRoute in daysRoute
-          - dayCount++
-          ul.edit-list(data-day=dayCount)
-            li.driver.disabled.active
-              i.ico01-d D#{dayCount}
-              i.ico01.ico01-close
-            each spot in oneDayRoute
-              li(draggable='true', style='height: 40px;')
-                | #{spot.itemName}
+          if oneDayRoute.length
+            - dayCount++
+            ul.edit-list(data-day=dayCount)
+              li.driver.disabled.active
+                i.ico01-d D#{dayCount}
                 i.ico01.ico01-close
-                .id(style='display:none') #{spot.itemId}
-                .type(style='display:none') #{spot.type}
+              each spot in oneDayRoute
+                li(draggable='true', style='height: 40px;')
+                  | #{spot.itemName}
+                  i.ico01.ico01-close
+                  .id(style='display:none' data-itemId=spot.itemId)
+                  .type(style='display:none' data-type=spot.type)
         
         .add
           em +

@@ -44,7 +44,6 @@ router.get('/plans/detail/:ROUTEID', function(req, res){
 */
 router.post('/selection', function(req, res) { 
     var selection = req.body;
-    console.log(selection)
     var days = selection.days,
          tag = selection.tag,
          arrId = selection.arrId,

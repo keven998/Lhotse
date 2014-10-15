@@ -98,7 +98,8 @@ block content
         .timeline-detail
           - var dayCount = 0
           - var vsCount = 0
-          - var arrHome = 0          
+          - var arrHome = 0
+          - var dep = true
           each day in allRoutes
             - dayCount++
             
@@ -108,24 +109,27 @@ block content
                 each spot in day.actv
                   - flag++
                                                         
-                  if (spot.type == "airport" || spot.type == "trainStation") && spot.stopType == "dep"
-                    li  
-                      i.ico03.ico03-car
-                      .m
-                        h3 #{spot.itemName}  #{day.date}
-                        a.btn02.btn02-c4 #{day.actv[flag].itemName}
-                        | #{day.actv[flag].ts}出发——#{day.actv[flag].arrTime}到达 
-                      
-                  if (spot.type == "airport" || spot.type == "trainStation") && spot.stopType == "arr"  
-                    - arrHome++
-                    li
-                      i.ico03.ico03-car
-                      .m
-                        h3 #{spot.itemName}
-                        if arrHome == 1
-                            p   (☆_☆) 一大波好玩的景点扑过来了
-                        else
-                            | 旅途结束，祝您快乐!
+                  if (spot.type == "airport" || spot.type == "trainStation") 
+                    if dep
+                      - dep = false
+                      li  
+                        i.ico03.ico03-car
+                        .m
+                          h3 #{spot.itemName}  #{day.date}
+                          a.btn02.btn02-c4 #{day.actv[flag].itemName}
+                          | #{day.actv[flag].ts}出发——#{day.actv[flag].arrTime}到达  
+                    else
+                      - arrHome++
+                      - dep = true
+                      li
+                        i.ico03.ico03-car
+                        .m
+                          h3 #{spot.itemName}
+                          if arrHome == 1
+                              p   (☆_☆) 一大波好玩的景点扑过来了
+                          else
+                              | 旅途结束，祝您快乐!
+          
 
                         
                   if spot.type == "vs"
