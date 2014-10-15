@@ -13,10 +13,11 @@ $(function () {
         lgLayer.show(500,function(){ 
             $.ajax({
               
-            }) 
+            })
             layer.on('click',function(e){
                 lgLayer.hide(500);
-                $(this).hide();
+//                $(this).hide();有两个layer...
+                layer.hide();
             })
         });
     })

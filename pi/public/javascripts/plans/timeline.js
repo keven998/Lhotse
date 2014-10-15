@@ -62,7 +62,8 @@ $(function () {
     var timeLineSpotImg = $('.timeline-detail ul').find('img'),
         sider = $('.sider'),
         layer = $('.layer'),
-        wheight = $(window).height();
+        navHeight = 60,
+        wheight = $(window).height() - navHeight;
     timeLineSpotImg.each(function () {
         $(this).on('click', function (e) {
             var requestUrl = $(this).attr('data-url');

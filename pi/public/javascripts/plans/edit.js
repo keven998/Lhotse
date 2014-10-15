@@ -480,7 +480,7 @@ $(function () {
                 var temp = data[i];
                 var content = new Object();
 
-                content.src = temp.imageList[0];
+                content.src = (temp.imageList[0] === undefined) ? '/images/route/285-215.png' : temp.imageList[0];
                 content.phone = temp.contact.phoneList ? temp.contact.phoneList[0] : '';
                 content.address =temp.addr.addr;
                 content.id = temp._id;
@@ -510,7 +510,7 @@ $(function () {
                 }
                 
                 content.tags = tags;
-                content.src = temp.imageList[0];
+                content.src = (temp.imageList[0] === undefined) ? '/images/route/285-215.png' : temp.imageList[0];
                 content.id = temp._id;
                 content.name = temp.name;
                 content.timeCost = temp.timeCost;
