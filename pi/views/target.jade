@@ -18,7 +18,7 @@ block content
                         .search_in
                             .text_input
                                 h4 起点:
-                                input.s-ip(type="text" name="fromName" id="from" onkeyup="suggestion_from(this.value)" autocomplete="off")
+                                input.s-ip(type="text" name="fromName" placeholder='城市' id="from" onkeyup="suggestion_from(this.value)" autocomplete="off")
                                 #suggestion_from.suggestion(style="width:190px;z-index:999;font-size:17px;")
                 ul
                     each city_list, regin_name in left_nav_data
@@ -50,6 +50,8 @@ block content
                                         each city in province.cities
                                             dd(style="margin-left:10px;")
                                                 a(title='', target='_blank', style="color:#666;", onclick="target_go_plan_list('" + city.name + "','"+ city.type + "')") #{city.name}
+                                        dd(style="margin-left:10px;")
+                                                a(title='', target='_blank', style="color:#666;", onclick="target_go_plan_list('" + province.name + "','"+ 'province' + "')") 更多
                         // ==E 地图层
         .hot_cities
             .title

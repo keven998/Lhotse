@@ -1,3 +1,25 @@
+/* ---- BEGIN: enum var ----*/
+var zone = {
+    level: {
+        country: 0,
+        province: 1,
+        city: 2,
+    },
+    type: {
+        country: 'country',
+        province: 'province',
+        city: 'loc',
+        viewspot: 'vs',
+    },
+    searchRoutesUrl: {
+        country: '/country/',
+        province: '/province/',
+        city: '/city/',
+        viewspot: '/include/',
+    }
+};
+/* ---- END: enum var---- */
+
 $(function () {
     /* ---- BEGIN: login layer ---- */
     var topHd = $('#top'),
@@ -349,21 +371,30 @@ function go_plan_list(){
         url = '/route';
 
     if (! arr_poi_type){
-        arr_poi_type = 'loc';
-    };
+        arr_poi_type = zone.type.city;
+    }
     if (! from_poi_type){
-        from_poi_type = 'loc';
-    };
-    if (from_poi_type == 'loc'){
-        if (arr_poi_type == 'loc'){
-            url += '/city/';
-        }else if(arr_poi_type == 'vs'){
-            url += '/include/';
+        from_poi_type = zone.type.city;
+    }
+    if (!from_name || !arr_name){
+        alert('请输入出发地和目的地');
+    } 
+    else if (from_poi_type == zone.type.city){
+        if (arr_poi_type ==zone.type.city){
+            url += zone.searchRoutesUrl.city;
+        }else if(arr_poi_type == zone.type.viewspot){
+            url += zone.searchRoutesUrl.viewspot;
+        }else if(arr_poi_type == zone.type.province){
+            url += zone.searchRoutesUrl.province;
+        }else {
+            alert('请输入正确的目的地 : 景点/城市/省份')
+            return ;
         }
         url += '?arrName=' + arr_name + '&fromName=' + from_name;
         window.location.href = url;
     }else{
-        alert('not support');
+        alert(from_name + '是省份名，请输入城市名作为出发地');
+        $('#from').val('');
     }
 }
 
