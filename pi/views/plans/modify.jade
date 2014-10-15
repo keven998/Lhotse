@@ -37,8 +37,8 @@ block content
                   li(draggable='true', style='height: 40px;')
                     | #{spot.itemName}
                     i.ico01.ico01-close
-                    .id(style='display:none') #{spot.itemId}
-                    .type(style='display:none') #{spot.type}
+                  .id(style='display:none' data-itemId=spot.itemId)
+                  .type(style='display:none' data-type=spot.type)
         
         .add
           em +

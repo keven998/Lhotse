@@ -51,11 +51,11 @@ function setCookie(c_name,value,expiredays)
 
 /* ---- BEGIN: innerText ---- */
 function compatible_innerText(domElement) {
-    var htmlContent = domElement.html(),
-        searchStr = '<',
-        endFlag = htmlContent.search(searchStr),
-        innerText = htmlContent.substr(0, endFlag);
-    return innerText;
+    if (navigator.userAgent.toLowerCase().indexOf("firefox")>0) {
+        return domElement.textContent;
+    }
+
+    return domElement.innerText;
 }
 /* ---- END: innerText ---- */
 
@@ -187,7 +187,6 @@ array.forEach(function(t){
     function clearSelectedStyle() {
         var items = t[0].find('p');
         var len = items.length;
-        //console.log('clear');
         for (var i = 0; i < len; i++) {
             if ($(items[i]).hasClass('selected')) {
                 $(items[i]).removeClass('selected');
@@ -214,7 +213,6 @@ array.forEach(function(t){
                     break;
                 }
             }
-            //console.log('当前' + curSelectedObj);
 
             if (keyCode == 40) { // 下
                 var tempLocName;
@@ -280,7 +278,7 @@ array.forEach(function(t){
                 setTimeout(function(){
                     // window.location.href = curSelectedObj.elem.getAttribute('href');
                     curSelectedObj.elem && curSelectedObj.elem.click();
-                    t[1].attr('tem', curSelectedObj.elem.innerText);
+                    t[1].attr('tem', compatible_innerText(curSelectedObj.elem));
                 }, 50);
                 e.stopPropagation();
                 e.preventDefault();

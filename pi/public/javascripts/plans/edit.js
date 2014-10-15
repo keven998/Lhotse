@@ -242,7 +242,7 @@ $(function () {
                 $(this).find('.ico01-close').on('click', function (e) {
                     var self = $(this),
                         item = $(this).parents('li'),
-                        itemName = compatible_innerText(item),
+                        itemName = compatible_innerText(item[0]),
                         day = $(that).parent().attr('data-day');
 
                     if ( confirm('确定要将"' + itemName + '"从D' + day + '中删除？') ){
@@ -333,10 +333,9 @@ $(function () {
             for (var j = 1; j < spotCount; j++) {
                 var spotObj = new Object(),
                     spot = spotList[j],
-                    name = compatible_innerText($(spot)),
-                    itemId = $(spot.children[1]).text(),
-                    type = $(spot.children[2]).text();
-
+                    name = compatible_innerText(spot),
+                    itemId = $(spot.children[1]).attr('data-itemId'),
+                    type = $(spot.children[2]).attr('data-type');
                 if (type == 'hotel')
                     hotelCnt[i] = hotelCnt[i] + 1;
                 // 添加景点和酒店
