@@ -4,7 +4,7 @@ var routeDetail = require('../model/route_detail');
 var request = require('request'); 
 var async = require('async');
 var config = require('../conf/system');
-var var_enum = require('../conf/var_enum');
+var zone = require('../conf/zone');
 
 // 新方法
 var model = require('../model/sup_model.js');
@@ -279,7 +279,7 @@ router.get('/create/', function(req, res){
     res.render('plans/create', {
         user_info: req.session.user_info, 
         config: config,
-        var_enum: var_enum,
+        zone: zone,
     });
 });
 

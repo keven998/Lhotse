@@ -8,7 +8,7 @@ var model = require('../model/sup_model.js');
 var left_nav_data = require('../conf/country_nav');
 var map_data = require('../conf/map_data');
 var config = require('../conf/system');
-var var_enum = require('../conf/var_enum');
+var zone = require('../conf/zone');
 
 router.get('/', function(req, res) {
     async.parallel({
@@ -257,7 +257,7 @@ router.get('/target/', function(req, res){
             map_data: map_data,
             user_info: req.session.user_info,
             config: config,
-            var_enum : var_enum,
+            zone : zone,
         });
     });
 });
@@ -290,11 +290,11 @@ router.get('/suggestion', function(req, res){
             for (var i = 0; i < len; i++) {
                 var tempName = {};
                 // 分离城市和省份
-                if (type === var_enum.suggestionType.locality) {
-                    if (arrData[i].level === var_enum.zoomLevel.province) {
-                        tempName = {type: var_enum.zoomType.province, name: arrData[i].name};
-                    } else if(arrData[i].level > var_enum.zoomLevel.province) {
-                        tempName = {type: var_enum.zoomType.city, name: arrData[i].name};
+                if (type === zone.suggestionType.locality) {
+                    if (arrData[i].level === zone.level.province) {
+                        tempName = {type: zone.type.province, name: arrData[i].name};
+                    } else if(arrData[i].level > zone.level.province) {
+                        tempName = {type: zone.type.city, name: arrData[i].name};
                     }
                 } else {
                     tempName = {type: type, name: arrData[i].name};

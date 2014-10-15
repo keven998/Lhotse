@@ -1,10 +1,10 @@
-var varEnum = {
-    zoomLevel: {
+var zone = {
+    level: {
         country: 0,
         province: 1,
         city: 2,
     },
-    zoomType: {
+    type: {
         country: 'country',
         province: 'province',
         city: 'loc',
@@ -18,4 +18,4 @@ var varEnum = {
     },
 };
 
-module.exports = varEnum;
+module.exports = zone;

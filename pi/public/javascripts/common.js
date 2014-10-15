@@ -1,11 +1,11 @@
 /* ---- BEGIN: enum var ----*/
-var varEnum = {
-    zoomLevel: {
+var zone = {
+    level: {
         country: 0,
         province: 1,
         city: 2,
     },
-    zoomType: {
+    type: {
         country: 'country',
         province: 'province',
         city: 'loc',
@@ -360,21 +360,21 @@ function go_plan_list(){
         url = '/route';
 
     if (! arr_poi_type){
-        arr_poi_type = varEnum.zoomType.city;
+        arr_poi_type = zone.type.city;
     }
     if (! from_poi_type){
-        from_poi_type = varEnum.zoomType.city;
+        from_poi_type = zone.type.city;
     }
     if (!from_name || !arr_name){
         alert('请输入出发地和目的地');
     } 
-    else if (from_poi_type == varEnum.zoomType.city){
-        if (arr_poi_type ==varEnum.zoomType.city){
-            url += varEnum.searchRoutesUrl.city;
-        }else if(arr_poi_type == varEnum.zoomType.viewspot){
-            url += varEnum.searchRoutesUrl.viewspot;
-        }else if(arr_poi_type == varEnum.zoomType.province){
-            url += varEnum.searchRoutesUrl.province;
+    else if (from_poi_type == zone.type.city){
+        if (arr_poi_type ==zone.type.city){
+            url += zone.searchRoutesUrl.city;
+        }else if(arr_poi_type == zone.type.viewspot){
+            url += zone.searchRoutesUrl.viewspot;
+        }else if(arr_poi_type == zone.type.province){
+            url += zone.searchRoutesUrl.province;
         }else {
             alert('请输入正确的目的地 : 景点/城市/省份')
             return ;
