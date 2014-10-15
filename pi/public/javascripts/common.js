@@ -49,6 +49,17 @@ function setCookie(c_name,value,expiredays)
 /* ---- END: cookies ---- */
 
 
+/* ---- BEGIN: innerText ---- */
+function compatible_innerText(domElement) {
+    var htmlContent = domElement.html(),
+        searchStr = '<',
+        endFlag = htmlContent.search(searchStr),
+        innerText = htmlContent.substr(0, endFlag);
+    return innerText;
+}
+/* ---- END: innerText ---- */
+
+
 /* ---- BEGIN: suggestion ---- */
 // from location
 function select_from(input, poi_type){

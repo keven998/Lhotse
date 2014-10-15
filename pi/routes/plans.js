@@ -182,7 +182,6 @@ router.post('/edit/post', function(req, res) {
             method: 'POST',
         };
         
-        //console.log(JSON.stringify(ugcData));
         request(options, function(err, respond, result) {
             if (err) {
                 throw err;
@@ -194,8 +193,7 @@ router.post('/edit/post', function(req, res) {
 
 
 router.get('/mine/', function(req, res){
-    var sess = req.session,
-        user_info = sess.user_info;
+    var user_info = req.session.user_info;
 
     model.setUrl(apiList.apiHost + apiList.myPlans + user_info.id);
     model.getdata(req, function(data) {
@@ -288,17 +286,13 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
     
     model.setUrl(apiList.apiHost + apiList.ugc.timeline);
     model.getdata(req, function(data) {
-        //res.json(JSON.parse(data));
         var data = dataExtract.preProcess(req, data);
         if (!data) {
             res.sender('common/error.jade');
         }
         var basicInfo = dataExtract.basicData(req, data);
         var allRoutes = dataExtract.detailData(req, data);
-        //res.send(data);
-        //res.send(allRoutes)
         var navigation = dataExtract.navigationData(allRoutes);
-        //res.send(navigation);
 
         res.render('plans/timeline', {
             allRoutes : allRoutes,
@@ -316,12 +310,9 @@ router.get('/timeline/customized/:UGCID', function(req, res) {
     model.setUrl(apiList.apiHost + apiList.ugc.detail);
     model.getdata(req, function(data) {
         var data = dataExtract.preProcess(req, data);
-        //res.json(data);
         var basicInfo = dataExtract.basicData(req, data);
         var allRoutes = dataExtract.detailData(req, data);
-        //res.json(allRoutes);
         var navigation = dataExtract.navigationData(allRoutes);
-        //res.send(navigation);
         res.render('plans/ugcdetail', {
             allRoutes : allRoutes,
             basicInfo : basicInfo,
@@ -374,6 +365,24 @@ var calendar = (function() {
         }   
     };               
 } ());
+
+
+/*
+    extract time info for GTS format: "2014-10-18 05:50:00+0800"
+*/
+var gstTime = (function () {
+    var date = function(GTString) {
+        return GTString.substr(0, 10);
+    };
+
+    var time = function(GTString) {
+        return GTString.substr(11, 5);
+    };
+    return {
+        date: date,
+        time: time,
+    }
+})();
 
 
 /*
@@ -512,9 +521,8 @@ var dataExtract = (function () {
                         tempRoute['itemId'] = oneDayTempRoutes[routeNum].itemId;
                         tempRoute['itemName'] = oneDayTempRoutes[routeNum].itemName;
                         tempRoute['type'] = oneDayTempRoutes[routeNum].subType;
-                        tempRoute['ts'] = oneDayTempRoutes[routeNum].ts.substr(11,5);
-                        tempRoute['arrTime'] = oneDayTempRoutes[routeNum].arrTime.substr(11,5);
-                        
+                        tempRoute['ts'] = gstTime.time(oneDayTempRoutes[routeNum].ts);
+                        tempRoute['arrTime'] = gstTime.time(oneDayTempRoutes[routeNum].arrTime);
                         oneDayRoutes.push(tempRoute);
                     } 
                     else if (oneDayTempRoutes[routeNum].subType == "train") {
@@ -522,8 +530,8 @@ var dataExtract = (function () {
                         tempRoute['itemId'] = oneDayTempRoutes[routeNum].itemId;
                         tempRoute['itemName'] = oneDayTempRoutes[routeNum].itemName;
                         tempRoute['type'] = oneDayTempRoutes[routeNum].subType;
-                        tempRoute['ts'] = oneDayTempRoutes[routeNum].ts.substr(11,5);
-                        tempRoute['arrTime'] = oneDayTempRoutes[routeNum].arrTime.substr(11,5);
+                        tempRoute['ts'] = gstTime.time(oneDayTempRoutes[routeNum].ts);
+                        tempRoute['arrTime'] = gstTime.time(oneDayTempRoutes[routeNum].arrTime);
                         
                         oneDayRoutes.push(tempRoute);
                     }

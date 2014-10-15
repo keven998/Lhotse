@@ -216,7 +216,6 @@ $(function () {
             items: ':not(.disabled)',
             connectWith: '.edit-list'
         }).on('sortupdate',function(e,ui){
-                //console.dir(ui.item);
                 //ui.item.animate({height:0},200,'swing');
             });
     }
@@ -227,11 +226,12 @@ $(function () {
     function deleteBind() {
         var editList = $('.edit-list li');
         editList.each(function (index) {
-            var day = $(this).parent().attr('data-day');
+            var that = this;
             if ( $(this).hasClass('driver') ) {
                 $(this).find('.ico01-close').off('click');
                 $(this).find('.ico01-close').on('click', function (e) {
-                    var self = $(this);
+                    var self = $(this),
+                        day = $(that).parent().attr('data-day');
                     if ( confirm('确定删除第' + day + '天行程？') ){
                         $(this).parents('.edit-list').remove();//删除一天的所有已添加行程
                         resetDaysort();//重置天数排序
@@ -242,11 +242,8 @@ $(function () {
                 $(this).find('.ico01-close').on('click', function (e) {
                     var self = $(this),
                         item = $(this).parents('li'),
-                        //itemName = item[0].innerText;
-                        //innerText在Firefox中不支持，下面用字符串索引截取
-                        itemName = item.html(),
-                        endFlag = itemName.search('<i');
-                    itemName = itemName.substr(0, endFlag);
+                        itemName = compatible_innerText(item),
+                        day = $(that).parent().attr('data-day');
 
                     if ( confirm('确定要将"' + itemName + '"从D' + day + '中删除？') ){
                         $(this).parents('li').remove();
@@ -321,10 +318,8 @@ $(function () {
             return ;
         }
 
-        //$('.edit-list')[0].children[1].children[1].innerText  
         var dayList = $('.edit-list');
         var dayCount = dayList.length;
-        console.log(dayCount);
         var spotArray = new Array();
         var hotelCnt = new Array();
         var hotelFlag = 0;//记录酒店超过一个的天数
@@ -338,13 +333,10 @@ $(function () {
             for (var j = 1; j < spotCount; j++) {
                 var spotObj = new Object(),
                     spot = spotList[j],
-                    name = $(spot).html(),
-                    //var name = spot.innerText;
+                    name = compatible_innerText($(spot)),
                     itemId = $(spot.children[1]).text(),
                     type = $(spot.children[2]).text();
-                var endFlag = name.search('<i');
-                name = name.substr(0, endFlag);
-                
+
                 if (type == 'hotel')
                     hotelCnt[i] = hotelCnt[i] + 1;
                 // 添加景点和酒店
@@ -399,7 +391,6 @@ $(function () {
                 dataObj.fromLocId = fromLocId;
                 dataObj.ugcId = ugcId;
                 dataObj.spotArray = spotArray;
-                console.log(dataObj);
                 $.ajax({  //动画结束，写入数据
                         url    : '/plans/edit/post',
                         data   : dataObj,
@@ -603,7 +594,6 @@ $(function () {
         if (len == 0) {
             if (!dataOver) {
                 dataOver = true;
-                // routeList.append("<h1 font='50px'>数据加载完了...</h1>");
             }
             return ;
         }
