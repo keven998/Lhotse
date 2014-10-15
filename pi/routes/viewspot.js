@@ -34,7 +34,6 @@ router.post('/ajax/more', function(req, res) {
         page = req.body.page;
         
     var requestUrl = urlApi.apiHost + urlApi.searchViewspot + "keyword=" + encodeURI(text) + "&page=" + encodeURI(page);
-    console.log(requestUrl);
 
     model.setUrl(requestUrl);
     model.getdata(null, function(data){

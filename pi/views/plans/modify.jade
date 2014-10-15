@@ -1,13 +1,12 @@
 extends ../common/base
-extends ../common/base
 
-block page_var
+block page_var  
     script.
         var page_var = {
             id: 'edit',
             path: 'plans/',
         };
-      
+
     link(href="/stylesheets/plans/jquery.datetimepicker.css" rel="stylesheet")
     
     
@@ -17,26 +16,29 @@ block content
         h1.t
           | #{title}
           .ugcId(style='display:none') #{id}
+
       .t-left
         h1.time
           | 出发时间：
           input#datetimepicker.date_picker(type='text')
-          a.btn02.btn02-c4
-            | 确定
-        
+          //
+            a.btn02.btn02-c4
+              | 确定
+          a.confirm
         - var dayCount = 0
         each oneDayRoute in daysRoute
-          - dayCount++
-          ul.edit-list(data-day=dayCount)
-            li.driver.disabled.active
-              i.ico01-d D#{dayCount}
-              i.ico01.ico01-close
-            each spot in oneDayRoute
-              li(draggable='true', style='height: 40px;')
-                | #{spot.itemName}
-                i.ico01.ico01-close
-                .id(style='display:none') #{spot.itemId}
-                .type(style='display:none') #{spot.type}
+          if oneDayRoute.length
+              - dayCount++
+              ul.edit-list(data-day=dayCount)
+                li.driver.disabled.active
+                  i.ico01-d D#{dayCount}
+                  i.ico01.ico01-close
+                each spot in oneDayRoute
+                  li(draggable='true', style='height: 40px;')
+                    | #{spot.itemName}
+                    i.ico01.ico01-close
+                  .id(style='display:none' data-itemId=spot.itemId)
+                  .type(style='display:none' data-type=spot.type)
         
         .add
           em +
@@ -45,7 +47,7 @@ block content
       
       .t-right
         .tab
-          a#tab01.item.item01-hover
+          a#tab01.item.item01-select
           a#tab02.item.item02-normal 
         
         
@@ -58,7 +60,7 @@ block content
           each spot in spots
             a
               div
-                img(src=spot.pic width='213' height='144')
+                img(src=spot.pic+'?imageView2/1/w/213/h/144' width='213' height='144')
               .id(style='display:none') #{spot._id}
               .type(style='display:none') vs
               em.spot-name #{spot.name}
@@ -77,7 +79,7 @@ block content
             each hotel in hotels
                 a
                     div
-                        img(src=hotel.pic width='213' height='144')
+                        img(src=hotel.pic+'?imageView2/1/w/213/h/144' width='213' height='144')
                     .id(style='display:none') #{hotel._id}
                     .type(style='display:none') hotel
                     .value
@@ -92,10 +94,11 @@ block content
                         i.ico-addr
                         | #{hotel.address}
                     i.ico02.ico02-add
-        
-        .more
-        i.ico02.ico02-loading
-        a.btn 加载更多···
+        //
+          .more
+          i.ico02.ico02-loading
+          a.btn 加载更多···
+    
                     
     script(src='/javascripts/plans/jquery.sortable.min.js' rel='javascript')
     script(src='/javascripts/plans/jquery.datetimepicker.js' rel='javascript')
