@@ -29,14 +29,11 @@ $(function () {
         } else {
             return false;
         }
-    })    
-    
-    
-    
+    })
+
     var routeList = $('.routelist'),
         sider = $('.sider'),
         layer = $('.layer'),
-//        height = $(window).height();
         navHeight = 100,
         wheight = $(window).height()
         sider_height = wheight - navHeight;
@@ -48,8 +45,6 @@ $(function () {
         var requestUrl = $(this).parents('li').attr('data-url');//假设单项的数据请求地址写在父级dom li中
         sider.css('height', sider_height);
         layer.fadeIn("fast");
-//        layer.show();
-//        sider.show(500,function(){
         sider.show();
         sider.animate({
             right: 0
@@ -114,7 +109,6 @@ $(function () {
             });
 
             layer.on('click',function(e){
-//                sider.hide(500);
                 sider.animate({
                     right: -600
                 }, 300, 'swing');

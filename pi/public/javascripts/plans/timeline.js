@@ -89,7 +89,6 @@ $(function () {
                             tips = result.description.tips,
                             bestmonth,playtime,opentime,price;
 
-//                        price = "门票: ¥ " + (result.price || "~") + " 元";
                         price = "门票: ￥ " + ((result.price) ? result.price : 0) + " 元";
                         bestmonth = "最佳月份: " + (result.travelMonth.length == 0 ? "全年" : result.travelMonth + "月份");
                         opentime = "开放时间: " + result.openTime;
@@ -117,7 +116,6 @@ $(function () {
                         right: -600
                     }, 300, 'swing')
 
-//                    $(this).hide();//("fast")
                     $(".c").hide();
                     $(".loading").show();
                     layer.fadeOut("fast");
