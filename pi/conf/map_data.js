@@ -93,7 +93,6 @@ var map_data = [
         "dMapLayerCon": "bor41",
         "cities": [
             {"name": "平遥", "type": "loc"},
-            {"name": "五台山", "type": "loc"},
             {"name": "太原", "type": "loc"},
             {"name": "大同", "type": "loc"},
             {"name": "忻州", "type": "loc"},
@@ -108,7 +107,6 @@ var map_data = [
             {"name": "开封", "type": "loc"},
             {"name": "郑州", "type": "loc"},
             {"name": "少林寺", "type": "loc"},
-            {"name": "嵩山", "type": "loc"},
             {"name": "三门峡", "type": "loc"}
         ],
     },{
@@ -221,9 +219,7 @@ var map_data = [
         "dMapLayerCon": "bor41",
         "cities": [
             {"name": "武汉", "type": "loc"},
-            {"name": "神龙架", "type": "loc"},
             {"name": "赤壁", "type": "loc"},
-            {"name": "三峡", "type": "loc"},
             {"name": "宜昌", "type": "loc"}
         ],
     },{
@@ -277,7 +273,6 @@ var map_data = [
             {"name": "阿坝", "type": "loc"},
             {"name": "甘孜", "type": "loc"},
             {"name": "都江堰", "type": "loc"},
-            {"name": "青城山", "type": "loc"},
             {"name": "西昌", "type": "loc"},
             {"name": "宜宾", "type": "loc"},
             {"name": "阿坝", "type": "loc"}
@@ -295,8 +290,7 @@ var map_data = [
         "dMapLayerCon": "borLT",
         "cities": [
             {"name": "西宁", "type": "loc"},
-            {"name": "玉树", "type": "loc"},
-            {"name": "青海湖", "type": "loc"}
+            {"name": "玉树", "type": "loc"}
         ],
     },{
         "name": "西藏",
@@ -307,7 +301,6 @@ var map_data = [
             {"name": "林芝", "type": "loc"},
             {"name": "日喀则", "type": "loc"},
             {"name": "阿里", "type": "loc"},
-            {"name": "布达拉宫", "type": "loc"}
         ],
     },{
         "name": "新疆",
