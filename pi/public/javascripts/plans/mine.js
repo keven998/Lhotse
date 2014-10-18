@@ -19,7 +19,7 @@ $("i.delete").on("click",function(){
 $(".plan_title").click(function(){
     var planEdit = $(this).next(),
         planInput =  planEdit.children(".plan_input"),
-        planPreName = $(this).text(),
+        planPreName = $(this).children(".plan_name").attr("title"),
         planId = planInput.attr("data-id"),
         planEditBtn = planEdit.siblings(".edit_btn");
 

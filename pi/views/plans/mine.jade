@@ -30,9 +30,9 @@ block content
                                     .days.black 共#{plan.days}天
                             .plan_desc
                                 .plan_title
-                                    abbr.plan_name(title=plan.name)
+                                    abbr.plan_name(title = plan.name)
                                         if (plan.name.length > 9)
-                                            - var abbrName = plan.name.substring(0, 10)
+                                            - var abbrName = plan.name.substring(0, 8)
                                             | #{abbrName}...
                                         else
                                             | #{plan.name}
