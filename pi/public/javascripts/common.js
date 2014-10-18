@@ -1,26 +1,4 @@
 $(function () {
-    //导航悬浮
-    var top = $('#top'),
-        logo = $('.logo'),
-        btnLogin = $('.btn-login'),
-        navLi=$('#top ul li'),
-        wHeight = $(document).height();
-    $(document).scroll(function () {
-        var scrollTop = $(this).scrollTop();
-        //console.log(scrollTop)
-        if ( scrollTop > 60 ) {
-            top.css({'height': '50px', 'line-height': 'normal'});
-            navLi.css({'height': '30px', 'line-height': '30px'});
-            logo.css('line-height', '65px');
-            btnLogin.css('margin', '10px')
-        } else {
-            top.css({'height': '60px', 'line-height': '50px'});
-            navLi.css({'height': '40px', 'line-height': '40px'});
-            logo.css('line-height', '70px');
-            btnLogin.css('margin', '18px')
-        }
-    })
-
     /* ---- BEGIN: login layer ---- */
     var topHd = $('#top'),
         lgLayer = $('.lg-layer'),
