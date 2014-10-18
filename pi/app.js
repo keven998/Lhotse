@@ -4,7 +4,6 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var expressSession = require('express-session');
 
 var routes = require('./routes/index');
 var account = require('./routes/account');
@@ -16,22 +15,11 @@ var hotel = require('./routes/hotel');
 
 var app = express();
 
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser('travelpi'));
-app.use(expressSession({
-    secret: 'travelpi',
-    cookie: {
-        path: '/',
-        httpOnly: true,
-        secure: false,
-        expires: false,
-        maxAge: 24 * 60 * 60 * 1000,    // one day
-    },
-    resave: true,
-    saveUninitialized: true
-}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
