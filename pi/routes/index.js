@@ -9,6 +9,8 @@ var left_nav_data = require('../conf/country_nav');
 var map_data = require('../conf/map_data');
 var config = require('../conf/system');
 var zone = require('../conf/zone');
+var utils = require( "../common/utils");
+
 
 router.get('/', function(req, res) {
     async.parallel({
@@ -47,7 +49,7 @@ router.get('/', function(req, res) {
             editorRoute: results.editorRoute.result,
             mustgoRoute: results.mustgoRoute.result,
             popRoute: results.popRoute.result,
-            user_info: req.session.user_info,
+            user_info: utils.get_user_info(req, res),
             config: config,
         });
     });
@@ -96,7 +98,7 @@ router.get('/route/include/', function(req, res) {
                 arriveId : spotId,
                 fromId : fromId,  // 用于配置“复制路线”的url
                 arriveName : arrLocName,
-                user_info: req.session.user_info,
+                user_info: utils.get_user_info(req, res),
                 config: config,
             });
         });
@@ -141,7 +143,7 @@ router.get('/route/city/', function(req, res) {
                 arriveId : arriveId,
                 fromId : fromId,  // 用于配置“复制路线”的url
                 arriveName : arrLocName,
-                user_info: req.session.user_info,
+                user_info: utils.get_user_info(req, res),
                 config: config,
             });
         });
@@ -186,7 +188,7 @@ router.get('/route/province/', function(req, res) {
                 arriveId : arriveId,
                 fromId : fromId,  // 用于配置“复制路线”的url
                 arriveName : arrLocName,
-                user_info: req.session.user_info,
+                user_info: utils.get_user_info(req, res),
                 config: config,
             });
         });
@@ -195,7 +197,7 @@ router.get('/route/province/', function(req, res) {
 
 
 router.get('/download/', function(req, res) {
-    res.render('download', {user_info: req.session.user_info, config: config});
+    res.render('download', {user_info: utils.get_user_info(req, res), config: config});
 });
 
 
@@ -255,7 +257,7 @@ router.get('/target/', function(req, res){
             hotViews:   viewList,
             left_nav_data: left_nav_data,
             map_data: map_data,
-            user_info: req.session.user_info,
+            user_info: utils.get_user_info(req, res),
             config: config,
             zone : zone,
         });

@@ -53,12 +53,12 @@ block content
                                         dd(style="margin-left:10px;")
                                                 a(title='', target='_blank', style="color:#666;", onclick="target_go_plan_list('" + province.name + "','"+ 'province' + "')") 更多
                         // ==E 地图层
-        .hot_cities
+        .hot_cities.mt-50
             .title
                 i.line |
                 b 热门城市
             <br>
-            .city-list
+            .city-list.list-01
                 .col-thin.rig
                     a.type01(href="/route/city/?arrName="+hotCities[0].name + "&fromName=" + fromLoc)
                         .rel
@@ -107,12 +107,12 @@ block content
                                 img.type02(src=hotCities[7].img+"?imageView2/1/w/295/h/175")
                                 .text_layer
                                     h2 #{hotCities[7].abbr}
-        .hot_views
+        .hot_views.mt-50
             .title
                 i.line |
                 b 热门景点
             <br>
-            .view-list
+            .view-list.list-01
                 .col-thick.rig
                     .row-short.bot
                         a.type03.fl-l(href="/route/include/?arrName="+hotViews[0].name + "&fromName=" + fromLoc)

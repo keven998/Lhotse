@@ -43,8 +43,8 @@ block content
           each plan in plans
             li(data-url="/route/plans/detail/#{plan._id}")
               a.c-img.rel
-                if plan.imageList
-                  img(src='#{plan.imageList}' + '?imageView2/1/w/285/h/215' width=342 height=180)
+                if (plan.imageList[0])
+                  img(src='#{plan.imageList}' + '?imageView2/1/w/285/h/215' width=285 height=215)
                 else
                   img(src="/images/route/285-215.png" width="285" height="215")
                 img.most_tag(src='/images/route/triangle.png')
@@ -58,17 +58,19 @@ block content
                 p.txt
                   if plan.desc
                     - var short_desc = plan.desc.substring(0, 60)
-                    | #{short_desc}...
+                    | #{short_desc}
+                    if (plan.desc.length > 60)
+                        | ...
                   a.btn02.btn02-c1 点击更多
-                p.ico-g.fl.w50
+                p.ico-g.fl.w55
                   i.ico01.ico01-route
                   b 线路特色-
                   each tag in plan.tags
                     | #{tag}
-                p.ico-g.fl.w50
+                p.ico-g.fl.w45
                   i.ico01.ico01-spot
                   b #{plan.vsCnt}个景点，共#{plan.days}天
-                p.ico-g.fl.w50
+                p.ico-g.fl.w55
                   i.ico01.ico01-cost
                   b 预计花费 ￥#{plan.budget[0]}-￥#{plan.budget[1]}
                 a.btn02.btn02-c4(href='/plans/timeline/' + plan._id + '?_fromLoc=' + fromId) 复制路线

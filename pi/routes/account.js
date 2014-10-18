@@ -3,6 +3,7 @@ var request = require('request');
 var router = express.Router();
 var config = require('../conf/system');
 var urlApi = require('../url_api');
+var utils = require( "../common/utils");
 
 /*
 微博登录文档:
@@ -57,7 +58,7 @@ router.get('/callback/weibo/', function(req, ori_res) {
                     nick_name: data.result.nickName,
                     avatar: data.result.avatar,
                 }
-                req.session.user_info = user_info;
+                utils.set_user_info(req, ori_res, user_info);
                 if (req.headers.referer){
                     ori_res.redirect(req.headers.referer);
                 }else{
@@ -96,7 +97,7 @@ router.get('/callback/qq/', function(req, ori_res) {
                 data = JSON.parse(data);
                 var post_info = {
                     provider: "qq",
-                    avatar: data.figureurl,
+                    avatar: data.figureurl_qq_1,
                     nickName: data.nickname,
                     oauthId: openid,
                     token: access_token,
@@ -113,8 +114,7 @@ router.get('/callback/qq/', function(req, ori_res) {
                         nick_name: data.result.nickName,
                         avatar: data.result.avatar,
                     }
-                    req.session.user_info = user_info;
-
+                    utils.set_user_info(req, ori_res, user_info);
                     var source_url = getUrl(req.headers.referer);
                     if (source_url){
                         ori_res.redirect(source_url);
@@ -139,7 +139,7 @@ function getUrl(referer){
     注销登录
 */
 router.get('/logout/', function(req, res) {
-    req.session.user_info = null;
+    utils.set_user_info(req, res, null);
     var source_url = getUrl(req.headers.referer);
     var ans = source_url.search(/\/plans\/mine\//);
     // 从需要用户登录的页面跳到主页

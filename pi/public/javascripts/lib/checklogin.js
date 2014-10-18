@@ -11,19 +11,26 @@ var checkLogin = function() {
 	}
 
 	function showLoginPage() {
-
 		var topHd=$('#top'),
 	        lgLayer=$('.lg-layer'),
-	        layer=$('.layer');
-	    
-        lgLayer.show(500);
-        layer.show();
-
-        lgLayer.show(500,function(){ 
+	        layer=$('.layer'),
+            navHeight = 100,
+            wHeight = $(window).height()
+            lgHeight = wHeight - navHeight,
+	        qq_call_back = $(".qq").attr("href") + "&referer=" + window.location.href;
+        $(".qq").attr("href",qq_call_back);
+        lgLayer.css('height', lgHeight);
+        layer.fadeIn("fast");
+        lgLayer.show();
+        lgLayer.animate({
+            right: 0
+        }, 300, "swing", function(){
             layer.on('click',function(e){
-                lgLayer.hide(500);
-                $(this).hide();
-	        })
+                lgLayer.animate({
+                    right: -600
+                }, 300, 'swing');
+                layer.fadeOut("fast");
+            })
         });
 		
 	}

@@ -9,6 +9,7 @@ var zone = require('../conf/zone');
 // 新方法
 var model = require('../model/sup_model.js');
 var apiList = require('../url_api');
+var utils = require( "../common/utils");
 
 
 /*
@@ -55,13 +56,15 @@ router.get('/edit/:UGCID', function(req, res) {
             var hotels = results[2];
             var locName = results[3];
             res.render('plans/edit', {
+                title: dataObj.title,
                 daysRoute : dataObj.dayRoute,
                 id : dataObj._id,   // 表明这个ugc id，ajax传递给node后，获取别的信息，减少前段任务
                 spots : spots,      // 城市景点 
                 locName : locName,  // 对象：起点和目的地
                 hotels : hotels,
-                user_info: req.session.user_info,
+                user_info: utils.get_user_info(req, res),
                 config: config,
+                already_saved: false,
             });
         })
 });
@@ -85,15 +88,16 @@ router.get('/edit/customized/:UGCID', function(req, res) {
             var spots = results[1];
             var hotels = results[2];
 
-            res.render('plans/modify', {
+            res.render('plans/edit', {
                 daysRoute : dataObj.dayRoute,
                 id : dataObj._id,   // 表明这个ugc id，ajax传递给node后，获取别的信息，减少前段任务
                 title : dataObj.title,
                 spots : spots,      // 城市景点 
                 //locName : locName,  // 对象：起点和目的地
                 hotels : hotels,
-                user_info: req.session.user_info,
+                user_info: utils.get_user_info(req, res),
                 config: config,
+                already_saved: true,
             });
         })
 });
@@ -185,7 +189,7 @@ router.post('/edit/post', function(req, res) {
 
 
 router.get('/mine/', function(req, res){
-    var user_info = req.session.user_info;
+    var user_info = utils.get_user_info(req, res);
 
     model.setUrl(apiList.apiHost + apiList.myPlans + user_info.id);
     model.getdata(req, function(data) {
@@ -227,7 +231,7 @@ router.get('/mine/', function(req, res){
         res.render('plans/mine',{
             num : i,
             myPlans : planList,
-            user_info: req.session.user_info,
+            user_info: utils.get_user_info(req, res),
             config: config,
         });
     });
@@ -270,7 +274,7 @@ router.get('/mine/altername', function(req, res) {
 
 router.get('/create/', function(req, res){
     res.render('plans/create', {
-        user_info: req.session.user_info, 
+        user_info: utils.get_user_info(req, res),
         config: config,
         zone: zone,
     });
@@ -294,8 +298,9 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
             allRoutes : allRoutes,
             basicInfo : basicInfo,
             navigation : navigation,
-            user_info: req.session.user_info,
+            user_info: utils.get_user_info(req, res),
             config: config,
+            already_saved: false,
         });
     });
 });
@@ -313,12 +318,13 @@ router.get('/timeline/customized/:UGCID', function(req, res) {
         var basicInfo = dataExtract.basicData(req, data);
         var allRoutes = dataExtract.detailData(req, data);
         var navigation = dataExtract.navigationData(allRoutes);
-        res.render('plans/ugcdetail', {
+        res.render('plans/timeline', {
             allRoutes : allRoutes,
             basicInfo : basicInfo,
             navigation : navigation,
-            user_info: req.session.user_info,
+            user_info: utils.get_user_info(req, res),
             config: config,
+            already_saved: true,
         });
     });
 });
