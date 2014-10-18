@@ -17,6 +17,7 @@
     "request": "^2.39.0",
     "static-favicon": "~1.0.0",
     "stylus": "0.42.3",
-    "express-session": "1.8.2"
+    "express-session": "1.8.2",
+    "cookie": "0.5.0"
   }
 }

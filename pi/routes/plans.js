@@ -9,6 +9,7 @@ var zone = require('../conf/zone');
 // 新方法
 var model = require('../model/sup_model.js');
 var apiList = require('../url_api');
+var utils = require( "../common/utils");
 
 
 /*
@@ -60,7 +61,7 @@ router.get('/edit/:UGCID', function(req, res) {
                 spots : spots,      // 城市景点 
                 locName : locName,  // 对象：起点和目的地
                 hotels : hotels,
-                user_info: req.session.user_info,
+                user_info: utils.get_user_info(req, res),
                 config: config,
             });
         })
@@ -92,7 +93,7 @@ router.get('/edit/customized/:UGCID', function(req, res) {
                 spots : spots,      // 城市景点 
                 //locName : locName,  // 对象：起点和目的地
                 hotels : hotels,
-                user_info: req.session.user_info,
+                user_info: utils.get_user_info(req, res),
                 config: config,
             });
         })
@@ -193,7 +194,7 @@ router.post('/edit/post', function(req, res) {
 
 
 router.get('/mine/', function(req, res){
-    var user_info = req.session.user_info;
+    var user_info = utils.get_user_info(req, res);
 
     model.setUrl(apiList.apiHost + apiList.myPlans + user_info.id);
     model.getdata(req, function(data) {
@@ -235,7 +236,7 @@ router.get('/mine/', function(req, res){
         res.render('plans/mine',{
             num : i,
             myPlans : planList,
-            user_info: req.session.user_info,
+            user_info: utils.get_user_info(req, res),
             config: config,
         });
     });
@@ -278,7 +279,7 @@ router.get('/mine/altername', function(req, res) {
 
 router.get('/create/', function(req, res){
     res.render('plans/create', {
-        user_info: req.session.user_info, 
+        user_info: utils.get_user_info(req, res),
         config: config,
         zone: zone,
     });
@@ -302,7 +303,7 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
             allRoutes : allRoutes,
             basicInfo : basicInfo,
             navigation : navigation,
-            user_info: req.session.user_info,
+            user_info: utils.get_user_info(req, res),
             config: config,
         });
     });
@@ -321,7 +322,7 @@ router.get('/timeline/customized/:UGCID', function(req, res) {
             allRoutes : allRoutes,
             basicInfo : basicInfo,
             navigation : navigation,
-            user_info: req.session.user_info,
+            user_info: utils.get_user_info(req, res),
             config: config,
         });
     });
