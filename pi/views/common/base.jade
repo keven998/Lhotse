@@ -39,10 +39,10 @@ html
                         img.user-avatar(src='#{user_info.avatar}')
                         a(href='/account/logout/' class='logout') 退出
                     //
-                    .drop-menu(id='J-navi-user-center-drop-menu')
-                        ul.user-center-menu-list
-                            li.user-logout
-                                a(href='/account/logout/' class='logout') 退出
+                        .drop-menu(id='J-navi-user-center-drop-menu')
+                            ul.user-center-menu-list
+                                li.user-logout
+                                    a(href='/account/logout/' class='logout') 退出
                 else
                     li
                         a.login 登录

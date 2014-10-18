@@ -92,7 +92,7 @@ h1.logo{height:150px;padding-top:5px;}
 .suggestion {width: 385px; position:relative; margin-left:10px; padding-left:5px; border:2px solid #ddd; display:none; font: 16px/22px arial; background-color: #ededed;}
 
 /* uesr menu panel*/
-.user a{display: inline-block;_zoom:1;*display:inline;color: #fff;font-size: 10px;height: 30px;padding-left:3px;vertical-align:top;}
+.user a{display: inline-block;_zoom:1;*display:inline;color: #fff;font-size: 12px;height: 30px;padding-left:3px;vertical-align:top;}
 .user a:hover{color: #08DCA9;}
 
 /*.drop-menu {display: none; width: 65px; right: 57px; top: 46px; position:absolute; z-index: 200; text-align: center;}*/
