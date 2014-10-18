@@ -3,21 +3,30 @@ $(function () {
     var topHd = $('#top'),
         lgLayer = $('.lg-layer'),
         layer = $('.layer');
+        navHeight = 100,
+        wHeight = $(window).height()
+        lgHeight = wHeight - navHeight;
         
     topHd.on('click','a.login',function(e){
-        lgLayer.show(500);
-        layer.show();
         //qq登录时的当前页面的记录
         var qq_call_back = $(".qq").attr("href") + "&referer=" + window.location.href;
         $(".qq").attr("href",qq_call_back);
-        lgLayer.show(500,function(){ 
+        lgLayer.css('height', lgHeight);
+        layer.fadeIn("fast");
+        lgLayer.show();
+        lgLayer.animate({
+            right: 0
+        }, 300, "swing", function(){
             $.ajax({
               
             })
             layer.on('click',function(e){
-                lgLayer.hide(500);
+//                lgLayer.hide(500);
+                lgLayer.animate({
+                    right: -600
+                }, 300, 'swing');
 //                $(this).hide();有两个layer...
-                layer.hide();
+                layer.fadeOut("fast");
             })
         });
     })

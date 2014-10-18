@@ -45,8 +45,15 @@ $(".plan_title").click(function(){
             error:  function () {
                 console.log('error!!!');
             }
-        }); 
-        planTitle.children(".plan_name").text(planName);
+        });
+        if (planName.length > 9){
+            var abbrName = planName.substring(0,8);
+            planTitle.children(".plan_name").text(abbrName + "...");
+        }
+        else
+            planTitle.children(".plan_name").text(planName);
+        planTitle.children(".plan_name").attr("title",planName);
+//        planTitle.children(".plan_name").text(planName);
         planEdit.css("display","none");
         planEditBtn.css("display","none");
         planTitle.css("display","inline-block");

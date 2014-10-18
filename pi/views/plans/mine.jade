@@ -22,17 +22,28 @@ block content
                     each plan in myPlans
                         .plan_item
                             .img_contain
-                                img(src=plan.image width="146" height="147")
-                                .days 共#{plan.days}天
+                                if plan.image
+                                    img(src=plan.image width="146" height="146")
+                                    .days.white 共#{plan.days}天
+                                else
+                                    img(src="/images/plans/mine/146-146.png" width="146" height="146")
+                                    .days.black 共#{plan.days}天
                             .plan_desc
                                 .plan_title
-                                    .plan_name #{plan.name}
+                                    abbr.plan_name(title=plan.name)
+                                        if (plan.name.length > 9)
+                                            - var abbrName = plan.name.substring(0, 10)
+                                            | #{abbrName}...
+                                        else
+                                            | #{plan.name}
                                 .plan_edit
                                     input.plan_input(type="text" value=plan.name data-id=plan.id)
                                 .edit_btn
                                     input.confirm(type="button" value="")
                                     input.cancel(type="button" value="")
-                                p.date #{plan.startDate}-#{plan.endDate}
+                                p.date #{plan.startDate}
+                                    if (plan.endDate != 0)
+                                        | -#{plan.endDate}
                                 a.viewdetail(href='/plans/timeline/customized/'+plan.id) 查看详情
                                 .plan_ft
                                     | 更新时间：#{plan.updateDate}
