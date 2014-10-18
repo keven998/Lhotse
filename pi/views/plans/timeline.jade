@@ -9,22 +9,23 @@ block page_var
         
     script(src='/javascripts/gmap/googlemap.js', rel='javascripts')
     script(src='/javascripts/FileSaver.js', rel='javascripts')
-    script(src='/javascripts/jspdf.js', rel='javascripts')
+    //
+        script(src='/javascripts/jspdf.js', rel='javascripts')
     script(src='http://maps.google.cn/maps/api/js?sensor=false&amp;key=AIzaSyCuXDkC1uoHaSctnrsGSGfpj9QVCUrfw1w', rel='javascripts')
     //
-      script(src='http://google-maps-utility-library-v3.googlecode.com/svn/trunk/styledmarker/src/StyledMarker.js', rel='javascripts')
-    script(src='/javascripts/jspdf.js', rel='javascripts')
+        script(src='http://google-maps-utility-library-v3.googlecode.com/svn/trunk/styledmarker/src/StyledMarker.js', rel='javascripts')
+        script(src='/javascripts/jspdf.js', rel='javascripts')
 
 block content
     .opt
       a.save 保存
       a &nbsp;/
-      a.color-01(href="/plans/edit/" + basicInfo._id + '/?DEST=' + basicInfo.destinaton.name + '&fromLocId=' + basicInfo.fromLocId) 编辑路线
-      a &nbsp;/
+      a(href="/plans/edit/" + basicInfo._id + '/?DEST=' + basicInfo.destinaton.name + '&fromLocId=' + basicInfo.fromLocId) 编辑路线
       //
+        a &nbsp;/
         a 发送朋友
         a &nbsp;/
-      a.pdf PDF下载
+        a.pdf PDF下载
     .bd.t-bd.ct
 
       h1.t

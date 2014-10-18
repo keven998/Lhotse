@@ -2,6 +2,8 @@
 @timeList css
 */
 .opt{width: 1000px;height: 30px;line-height: 30px;margin:0 auto;margin-top: 60px;text-align: right;font-size: 16px;font-family: "黑体";}
+.opt a{color:#333;}
+.opt a:hover{color:#e95a60;}
 .ct{width:1020px;margin:10px auto;color: #21B699;}
 .t-bd .t{display:inline-block;height: 40px;line-height: 50px;padding:0 20px 5px;font-size: 32px;font-family: '黑体';border-right:1px solid #21B699;}
 .b-ct{display:inline-block;height:50px;margin-left:20px;font-weight:bold;vertical-align:top;}

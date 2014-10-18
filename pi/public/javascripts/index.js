@@ -109,28 +109,6 @@ $(function(){
         duration:3000,//回到顶部的速度时间
         targetObg:"body"//目标位置
     };
-    
-    //导航悬浮
-    var top = $('#top'),
-        logo = $('.logo'),
-        btnLogin = $('.btn-login'),
-        navLi=$('#top ul li'),
-        wHeight = $(document).height();
-    $(document).scroll(function () {
-        var scrollTop = $(this).scrollTop();
-        //console.log(scrollTop)
-        if ( scrollTop > 60 ) {
-            top.css({'height': '50px', 'line-height': 'normal'});
-            navLi.css({'height': '30px', 'line-height': '30px'});
-            logo.css('line-height', '65px');
-            btnLogin.css('margin', '10px')
-        } else {
-            top.css({'height': '65px', 'line-height': '50px'});
-            navLi.css({'height': '40px', 'line-height': '40px'});
-            logo.css('line-height', '70px');
-            btnLogin.css('margin', '18px')
-        }
-    })
 
     /*
      * 滚动加载

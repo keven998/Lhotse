@@ -78,7 +78,7 @@ html body{height: 100%;position: relative;}
 .backToTop:hover{background-position: 0 -43px;-webkit-transition:background 0.2s ease 0s;-moz-transition:background 0.2s ease 0s;-o-transition:background 0.2s ease 0s;-ms-transition:background 0.2s ease 0s;transition:background 0.2s ease 0s;}
 /*登录*/
 .lg-layer{position: fixed;top: 60px;right: -600px;width: 400px;height: 600px;padding: 80px 0 40px;z-index: 9999999999;background:url(/images/common/login/bg-webLogin.png) center;font-family: '黑体';/* display: none; */}
-h1.logo{height:150px;}
+h1.logo{height:150px;padding-top:5px;}
 .lg-contain{width:250px;margin:180px auto;text-align:center;}
 .lg-contain h2{font-size:20px;color:#fff;}
 .lg-contain a{display:block;width:174px;height:31px;margin:20px auto;}
@@ -92,15 +92,18 @@ h1.logo{height:150px;}
 .suggestion {width: 385px; position:relative; margin-left:10px; padding-left:5px; border:2px solid #ddd; display:none; font: 16px/22px arial; background-color: #ededed;}
 
 /* uesr menu panel*/
-.drop-menu {display: none; width: 65px; right: 57px; top: 46px; position:absolute; z-index: 200; text-align: center;}
-.user-center-menu-list .user-logout {
-	padding: 0px;
-} 
-.drop-menu li {
-width: 65px; right: 57px; height: 41px;z-index: 200; text-align: center;
-}
-.drop-menu li a {
-width: 65px; right: 57px; z-index: 200; text-align: center;padding: 0px; color: black;
-}
-.drop-menu li a:hover {color: #08DCA9;}
-.user-center-menu-list {background-color: rgba(249, 252, 249, 1); color: blue;}
+.user a{display: inline-block;_zoom:1;*display:inline;color: #fff;font-size: 10px;height: 30px;padding-left:3px;vertical-align:top;}
+.user a:hover{color: #08DCA9;}
+
+/*.drop-menu {display: none; width: 65px; right: 57px; top: 46px; position:absolute; z-index: 200; text-align: center;}*/
+/*.user-center-menu-list .user-logout {*/
+/*	padding: 0px;*/
+/*} */
+/*.drop-menu li {*/
+/*width: 65px; right: 57px; height: 41px;z-index: 200; text-align: center;*/
+/*}*/
+/*.drop-menu li a {*/
+/*width: 65px; right: 57px; z-index: 200; text-align: center;padding: 0px; color: black;*/
+/*}*/
+/*.drop-menu li a:hover {color: #08DCA9;}*/
+/*.user-center-menu-list {background-color: rgba(249, 252, 249, 1); color: blue;}*/
