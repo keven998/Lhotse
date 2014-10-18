@@ -233,7 +233,6 @@ var map_data = [
         "cities": [
             {"name": "西安", "type": "loc"},
             {"name": "延安", "type": "loc"},
-            {"name": "华山", "type": "loc"}
         ],
     },{
         "name": "重庆",
