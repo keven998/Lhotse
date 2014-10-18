@@ -72,7 +72,7 @@ router.get('/route/include/', function(req, res) {
             model.setUrl(encodeURI(queryFromName));
             model.getdata(req, function(data){
                 data = JSON.parse(data);
-                var id = selectCityId(data.result);
+                var id = selectCityId(data.result, zone.type.city);
                 callback(null, id);
             });
         },
@@ -117,7 +117,7 @@ router.get('/route/city/', function(req, res) {
             model.setUrl(encodeURI(queryFromName));
             model.getdata(req, function(data){
                 data = JSON.parse(data);
-                var id = selectCityId(data.result);
+                var id = selectCityId(data.result, zone.type.city);
                 callback(null, id);
             });
         },
@@ -162,7 +162,7 @@ router.get('/route/province/', function(req, res) {
             model.setUrl(encodeURI(queryFromName));
             model.getdata(req, function(data){
                 data = JSON.parse(data);
-                var id = selectCityId(data.result);
+                var id = selectCityId(data.result, zone.type.city);
                 callback(null, id);
             });
         },
@@ -285,7 +285,7 @@ router.get('/suggestion', function(req, res){
     model.setUrl(encodeURI(requestUrl));
     model.getdata(null, function(data) {
       if (!data) {
-      	res.json(null);
+        res.json(null);
       }
       var result = JSON.parse(data).result;
       var suggestionArray = new Array();
@@ -346,12 +346,19 @@ var suggestionUrl = function (input, restaurant, hotel, loc, vs) {
 // 输入一个城市名字后，会得到一个列表，level = 1 是省会和level = 2是市
 // 通常选取【市】作为出发地
 // update ： 最新需求，省份也可以作为目的地
-var selectCityId = function(result) {
-  var cityId = "";
+var selectCityId = function(result, str) {
+  var cityId = "",
+      level = 0;
+  if (str == zone.type.city) {
+    level = zone.level.city;
+  } else if (str == zone.type.province) {
+    level = zone.level.province;
+  }
   for (var i = 0; i < result.length; i++) {
     var tempCity = result[i];
-    if (tempCity.level > 0) {
+    if (tempCity.level >= level) {
       cityId = tempCity._id;
+
       break;
     } 
   }

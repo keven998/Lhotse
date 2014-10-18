@@ -106,7 +106,6 @@ router.get('/edit/customized/:UGCID', function(req, res) {
 /* edit post request */
 router.post('/edit/post', function(req, res) {
     var webPostData = req.body;
-    
     var vsAndHotel = webPostData.spotArray;
     //获得ugc信息
     var requestUrl = apiList.apiHost + apiList.ugc.getUgcByIdNone + webPostData.ugcId;
@@ -117,8 +116,6 @@ router.post('/edit/post', function(req, res) {
         ugcData.uid = webPostData.uid;
         ugcData.fromLoc = webPostData.fromLocId; 
         ugcData.title = data.result.title;
-        ugcData.startDate = webPostData.startDate + ' 00:00:00+0800';
-        ugcData.endDate = webPostData.endDate + ' 00:00:00+0800';
         ugcData.action = 'upsert';
         ugcData.templateId = data.result.templateId;
         ugcData._id = webPostData.ugcId;
@@ -129,41 +126,26 @@ router.post('/edit/post', function(req, res) {
         ugcData.v = '1.1.0';
         ugcData.webFlag = 1;
         ugcData.seq = '';
-        ugcData.timestamp = '';      
+        ugcData.timestamp = '';
         
         var details = new Array();
-        var tempDate = webPostData.startDate;
-        //获得vs 和 hotel 时间，导入post数据中
-        for (var i = 0; i < vsAndHotel.length; i++) {
-            var oneDay = vsAndHotel[i];
-            for (var j = 0 ; j < oneDay.length; j++) {
-                var oneSpot = oneDay[j];
-                if (oneSpot.type == 'vs') {
-                    oneSpot.st = tempDate + ' 00:' + ((j + 1) < 10 ? '0' + (j + 1) : (j + 1)) + ':00+0800';
-                } else {
-                    oneSpot.st = tempDate + ' 00:00:00+0800';
-                }
-                details.push(oneSpot);
-            }
-            tempDate = calendar.addOneDay(tempDate);
-        }
-        
         // 获得交通信息
-        var arr = data.result.details;
+        var arr = data.result.details,
+            trafficData = [],
+            routeLength = arr.length;
         for (var i = 0; i < arr.length; i++) {
             var actv = arr[i].actv;
             for (var j = 0; j < actv.length; j++) {
                 var elem = actv[j];
                 if (elem.type == 'traffic') {
                     if(elem.subType == 'airport' || elem.subType == 'trainStation') {
-                       var temp = new Object();
+                        var temp = new Object();
                         temp.type = elem.type;
                         temp.subType = elem.subType;
                         temp.ts = elem.ts;
                         temp.st = elem.ts;
                         temp.itemId = elem.itemId;
-                        temp.transfer = elem.transfer;
-                        details.push(temp);
+                        trafficData.push(temp);
                     } else {
                         var temp = new Object();
                         temp.type = elem.type;
@@ -172,20 +154,30 @@ router.post('/edit/post', function(req, res) {
                         temp.depStop = elem.depStop;
                         temp.st = elem.ts;
                         temp.itemId = elem.itemId;
-                        temp.transfer = elem.transfer;
-                        details.push(temp);
+                        trafficData.push(temp);
                     }
                 }
             }
         }
-        ugcData.details = details; 
+        var dateDiff = webPostData.dayDiff,
+            details = trafficDateUpdate(trafficData, vsAndHotel, dateDiff);
+
+        var vsTime = [];
+        for (var i = 0; i < details.length; i++) {
+            var vsData = details[i];
+            if (vsData.type === 'vs') {
+                vsTime.push(vsData.st);
+            }
+        }
+        ugcData.startDate = vsTime[0];
+        ugcData.endDate = vsTime[vsTime.length - 1];
         // http post
+        ugcData.details = details;
         var options = {
             url : apiList.apiHost + apiList.ugc.editSave,
             json: ugcData,
             method: 'POST',
         };
-        
         request(options, function(err, respond, result) {
             if (err) {
                 throw err;
@@ -291,12 +283,12 @@ router.get('/create/', function(req, res){
 
 /* route timeline */
 router.get('/timeline/:TEMPLATES', function(req, res) {
-    
+    var ori_res = res;
     model.setUrl(apiList.apiHost + apiList.ugc.timeline);
     model.getdata(req, function(data) {
         var data = dataExtract.preProcess(req, data);
         if (!data) {
-            res.sender('common/error.jade');
+            res.redirect('/');
         }
         var basicInfo = dataExtract.basicData(req, data);
         var allRoutes = dataExtract.detailData(req, data);
@@ -316,9 +308,13 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
 
 /* user's plan detail */
 router.get('/timeline/customized/:UGCID', function(req, res) {
+    var ori_res = res;
     model.setUrl(apiList.apiHost + apiList.ugc.detail);
     model.getdata(req, function(data) {
         var data = dataExtract.preProcess(req, data);
+        if (!data) {
+            res.redirect('/');
+        }
         var basicInfo = dataExtract.basicData(req, data);
         var allRoutes = dataExtract.detailData(req, data);
         var navigation = dataExtract.navigationData(allRoutes);
@@ -338,43 +334,156 @@ router.get('/timeline/customized/:UGCID', function(req, res) {
 /*
     addOneDay：计算XXXX-XX-XX 加一天后是多少？
 */
-var calendar = (function() {
-    //月份
-    var ma = [['01','03','05','07','08','10'],['04','06','09','11']];
+var calendar = (function () {
+    // month array for addOneDay
+    var ma = [
+        ['01', '03', '05', '07', '08', '10'],
+        ['04', '06', '09', '11']
+    ];
+    // month array for deleteOneDay
+    var mb = [
+        ['05', '07', '08', '10', '12'],
+        ['02', '04', '06', '09', '11']
+    ];
 
     //判断数组a是否存在在元素n 
-    function check(n,a) { 
-        for(var i = 0,len = a.length;i < len;i++) { 
-            if(a[i] == n) { 
-                return true; 
-        } 
-    } 
-        return false; 
+    function check(n, a) {
+        for (var i = 0, len = a.length; i < len; i++) {
+            if (a[i] == n) {
+                return true;
+            }
+        }
+        return false;
     }
-    
+
     //闰?年? 
-    function isLeap(y) { 
-        return ((y % 4 == 0 && y % 100 != 0) || y % 400 == 0) ? true : false; 
+    function isLeap(y) {
+        return ((y % 4 === 0 && y % 100 !== 0) || y % 400 === 0) ? true : false;
     }
-    
+
     return {
-        addOneDay : function (o) {
-            var d = o.split('-'); 
-            var l = isLeap(d[0]); 
-            if((check(d[1],ma[0]) && (d[2] == '31')) || (check(d[1],ma[1]) && (d[2] == '30')) || 
-                (d[1] == '02' && d[2] == '28' && !l) || (d[1] == '02' && d[2] == '29' && l)) { 
-            
-                return d[0] + '-' + ((d[1] * 1 + 1) < 10 ? '0' + (d[1] * 1 + 1) : (d[1] * 1 + 1)) + '-01'; 
-            } else if(d[1] == '12' && d[2] == '31') { 
-            
-                return (d[0] * 1 + 1) + '-' + '01-01'; 
-            } else { 
-            
-                return d[0] + '-' + d[1] + '-' + ((d[2] * 1 + 1) < 10 ? '0' + (d[2] * 1 + 1) : (d[2] * 1 + 1)); 
-            } 
-        }   
-    };               
-} ());
+        addOneDay: function (o) {
+            var d = o.split('-');
+            var l = isLeap(d[0]);
+            if ((check(d[1], ma[0]) && (d[2] == '31')) || (check(d[1], ma[1]) && (d[2] == '30')) || (d[1] == '02' && d[2] == '28' && !l) || (d[1] == '02' && d[2] == '29' && l)) {
+
+                return d[0] + '-' + ((d[1] * 1 + 1) < 10 ? '0' + (d[1] * 1 + 1) : (d[1] * 1 + 1)) + '-01';
+            } else if (d[1] == '12' && d[2] == '31') {
+
+                return (d[0] * 1 + 1) + '-' + '01-01';
+            } else {
+
+                return d[0] + '-' + d[1] + '-' + ((d[2] * 1 + 1) < 10 ? '0' + (d[2] * 1 + 1) : (d[2] * 1 + 1));
+            }
+        },
+        deleteOneDay: function (o) {
+            var d = o.split('-');
+            var l = isLeap(d[0]);
+            if (check(d[1], mb[0]) && d[2] == '01') {
+                return d[0] + '-' + (d[1] - 1) + '-30';
+            } else if (check(d[1], mb[1]) && d[2] == '01') {
+                return d[0] + '-' + (d[1] - 1) + '-31';
+            } else if (d[1] == '03' && l && d[2] == '01') {
+                return d[0] + '-' + (d[1] - 1) + '-29';
+            } else if (d[1] == '03' && !l && d[2] == '01') {
+                return d[0] + '-' + (d[1] - 1) + '-28';
+            } else if (d[1] == '01' && d[2] == '01') {
+                return (d[0] - 1) + '-12-31';
+            } else {
+                return d[0] + '-' + d[1] + '-' + (d[2] - 1);
+            }
+        }
+    };
+}());
+
+
+/* 更新交通时间 */
+var trafficDateUpdate = function (traffic_data, vsAndHotel_data, dateDiff) {
+    // 去的交通
+    var trafficData = traffic_data,
+        vsAndHotelData = vsAndHotel_data;
+    if (dateDiff < 0) {
+        for (var i = 0; i < 3; i++) {
+            var arr_t = trafficData[i].st.split(' '),
+                t = arr_t[0];
+            for (var j = dateDiff; j < 0; j++) {
+                t = calendar.deleteOneDay(t);
+            }
+            trafficData[i].st = t + ' ' + arr_t[1];
+            if (trafficData[i].ts) {
+                trafficData[i].ts = trafficData[i].st;
+            }
+        }
+    } else if (dateDiff > 0) {
+        for (var i = 0; i < 3; i++) {
+            var arr_t = trafficData[i].st.split(' '),
+                t = arr_t[0];
+            for (var j = 0; j < dateDiff; j++) {
+                t = calendar.addOneDay(t);
+            }
+            trafficData[i].st = t + ' ' + arr_t[1];
+            if (trafficData[i].ts) {
+                trafficData[i].ts = trafficData[i].st;
+            }
+        }
+    }
+
+    /* 处理酒店和景点信息 */
+    var tempDate = trafficData[2].ts.split(' ')[0],
+        tempVsAndHotel = [];
+    for (var i = 0; i < vsAndHotelData.length; i++) {
+        var oneDay = vsAndHotelData[i];
+        for (var j = 0 ; j < oneDay.length; j++) {
+            var oneSpot = oneDay[j];
+            if (oneSpot.type == 'vs') {
+                oneSpot.st = tempDate + ' 00:' + ((j + 1) < 10 ? '0' + (j + 1) : (j + 1)) + ':00+0800';
+            } else {
+                oneSpot.st = tempDate + ' 00:00:00+0800';
+            }
+            tempVsAndHotel.push(oneSpot);
+        }
+        tempDate = calendar.addOneDay(tempDate);
+    }
+
+    var lastSpotDate = new Date(tempDate),
+        backDate = new Date(trafficData[3].ts.split(' ')[0]),
+        dayDiff = parseInt((lastSpotDate.getTime() - backDate.getTime()) / 86400000);
+    if (dayDiff < 0) {
+        for (var i = 3; i < trafficData.length; i++) {
+            var arr_t = trafficData[i].st.split(' '),
+                t = arr_t[0];
+            for (var j = dayDiff; j < 0; j++) {
+                t = calendar.deleteOneDay(t);
+            }
+            trafficData[i].st = t + ' ' + arr_t[1];
+            if (trafficData[i].ts) {
+                trafficData[i].ts = trafficData[i].st;
+            }
+        }
+    } else if (dayDiff > 0) {
+        for (var i = 3; i < trafficData.length; i++) {
+            var arr_t = trafficData[i].st.split(' '),
+                t = arr_t[0];
+            for (var j = 0; j < dayDiff; j++) {
+                t = calendar.addOneDay(t);
+            }
+            trafficData[i].st = t + ' ' + arr_t[1];
+            if (trafficData[i].ts) {
+                trafficData[i].ts = trafficData[i].st;
+            }
+        }
+    }
+
+    for (var i = 0; i < trafficData.length; i++) {
+            if (i < 3){
+                trafficData[i].transfer = "no.from";
+            }else{
+                trafficData[i].transfer = "no.back";
+            }
+        };
+
+    return trafficData.concat(tempVsAndHotel);
+}
 
 
 /*
@@ -405,11 +514,14 @@ var gstTime = (function () {
 var dataExtract = (function () {
     // data preprocess
     var preProcess = function(req, data) {
-        if (!data) {
-            return null;
+        var t = data.toString(),
+            slug = t.indexOf('<!DOCTYPE html>');
+        if (slug > 0) {
+            return '';
+        } else{
+            data = JSON.parse(data);
+            return data;
         }
-        data = JSON.parse(data);
-        return data;
     };
 
 
@@ -623,7 +735,6 @@ var ugcDataEdit = (function() {
             dataObj._id = _id;
             dataObj.title = title;
             dataObj.dayRoute = dayRoute;
-
             callback(null, dataObj);
         });
     };

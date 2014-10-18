@@ -195,20 +195,16 @@ $(function(){
 
 
 // 通过IP获取地理地址-城市名字
-(function getIpPlace() {
+$(function(){
     var cityName = remote_ip_info["city"];// + remote_ip_info["city"];
-    
     if (!getCookie('userInputFrom')) {
         $('#from').val(cityName);
     }else{
         $('#from').val(getCookie('userInputFrom'));
     }
-    
     $('#from').attr("poi_type","loc");
-    
     setCookie('fromLoc',encodeURI(cityName), 1);
-
-}())
+})
 
 
 // // 联想功能
