@@ -56,6 +56,7 @@ router.get('/edit/:UGCID', function(req, res) {
             var hotels = results[2];
             var locName = results[3];
             res.render('plans/edit', {
+                title: dataObj.title,
                 daysRoute : dataObj.dayRoute,
                 id : dataObj._id,   // 表明这个ugc id，ajax传递给node后，获取别的信息，减少前段任务
                 spots : spots,      // 城市景点 
@@ -63,6 +64,7 @@ router.get('/edit/:UGCID', function(req, res) {
                 hotels : hotels,
                 user_info: utils.get_user_info(req, res),
                 config: config,
+                already_saved: false,
             });
         })
 });
@@ -86,7 +88,7 @@ router.get('/edit/customized/:UGCID', function(req, res) {
             var spots = results[1];
             var hotels = results[2];
 
-            res.render('plans/modify', {
+            res.render('plans/edit', {
                 daysRoute : dataObj.dayRoute,
                 id : dataObj._id,   // 表明这个ugc id，ajax传递给node后，获取别的信息，减少前段任务
                 title : dataObj.title,
@@ -95,6 +97,7 @@ router.get('/edit/customized/:UGCID', function(req, res) {
                 hotels : hotels,
                 user_info: utils.get_user_info(req, res),
                 config: config,
+                already_saved: true,
             });
         })
 });
