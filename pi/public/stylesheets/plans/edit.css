@@ -20,7 +20,7 @@
 .t-right .search{display:inline-block;vertical-align:top;height: 35px;line-height: 35px;margin:30px 0px;}
 .ico02-search{background: url(/images/plans/edit/search.png) no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/edit/search.png',sizingMethod='scale');width:20px;height:20px;margin:0 0 -5px -25px;}
 
-.t-right .imgs a{float: left;margin: 0 0 15px 15px;width: 213px;background-color: #F7F7F9;position: relative;padding-bottom: 15px;border-bottom:1px solid #ddd;}
+.t-right .imgs a{float: left;margin: 0 0 15px 15px;width: 213px;background-color: #F7F7F9;position: relative;padding-bottom: 15px;border-bottom:1px solid #ddd;cursor:default;}
 .t-right .imgs a img{width: 100%;margin-bottom: 15px;}
 .imgs a .spot-name{font-size: 18px;color: #000;display: block;margin-left: 10px;}
 .imgs a .hotel-name{font-size: 18px;color: #000;display: block;margin-left: 10px;height:40px;}
@@ -28,7 +28,7 @@
 .imgs a .value{position: absolute;left: 0;top: 110px;overflow: hidden;display:inline-block;height: 20px;width:110px;line-height: 1.5;padding: 2px 5px;}
 .imgs a .ranking{float: left;*display: inline;width:42px;background:url(/images/plans/edit/ranking.png) no-repeat;color:#fff;text-align:center;}
 .imgs a .price{float: left;*display: inline;width:65px;background:url(/images/plans/edit/price.png) no-repeat;text-align:center;}
-.imgs a .ico02{position: absolute;top: 5px;right: 5px;background: url(/images/plans/edit/add_day.png) no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/edit/add_day.png',sizingMethod='scale');}
+.imgs a .ico02{position: absolute;top: 5px;right: 5px;background: url(/images/plans/edit/add_day.png) no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/edit/add_day.png',sizingMethod='scale');cursor:pointer;}
 .phone{margin:0 0 0 15px;line-height:20px;height:20px;}
 .addr{margin:0 0 5px 15px;line-height:20px;height:20px;}
 .ico-phone{background-size:20px;display: inline-block;width: 15px;height: 15px;position: relative;top: 5px;*top:7px;left: 0;background: url(/images/plans/edit/phone.png) no-repeat;}

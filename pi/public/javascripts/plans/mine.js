@@ -32,21 +32,27 @@ $(".plan_title").click(function(){
     planEditBtn.children('.confirm').click(function(){
         var planName = planEdit.children(".plan_input").val();
         $.ajax({
-            url:    '/plans/mine/altername',
-            data:   {
+            url: '/plans/mine/altername',
+            data: {
                 "planName": planName,
-                "planId":   planId
+                "planId": planId
             },
-            dataType:   "json",
-            type:   'GET',
-            success:    function (msg) {
+            dataType: "json",
+            type: 'GET',
+            success: function (msg) {
                 console.dir(msg);
             },
-            error:  function () {
+            error: function () {
                 console.log('error!!!');
             }
-        }); 
-        planTitle.children(".plan_name").text(planName);
+        });
+        if(planName.length > 9){
+            var abbrName = planName.substring(0,8);
+            planTitle.children(".plan_name").text(abbrName + "...");
+        }else{
+            planTitle.children(".plan_name").text(planName);
+        };
+        planTitle.children(".plan_name").attr("title",planName);
         planEdit.css("display","none");
         planEditBtn.css("display","none");
         planTitle.css("display","inline-block");

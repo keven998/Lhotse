@@ -60,7 +60,10 @@ block content
           each spot in spots
             a
               div
-                img(src=spot.pic+'?imageView2/1/w/213/h/144' width='213' height='144')
+                if (spot.pic===undefined)
+                    img(src='/images/plans/edit/213-144.png' width='213' height='144')
+                else
+                    img(src=spot.pic+'?imageView2/1/w/213/h/144' width='213' height='144')
               .id(style='display:none') #{spot._id}
               .type(style='display:none') vs
               em.spot-name #{spot.name}
@@ -79,7 +82,10 @@ block content
             each hotel in hotels
                 a
                     div
-                        img(src=hotel.pic+'?imageView2/1/w/213/h/144' width='213' height='144')
+                        if (hotel.pic===undefined)
+                            img(src='/images/plans/edit/213-144.png' width='213' height='144')
+                        else
+                            img(src=hotel.pic+'?imageView2/1/w/213/h/144' width='213' height='144')
                     .id(style='display:none') #{hotel._id}
                     .type(style='display:none') hotel
                     .value

@@ -9,22 +9,23 @@ block page_var
         
     script(src='/javascripts/gmap/googlemap.js', rel='javascripts')
     script(src='/javascripts/FileSaver.js', rel='javascripts')
-    script(src='/javascripts/jspdf.js', rel='javascripts')
+    //
+        script(src='/javascripts/jspdf.js', rel='javascripts')
     script(src='http://maps.google.cn/maps/api/js?sensor=false&amp;key=AIzaSyCuXDkC1uoHaSctnrsGSGfpj9QVCUrfw1w', rel='javascripts')
     //
-      script(src='http://google-maps-utility-library-v3.googlecode.com/svn/trunk/styledmarker/src/StyledMarker.js', rel='javascripts')
-    script(src='/javascripts/jspdf.js', rel='javascripts')
+        script(src='http://google-maps-utility-library-v3.googlecode.com/svn/trunk/styledmarker/src/StyledMarker.js', rel='javascripts')
+        script(src='/javascripts/jspdf.js', rel='javascripts')
 
 block content
     .opt
       a.save 保存
       a &nbsp;/
-      a.color-01(href="/plans/edit/" + basicInfo._id + '/?DEST=' + basicInfo.destinaton.name + '&fromLocId=' + basicInfo.fromLocId) 编辑路线
-      a &nbsp;/
+      a(href="/plans/edit/" + basicInfo._id + '/?DEST=' + basicInfo.destinaton.name + '&fromLocId=' + basicInfo.fromLocId) 编辑路线
       //
+        a &nbsp;/
         a 发送朋友
         a &nbsp;/
-      a.pdf PDF下载
+        a.pdf PDF下载
     .bd.t-bd.ct
 
       h1.t
@@ -161,12 +162,12 @@ block content
                           | #{spot.itemName}
                         .hotel
                           .hotel_info
-                            i.point · 
+                            i.dot
                             | ￥#{spot.price}起
-                            i.point · 
+                            i.dot
                             | 电话 #{spot.phoneList[0]}
                             br
-                            i.point · 
+                            i.dot
                             | #{spot.addr}
 
             else
@@ -193,12 +194,12 @@ block content
             .right
               h3.t3 loading...
               em AAAAA
-              span
+              .cnt
                 i.ico-flag 
-                | 333人
-              span
+                span.viewed 333人
+              .cnt
                 i.ico-heart 
-                | 6666人
+                span.favor 6666人
               .info
                 .price 门票：￥999
                 br

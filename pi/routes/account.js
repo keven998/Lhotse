@@ -97,7 +97,7 @@ router.get('/callback/qq/', function(req, ori_res) {
                 data = JSON.parse(data);
                 var post_info = {
                     provider: "qq",
-                    avatar: data.figureurl,
+                    avatar: data.figureurl_qq_1,
                     nickName: data.nickname,
                     oauthId: openid,
                     token: access_token,

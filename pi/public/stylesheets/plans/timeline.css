@@ -2,6 +2,8 @@
 @timeList css
 */
 .opt{width: 1000px;height: 30px;line-height: 30px;margin:0 auto;margin-top: 60px;text-align: right;font-size: 16px;font-family: "黑体";}
+.opt a{color:#333;}
+.opt a:hover{color:#e95a60;}
 .ct{width:1020px;margin:10px auto;color: #21B699;}
 .t-bd .t{display:inline-block;height: 40px;line-height: 50px;padding:0 20px 5px;font-size: 32px;font-family: '黑体';border-right:1px solid #21B699;}
 .b-ct{display:inline-block;height:50px;margin-left:20px;font-weight:bold;vertical-align:top;}
@@ -32,6 +34,7 @@
 .ico03-spot{background-size:20px;background:url("/images/plans/timeline/spot.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/timeline/spot.png',sizingMethod='scale');}
 .ico03-hotel{background-size:20px;background:url("/images/plans/timeline/hotel.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/timeline/hotel.png',sizingMethod='scale');}
 .timeline-detail ul li .m{font-size: 16px;padding-bottom: 20px;}
+.timeline-detail li .m img{cursor:pointer;}
 li .m h3{height: 40px;line-height: 2;color: #777;}
 li .m .btn02{position: relative;left: 0;top: 0;margin-left: 5px;}
 li .m .suggest{border-left: 1px solid;height: 70px;line-height: 70px;margin-left: 10px;margin-bottom: -10px;}
@@ -41,11 +44,12 @@ li .m .opentime{display:inline-block;width: 300px;}
 li .m b i{color:#08dca9;padding-right:10px;}
 li .m .hotel{width:343px;height: 77px;background: url("/images/plans/timeline/shape.png") no-repeat;background-position: center;background-size: cover;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/timeline/shape.png',sizingMethod='scale');}
 li .m .hotel_info{line-height: 1.3;padding:10px 10px 0 35px;}
-li .m .hotel .point{color: #08DCA9;font-size: 40px;line-height: 0;position: relative;top: 8px;left: 5px;}
+/*li .m .hotel .point{color: #08DCA9;font-size: 40px;line-height: 0;position: relative;top: 8px;left: 5px;}*/
+li .m .hotel .dot{display:inline-block;width: 5px;height: 5px;border-radius: 50%;margin:0 5px 0 10px;background: #08DCA9;border:4px solid #ececec;}
 .t-right{float: right;width: 350px;height: 350px;}
 .t-right .map{width: 100%;height: 100%}
 .tab-c .c{width: auto;padding: 0;margin-top: 25px;font-size: 16px;}
-.desc p, .tips p{height: 180px;overflow: auto;text-indent:2em;}
+.desc p, .tips p{max-height: 180px;overflow-y: auto;overflow-x: hidden;text-indent:2em;}
 .c .t1{height: 40px;line-height: 40px;width: 100%;white-space: nowrap;font-size: 20px;}
 .c .p1{height: 80px;border-left: 5px solid #08DCA9 !important;border:1px solid #aaa;padding: 15px 0 10px;}
 .c .t2{color: #08DCA9;}
@@ -56,7 +60,7 @@ li .m .hotel .point{color: #08DCA9;font-size: 40px;line-height: 0;position: rela
 .c .left img{width: 200px;height: 160px;}
 .c .right{float:right;width: 330px;padding-left: 220px;font-size: 16px;}
 .c .right em{margin-right:20px;}
-.c .right span{margin-left:10px;color:#08dca9;}
+.c .right .cnt{display:inline-block;margin-left:10px;margin-right:10px;color:#08dca9;}
 .c .right i{margin-right:5px;}
 .c .right .info{margin-top:5px;}
 .c .right .info div{display:inline-block;margin:5px 10px 0 0;color:#000;}
@@ -64,7 +68,7 @@ li .m .hotel .point{color: #08DCA9;font-size: 40px;line-height: 0;position: rela
 .c h2 i{display:inline-block;height:30px;width:30px;vertical-align:-10px;}
 .sub_layer .btn02-c1{background: #08DCA9;color: #fff;}
 .sub_layer a{min-width:40px;}
-.ico-flag{display:inline-block;width:13px;height:13px;background-size: 15px;background:url("/images/common/flag.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/flag.png',sizingMethod='scale');}
-.ico-heart{display:inline-block;width:13px;height:13px;background-size: 15px;background:url("/images/common/heart.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/heart.png',sizingMethod='scale');}
+.ico-flag{display:inline-block;width:16px;height:13px;background:url("/images/common/flag.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/flag.png',sizingMethod='scale');background-size: 15px;}
+.ico-heart{display:inline-block;width:16px;height:13px;background:url("/images/common/heart.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/heart.png',sizingMethod='scale');background-size: 15px;}
 
 .loading{width: 100%;margin-top:200px;height: 50px;line-height: 50px;text-align: center;float: left;font-size: 14px;}

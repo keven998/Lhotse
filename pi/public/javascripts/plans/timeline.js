@@ -62,12 +62,16 @@ $(function () {
     var timeLineSpotImg = $('.timeline-detail ul').find('img'),
         sider = $('.sider'),
         layer = $('.layer'),
-        wheight = $(window).height();
+        navHeight = 100,
+        wheight = $(window).height(),
+        sider_height = wheight - navHeight;
+
     timeLineSpotImg.each(function () {
         $(this).on('click', function (e) {
             var requestUrl = $(this).attr('data-url');
-            sider.css('height', wheight);
+            sider.css('height', sider_height);
             layer.fadeIn("fast");
+            sider.show();
             sider.animate({
                 right: 0
             }, 300, "swing", function () {
@@ -77,8 +81,6 @@ $(function () {
                     success: function (msg) {
                         //console.dir(msg)
                         //请求成功后，写入dom,打开侧栏、遮罩
-                        sider.show();
-
                         var result = msg.result,
                             name = result.name,
                             favor = result.ratings.favorCnt,
@@ -87,7 +89,7 @@ $(function () {
                             tips = result.description.tips,
                             bestmonth,playtime,opentime,price;
 
-                        price = "门票: ¥ " + (result.price || "~") + " 元";
+                        price = "门票: ￥ " + ((result.price) ? result.price : 0) + " 元";
                         bestmonth = "最佳月份: " + (result.travelMonth.length == 0 ? "全年" : result.travelMonth + "月份");
                         opentime = "开放时间: " + result.openTime;
                         playtime = "建议游玩时间: " + result.timeCost + " 小时";
@@ -98,8 +100,8 @@ $(function () {
                         $('.right .playtime').text(playtime);
                         $('.desc').children('p').text(desc);
                         $('.tips').children('p').text(tips || "暂无");
-                        $('.right i.ico01.ico01-flag').text(viewed);
-                        $('.right i.ico01.ico01-heart').text(favor);
+                        $('.right .viewed').text(viewed);
+                        $('.right .favor').text(favor);
                         $('.right h3').text(result.name);
                         $('.left img').attr('src', result.imageList[0]);
                         $(".c").show();
@@ -114,7 +116,6 @@ $(function () {
                         right: -600
                     }, 300, 'swing')
 
-                    $(this).hide();//("fast")
                     $(".c").hide();
                     $(".loading").show();
                     layer.fadeOut("fast");
@@ -139,7 +140,7 @@ $(function () {
         var self = $(this),
             Index = index,
             count = self.position().top,
-            time=new Date().getTime();
+            time = new Date().getTime();
         self.attr('data-position', count);
         self.attr('id', count+time);
         timelineList.eq(Index).attr('id', count);
