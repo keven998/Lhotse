@@ -87,7 +87,8 @@ $(function () {
         buttonImage: "images/calendar.gif",
         buttonImageOnly: true,
         buttonText: "Select date",
-        
+        minDate: 0, // 不能选择过去过去的日期
+
         timepicker: false,
         lang:'ch',
         format:'Y-m-d',
@@ -203,8 +204,8 @@ $(function () {
         var itemHtml = 
             '<li draggable="true" style="height: 40px;">' + title + 
                 '<i class="ico01 ico01-close"></i>' +
-                '<div style="display:none" class="id">' + id + '</div>' +
-                '<div style="display:none" class="type">' + type + '</div>' + 
+                '<div style="display:none" class="id" data-itemid=' + id + '>' + '</div>' +
+                '<div style="display:none" class="type" data-type=' + type + '>'  + '</div>' + 
             '</li>';
         $('.edit-list .active').parent('.edit-list').append(itemHtml);
         
@@ -334,19 +335,22 @@ $(function () {
                 var spotObj = new Object(),
                     spot = spotList[j],
                     name = compatible_innerText(spot),
-                    itemId = $(spot.children[1]).attr('data-itemId'),
+                    itemId = $(spot.children[1]).attr('data-itemid'),
                     type = $(spot.children[2]).attr('data-type');
-                if (type == 'hotel')
-                    hotelCnt[i] = hotelCnt[i] + 1;
                 // 添加景点和酒店
                 spotObj['itemId'] = itemId;
                 spotObj['type'] = type;
                 oneDaySpot.push(spotObj); 
             }
+            if (oneDaySpot.length === 0) {
+                alert('第' + (i+1) + '天的行程为空, 请添加景点或者酒店');
+                return ;
+            }
             if (hotelCnt[i] > 1)
                 hotelFlag = hotelFlag + 1;
             spotArray.push(oneDaySpot);
         }
+
         
         //一天内的酒店数大于1时会提示
         if (hotelFlag > 0){
@@ -383,13 +387,19 @@ $(function () {
                 if(day < 10) endDate += "0";
                 endDate += day;
 
+                var selectDate = new Date(startDate),
+                    currentDate = new Date(),
+                    dayDiff = parseInt((selectDate.getTime() - currentDate.getTime()) / 86400000 + 1) - 2;
                 var dataObj = new Object();
                 dataObj.startDate = startDate;
                 dataObj.endDate = endDate;
                 dataObj.uid = uid;
+                dataObj.dayCount = dayCount;
+                dataObj.dayDiff = dayDiff;
                 dataObj.fromLocId = fromLocId;
                 dataObj.ugcId = ugcId;
                 dataObj.spotArray = spotArray;
+                console.log(spotArray);
                 $.ajax({  //动画结束，写入数据
                         url    : '/plans/edit/post',
                         data   : dataObj,
@@ -399,7 +409,7 @@ $(function () {
                             if (msg.code === 0) {
                                 window.location.href="/plans/mine/";
                             } else {
-                               alert('保存失败');
+                                alert('保存失败');
                             }
                         },
                         error  : function () {

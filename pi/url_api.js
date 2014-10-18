@@ -51,7 +51,7 @@ var urlApi = {
         editSave : '/web/plans/optimizers',
         detail : '/web/ugc-plans/UGCID',
         // 有待扩充
-        timeline : '/web/ugc-plans/templates/TEMPLATES?fromLoc=_fromLoc&uid=5409b6dde4b043c0eff098fe',
+        timeline : '/web/ugc-plans/templates/TEMPLATES?fromLoc=_fromLoc',
         // 暂时不能保存路线，所以用查询某个模板路线的数据代替
         edit : '/web/ugc-plans/UGCID',
     },
