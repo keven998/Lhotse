@@ -305,6 +305,7 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
             navigation : navigation,
             user_info: utils.get_user_info(req, res),
             config: config,
+            already_saved: false,
         });
     });
 });
@@ -318,12 +319,13 @@ router.get('/timeline/customized/:UGCID', function(req, res) {
         var basicInfo = dataExtract.basicData(req, data);
         var allRoutes = dataExtract.detailData(req, data);
         var navigation = dataExtract.navigationData(allRoutes);
-        res.render('plans/ugcdetail', {
+        res.render('plans/timeline', {
             allRoutes : allRoutes,
             basicInfo : basicInfo,
             navigation : navigation,
             user_info: utils.get_user_info(req, res),
             config: config,
+            already_saved: true,
         });
     });
 });

@@ -9,23 +9,17 @@ block page_var
         
     script(src='/javascripts/gmap/googlemap.js', rel='javascripts')
     script(src='/javascripts/FileSaver.js', rel='javascripts')
-    //
-        script(src='/javascripts/jspdf.js', rel='javascripts')
     script(src='http://maps.google.cn/maps/api/js?sensor=false&amp;key=AIzaSyCuXDkC1uoHaSctnrsGSGfpj9QVCUrfw1w', rel='javascripts')
-    //
-        script(src='http://google-maps-utility-library-v3.googlecode.com/svn/trunk/styledmarker/src/StyledMarker.js', rel='javascripts')
-        script(src='/javascripts/jspdf.js', rel='javascripts')
 
 block content
     .opt
-      a.save 保存
-      a &nbsp;/
-      a(href="/plans/edit/" + basicInfo._id + '/?DEST=' + basicInfo.destinaton.name + '&fromLocId=' + basicInfo.fromLocId) 编辑路线
-      //
+      if already_saved
+        a(href="/plans/edit/customized/" + basicInfo._id + '/?DEST=' + basicInfo.destinaton.name) 编辑路线
+      else
+        a.save 保存
         a &nbsp;/
-        a 发送朋友
-        a &nbsp;/
-        a.pdf PDF下载
+        a(href="/plans/edit/" + basicInfo._id + '/?DEST=' + basicInfo.destinaton.name + '&fromLocId=' + basicInfo.fromLocId) 编辑路线
+
     .bd.t-bd.ct
 
       h1.t
@@ -41,8 +35,6 @@ block content
     .content.f-cb
       h1.cur_day
         b.d-title 第一天
-        //
-          b 2014-01-01
       
       .t-left
         .timeline
