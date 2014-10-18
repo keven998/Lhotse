@@ -5,10 +5,12 @@ $('.city_nav').children('a').click(function(){
     if (!fromLocName) {
         fromLocName = getCookie('fromLoc');
     }
-    if ($(this).attr('data-type') === 'city') {
+    if ($(this).attr('data-type') === zone.type.city) {
         $(this).attr('href','/route/city/?&fromName=' + fromLocName + '&arrName=' + arrLocName);
-    } else if ($(this).attr('data-type') === 'viewspot') {
+    } else if ($(this).attr('data-type') === zone.type.viewspot) {
         $(this).attr('href','/route/include/?&fromName=' + fromLocName + '&arrName=' + arrLocName);
+    } else if ($(this).attr('data-type') === zone.type.province) {
+        $(this).attr('href','/route/province/?&fromName=' + fromLocName + '&arrName=' + arrLocName);
     }
 })
 

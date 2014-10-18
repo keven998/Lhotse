@@ -25,6 +25,8 @@ var urlApi = {
 
     // 获取包含XX景点的路线列表
     searchRouteIncludeViewspot : "/web/plans/explore?poi=",
+    // 获得相关城市的路线列表
+    getRouteList : '/web/plans/explore',
 
     // 根据名字搜索酒店
     searchHotelByName : '/web/poi/hotels/search?page=0&pageSize=9&keyword=',
@@ -33,9 +35,6 @@ var urlApi = {
     // 根据名字搜索景点
     searchViewspotByName : '/web/poi/view-spots/search?&page=0&pageSize=9&sortField=viewCnt&sort=desc&keyword=',
     searchViewspot : '/web/poi/view-spots/search?pageSize=9&sortField=viewCnt&sort=desc&',
-
-    // 获得路线列表
-    getRouteList : '/web/plans/explore',
     
     viewspot : {
         detail : '/web/poi/view-spots/SPOTID',

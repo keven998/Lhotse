@@ -174,7 +174,7 @@ $(function () {
         if(addC.length<1) {
              alert('请在左侧选择添加到哪一天！');
             return false;
-        };
+        }
         // 设置飞行路径
         objX = addC.offset().left - imgC.offset().left + 150 + "px";
         objY = addC.offset().top - imgC.offset().top + "px";
@@ -216,7 +216,6 @@ $(function () {
             items: ':not(.disabled)',
             connectWith: '.edit-list'
         }).on('sortupdate',function(e,ui){
-                //console.dir(ui.item);
                 //ui.item.animate({height:0},200,'swing');
             });
     }
@@ -227,11 +226,12 @@ $(function () {
     function deleteBind() {
         var editList = $('.edit-list li');
         editList.each(function (index) {
-            var day = $(this).parent().attr('data-day');
+            var that = this;
             if ( $(this).hasClass('driver') ) {
                 $(this).find('.ico01-close').off('click');
                 $(this).find('.ico01-close').on('click', function (e) {
-                    var self = $(this);
+                    var self = $(this),
+                        day = $(that).parent().attr('data-day');
                     if ( confirm('确定删除第' + day + '天行程？') ){
                         $(this).parents('.edit-list').remove();//删除一天的所有已添加行程
                         resetDaysort();//重置天数排序
@@ -242,7 +242,9 @@ $(function () {
                 $(this).find('.ico01-close').on('click', function (e) {
                     var self = $(this),
                         item = $(this).parents('li'),
-                        itemName = item[0].innerText;
+                        itemName = compatible_innerText(item[0]),
+                        day = $(that).parent().attr('data-day');
+
                     if ( confirm('确定要将"' + itemName + '"从D' + day + '中删除？') ){
                         $(this).parents('li').remove();
                     }
@@ -316,7 +318,6 @@ $(function () {
             return ;
         }
 
-        //$('.edit-list')[0].children[1].children[1].innerText  
         var dayList = $('.edit-list');
         var dayCount = dayList.length;
         var spotArray = new Array();
@@ -330,11 +331,11 @@ $(function () {
             hotelCnt[i] = 0;
             // 从第一个元素开始
             for (var j = 1; j < spotCount; j++) {
-                var spotObj = new Object();
-                var spot = spotList[j];
-                var name = spot.innerText;
-                var itemId = spot.children[1].innerText;
-                var type = spot.children[2].innerText;
+                var spotObj = new Object(),
+                    spot = spotList[j],
+                    name = compatible_innerText(spot),
+                    itemId = $(spot.children[1]).attr('data-itemId'),
+                    type = $(spot.children[2]).attr('data-type');
                 if (type == 'hotel')
                     hotelCnt[i] = hotelCnt[i] + 1;
                 // 添加景点和酒店
@@ -358,7 +359,10 @@ $(function () {
                 }
             }
             warnWords = warnWords + "有两家以上的酒店，确定要保存吗？";
-            if ( confirm(warnWords) ){
+            if ( !confirm(warnWords) ){
+                return ;
+            }
+        }
                 //获取其它参数
                 var startDate = $('#datetimepicker').val();
                 var uid = $('.user').attr('data-id');
@@ -392,7 +396,7 @@ $(function () {
                         dataType : "json",
                         type : 'POST',
                         success: function (msg) {
-                            if (msg.code == 0) {
+                            if (msg.code === 0) {
                                 window.location.href="/plans/mine/";
                             } else {
                                alert('保存失败');
@@ -402,8 +406,6 @@ $(function () {
                             alert('保存失败...');
                         }
                 });
-            }
-        }
     });
 
     
@@ -411,7 +413,7 @@ $(function () {
     function getQueryString(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
         var r = window.location.search.substr(1).match(reg);
-        if (r != null) return unescape(r[2]); return null;
+        if (r !== null) return unescape(r[2]); return null;
     }
     
     
@@ -435,7 +437,7 @@ $(function () {
 
          var data = {
             searchText : text,
-         }
+         };
          $.ajax({ 
                 url    : requestUrl[tagFlag],
                 data   : data,
@@ -458,7 +460,7 @@ $(function () {
         
         var data = msg.result;
         var len = data.length;
-        if (len == 0) {
+        if (len === 0) {
             return;
         }
         if (tagFlag == 1) {
@@ -591,7 +593,6 @@ $(function () {
         if (len == 0) {
             if (!dataOver) {
                 dataOver = true;
-                // routeList.append("<h1 font='50px'>数据加载完了...</h1>");
             }
             return ;
         }

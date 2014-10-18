@@ -6,6 +6,7 @@ var urlApi = require('../url_api');
 var request = require('request')
 var model = require('../model/sup_model.js');
 var config = require('../conf/system');
+var utils = require( "../common/utils");
 
 
 //  时间轴的景点详情弹层
@@ -34,7 +35,6 @@ router.post('/ajax/more', function(req, res) {
         page = req.body.page;
         
     var requestUrl = urlApi.apiHost + urlApi.searchViewspot + "keyword=" + encodeURI(text) + "&page=" + encodeURI(page);
-    console.log(requestUrl);
 
     model.setUrl(requestUrl);
     model.getdata(null, function(data){

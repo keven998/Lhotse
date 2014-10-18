@@ -3,6 +3,7 @@ var router = express.Router();
 var model = require('../model/sup_model.js');
 var apiList = require('../url_api');
 var config = require('../conf/system');
+var utils = require( "../common/utils");
 
 //景点详情(../route/detail)页面的数据获取
 router.get('/detail/:ROUTEID', function(req, res){
@@ -15,7 +16,7 @@ router.get('/detail/:ROUTEID', function(req, res){
             res.render('route/detail', {
                 details: details.result,
                 notes: notes.result,
-                user_info: req.session.user_info,
+                user_info: utils.get_user_info(req, res),
                 config: config,
             });
         });
@@ -33,7 +34,7 @@ router.get('/plans/detail/:ROUTEID', function(req, res){
             res.json({
                 details: details.result,
                 notes: notes.result,
-                user_info: req.session.user_info,
+                user_info: utils.get_user_info(req, res),
                 config: config,
             });
         });
@@ -44,7 +45,6 @@ router.get('/plans/detail/:ROUTEID', function(req, res){
 */
 router.post('/selection', function(req, res) { 
     var selection = req.body;
-    console.log(selection)
     var days = selection.days,
          tag = selection.tag,
          arrId = selection.arrId,

@@ -1,3 +1,25 @@
+/* ---- BEGIN: enum var ----*/
+var zone = {
+    level: {
+        country: 0,
+        province: 1,
+        city: 2,
+    },
+    type: {
+        country: 'country',
+        province: 'province',
+        city: 'loc',
+        viewspot: 'vs',
+    },
+    searchRoutesUrl: {
+        country: '/country/',
+        province: '/province/',
+        city: '/city/',
+        viewspot: '/include/',
+    }
+};
+/* ---- END: enum var---- */
+
 $(function () {
     /* ---- BEGIN: login layer ---- */
     var topHd = $('#top'),
@@ -56,10 +78,21 @@ function setCookie(c_name,value,expiredays)
         var exdate=new Date()
         exdate.setDate(exdate.getDate()+expiredays)
         
-        document.cookie=c_name+ "=" + escape(value)+ ((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
+        document.cookie=c_name+ "=" + escape(value)+ ((expiredays==null) ? "" : ";expires="+exdate.toGMTString()) + ";path=/";
     }
 
 /* ---- END: cookies ---- */
+
+
+/* ---- BEGIN: innerText ---- */
+function compatible_innerText(domElement) {
+    if (navigator.userAgent.toLowerCase().indexOf("firefox")>0) {
+        return domElement.textContent;
+    }
+
+    return domElement.innerText;
+}
+/* ---- END: innerText ---- */
 
 
 /* ---- BEGIN: suggestion ---- */
@@ -78,7 +111,7 @@ function select_from(input, poi_type){
     if (!userInput) {
         userInput = getCookie('fromLoc');   //fromLoc是IP定位的地址
     };
-    $('#from').val(userInput);
+    $('#from').val(decodeURI(userInput));
 })()
 
 
@@ -140,7 +173,7 @@ function suggestion(slug, input){
             var obj = result;
 
             if(obj.length == 0){
-                html += '很遗憾，没有找到相关内容～<br>';
+                //html += '很遗憾，没有找到相关内容～<br>';
             }else{
                 for(var k=0;k<obj.length;k++){
                     html += "<p onclick='select_" + slug + "(\"" + obj[k].name + "\", \""+obj[k].type+"\")'>" + obj[k].name + "</p>";
@@ -189,7 +222,6 @@ array.forEach(function(t){
     function clearSelectedStyle() {
         var items = t[0].find('p');
         var len = items.length;
-        //console.log('clear');
         for (var i = 0; i < len; i++) {
             if ($(items[i]).hasClass('selected')) {
                 $(items[i]).removeClass('selected');
@@ -216,7 +248,6 @@ array.forEach(function(t){
                     break;
                 }
             }
-            //console.log('当前' + curSelectedObj);
 
             if (keyCode == 40) { // 下
                 var tempLocName;
@@ -282,7 +313,7 @@ array.forEach(function(t){
                 setTimeout(function(){
                     // window.location.href = curSelectedObj.elem.getAttribute('href');
                     curSelectedObj.elem && curSelectedObj.elem.click();
-                    t[1].attr('tem', curSelectedObj.elem.innerText);
+                    t[1].attr('tem', compatible_innerText(curSelectedObj.elem));
                 }, 50);
                 e.stopPropagation();
                 e.preventDefault();
@@ -350,21 +381,30 @@ function go_plan_list(){
         url = '/route';
 
     if (! arr_poi_type){
-        arr_poi_type = 'loc';
-    };
+        arr_poi_type = zone.type.city;
+    }
     if (! from_poi_type){
-        from_poi_type = 'loc';
-    };
-    if (from_poi_type == 'loc'){
-        if (arr_poi_type == 'loc'){
-            url += '/city/';
-        }else if(arr_poi_type == 'vs'){
-            url += '/include/';
+        from_poi_type = zone.type.city;
+    }
+    if (!from_name || !arr_name){
+        alert('请输入出发地和目的地');
+    } 
+    else if (from_poi_type == zone.type.city){
+        if (arr_poi_type ==zone.type.city){
+            url += zone.searchRoutesUrl.city;
+        }else if(arr_poi_type == zone.type.viewspot){
+            url += zone.searchRoutesUrl.viewspot;
+        }else if(arr_poi_type == zone.type.province){
+            url += zone.searchRoutesUrl.province;
+        }else {
+            alert('请输入正确的目的地 : 景点/城市/省份')
+            return ;
         }
         url += '?arrName=' + arr_name + '&fromName=' + from_name;
         window.location.href = url;
     }else{
-        alert('not support');
+        alert(from_name + '是省份名，请输入城市名作为出发地');
+        $('#from').val('');
     }
 }
 
