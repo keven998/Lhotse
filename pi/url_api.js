@@ -1,6 +1,6 @@
 var urlApi = {
     // 域名地址
-    apiHost : 'http://api.lvxingpai.cn',
+    apiHost : 'http://api.lvxingpai.com',
     //首页推荐
     newRoute : "/web/recommend/newitem",
     editorRoute : "/web/recommend/editor",
