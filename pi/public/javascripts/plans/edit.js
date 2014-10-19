@@ -70,18 +70,6 @@ $(function () {
         }
     });
     
-    // 获取当前时间
-    var Time=new Date(),
-        year=Time.getFullYear(),
-        month=Time.getMonth()+ 1,
-        day=Time.getDate(),
-        curDateTime=year+'-';
-    if(month<10) curDateTime+='0';
-    curDateTime+=month+'-';
-    if(day<10) curDateTime+="0";
-    curDateTime+=day;
-    // 添加当前时间到日历
-    $('#datetimepicker').val(curDateTime);
     $('#datetimepicker').datetimepicker({
         showOn: "button",
         buttonImage: "images/calendar.gif",

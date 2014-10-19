@@ -1,3 +1,4 @@
+
 var express = require('express');
 var router = express.Router();
 var routeDetail = require('../model/route_detail');
@@ -55,6 +56,7 @@ router.get('/edit/:UGCID', function(req, res) {
             var spots = results[1];
             var hotels = results[2];
             var locName = results[3];
+            var currentDate = calendar.currentDate();
             res.render('plans/edit', {
                 title: dataObj.title,
                 daysRoute : dataObj.dayRoute,
@@ -65,6 +67,7 @@ router.get('/edit/:UGCID', function(req, res) {
                 user_info: utils.get_user_info(req, res),
                 config: config,
                 already_saved: false,
+                startDate: currentDate,
             });
         })
 });
@@ -98,6 +101,7 @@ router.get('/edit/customized/:UGCID', function(req, res) {
                 user_info: utils.get_user_info(req, res),
                 config: config,
                 already_saved: true,
+                startDate: dataObj.startDate,
             });
         })
 });
@@ -392,7 +396,17 @@ var calendar = (function () {
             } else {
                 return d[0] + '-' + d[1] + '-' + (d[2] - 1);
             }
-        }
+        },
+        currentDate: function () {
+            var currentDate = new Date(),
+                year = currentDate.getFullYear(),
+                month = currentDate.getMonth() + 1,
+                day = currentDate.getDate(),
+                month = (month < 10) ? '0' + month : month,
+                day = (day < 10) ? '0' + day : day,
+                formatCurrentDate = year + '-' + month + '-' + day;
+            return formatCurrentDate;
+        },
     };
 }());
 
@@ -709,6 +723,7 @@ var ugcDataEdit = (function() {
         model.setUrl(apiList.apiHost + apiList.ugc.getUgcById);  
         model.getdata(req, function(data) {
             data = JSON.parse(data);
+            var startDate = data.result.details[1].date.split(' ')[0];
             var result = data.result;
             var title = result.title;
             var days = result.days;
@@ -735,6 +750,7 @@ var ugcDataEdit = (function() {
             dataObj._id = _id;
             dataObj.title = title;
             dataObj.dayRoute = dayRoute;
+            dataObj.startDate = startDate;
             callback(null, dataObj);
         });
     };
@@ -826,6 +842,5 @@ var ugcDataEdit = (function() {
     };
 
 })();
-
 
 module.exports = router;
