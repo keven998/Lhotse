@@ -78,7 +78,7 @@ $(function () {
                         noteItem = noteList.find('a.n'+ i);//在DOM中定位
                         noteItem.attr('href',note.sourceUrl);
                         noteItem.attr('target', '_blank');
-                        noteItem.append('<img class="sider-userimg" src="http://' + note.authorAvatar + '">');
+                        noteItem.append('<img class="sider-userimg" src="' + note.authorAvatar + '">');
                         noteItem.append('<h1 class="t1">' + note.title +'</h1>');
                         noteItem.append('<em><span class="au">' + note.authorName + '</span>发表于</em>');
                         noteItem.append('<em class="time">' + note.publishDate + '</em>');
