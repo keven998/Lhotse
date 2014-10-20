@@ -92,7 +92,7 @@ router.get('/callback/qq/', function(req, ori_res) {
         url = 'https://graph.qq.com/oauth2.0/me?access_token=' + access_token;
         request(url, function(err, res, data){
             openid = data.split('"')[7];
-            url = 'https://graph.qq.com/user/get_user_info?access_token=' + access_token + '&oauth_consumer_key=101151725&openid=' + openid;
+            url = 'https://graph.qq.com/user/get_user_info?access_token=' + access_token + '&oauth_consumer_key=' + config.qq_client_id + '&openid=' + openid;
             request(url, function(err, res, data){
                 data = JSON.parse(data);
                 var post_info = {

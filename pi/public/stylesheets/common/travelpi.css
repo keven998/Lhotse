@@ -52,7 +52,7 @@ html body{height: 100%;position: relative;}
 .nav li a:hover{color: #08DCA9;}
 .bd{width: 100%;height: auto;}
 .user{display:inline-block;_zoom:1;*display:inline;height: 40px;*height: 70px;width:100px;line-height: 40px;*line-height:70px;color: #fff;padding-top: 10px;vertical-align: top;padding-bottom: 10px;}
-.user img{display:inline-block;_zoom:1;*display:inline;width: 30px;height: 30px;border:3px solid #08dca9;border-radius:20px;-moz-border-radius:20px;-khtml-border-radius:20px;-webkit-border-radius:20px;border-radius:20px;}
+.user img{display:inline-block;_zoom:1;*display:inline;width: 30px;height: 30px;border:3px solid #08dca9;border-radius:20px;-moz-border-radius:20px;-khtml-border-radius:20px;-webkit-border-radius:20px;}
 .user .txt{display:inline-block;_zoom:1;*display:inline;height: 40px;width:70px;}
 .user .b1{display:block;line-height: 15px;}
 .user .b2{display:block;font-size: 12px;line-height: 15px;}
