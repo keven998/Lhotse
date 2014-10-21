@@ -1,7 +1,6 @@
 var express = require('express');
 var app = express();
 var config = {};
-
 if (app.get('env') === 'development' || app.get('env') === 'local'){
     if (app.get('env') === 'development') {
         config['domain'] = 'www2.lvxingpai.cn';
