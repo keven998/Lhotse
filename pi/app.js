@@ -4,6 +4,7 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var log4js = require('log4js');
 
 var routes = require('./routes/index');
 var account = require('./routes/account');
@@ -15,6 +16,42 @@ var hotel = require('./routes/hotel');
 
 var app = express();
 
+// log4js settings
+log4js.configure({
+    appenders: [
+        {
+            type: 'console',
+            layout: {
+                type: "pattern",
+                pattern: "%d{MM/dd hh:mm} %-5p %m"
+            }
+        },
+        {
+            type: 'dateFile',
+            filename: path.join(__dirname, 'logs/blah.log'),
+            absolute: true,
+            pattern: "-yyyy-MM-dd",
+            alwaysIncludePattern: true,
+            category: 'normal',
+            layout: {
+                type: "pattern",
+                pattern: "%d{MM/dd hh:mm} %-5p %m"
+            }
+        }
+    ],
+    replaceConsole: true
+});
+
+// set logger_log4js can be called in other files
+exports.logger_log4js = function(name) {
+  var logger4js = log4js.getLogger(name);
+  logger4js.setLevel('INFO');
+  return logger4js;
+};
+
+app.use(log4js.connectLogger(this.logger_log4js('normal'), {
+    level: 'INFO',
+}));
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
