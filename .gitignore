@@ -3,5 +3,5 @@
 *.log
 *.bak
 ./pi/logs/*
-!./pi/log/.emptyfile_for_track_logs
+!./pi/logs/.emptyfile_for_track_logs
 
