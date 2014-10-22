@@ -2,4 +2,6 @@
 *.~
 *.log
 *.bak
+./pi/logs/*
+!./pi/log/.emptyfile_for_track_logs
 
