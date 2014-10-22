@@ -53,7 +53,7 @@ app.use(log4js.connectLogger(this.logger_log4js('normal'), {
      level: 'INFO'
 }));
 
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser('travelpi'));
@@ -78,6 +78,7 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
+
 
 // development error handler, will print stacktrace
 if (app.get('env') === 'development') {
