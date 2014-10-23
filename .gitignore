@@ -2,6 +2,6 @@
 *.~
 *.log
 *.bak
-./pi/logs/*
-!./pi/logs/.emptyfile_for_track_logs
+/pi/logs/*
+!/pi/logs/.emptyfile_for_track_logs
 
