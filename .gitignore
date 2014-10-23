@@ -2,6 +2,7 @@
 *.~
 *.log
 *.bak
+.idea
 /pi/logs/*
 !/pi/logs/.emptyfile_for_track_logs
 
