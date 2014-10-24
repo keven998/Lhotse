@@ -55,11 +55,11 @@ router.get('/', function(req, res) {
     });
 });
 
-/* 
+/*
     router for viewspot
     logic : first, use viewspot name to get viewspot id,
             then, use the id to get the routelist.
-    tips : fromLoc should be captured for copying route  
+    tips : fromLoc should be captured for copying route
 
 */
 router.get('/route/include/', function(req, res) {
@@ -93,7 +93,7 @@ router.get('/route/include/', function(req, res) {
         model.getdata(null, function(data){
             data = JSON.parse(data);
             res.render('plans', {
-                plans : data.result,
+                plans : data.result || [],
                 fromName : fromLocName,
                 arriveId : spotId,
                 fromId : fromId,  // 用于配置“复制路线”的url
@@ -138,7 +138,7 @@ router.get('/route/city/', function(req, res) {
         model.getdata(null, function(data){
             data = JSON.parse(data);
             res.render('plans', {
-                plans : data.result,
+                plans : data.result || [],
                 fromName : fromLocName,
                 arriveId : arriveId,
                 fromId : fromId,  // 用于配置“复制路线”的url
@@ -183,7 +183,7 @@ router.get('/route/province/', function(req, res) {
         model.getdata(null, function(data){
             data = JSON.parse(data);
             res.render('plans', {
-                plans : data.result,
+                plans : data.result || [],
                 fromName : fromLocName,
                 arriveId : arriveId,
                 fromId : fromId,  // 用于配置“复制路线”的url
@@ -277,7 +277,7 @@ router.get('/suggestion', function(req, res){
         if(type === "from"){
             requestUrl = suggestionUrl(tempInput, 0, 0, 1, 0);
         }
-        // to : vs and loc 
+        // to : vs and loc
         else {
             requestUrl = suggestionUrl(tempInput, 0, 0, 1, 1);
         }
@@ -311,7 +311,7 @@ router.get('/suggestion', function(req, res){
     });
 });
 
-/* 
+/*
     suggestion switch
     e.x.    suggestionUrl("北", 0, 0, 1, 0)    loc suggsetion ON
             suggestionUrl("北", 0, 0, 1, 1)    loc and vs suggsetion ON
@@ -360,7 +360,7 @@ var selectCityId = function(result, str) {
       cityId = tempCity._id;
 
       break;
-    } 
+    }
   }
   return cityId;
 }
