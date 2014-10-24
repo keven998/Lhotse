@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var log4js = require('log4js');
-
+var config = require('./conf/system');
 var routes = require('./routes/index');
 var account = require('./routes/account');
 var plans = require('./routes/plans');
@@ -20,7 +20,12 @@ var app = express();
 log4js.configure({
      appenders: [
          {
-             type: 'console',
+             type: 'dateFile',
+             filename: path.join(__dirname, 'logs/'),
+             absolute: true,
+             pattern: "yyyy-MM-dd.log",
+             alwaysIncludePattern: true,
+             category: 'online_test',
              layout: {
                  type: "pattern",
                  pattern: "%d{MM/dd hh:mm} %-5p %m"
@@ -28,32 +33,36 @@ log4js.configure({
          },
          {
              type: 'dateFile',
-             filename: path.join(__dirname, 'logs/blah.log'),
+             filename: path.join(__dirname, 'logs/'),
              absolute: true,
-             pattern: "-yyyy-MM-dd",
+             pattern: "yyyy-MM-dd.log",
              alwaysIncludePattern: true,
-             category: 'normal',
+             category: 'online_log',
              layout: {
                  type: "pattern",
                  pattern: "%d{MM/dd hh:mm} %-5p %m"
              }
          }
      ],
-     replaceConsole: true
+     levels: {
+        online_test: 'error',
+        online_log: 'INFO'
+     },
+     replaceConsole: config.env !== 'local_debug'
 });
 
 //set logger_log4js can be called in other files
 exports.logger_log4js = function(name) {
    var logger4js = log4js.getLogger(name);
-   logger4js.setLevel('INFO');
    return logger4js;
 };
 
-app.use(log4js.connectLogger(this.logger_log4js('normal'), {
-     level: 'INFO'
-}));
+if (config.env !== 'local_debug') {
+    app.use(log4js.connectLogger(this.logger_log4js(config.env)));
+} else {
+    app.use(logger('dev'));
+}
 
-// app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser('travelpi'));
