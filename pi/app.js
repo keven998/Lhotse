@@ -23,9 +23,9 @@ log4js.configure({
              type: 'dateFile',
              filename: path.join(__dirname, 'logs/'),
              absolute: true,
-             pattern: "yyyy-MM-dd.log",
+             pattern: "yyyy-MM-dd_dev.log",
              alwaysIncludePattern: true,
-             category: 'online_test',
+             category: 'online_development',
              layout: {
                  type: "pattern",
                  pattern: "%d{MM/dd hh:mm} %-5p %m"
@@ -35,9 +35,9 @@ log4js.configure({
              type: 'dateFile',
              filename: path.join(__dirname, 'logs/'),
              absolute: true,
-             pattern: "yyyy-MM-dd.log",
+             pattern: "yyyy-MM-dd_product.log",
              alwaysIncludePattern: true,
-             category: 'online_log',
+             category: 'online_product',
              layout: {
                  type: "pattern",
                  pattern: "%d{MM/dd hh:mm} %-5p %m"
@@ -45,8 +45,8 @@ log4js.configure({
          }
      ],
      levels: {
-        online_test: 'error',
-        online_log: 'INFO'
+        online_product: 'ERROR',
+        online_development: 'INFO'
      },
      replaceConsole: config.env !== 'local_debug'
 });
