@@ -1,11 +1,18 @@
 var express = require('express');
 var app = express();
+var log_env = {
+    online_development: 'online_development',
+    local_debug: 'local_debug',
+    online_product: 'online_product'
+};
 var config = {};
 if (app.get('env') === 'development' || app.get('env') === 'local'){
     if (app.get('env') === 'development') {
         config['domain'] = 'www2.lvxingpai.cn';
+        config['env'] = log_env['online_development'];
     }else if(app.get('env') === 'local') {
         config['domain'] = 'www2.lvxingpai.cn:8880';
+        config['env'] = log_env['local_debug'];
     }
     config['weibo_client_id'] = '2294159543';
     config['weibo_client_secret'] = 'a35ae59c1883bf184e7b76c667e88cee';
@@ -17,6 +24,7 @@ if (app.get('env') === 'development' || app.get('env') === 'local'){
     config['weibo_client_secret'] = '8264a7394136219fe1c6394f362f4bc2';
     config['qq_client_id'] = '101157594';
     config['qq_client_secret'] = 'a7395f1441b40b09047cdca9c8b04d37';
+    config['env'] = log_env['online_product'];
 }
 
 config['weibo_call_back'] = 'https://api.weibo.com/oauth2/authorize?client_id=' + config.weibo_client_id + '&response_type=code&redirect_uri=http://' + config.domain + '/account/callback/weibo/'
