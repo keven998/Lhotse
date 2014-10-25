@@ -29,6 +29,7 @@ $(".plan_title").click(function(){
 
     var planTitle = $(this);//子函数可以使用
     /*确定按钮*/
+    planEditBtn.children('.confirm').off('click');
     planEditBtn.children('.confirm').click(function(){
         var planName = planEdit.children(".plan_input").val();
         $.ajax({
@@ -38,7 +39,8 @@ $(".plan_title").click(function(){
                 "planId": planId
             },
             dataType: "json",
-            type: 'GET',
+            type: 'POST',
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
             success: function (msg) {
                 console.dir(msg);
             },
@@ -59,6 +61,7 @@ $(".plan_title").click(function(){
     })
 
     /*取消按钮*/
+    planEditBtn.children('.cancel').off('click');
     planEditBtn.children('.cancel').click(function(){
         planEdit.css("display","none");
         planEditBtn.css("display","none");

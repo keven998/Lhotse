@@ -256,14 +256,14 @@ router.get('/mine/delete/:planID/', function(req, res) {
 });
 
 
-router.get('/mine/altername', function(req, res) {
+router.post('/mine/altername', function(req, res) {
     var data = {
-            "action":   "updateTitle",
-            "_id":       req.query.planId,
-            "title":    req.query.planName
+            "action": "updateTitle",
+            "_id": req.body.planId,
+            "title": req.body.planName
         };
     var options = {
-        url : apiList.apiHost + "/web/ugc-plans",
+        url: apiList.apiHost + "/web/ugc-plans",
         json: data,
         method: 'POST',
     };
