@@ -2,7 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var routeDetail = require('../model/route_detail');
-var request = require('request'); 
+var request = require('request');
 var async = require('async');
 var config = require('../conf/system');
 var zone = require('../conf/zone');
@@ -14,7 +14,7 @@ var utils = require( "../common/utils");
 
 
 /*
-    user save the ugc in timeline 
+    user save the ugc in timeline
 */
 router.post('/timeline/save', function(req, res) {
     var postData = req.body;
@@ -25,7 +25,7 @@ router.post('/timeline/save', function(req, res) {
         json: postData,
         method: 'POST',
     };
-    
+
     request(options, function(err, respond, result) {
         if (err) {
             throw err;
@@ -37,39 +37,46 @@ router.post('/timeline/save', function(req, res) {
 
 /* edit route */
 router.get('/edit/:UGCID', function(req, res) {
-    async.parallel([
-        function route(callback) {
-            ugcDataEdit.route(req, callback);
-        }, 
-        function spots(callback) {
-            ugcDataEdit.spots(req, callback);
-        }, 
-        function hotels(callback) {
-            ugcDataEdit.hotels(req, callback);
-        }, 
-        function locName(callback) {
-            ugcDataEdit.locName(req, callback);
-        }],
+    console.log('in...');
+    res.render('plans/editNew', {
 
-        function(err, results) {
-            var dataObj = results[0];
-            var spots = results[1];
-            var hotels = results[2];
-            var locName = results[3];
-            var currentDate = calendar.currentDate();
-            res.render('plans/edit', {
-                title: dataObj.title,
-                daysRoute : dataObj.dayRoute,
-                id : dataObj._id,   // 表明这个ugc id，ajax传递给node后，获取别的信息，减少前段任务
-                spots : spots,      // 城市景点 
-                locName : locName,  // 对象：起点和目的地
-                hotels : hotels,
-                user_info: utils.get_user_info(req, res),
-                config: config,
-                already_saved: false,
-                startDate: currentDate,
-            });
-        })
+        user_info: utils.get_user_info(req, res),
+        config: config,
+        already_saved: false,
+    });
+    // async.parallel([
+    //     function route(callback) {
+    //         ugcDataEdit.route(req, callback);
+    //     },
+    //     function spots(callback) {
+    //         ugcDataEdit.spots(req, callback);
+    //     },
+    //     function hotels(callback) {
+    //         ugcDataEdit.hotels(req, callback);
+    //     },
+    //     function locName(callback) {
+    //         ugcDataEdit.locName(req, callback);
+    //     }],
+
+    //     function(err, results) {
+    //         var dataObj = results[0];
+    //         var spots = results[1];
+    //         var hotels = results[2];
+    //         var locName = results[3];
+    //         var currentDate = calendar.currentDate();
+    //         res.render('plans/edit', {
+    //             title: dataObj.title,
+    //             daysRoute : dataObj.dayRoute,
+    //             id : dataObj._id,   // 表明这个ugc id，ajax传递给node后，获取别的信息，减少前段任务
+    //             spots : spots,      // 城市景点
+    //             locName : locName,  // 对象：起点和目的地
+    //             hotels : hotels,
+    //             user_info: utils.get_user_info(req, res),
+    //             config: config,
+    //             already_saved: false,
+    //             startDate: currentDate,
+    //         });
+    //     })
 });
 
 
@@ -78,13 +85,13 @@ router.get('/edit/customized/:UGCID', function(req, res) {
     async.parallel([
         function route(callback) {
             ugcDataEdit.route(req, callback);
-        }, 
+        },
         function spots(callback) {
             ugcDataEdit.spots(req, callback);
-        }, 
+        },
         function hotels(callback) {
             ugcDataEdit.hotels(req, callback);
-        }], 
+        }],
 
         function(err, results) {
             var dataObj = results[0];
@@ -95,7 +102,7 @@ router.get('/edit/customized/:UGCID', function(req, res) {
                 daysRoute : dataObj.dayRoute,
                 id : dataObj._id,   // 表明这个ugc id，ajax传递给node后，获取别的信息，减少前段任务
                 title : dataObj.title,
-                spots : spots,      // 城市景点 
+                spots : spots,      // 城市景点
                 //locName : locName,  // 对象：起点和目的地
                 hotels : hotels,
                 user_info: utils.get_user_info(req, res),
@@ -118,7 +125,7 @@ router.post('/edit/post', function(req, res) {
         data = JSON.parse(data);
         var ugcData = new Object();
         ugcData.uid = webPostData.uid;
-        ugcData.fromLoc = webPostData.fromLocId; 
+        ugcData.fromLoc = webPostData.fromLocId;
         ugcData.title = data.result.title;
         ugcData.action = 'upsert';
         ugcData.templateId = data.result.templateId;
@@ -131,7 +138,7 @@ router.post('/edit/post', function(req, res) {
         ugcData.webFlag = 1;
         ugcData.seq = '';
         ugcData.timestamp = '';
-        
+
         var details = new Array();
         // 获得交通信息
         var arr = data.result.details,
@@ -188,7 +195,7 @@ router.post('/edit/post', function(req, res) {
             }
             res.json(result);
         });
-    });  
+    });
 });
 
 
@@ -350,7 +357,7 @@ var calendar = (function () {
         ['02', '04', '06', '09', '11']
     ];
 
-    //判断数组a是否存在在元素n 
+    //判断数组a是否存在在元素n
     function check(n, a) {
         for (var i = 0, len = a.length; i < len; i++) {
             if (a[i] == n) {
@@ -360,7 +367,7 @@ var calendar = (function () {
         return false;
     }
 
-    //闰?年? 
+    //闰?年?
     function isLeap(y) {
         return ((y % 4 === 0 && y % 100 !== 0) || y % 400 === 0) ? true : false;
     }
@@ -523,7 +530,7 @@ var gstTime = (function () {
     preprocess(req, data) : parse data to JSON type
     basicData(req, data) : get basic data
     detailData(req, data) : get the detail data
-    navigationData(allRoute) : the argument is the data returned by detailData(req, data)  
+    navigationData(allRoute) : the argument is the data returned by detailData(req, data)
 */
 var dataExtract = (function () {
     // data preprocess
@@ -542,7 +549,7 @@ var dataExtract = (function () {
     // basic infomation
     var basicData = function(req, data) {
         var fromLocId = req.query._fromLoc || " ";
-        var requestUrl = req.originalUrl;     
+        var requestUrl = req.originalUrl;
         var lastModified = data.lastModified;
         var result = data.result;
         var _id = result._id;
@@ -555,8 +562,8 @@ var dataExtract = (function () {
         var budget = result.budget;
         var destinaton = result.target;
         destinaton.name = destinaton.name.replace("市","");
-        
-        // basic information  
+
+        // basic information
         var basicInfo = new Object();
         basicInfo['_id'] = _id;
         basicInfo['templateId'] = templateId;
@@ -572,7 +579,7 @@ var dataExtract = (function () {
     };
 
 
-    // data for navigation bar 
+    // data for navigation bar
     var navigationData = function(allRoutes) {
         var navigation = new Array();
         for (var i = 0; i < allRoutes.length; i++) {
@@ -580,10 +587,10 @@ var dataExtract = (function () {
             var oneDayRoutes = oneDay.actv;
             var tempDay = new Object();
             var tempActv = new Array(); // 存放地点数组
-            
+
             tempDay.date = oneDay.date; // 时间
             for (var routeNum = 0; routeNum < oneDayRoutes.length; routeNum++) {
-                var oneSpot = oneDayRoutes[routeNum];       
+                var oneSpot = oneDayRoutes[routeNum];
                 if (oneSpot.type != "airRoute" && oneSpot.type != "trainRoute") {
                     var tempSpot = new Object();
                     tempSpot['itemName'] = oneSpot.itemName.length < 5 ? oneSpot.itemName : oneSpot.itemName.substring(0, 5)+ '...';
@@ -607,7 +614,7 @@ var dataExtract = (function () {
         for (var i = 0; i < details.length; i++) {
         details[i].date = details[i].date.split(" ")[0];
         }
-        
+
         // detail information
         var allRoutes = new Array();
         for (var dayNumber = 0; dayNumber < details.length; dayNumber++) {
@@ -636,7 +643,7 @@ var dataExtract = (function () {
                     tempRoute['lng'] = oneDayTempRoutes[routeNum].details.addr.lng;
                     tempRoute['openTime'] = oneDayTempRoutes[routeNum].details.openTime;
                     oneDayRoutes.push(tempRoute);
-                } 
+                }
                 else if (oneDayTempRoutes[routeNum].type == "traffic") {
                     oneDay['hasTraffic'] = "yes";
                     // 机场信息提取
@@ -649,9 +656,9 @@ var dataExtract = (function () {
                         tempRoute['stopType'] = oneDayTempRoutes[routeNum].stopType;
                         tempRoute['lat'] = oneDayTempRoutes[routeNum].lat;
                         tempRoute['lng'] = oneDayTempRoutes[routeNum].lng;
-                        
+
                         oneDayRoutes.push(tempRoute);
-                    } 
+                    }
                     else if (oneDayTempRoutes[routeNum].subType == "airRoute" || oneDayTempRoutes[routeNum].subType == "trainRoute") {
                         // 航班路线提取
                         tempRoute['itemId'] = oneDayTempRoutes[routeNum].itemId;
@@ -660,7 +667,7 @@ var dataExtract = (function () {
                         tempRoute['ts'] = gstTime.time(oneDayTempRoutes[routeNum].ts);
                         tempRoute['arrTime'] = gstTime.time(oneDayTempRoutes[routeNum].arrTime);
                         oneDayRoutes.push(tempRoute);
-                    } 
+                    }
                     else if (oneDayTempRoutes[routeNum].subType == "train") {
                         // 火车路线提取
                         tempRoute['itemId'] = oneDayTempRoutes[routeNum].itemId;
@@ -668,10 +675,10 @@ var dataExtract = (function () {
                         tempRoute['type'] = oneDayTempRoutes[routeNum].subType;
                         tempRoute['ts'] = gstTime.time(oneDayTempRoutes[routeNum].ts);
                         tempRoute['arrTime'] = gstTime.time(oneDayTempRoutes[routeNum].arrTime);
-                        
+
                         oneDayRoutes.push(tempRoute);
                     }
-                } 
+                }
                 else if (oneDayTempRoutes[routeNum].type == "hotel") {
                     // 酒店信息提取
                     tempRoute['itemId'] = oneDayTempRoutes[routeNum].itemId;
@@ -687,10 +694,10 @@ var dataExtract = (function () {
                     tempRoute['lat'] = oneDayTempRoutes[routeNum].details.addr.lat;
                     tempRoute['lng'] = oneDayTempRoutes[routeNum].details.addr.lng;
                     tempRoute['addr'] = oneDayTempRoutes[routeNum].details.addr.addr;
-                    
+
                     oneDayRoutes.push(tempRoute);
                 }
-            }   
+            }
             oneDay['actv'] = oneDayRoutes;
             oneDayRoutes = null;
             allRoutes.push(oneDay);
@@ -711,7 +718,7 @@ var dataExtract = (function () {
 
 
 /*
-    get data from user's plans to modify already exit plans 
+    get data from user's plans to modify already exit plans
     ugcDataEdit.route
     ugcDataEdit.spots
     ugcDataEdit.hotels
@@ -720,7 +727,7 @@ var dataExtract = (function () {
 var ugcDataEdit = (function() {
     // 获取ugc基本信息，作为编辑页面左侧栏信息
     var route = function(req, callback) {
-        model.setUrl(apiList.apiHost + apiList.ugc.getUgcById);  
+        model.setUrl(apiList.apiHost + apiList.ugc.getUgcById);
         model.getdata(req, function(data) {
             data = JSON.parse(data);
             var startDate = data.result.details[1].date.split(' ')[0];
@@ -729,10 +736,10 @@ var ugcDataEdit = (function() {
             var days = result.days;
             var details = result.details;
             var dayRoute = new Array();
-            
+
             for (var i = 0; i < details.length; i++) {
                 var actv = details[i].actv;
-                var tempArr = new Array();              
+                var tempArr = new Array();
                 for (var j = 0; j < actv.length; j++) {
                     var temp = new Object();
                     var elem = actv[j];
@@ -743,7 +750,7 @@ var ugcDataEdit = (function() {
                         tempArr.push(temp);
                     }
                 }
-                dayRoute.push(tempArr);  
+                dayRoute.push(tempArr);
             }
             var dataObj = new Object();
             var _id = result._id;
@@ -777,7 +784,7 @@ var ugcDataEdit = (function() {
                 // judge if tags is empty array
                 if (spot.tags.length != 0) {
                     for (; j < spot.tags.length-1; j++) {
-                        tags += spot.tags[j] + '|'; 
+                        tags += spot.tags[j] + '|';
                     }
                     tags += spot.tags[j];
                     tempSpot.tags = tags;
@@ -785,11 +792,11 @@ var ugcDataEdit = (function() {
                     tempSpot.tags = '';
                 }
                 spots.push(tempSpot); }
-            
+
             callback(null, spots);
         });
     };
-    
+
     // 获得对应目的地的酒店信息
     var hotels = function(req, callback) {
         var requestUrl = '/web/poi/hotels/search?keyword=' + req.query.DEST + '&page=0&pageSize=9';
@@ -811,15 +818,15 @@ var ugcDataEdit = (function() {
 
                 hotels.push(tempHotel);
             }
-            
+
             callback(null, hotels);
         });
     };
-    
+
     // 获取形成起始信息
     var locName = function(req, callback) {
-                
-        model.setUrl(apiList.apiHost + apiList.searchCityNameById); 
+
+        model.setUrl(apiList.apiHost + apiList.searchCityNameById);
         model.getdata(req, function(data){
             data = JSON.parse(data);
             var fromLocName = data.result.name;
@@ -828,7 +835,7 @@ var ugcDataEdit = (function() {
             var locName = new Object();
             locName.from = fromLocName;
             locName.arr = arrLocName;
-            
+
             callback(null, locName);
         });
     };

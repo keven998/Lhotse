@@ -13,6 +13,7 @@ var viewspot = require('./routes/viewspot');
 // route是模板路线的所有路由
 var route = require('./routes/route');
 var hotel = require('./routes/hotel');
+var edit = require('./routes/edit');
 
 var app = express();
 
@@ -80,6 +81,7 @@ app.use('/account', account);
 app.use('/plans', plans);
 app.use('/viewspot', viewspot);
 app.use('/hotel', hotel);
+app.use('/edit', edit);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
