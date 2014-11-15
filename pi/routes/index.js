@@ -12,8 +12,8 @@ var zone = require('../conf/zone');
 var utils = require( "../common/utils");
 
 
-router.get('/planlist/',function(req,res){
-    res.render('planlist',{user_info: utils.get_user_info(req, res), config: config});
+router.get('/route',function(req,res){
+    res.render('route',{user_info: utils.get_user_info(req, res), config: config});
 })
 
 router.get('/', function(req, res) {

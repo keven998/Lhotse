@@ -16,17 +16,10 @@ html body{height: 100%;position: relative;}
 .ico01-cost{background:url("/images/common/cost.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/cost.png',sizingMethod='scale');background-size:16px;}
 .ico01-eye{background:url("/images/common/eye.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/eye.png',sizingMethod='scale');top:8px;left:3px;background-size:16px;}
 .ico01-source{background:url("/images/common/source.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/source.png',sizingMethod='scale');top:8px;left:5px;background-size:14px;}
-.ico01-d1{background-size:24px;background:url("/images/common/D1.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/D1.png',sizingMethod='scale');top: 5px;left: 5px;}
-.ico01-d2{background-size:24px;background:url("/images/common/D2.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/D2.png',sizingMethod='scale');top: 5px;left: 5px;}
-.ico01-d3{background-size:24px;background:url("/images/common/D3.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/D3.png',sizingMethod='scale');top: 5px;left: 5px;}
-.ico01-d4{background-size:24px;background:url("/images/common/D4.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/D4.png',sizingMethod='scale');top: 5px;left: 5px;}
-.ico01-d5{background-size:24px;background:url("/images/common/D5.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/D5.png',sizingMethod='scale');top: 5px;left: 5px;}
-.ico01-km{background-size: 15px;background:url("/images/common/Km.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/Km.png',sizingMethod='scale');top: 5px;left: 5px;}
 .ico01-flag{background-size: 15px;background:url("/images/common/flag.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/flag.png',sizingMethod='scale');top: 5px;left: 5px;}
 .ico01-heart{background-size: 15px;background:url("/images/common/heart.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/heart.png',sizingMethod='scale');top: 5px;left: 5px;}
 .ico01-good{background:url("/images/common/good.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/good.png',sizingMethod='scale');top: 10px;left: 5px;margin-left: 10px;}
 .ico01-sugg{background:url("/images/common/sugg.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/sugg.png',sizingMethod='scale');top: 11px;left: 7px;margin-left: 5px;}
-.ico01-arr{*top:1px;background-size:24px;background:url("/images/common/arr.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/arr.png',sizingMethod='scale');}
 .ico02{display: inline-block;width: 30px;height: 30px;position: relative;top: 0;}
 .ico02-position{background-size: 30px;background:url("/images/common/position.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/position.png',sizingMethod='scale');}
 .ico02-where{background-size:30px;background:url("/images/common/where.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/where.png',sizingMethod='scale');}
@@ -34,14 +27,6 @@ html body{height: 100%;position: relative;}
 .ico02-weibo{background-size:30px;background:url("/images/common/weibo.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/weibo.png',sizingMethod='scale');width: 32px;height: 32px;}
 .ico02-loading{background-size:30px;background:url("/images/common/loading.gif") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/loading.gif',sizingMethod='scale');top: 10px;}
 .ico02-circle{background:url("/images/common/circle.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/circle.png',sizingMethod='scale');top: 10px;left: 5px;}
-.ico-position{display:inline-block;width:15px;height:15px;margin:7px;background-size: 15px;background:url("/images/common/position02.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/position02.png',sizingMethod='scale');}
-.ico-arr01{display:inline-block;width:15px;height:15px;margin:11px;background-size: 15px;background:url(/images/common/arr-down-grey.png) no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/arr-down-grey.png',sizingMethod='scale');vertical-align:bottom;}
-.ico-arr02{display:inline-block;width:15px;height:15px;margin:11px;background-size: 15px;background:url(/images/common/arr-up-grey.png) no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/arr-up-grey.png',sizingMethod='scale');vertical-align:bottom;}
-.ico-arr03{display:inline-block;width:15px;height:15px;margin-top:11px;margin-left:8px;background-size: 15px;background:url(/images/common/arr-down-white.png) no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/arr-down-white.png',sizingMethod='scale');vertical-align:top;}
-.ico-arr04{display:inline-block;width:15px;height:15px;margin-top:11px;margin-left:8px;background-size: 15px;background:url(/images/common/arr-up-white.png) no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/arr-up-white.png',sizingMethod='scale');vertical-align:top;}
-
-.ico-addpos{display:inline-block;width:30px;height:30px;background-size: 30px;background:url(/images/common/btn-add-search.png) no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/btn-add-search.png',sizingMethod='scale');vertical-align:bottom;}
-.ico-fork{display:inline-block;width:112px;height:30px;background:url(/images/route/fork_route.png) no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/fork_route.png',sizingMethod='scale');}
 
 /*btn*/
 .btn{display: inline-block;width: auto;height: 10px;line-height: 10px;color: #08DCA9;padding: 10px 15px;text-align: center;}
@@ -50,14 +35,6 @@ html body{height: 100%;position: relative;}
 .btn02-c2{background: #898989;color: #fff}
 .btn02-c3{background: #fff;border: 1px solid #08DCA9;}
 .btn02-c4{background: #F30D0D;color: #fff;padding: 10px 20px;font-size: 16px;position: absolute;left: 0;bottom: 10px;*bottom: 0}
-
-.btn-close2{display:inline-block;width:14px;height:14px;background:url(/images/common/btn-close2-filter.png) no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/btn-close2-filter.png',sizingMethod='scale');}
-.btn-close3{display:inline-block;width:16px;height:16px;background:url(/images/common/btn-close3-tab-normal.png) no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/btn-close3-tab-normal.png',sizingMethod='scale');}
-.btn-close3:hover{display:inline-block;width:16px;height:16px;background:url(/images/common/btn-close3-tab-hover.png) no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/btn-close3-tab-hover.png',sizingMethod='scale');}
-.btn-arr-left{display:inline-block;width:32px;height:32px;background:url(/images/common/btn-arr-left-normal.png) no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/btn-arr-left-normal.png',sizingMethod='scale');}
-.btn-arr-left:hover{display:inline-block;width:32px;height:32px;background:url(/images/common/btn-arr-left-hover.png) no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/btn-arr-left-hover.png',sizingMethod='scale');}
-.btn-arr-right{display:inline-block;width:32px;height:32px;background:url(/images/common/btn-arr-right-normal.png) no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/btn-arr-right-normal.png',sizingMethod='scale');}
-.btn-arr-right:hover{display:inline-block;width:32px;height:32px;background:url(/images/common/btn-arr-right-hover.png) no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/btn-arr-right-hover.png',sizingMethod='scale');}
 /*travepi------top*/
 .hd{position: fixed;left: 0;top: 0;width: 100%;height: 60px;line-height: 40px;background-color: rgba(0,0,0,.25);filter: .25;progid: DXImageTransform.Microsoft.Gradient(startColorStr=#40000000,endColorStr=#40000000);z-index: 111111111111;transition: height ease 300ms;overflow: none;}
 .logo{float:left;width: 100px;height: 100%;line-height: 80px;*line-height:50px;margin-left: 50px;text-align: center;}
