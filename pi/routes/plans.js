@@ -38,7 +38,7 @@ router.post('/timeline/save', function(req, res) {
 /* edit route */
 router.get('/edit/:UGCID', function(req, res) {
     console.log('in...');
-    res.render('plans/editNew', {
+    res.render('plans/edit', {
 
         user_info: utils.get_user_info(req, res),
         config: config,

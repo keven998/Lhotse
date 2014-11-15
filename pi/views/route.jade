@@ -3,21 +3,19 @@ extends common/base
 block page_var
     script.
         var page_var = {
-            id: 'planlist',
+            id: 'route',
             path: '',
         }
-    
-    link(href="/stylesheets/blue.css" rel="stylesheet")
-    
-    
+
+
 block content
     .full-screen
         .bg-blue
             .search-bg
                 i.ico-position
                 b 北京
-                b.change [更换] 
-                b.line  
+                b.change [更换]
+                b.line
                 input(type="text" name="arrivName" placeholder='景点/城市/省份' id="arrive" onkeyup="suggestion_to(this.value)" autocomplete="off")
                 i.ico-addpos
                 a(href="#" onclick="go_plan_list()")
@@ -33,7 +31,7 @@ block content
                     ul
                         li
                             input.cb#cb-1(data-item="独自出行" type="checkbox")
-                            label(for="cb-1")   独自出行          
+                            label(for="cb-1")   独自出行
                         li
                             input.cb#cb-2(data-item="亲子" type="checkbox")
                             label(for="cb-2")   亲子
@@ -94,7 +92,7 @@ block content
                             input.cb#cb-3(data-item="一周以上" type="checkbox")
                             label(for="cb-3")   一周以上
                         .list-last
-        .select-list   
+        .select-list
         .gap
             .route-sum
                 |   21条线路
@@ -111,7 +109,7 @@ block content
                     h2.r-title  台北深度体验之旅
                     h3.usetimes  (100人使用)
                     p.txt
-                        |   这条线路所包含都是三亚最著名的景区，特别适合初次来到三亚的人群选择，四天的行程，带你感受阳光沙滩，椰风海韵。       
+                        |   这条线路所包含都是三亚最著名的景区，特别适合初次来到三亚的人群选择，四天的行程，带你感受阳光沙滩，椰风海韵。
                     p.w55
                       i.ico01.ico01-route
                       b 线路特色-古镇美食青山秀水
@@ -122,7 +120,7 @@ block content
                       i.ico01.ico01-cost
                       b 预计花费 ￥2000-￥3000
                     a.fork.ico-fork#but(href="javascript:;")
-                                
+
             #list-sub-01.list-layer(style="display:none")
                 span.close
                     i.btn-close3
@@ -131,9 +129,9 @@ block content
                         a.selected(href="#list-sub-01-tab1") 推荐理由
                     li
                         a(href="#list-sub-01-tab2") 景点列表
-                    li  
+                    li
                         a(href="#list-sub-01-tab3") 图片
-                    li  
+                    li
                         a#route 路线详情
                 #list-sub-01-tab1
                     .desc.w350
@@ -141,27 +139,27 @@ block content
                         p   这条线路专为情侣设计，主打浪漫、悠闲、慢节奏的体验。让你充分体验到这个充满爱意的热带城市...
                     .desc.w180
                         dl.items
-                            dt  
+                            dt
                                 b   线路特色
                             dd  人文,历史,自然风光,情侣
-                            dt  
+                            dt
                                 b   线路内容
                             dd  全程4天,共6个景点
-                            dt  
+                            dt
                                 b   预计开销
                             dd   ￥2700-￥6600
                 #list-sub-01-tab2
                     ul
-                        li  
+                        li
                             b.date  D1
                             |   慈光阁-迎客松-莲花峰
-                        li  
+                        li
                             b.date  D2
                             |   白鹅岭-光明顶-黄山-狮子峰-云谷寺白鹅岭-光明顶-黄山-狮子峰-云谷寺白鹅岭-光明顶-黄山-狮子峰-云谷寺白鹅岭-光明顶-黄山-狮子峰-云谷寺
-                        li  
+                        li
                             b.date  D3
                             |   黟县宏村
-                        li  
+                        li
                             b.date  D4
                             |   西递古村
                 #list-sub-01-tab3
@@ -179,7 +177,7 @@ block content
                                 img(src="/images/img/5.jpg"  alt="")
                     i#prev.btn-arr-right
                     i#next.btn-arr-left
-                
+
             li.route(data-for="list-sub-02")
                 .left
                     img(src="/images/route/285-215.png" width="165" height="165")
@@ -189,7 +187,7 @@ block content
                     h2.r-title  台北深度体验之旅
                     h3.usetimes  (100人使用)
                     p.txt
-                        |   这条线路所包含都是三亚最著名的景区，特别适合初次来到三亚的人群选择，四天的行程，带你感受阳光沙滩，椰风海韵。       
+                        |   这条线路所包含都是三亚最著名的景区，特别适合初次来到三亚的人群选择，四天的行程，带你感受阳光沙滩，椰风海韵。
                     p.w55
                       i.ico01.ico01-route
                       b 线路特色-古镇美食青山秀水
@@ -199,7 +197,7 @@ block content
                     p.w55
                       i.ico01.ico01-cost
                       b 预计花费 ￥2000-￥3000
-                    a.fork.ico-fork(href='#')   
+                    a.fork.ico-fork(href='#')
             li.route(data-for="list-sub-03")
                 .left
                     img(src="/images/route/285-215.png" width="165" height="165")
@@ -209,7 +207,7 @@ block content
                     h2.r-title  台北深度体验之旅
                     h3.usetimes  (100人使用)
                     p.txt
-                        |   这条线路所包含都是三亚最著名的景区，特别适合初次来到三亚的人群选择，四天的行程，带你感受阳光沙滩，椰风海韵。       
+                        |   这条线路所包含都是三亚最著名的景区，特别适合初次来到三亚的人群选择，四天的行程，带你感受阳光沙滩，椰风海韵。
                     p.w55
                       i.ico01.ico01-route
                       b 线路特色-古镇美食青山秀水
@@ -219,7 +217,7 @@ block content
                     p.w55
                       i.ico01.ico01-cost
                       b 预计花费 ￥2000-￥3000
-                    a.fork.ico-fork(href='#')   
+                    a.fork.ico-fork(href='#')
             li.route(data-for="list-sub-04")
                 .left
                     img(src="/images/route/285-215.png" width="165" height="165")
@@ -229,7 +227,7 @@ block content
                     h2.r-title  台北深度体验之旅
                     h3.usetimes  (100人使用)
                     p.txt
-                        |   这条线路所包含都是三亚最著名的景区，特别适合初次来到三亚的人群选择，四天的行程，带你感受阳光沙滩，椰风海韵。       
+                        |   这条线路所包含都是三亚最著名的景区，特别适合初次来到三亚的人群选择，四天的行程，带你感受阳光沙滩，椰风海韵。
                     p.w55
                       i.ico01.ico01-route
                       b 线路特色-古镇美食青山秀水
@@ -239,7 +237,7 @@ block content
                     p.w55
                       i.ico01.ico01-cost
                       b 预计花费 ￥2000-￥3000
-                    a.fork.ico-fork(href='#')   
+                    a.fork.ico-fork(href='#')
 
           .slider_layer(style='display:none;width:580px;height:450px;position:fixed;left:-580px;top:130px;background-color:#fff;padding:20px;')
             #layer_close(style='color:red;cursor:pointer;float:right;') close
@@ -414,7 +412,7 @@ block content
                                       img.img(alt='西递古村', height='202', src='http://img1.qunarzz.com/travel/poi/201403/27/7d3b9ec788bea178ddb12cfb.jpg', width='300')
                             .sub_titbox
                               span.d_tit 餐饮：腊八粥、石头馃、苞芦松
-                            .des 西递的饮食属于徽州菜系，为全国八大菜系之一。当地特色的美食主要有腊八粥、石头馃、徽州馃、苞芦馃、苞芦松、蟹壳黄烧饼等，可根据自己的口味选择。 
+                            .des 西递的饮食属于徽州菜系，为全国八大菜系之一。当地特色的美食主要有腊八粥、石头馃、徽州馃、苞芦馃、苞芦松、蟹壳黄烧饼等，可根据自己的口味选择。
                             .imglistbox
                             .sub_titbox
                               span.d_tit 住宿：
@@ -591,6 +589,6 @@ block content
                     p.ico-g
                       i.ico01.ico01-source
                       b 来自百度旅游
-    
+
     script(src='/javascripts/planlist/icheck.min.js' rel='javascript')
     script(src='/javascripts/planlist/jquery.idTabs.min.js' rel='javascript')
