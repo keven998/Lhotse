@@ -6,106 +6,445 @@ block page_var
             id: 'edit',
             path: 'plans/',
         };
-      
-    link(href="/stylesheets/plans/jquery.datetimepicker.css" rel="stylesheet")
-    
-    
-block content
-    .content.f-cb
-      .bd.t-bd
-        h1.t
-          | #{title}
-          if ! already_saved
-            div(style='float:left') #{locName.from}--#{locName.arr}
-          .ugcId(style='display:none') #{id}
+        var INTERFACE = {
+            basicInfo: {
+                title: "三亚好玩吗",
+                locId: "53aa9a6510114e3fd4783c68",
+                ugcId: "1234567890",
+            },
 
-      .t-left
-        h1.time
-          | 出发时间：
-          input#datetimepicker.date_picker(type='text' value=startDate)
-          //
-              a.btn02.btn02-c4
-                | 确定
-          a.confirm
-        - var dayCount = 0
-        each oneDayRoute in daysRoute
-          if oneDayRoute.length
-            - dayCount++
-            ul.edit-list(data-day=dayCount)
-              li.driver.disabled.active
-                i.ico01-d D#{dayCount}
-                i.ico01.ico01-close
-              each spot in oneDayRoute
-                li(draggable='true', style='height: 40px;')
-                  | #{spot.itemName}
-                  i.ico01.ico01-close
-                  .id(style='display:none' data-itemId=spot.itemId)
-                  .type(style='display:none' data-type=spot.type)
-        
-        .add
-          em +
-          | 添加一天
-      
-      
-      .t-right
-        .tab
-          a#tab01.item.item01-select
-          a#tab02.item.item02-normal 
-        
-        
-        .search
-          input.s-input(placeholder='搜索')
-          i.ico02.ico02-search
-          
-          
-        .imgs.f-cb#item01
-          each spot in spots
-            a
-              div
-                if (spot.pic===undefined)
-                    img(src='/images/plans/edit/213-144.png' width='213' height='144')
-                else
-                    img(src=spot.pic+'?imageView2/1/w/213/h/144' width='213' height='144')
-              .id(style='display:none') #{spot._id}
-              .type(style='display:none') vs
-              em.spot-name #{spot.name}
-              br
-              i.ico01.ico01-good
-              | #{spot.ranking}
-              i.ico01.ico01-sugg
-              | 建议游玩#{spot.timeCost}小时
-              if spot.tags != ''
-                em.label #{spot.tags}
-              i.ico02.ico02-add
-        
-        
-        
-        .imgs.f-cb#item02(style='display: none;')
-            each hotel in hotels
-                a
-                    div
-                        if (hotel.pic===undefined)
-                            img(src='/images/plans/edit/213-144.png' width='213' height='144')
-                        else
-                            img(src=hotel.pic+'?imageView2/1/w/213/h/144' width='213' height='144')
-                    .id(style='display:none') #{hotel._id}
-                    .type(style='display:none') hotel
-                    .value
-                        em.ranking #{hotel.ranking}星级
-                        em.price ￥#{hotel.price}起
-                    .hotel-name 
-                        em #{hotel.name}
-                    .phone
-                        i.ico-phone
-                        | #{hotel.phone}
-                    .addr
-                        i.ico-addr
-                        | #{hotel.address}
-                    i.ico02.ico02-add
-        //
-          .more
-            i.ico02.ico02-loading
-            a.btn 加载更多···
-                    
-    script(src='/javascripts/plans/jquery.sortable.min.js' rel='javascript')
-    script(src='/javascripts/plans/jquery.datetimepicker.js' rel='javascript')
+            spotData: [
+                [
+                    {
+                        "id": "53abdfba10114e5815feb2d7",
+                        "name": "长沙站",
+                        "type": "traffic",
+                        "locId": "53aa9a6510114e3fd4783acf",
+                        "locName": "长沙市",
+                        lng: 113.019827,
+                        lat: 28.200445
+                    },
+                    //- {
+                    //-     "id": "53abf34110114e59bc20822f",
+                    //-     "name": "T201",
+                    //-     "type": "traffic",
+                    //-     "locId": undefined,
+                    //-     "locName": undefined
+                    //- }
+                ],
+                [
+                    {
+                        "id": "53abdfb610114e5815feb2b1",
+                        "name": "三亚站",
+                        "type": "traffic",
+                        "locId": "53aa9a6510114e3fd4783c68",
+                        "locName": "三亚市",
+                        lng: 109.499414,
+                        lat: 18.30188
+                    },
+                    {
+                        "id": "53f3124e10114e376de5c29c",
+                        "name": "亚龙湾",
+                        "type": "vs",
+                        "locId": "53aa9a6510114e3fd4783c68",
+                        "locName": "三亚市",
+                        "lng": 109.671945,
+                        "lat": 18.213763
+                    },
+                    {
+                        "id": "53b0577810114e0595456e26",
+                        "name": "三亚凯莱仙人掌度假酒店",
+                        "type": "hotel",
+                        "locId": "53aa9a6510114e3fd4783c68",
+                        "locName": "三亚市",
+                        "lng": 109.654465265,
+                        "lat": 18.2365043862,
+                        "phone": "0898-88568866",
+                        "address": "三亚市亚龙湾国家旅游度假区"
+                    }
+                ],
+                [
+                    {
+                        "id": "53f30d5b10114e376de5b43d",
+                        "name": "蜈支洲岛",
+                        "type": "vs",
+                        "locId": "53aa9a6510114e3fd4783c68",
+                        "locName": "三亚市",
+                        "lng": 109.774859,
+                        "lat": 18.315233
+                    },
+                    {
+                        "id": "53b0577810114e0595456e26",
+                        "name": "三亚凯莱仙人掌度假酒店",
+                        "type": "hotel",
+                        "locId": "53aa9a6510114e3fd4783c68",
+                        "locName": "三亚市",
+                        "lng": 109.654465265,
+                        "lat": 18.2365043862,
+                        "phone": "0898-88568866",
+                        "address": "三亚市亚龙湾国家旅游度假区"
+                    }
+                ],
+                [
+                    {
+                        "id": "53f3105e10114e3779f93379",
+                        "name": "三亚湾",
+                        "type": "vs",
+                        "locId": "53aa9a6510114e3fd4783c68",
+                        "locName": "三亚市",
+                        "lng": 109.496987539,
+                        "lat": 18.2701703067
+                    },
+                    {
+                        "id": "53f311f910114e377228b230",
+                        "name": "鹿回头",
+                        "type": "vs",
+                        "locId": "53aa9a6510114e3fd4783c68",
+                        "locName": "三亚市",
+                        "lng": 109.490675095,
+                        "lat": 18.202998081
+                    },
+                    {
+                        "id": "53b0577810114e0595456e26",
+                        "name": "三亚凯莱仙人掌度假酒店",
+                        "type": "hotel",
+                        "locId": "53aa9a6510114e3fd4783c68",
+                        "locName": "三亚市",
+                        "lng": 109.654465265,
+                        "lat": 18.2365043862,
+                        "phone": "0898-88568866",
+                        "address": "三亚市亚龙湾国家旅游度假区"
+                    }
+                ],
+                [
+                    {
+                        "id": "53f30c4510114e376de5b119",
+                        "name": "南山文化旅游区",
+                        "type": "vs",
+                        "locId": "53aa9a6510114e3fd4783c68",
+                        "locName": "三亚市",
+                        "lng": 109.219445,
+                        "lat": 18.312019
+                    },
+                    {
+                        "id": "53f30e3810114e377228a770",
+                        "name": "天涯海角",
+                        "type": "vs",
+                        "locId": "53aa9a6510114e3fd4783c68",
+                        "locName": "三亚市",
+                        "lng": 109.349545,
+                        "lat": 18.305113
+                    },
+                    {
+                        "id": "53abdfb610114e5815feb2b1",
+                        "name": "三亚站",
+                        "type": "traffic",
+                        "locId": "53aa9a6510114e3fd4783c68",
+                        "locName": "三亚市",
+                        lng: 109.499414,
+                        lat: 18.30188
+                    },
+                    //- {
+                    //-     "id": "53abf34210114e59bc208230",
+                    //-     "name": "T202",
+                    //-     "type": "traffic",
+                    //-     "locId": undefined,
+                    //-     "locName": undefined
+                    //- }
+                ],
+                [
+                    {
+                        "id": "53abdfba10114e5815feb2d7",
+                        "name": "长沙站",
+                        "type": "traffic",
+                        "locId": "53aa9a6510114e3fd4783acf",
+                        "locName": "长沙市",
+                        lng: 113.019827,
+                        lat: 28.200445
+                    }
+                ]
+            ],
+            getInfoData: function (that, callback) {
+                var ajaxData = {"id":"18405_80294","name":"卡塔海滩","url":"/sight/phuket364/18405.html","photoUrl":"http://dimg02.c-ctrip.com/images/tg/716/896/570/5243d8b5aecc4f5693b11bb1221605ab_C_120_120.jpg","photoUrl_160_160":"http://dimg02.c-ctrip.com/images/tg/716/896/570/5243d8b5aecc4f5693b11bb1221605ab_C_160_160.jpg","commentCount":115,"address":"Kata Beach, Karon, Mueang Phuket District, Phuket 83100","price":"","marketPrice":"","score":"4.3","ticketbookUrl":"/sight/phuket364/18405.html","type":3};
+                callback(ajaxData);
+                // $.ajax({
+                //     url: "/destinationsite/TTDSecond/Schedule/GetPoiInfo",
+                //     type: "post",
+                //     async: true,
+                //     data: { "poiId": that.id, "cityId":that.cityId, "pageType": 4, "type": that.type },
+                //     success: function (data) {
+                //         callback(data);
+                //     }
+                // });
+            },
+        };
+
+        //- var INTERFACE = {
+        //-     mapType: "Map-Full",
+        //-     showHotel : false,
+        //-     showRestaurant : false,
+        //-     nodeIdArray : [516947, 516948, 516949, 516950, 516951, 516952, 516953, 516954, 516955, 516956],
+        //-     poiData: [[{"id":"18405_80294_1","cityId":"0","name":"卡塔海滩","num":"1","type":3,"lat":"7.8242","lng":"98.2977","nodeId":null,"city":null},{"id":"1356122_10567240_3","cityId":"0","name":"江西冷购物中心","num":"3","type":5,"lat":"7.891108","lng":"98.29983","nodeId":null,"city":null}],[{"id":"56986_86046_5","cityId":"0","name":"皇帝岛","num":"5","type":3,"lat":"7.59847","lng":"98.3664","nodeId":null,"city":null},{"id":"110448_10758707_7","cityId":"0","name":"西蒙娱乐集团人妖秀","num":"7","type":3,"lat":"7.878827","lng":"98.2921","nodeId":null,"city":null}],[{"id":"18405_80294_8","cityId":"0","name":"卡塔海滩","num":"8","type":3,"lat":"7.8242","lng":"98.2977","nodeId":null,"city":null},{"id":"147450_10523391_10","cityId":"0","name":"卡伦观景台","num":"10","type":3,"lat":"7.79157","lng":"98.2913","nodeId":null,"city":null},{"id":"142992_10558113_11","cityId":"0","name":"After Beach Bar ","num":"11","type":6,"lat":"7.808903","lng":"98.30224","nodeId":null,"city":null}],[{"id":"462067_960910_13","cityId":"0","name":"Chedi Chiang Mai(清迈切蒂酒店)","num":"13","type":1,"lat":"18.78224","lng":"99.00375","nodeId":null,"city":null},{"id":"8182_102021_15","cityId":"0","name":"长康路夜市","num":"15","type":5,"lat":"18.7832","lng":"99.0024","nodeId":null,"city":null}],[{"id":"110168_91689_16","cityId":"0","name":"双龙寺","num":"16","type":3,"lat":"18.8057","lng":"98.9217","nodeId":null,"city":null},{"id":"455300_490026_17","cityId":"0","name":"Iberry","num":"17","type":2,"lat":"18.79432","lng":"98.96951","nodeId":null,"city":null},{"id":"4927222_10561798_18","cityId":"0","name":"Huen Phen","num":"18","type":2,"lat":"18.78582","lng":"98.98515","nodeId":null,"city":null}],[{"id":"140177_103036_21","cityId":"0","name":"清迈机场购物中心","num":"21","type":5,"lat":"18.7695","lng":"98.97597","nodeId":null,"city":null},{"id":"8173_77176_23","cityId":"0","name":"清曼寺","num":"23","type":3,"lat":"18.79384","lng":"98.98927","nodeId":null,"city":null},{"id":"8142_77157_24","cityId":"0","name":"大佛塔寺","num":"24","type":3,"lat":"18.78696","lng":"98.98656","nodeId":null,"city":null},{"id":"633923_10955016_25","cityId":"0","name":"Tamarind Village Hotel(罗望乡村酒店)","num":"25","type":1,"lat":"18.78854","lng":"98.9898","nodeId":null,"city":null}],[{"id":"1356516_10567634_26","cityId":"0","name":"中央世界广场","num":"26","type":5,"lat":"13.7465","lng":"100.54","nodeId":null,"city":null}],[{"id":"7290_77012_27","cityId":"0","name":"大皇宫","num":"27","type":3,"lat":"13.7528","lng":"100.493","nodeId":null,"city":null},{"id":"7292_77013_28","cityId":"0","name":"玉佛寺","num":"28","type":3,"lat":"13.7514","lng":"100.493","nodeId":null,"city":null},{"id":"7293_77014_29","cityId":"0","name":"卧佛寺","num":"29","type":3,"lat":"13.74658","lng":"100.4927","nodeId":null,"city":null},{"id":"7296_77016_30","cityId":"0","name":"郑王庙","num":"30","type":3,"lat":"13.74391","lng":"100.4885","nodeId":null,"city":null},{"id":"1356541_10567659_31","cityId":"0","name":"Terminal 21","num":"31","type":5,"lat":"13.7375","lng":"100.56","nodeId":null,"city":null},{"id":"98858_598608_32","cityId":"0","name":"Best Western Premier Amaranth Suvarnphumi Airport Bangkok(曼谷苏瓦娜胡米机场西佳酒店)","num":"32","type":1,"lat":"13.64651","lng":"100.7143","nodeId":null,"city":null}],[{"id":"107613_102288_33","cityId":"0","name":"加都加周末市场","num":"33","type":5,"lat":"13.7986","lng":"100.549","nodeId":null,"city":null},{"id":"150007_10354854_35","cityId":"0","name":"BIG C","num":"35","type":5,"lat":"13.74615","lng":"100.5388","nodeId":null,"city":null},{"id":"74986_576365_36","cityId":"0","name":"Lebua At State Tower Bangkok(曼谷莲花大酒店)","num":"36","type":1,"lat":"13.72139","lng":"100.5165","nodeId":null,"city":null},{"id":"98858_598608_37","cityId":"0","name":"Best Western Premier Amaranth Suvarnphumi Airport Bangkok(曼谷苏瓦娜胡米机场西佳酒店)","num":"37","type":1,"lat":"13.64651","lng":"100.7143","nodeId":null,"city":null}]],
+        //-     districtId : "364",
+        //-     scheduleId : 503282,
+        //-     getInfoData: function (that, callback) {
+        //-         var ajaxData = {"id":"18405_80294","name":"卡塔海滩","url":"/sight/phuket364/18405.html","photoUrl":"http://dimg02.c-ctrip.com/images/tg/716/896/570/5243d8b5aecc4f5693b11bb1221605ab_C_120_120.jpg","photoUrl_160_160":"http://dimg02.c-ctrip.com/images/tg/716/896/570/5243d8b5aecc4f5693b11bb1221605ab_C_160_160.jpg","commentCount":115,"address":"Kata Beach, Karon, Mueang Phuket District, Phuket 83100","price":"","marketPrice":"","score":"4.3","ticketbookUrl":"/sight/phuket364/18405.html","type":3};
+        //-         callback(ajaxData);
+        //-         // $.ajax({
+        //-         //     url: "/destinationsite/TTDSecond/Schedule/GetPoiInfo",
+        //-         //     type: "post",
+        //-         //     async: true,
+        //-         //     data: { "poiId": that.id, "cityId":that.cityId, "pageType": 4, "type": that.type },
+        //-         //     success: function (data) {
+        //-         //         callback(data);
+        //-         //     }
+        //-         // });
+        //-     },
+
+        //-     /**
+        //-     * 显示周边酒店
+        //-     * curDayNum 当前天编号，第一天是 0  全程是 -1
+        //-     */
+        //-     showHotelRequestFn: function (curDayNum, callback) {
+        //-         var scheduleId = INTERFACE.scheduleId;
+        //-         if(curDayNum == -1)
+        //-         {
+        //-             $.ajax({
+        //-                 url: "/destinationsite/TTDSecond/Schedule/GetNearHotel",
+        //-                 type: "post",
+        //-                 async: true,
+        //-                 data: { "scheduleId": scheduleId, "nodeId": 0 },
+        //-                 success: function (data) {
+        //-                     callback(data);
+        //-                 }
+        //-             });
+        //-         }
+        //-         else
+        //-         {
+        //-             var nodeId = INTERFACE.nodeIdArray[curDayNum];
+        //-             $.ajax({
+        //-                 url: "/destinationsite/TTDSecond/Schedule/GetNearHotel",
+        //-                 type: "post",
+        //-                 async: true,
+        //-                 data: { "scheduleId": scheduleId, "nodeId": nodeId },
+        //-                 success: function (data) {
+        //-                     callback(data);
+        //-                 }
+        //-             });
+        //-         }
+        //-     },
+
+        //-     /**
+        //-     * 显示周边餐馆
+        //-     * curDayNum 当前天编号，第一天是 0  全程是 -1
+        //-     */
+        //-     showRestaurantRequestFn: function (curDayNum, callback) {
+        //-         var scheduleId = INTERFACE.scheduleId;
+        //-         if(curDayNum == -1)
+        //-         {
+        //-             $.ajax({
+        //-                 url: "/destinationsite/TTDSecond/Schedule/GetNearByRestaurant",
+        //-                 type: "post",
+        //-                 async: true,
+        //-                 data: { "scheduleId": scheduleId, "nodeId": 0 },
+        //-                 success: function (data) {
+        //-                     callback(data);
+        //-                 }
+        //-             });
+        //-         }
+        //-         else
+        //-         {
+        //-             var nodeId = INTERFACE.nodeIdArray[curDayNum];
+        //-             $.ajax({
+        //-                 url: "/destinationsite/TTDSecond/Schedule/GetNearByRestaurant",
+        //-                 type: "post",
+        //-                 async: true,
+        //-                 data: { "scheduleId": scheduleId, "nodeId": nodeId },
+        //-                 success: function (data) {
+        //-                     callback(data);
+        //-                 }
+        //-             });
+        //-         }
+        //-     }
+        //- };
+
+    link(href="/stylesheets/lib/jquery.datetimepicker.css" rel="stylesheet")
+
+block content
+    div.top_bar
+        div.title 峨眉山二日游
+        div.J_calendar
+        div.save
+
+    div.edit_region
+        div.day_navigation
+            div.day_tab_box
+                div.J_all_day.current 全程
+                ul.J_day_list(id="day_list")
+                    //
+                        li.day(data-num="1") D1
+                        li.day(data-num="2") D2
+                        li.day(data-num="3") D3
+                        li.day(data-num="4") D4
+                        li.day(data-num="5") D5
+                        li.day(data-num="6") D6
+
+            div.J_add_day
+
+        div.day_detail_box
+            ul.J_day_detail_list
+                //
+                    li.day_item(data-num="1")
+                        div.day_detail_title
+                            span.day_num 第一天
+                            span.day_abstract (北京,长沙)
+                        ul.day_detail(data-num="1")
+                            li.spot_detail(data-indexInAll="1" data-indexInDay="1")
+                                i.icon_sight
+                                i.marker_number 1
+                                i(class="spot_name" data-id="1234567890") 卡塔海滩-1
+                                i.delete(href='javascript:;')
+                            li.spot_detail(data-indexInAll="2" data-indexInDay="2")
+                                i.icon_restaurant
+                                i.marker_number 2
+                                i(class="spot_name" data-id="1234567890") 卡塔海滩-2
+                                i.delete(href='javascript:;')
+
+        div.map_box
+            div.map_canvas(id="map_inner")
+
+        div.select_tab_box
+            ul.select_tab
+                li.spotview(href='javascript:;') 景点
+                span.divider
+                li.hotel(href='javascript:;') 酒店
+                span.divider
+                li.restaurant(href='javascript:;') 美食
+                span.divider
+                li.shopping(href='javascript:;') 购物
+                span.divider
+                li.traffic(href='javascript:;') 交通
+
+            div.tab_content
+                div.content_spotview(style="display:none")
+                    div.search
+                        input(name="spotview" type="text")
+                    div.sort_tab
+                        div.price(href='javascript:;') 价格
+                            b.price_select_arr
+                        span.divider
+                        div.score(href='javascript:;') 评分
+                            b.score_select_arr
+                        span.divider
+                        div.popular(href='javascript:;') 热门
+                            b.popular_select_arr
+                        span.divider
+                        div.entirety(href='javascript:;') 综合
+                            b.entirety_select_arr
+                    div.list_spotview
+                        div.list_spotview_element
+                            div.spotview_pic
+                                img(width="100" height="100" src="/images/plans/edit/vs.png")
+                            div.spotview_info(data-id="100100100100" data-type="2")
+                                div.spotview_title 粽子黑驴蹄子
+                                div.spotview_star 评分:
+                                    b
+                                div.ticket_price 门票: 80元
+                                div.suggestion_time 建议游玩: 4小时
+                        div.list_spotview_element
+                            div.spotview_pic
+                                img(width="100" height="100" src="/images/plans/edit/vs.png")
+                            div.spotview_info(data-id="100100100100" data-type="2")
+                                div.spotview_title 粽子黑驴蹄子
+                                div.spotview_star 评分:
+                                    b
+                                div.ticket_price 门票: 80元
+                                div.suggestion_time 建议游玩: 4小时
+                        div.list_spotview_element
+                            div.spotview_pic
+                                img(width="100" height="100" src="/images/plans/edit/vs.png")
+                            div.spotview_info(data-id="100100100100" data-type="2")
+                                div.spotview_title 粽子黑驴蹄子
+                                div.spotview_star 评分:
+                                    b
+                                div.ticket_price 门票: 80元
+                                div.suggestion_time 建议游玩: 4小时
+                        div.list_spotview_element
+                            div.spotview_pic
+                                img(width="100" height="100" src="/images/plans/edit/vs.png")
+                            div.spotview_info(data-id="100100100100" data-type="2")
+                                div.spotview_title 粽子黑驴蹄子
+                                div.spotview_star 评分:
+                                    b
+                                div.ticket_price 门票: 80元
+                                div.suggestion_time 建议游玩: 4小时
+
+                div.content_hotel
+                    div.search
+                        input(name="hotel" type="text")
+                    div.sort_tab
+                        div.price(href='javascript:;') 价格
+                            b.price_select_arr
+                        span.divider
+                        div.score(href='javascript:;') 评分
+                            b.score_select_arr
+                        span.divider
+                        div.popular(href='javascript:;') 热门
+                            b.popular_select_arr
+                        span.divider
+                        div.entirety(href='javascript:;') 综合
+                            b.entirety_select_arr
+                    div.list_hotel
+                        div.list_hotel_element
+                            div.hotel_pic
+                                img(width="100" height="100" src="/images/plans/edit/vs.png")
+                            div.hotel_info(data-id="100100100100" data-type="2")
+                                div.hotel_title 粽子黑驴蹄子
+                                div.hotel_star 评分:
+                                    b
+                                div.hotel_phone 电话: 10000000000
+                                div.hotel_address(title="北京市海淀区中关村3W咖啡馆")
+                                    nobr 地址: 北京市海淀区中关村3W咖啡馆
+                        div.list_hotel_element
+                            div.hotel_pic
+                                img(width="100" height="100" src="/images/plans/edit/vs.png")
+                            div.hotel_info(data-id="100100100100" data-type="2")
+                                div.hotel_title 粽子黑驴蹄子
+                                div.hotel_star 评分:
+                                    b
+                                div.hotel_phone 电话: 10000000000
+                                div.hotel_address(title="北京市海淀区中关村3W咖啡馆")
+                                    nobr 地址: 北京市海淀区中关村3W咖啡馆
+                        div.list_hotel_element
+                            div.hotel_pic
+                                img(width="100" height="100" src="/images/plans/edit/vs.png")
+                            div.hotel_info(data-id="100100100100" data-type="2")
+                                div.hotel_title 粽子黑驴蹄子
+                                div.hotel_star 评分:
+                                    b
+                                div.hotel_phone 电话: 10000000000
+                                div.hotel_address(title="北京市海淀区中关村3W咖啡馆")
+                                    nobr 地址: 北京市海淀区中关村3W咖啡馆
+                        div.list_hotel_element
+                            div.hotel_pic
+                                img(width="100" height="100" src="/images/plans/edit/vs.png")
+                            div.hotel_info(data-id="100100100100" data-type="2")
+                                div.hotel_title 粽子黑驴蹄子
+                                div.hotel_star 评分:
+                                    b
+                                div.hotel_phone 电话: 10000000000
+                                div.hotel_address(title="北京市海淀区中关村3W咖啡馆")
+                                     nobr 地址: 北京市海淀区中关村3W咖啡馆
+
+
+
+
+                div.content_restaurant 酒店
+                div.content_shopping 购物
+                div.content_traffic 交通
+
+
+    script(src='/javascripts/lib/jquery-1.11.1.min.js' rel='javascript')
+
+    script(src='/javascripts/lib/jquery.sortable.min.js' rel='javascript')
+    script(src='/javascripts/lib/jquery.datetimepicker.js' rel='javascript')
