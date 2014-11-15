@@ -61,7 +61,7 @@ $(function () {
     */
     var timeLineSpotImg = $('.timeline-detail ul').find('img'),
         sider = $('.sider'),
-        layer = $('.layer'),
+        layer = $('.shadow_layer'),
         navHeight = 100,
         wheight = $(window).height(),
         sider_height = wheight - navHeight;

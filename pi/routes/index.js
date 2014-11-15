@@ -12,6 +12,10 @@ var zone = require('../conf/zone');
 var utils = require( "../common/utils");
 
 
+router.get('/planlist/',function(req,res){
+    res.render('planlist',{user_info: utils.get_user_info(req, res), config: config});
+})
+
 router.get('/', function(req, res) {
     async.parallel({
         newRoute: function(callback) {
@@ -92,7 +96,7 @@ router.get('/route/include/', function(req, res) {
         model.setUrl(encodeURI(indexGoUrl));
         model.getdata(null, function(data){
             data = JSON.parse(data);
-            res.render('plans', {
+            res.render('planlist', {
                 plans : data.result || [],
                 fromName : fromLocName,
                 arriveId : spotId,
@@ -137,7 +141,7 @@ router.get('/route/city/', function(req, res) {
         model.setUrl(encodeURI(indexGoUrl));
         model.getdata(null, function(data){
             data = JSON.parse(data);
-            res.render('plans', {
+            res.render('planlist', {
                 plans : data.result || [],
                 fromName : fromLocName,
                 arriveId : arriveId,

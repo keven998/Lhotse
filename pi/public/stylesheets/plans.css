@@ -3,7 +3,11 @@
 .c-img img{width: 285px;height: 215px;}
 .c-img .most_tag{width: 71px;height: 71px;position:absolute;top:0;left:0;}
 .c-img h2{padding:7px 0 0 10px;font-size:18px;color:#fff;transform:rotate(-45deg);-ms-transform:rotate(-45deg);-moz-transform:rotate(-45deg);-webkit-transform:rotate(-45deg);-o-transform:rotate(-45deg);}
+
+/*暂时没用*/
 .c-img .most_tag_ie{padding:5px 10px;font-size:18px;color:#fff;position:absolute;top:10px;left:0;background-color:rgba(0,0,0,.25);filter:0.25；progid:DXImageTransform.Microsoft.Gradient(startColorStr=#40000000,endColorStr=#40000000);}
+
+/*下面这些有作用么？*/
 .ico01-d1{background-size:24px;background:url("/images/plans/D1.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/D1.png',sizingMethod='scale');top: 5px;left: 5px;}
 .ico01-d2{background-size:24px;background:url("/images/plans/D2.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/D2.png',sizingMethod='scale');top: 5px;left: 5px;}
 .ico01-d3{background-size:24px;background:url("/images/plans/D3.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/plans/D3.png',sizingMethod='scale');top: 5px;left: 5px;}
