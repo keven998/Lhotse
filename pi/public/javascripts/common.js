@@ -24,7 +24,7 @@ $(function () {
     /* ---- BEGIN: login layer ---- */
     var topHd = $('#top'),
         lgLayer = $('.lg-layer'),
-        layer = $('.layer');
+        layer = $('.shadow_layer');
         navHeight = 100,
         wHeight = $(window).height()
         lgHeight = wHeight - navHeight;
