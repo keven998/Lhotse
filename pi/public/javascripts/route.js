@@ -137,7 +137,6 @@ $(function () {
             dataFrom = dataItem.dataNavItem + '@' + dataItem.selectItem;    
             //记录信息(ly03@cb-1 )，当。。。时，通过这个来删除
             selectListHtml = '<a data-from="' + dataFrom + '" class="bluebg option">' + value + '<i class="btn-close2"></i></a>';
-            console.log(selectListHtml);
             selectListContent.append(selectListHtml);
         },
         selectListRemove: function (value) {
@@ -216,7 +215,6 @@ $(function () {
             //ly01  nav中的编号
             dataItem.selectItem = $(this).attr('id');
             //cb01,cb02 选项中的编号
-            console.log(dataItem);
             travelPi.selectListUpdate(dataItem, $(this).attr('data-item'));
             //根据封装好的nav编号和选项编号，以及data-item(存储"独自出行"的数据)在.select-list中增加，先写好样式，有元素增加后就会自动撑开空间
             travelPi.selectListClose();
@@ -347,7 +345,6 @@ $(function () {
         },500,"swing")
 
         $('#layer_close').on('click',function(){
-            console.log("1");
             sliderLayer.animate({
                 left: -650
             },500,"swing")
@@ -694,8 +691,7 @@ $(function () {
                 }
             }
         },
-        getStyle : function(obj, attr)
-        {
+        getStyle : function(obj, attr){
             return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj, false)[attr];
         },
         sMove : function(obj, json, onEnd){
@@ -728,18 +724,51 @@ $(function () {
             }
         }
     };
-    $('.fork').on('click',function(){
-        console.log("a");
+    window.onload = function(){
         new Alert('but', 'box', {
-            title : '请选择需要自动规划的内容',
-            content : '<div class="size"><form><div><input type="checkbox" name="transpotation" />交通方式<input type="radio" name="sex" value="male" />飞机<input type="radio" name="sex" value="male" />火车<input type="radio" name="sex" value="male" />汽车</div><div><input type="checkbox" name="hotel" />酒店<input type="radio" name="sex" value="male" />最便捷<input type="radio" name="sex" value="male" />最便宜<input type="radio" name="sex" value="male" />最奢华</div><div><input type="checkbox" name="food" />美食<input type="radio" name="sex" value="male" />特色小吃<input type="radio" name="sex" value="male" />口碑最好<input type="radio" name="sex" value="male" />连锁名店</div><div><input type="checkbox" name="enjoy" />娱乐<input type="radio" name="sex" value="male" />酒店<input type="radio" name="sex" value="male" />活动</div></form></div><div class="but"><button class="button">规划</button><button class="button">取消</button></div>',
-            width : '',
-            height : '250px',
+            title : '规划包含',
+            content :
+                '<div class="plan_option">'+
+                    '<form>'+
+                        '<div>'+
+                            '<b>交通方式</b>'+
+                            '<input type="radio" name="transpotation" value="air" checked/><span>飞机</span>'+
+                            '<input type="radio" name="transpotation" value="train" /><span>火车</span>'+
+                            '<input type="radio" name="transpotation" value="car" /><span>汽车</span>'+
+                            '<input type="radio" name="transpotation" value="none" /><span>无</span>'+
+                        '</div>'+
+                        '<div>'+
+                            '<b>酒店</b>'+
+                            '<input type="radio" name="hotel" value="convenient" checked/><span>最便捷</span>'+
+                            '<input type="radio" name="hotel" value="cheep" /><span>最便宜</span>'+
+                            '<input type="radio" name="hotel" value="luxury" /><span>最奢华</span>'+
+                            '<input type="radio" name="hotel" value="none" /><span>无</span>'+
+                        '</div>'+
+                        '<div>'+
+                            '<b>美食</b>'+
+                            '<input type="radio" name="food" value="special" checked/><span>特色小吃</span>'+
+                            '<input type="radio" name="food" value="reputation" /><span>口碑最好</span>'+
+                            '<input type="radio" name="food" value="wellknow" /><span>连锁名店</span>'+
+                            '<input type="radio" name="food" value="none" /><span>无</span>'+
+                        '</div>'+
+                        '<div>'+
+                            '<b>娱乐</b>'+
+                            '<input type="radio" name="enjoy" value="bar" checked/><span>酒吧</span>'+
+                            '<input type="radio" name="enjoy" value="activity" /><span>活动</span>'+
+                            '<input type="radio" name="enjoy" value="none" /><span>无</span>'+
+                        '</div>'+
+                    '</form>'+
+                '</div>'+
+                '<div class="but">'+
+                    '<button class="mkplan"></button>'+
+                    '<button class="skip"></button>'+
+                '</div>',
+            width : '650px',
+            height : '380px',
             top : '',
             left : '',
             fixed : '',
             close : 'close'
         });
-    })  
-
+    }
 })

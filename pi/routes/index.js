@@ -11,10 +11,48 @@ var config = require('../conf/system');
 var zone = require('../conf/zone');
 var utils = require( "../common/utils");
 
-
-router.get('/route',function(req,res){
-    res.render('route',{user_info: utils.get_user_info(req, res), config: config});
-})
+router.get('/route', function(req, res) {
+    var fromLocName = "北京";
+    var arrLocName = "上海";
+    var queryFromName = urlApi.apiHost + urlApi.searchCityIdByName + fromLocName;
+    var queryArrName = urlApi.apiHost + urlApi.searchCityIdByName + arrLocName;
+    async.parallel({
+        from: function(callback) {
+            model.setUrl(encodeURI(queryFromName));
+            model.getdata(req, function(data){
+                data = JSON.parse(data);
+                var id = selectCityId(data.result, zone.type.city);
+                callback(null, id);
+            });
+        },
+        arrive: function(callback) {
+            model.setUrl(encodeURI(queryArrName));
+            model.getdata(req, function(data){
+                data = JSON.parse(data);
+                var id = selectCityId(data.result);
+                callback(null, id);
+            });
+        },
+    },
+    function(err, results) {
+        var fromId = results.from;
+        var arriveId = results.arrive;
+        var indexGoUrl = urlApi.apiHost + urlApi.getRouteList + "?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
+        model.setUrl(encodeURI(indexGoUrl));
+        model.getdata(null, function(data){
+            data = JSON.parse(data);
+            res.render('route', {
+                plans : data.result || [],
+                fromName : fromLocName,
+                arriveId : arriveId,
+                fromId : fromId,  // 用于配置“复制路线”的url
+                arriveName : arrLocName,
+                user_info: utils.get_user_info(req, res),
+                config: config,
+            });
+        });
+    });
+});
 
 router.get('/', function(req, res) {
     async.parallel({
@@ -96,7 +134,7 @@ router.get('/route/include/', function(req, res) {
         model.setUrl(encodeURI(indexGoUrl));
         model.getdata(null, function(data){
             data = JSON.parse(data);
-            res.render('planlist', {
+            res.render('route', {
                 plans : data.result || [],
                 fromName : fromLocName,
                 arriveId : spotId,
@@ -141,7 +179,7 @@ router.get('/route/city/', function(req, res) {
         model.setUrl(encodeURI(indexGoUrl));
         model.getdata(null, function(data){
             data = JSON.parse(data);
-            res.render('planlist', {
+            res.render('route', {
                 plans : data.result || [],
                 fromName : fromLocName,
                 arriveId : arriveId,
