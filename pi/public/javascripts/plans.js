@@ -112,7 +112,7 @@ $(function () {
                 }, 300, 'swing');
                 $(".c").hide();
                 $(".loading").show();
-                $(".c .moredesc").empty();
+                $(".c .moredecs").empty();
                 $("ul.about-list").empty();
                 layer.fadeOut("fast");
             });

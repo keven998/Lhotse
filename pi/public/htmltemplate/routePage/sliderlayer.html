@@ -1,0 +1,60 @@
+<div class="slider_layer">
+    <div class="slider_hd">
+    {{#fullView}}
+        <h2 class="r-title">{{{title}}}</h2>
+        <p class="desc">{{{desc}}}</p>
+        <span><i class="ico01 ico01-spot"></i><b>全程{{{vsCnt}}}个景点，共{{{days}}}天</b></span>
+        {{#budget}}
+        <span><i class="ico01 ico01-cost"></i><b>预算 ￥{{{inf}}}-￥{{{sup}}}</b></span>
+        {{/budget}}
+        <p><i class="ico01 ico01-route"></i><b>线路特色-{{{tags}}}</b></p>
+        <a href="#" class="fork ico-fork"></a>
+    {{/fullView}}
+    </div>
+    <ul class="tab_nav">
+        <li> <a id="tab01">线路详情</a></li>
+        <li> <a id="tab02">相关游记</a></li>
+        <div class="nav_close"><i id="slider_close" class="btn-close3"></i></div>
+    </ul>
+    <div id="item01" class="tab-c">
+        <div style="display: none;" class="loading"><i class="ico02 ico02-loading"></i><a class="btn">正在加载中···</a></div>
+        <div class="c">
+            <h2 class="t1 t2"><i class="ico02 ico02-circle"></i><b>路线速览</b></h2>
+            <ul class="l">
+            {{#dayView}}
+                <li><b class="date">D{{{day}}}</b>{{{viewSpot}}}</li>
+            {{/dayView}}
+            </ul>
+        </div>
+        <div class="c">
+        {{#fullView}}
+            <h3 class="t1 t2">
+                <i class="ico02 ico02-circle"></i>
+                <b class="routename">{{{title}}}</b>
+                <div class="moredesc">{{{moreDesc}}}</div>
+            </h3>
+        {{/fullView}}
+        </div>
+    </div>
+    <div id="item02" style="display: none;" class="tab-c">
+        <div style="display: none;" class="loading">
+            <i class="ico02 ico02-loading"></i>
+            <a class="btn">正在加载中···</a>
+        </div>
+        <ul class="about-list">
+        {{#miscView}}
+            <li>
+                <a href="{{sourceUrl}}" target="_blank" class="n0">
+                    <img src="{{authorAvatar}}" class="sider-userimg"/>
+                    <h1 class="t1">{{{title}}}</h1>
+                    <em><span class="au">{{{authorName}}}</span>发表于</em>
+                    <em class="time">{{{publishDate}}}</em>
+                    <p class="txt">{{{summary}}}</p>
+                    <p class="ico-g"><i class="ico01 ico01-eye"></i><b>浏览{{{viewCnt}}}</b></p>
+                    <p class="ico-g"><i class="ico01 ico01-source"></i><b>来自{{{source}}}</b></p>
+                </a>
+            </li>
+        {{/miscView}}
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<div style="display:none" class="drop_layer">
+    <ul class="tab_nav">
+    <!--
+        <li><a href="#route-tab1">线路简介</a></li>
+    -->
+        <li><a href="#route-tab1">景点列表</a></li>
+        <li><a href="#route-tab2">图片</a></li>
+        <li><a href="#route-tab3">相关游记</a></li>
+        <li><a id="route">更多>></a></li>
+        <span class="nav_close" id="drop_close"><i class="btn-close3"></i></span>
+    </ul>
+    <!--
+    <div id="route-tab1" class="tab_item">
+        {{#fullView}}
+        <div class="desc w340">
+            <b>  简介:</b>
+            <p>
+                {{desc}}
+            </p>
+        </div>
+        <div class="desc w180">
+            <dl class="items">
+                <dt><b>  线路特色</b></dt>
+                <dd> 人文,历史,自然风光,情侣</dd>
+                <dt><b>  线路内容</b></dt>
+                <dd> 全程4天,共6个景点</dd>
+                <dt><b>  预算</b></dt>
+                <dd> ￥2700-￥6600</dd>
+            </dl>
+        </div>
+        {{/fullView}}
+    </div>
+    -->
+    <div id="route-tab1" class="tab_item">
+        <ul class="preview">
+            {{#dayView}}
+            <li><b class="date"> D{{day}}</b>{{viewSpot}}</li>
+            {{/dayView}}
+        </ul>
+    </div>
+    <div id="route-tab2" class="tab_item rel">
+        <div id="photo-list" style="overflow:hidden;">
+            <ul id="scroll">
+                {{#imgView}}
+                <li><img src="{{img}}" alt=""/></li>
+                {{/imgView}}
+            </ul>
+        </div>
+        <i id="next" class="btn-arr-right"></i>
+        <i id="prev" class="btn-arr-left"></i>
+    </div>
+    <div id="route-tab3" class="tab_item"></div>
+</div>
