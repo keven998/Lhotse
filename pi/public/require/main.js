@@ -15,7 +15,9 @@ function loadCss(page_path, page_id) {
 /* load js */
 requirejs.config({
     baseUrl: '/javascripts/',
-    path: {}
+    paths: {
+        //"Mustache": "lib/jquery.mustache"
+    },
 });
 
 requirejs(

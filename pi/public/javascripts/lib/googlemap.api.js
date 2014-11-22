@@ -82,8 +82,9 @@ var GMaper = function(h) {
     that.setFitView = function() {
         var bound = new google.maps.LatLngBounds(),
             h;
-        for (h in markers) markers[h].getMap() && bound.extend(markers[
-            h].latLng);
+        for (h in markers)
+            // filter markers show on the map
+            markers[h].getMap() && bound.extend(markers[h].latLng);
         mapObj.fitBounds(bound);
     };
     that.addMarkers = function(markers) {

@@ -11,7 +11,7 @@ var utils = require( "../common/utils");
 
 //  时间轴的景点详情弹层
 router.get('/detail/:SPOTID', function(req, res) {
-    model.setUrl(urlApi.apiHost + urlApi.viewspot.detail); 
+    model.setUrl(urlApi.apiHost + urlApi.viewspot.detail);
     model.getdata(req, function(data){
         res.json(JSON.parse(data));
     });
@@ -22,18 +22,18 @@ router.get('/detail/:SPOTID', function(req, res) {
 router.post('/search', function(req, res) {
     var text = req.body.searchText;
     var requestUrl = urlApi.apiHost + urlApi.searchViewspotByName + encodeURI(text);
-    model.setUrl(requestUrl); 
+    model.setUrl(requestUrl);
     model.getdata(null, function(data){
         res.json(JSON.parse(data));
     });
-}); 
+});
 
 
 // 路线编辑 ajax请求更多
 router.post('/ajax/more', function(req, res) {
     var text = req.body.searchText,
         page = req.body.page;
-        
+
     var requestUrl = urlApi.apiHost + urlApi.searchViewspot + "keyword=" + encodeURI(text) + "&page=" + encodeURI(page);
 
     model.setUrl(requestUrl);
@@ -51,7 +51,7 @@ var selectCityId = function(result) {
     if (tempCity.level == 2) {
       cityId = tempCity._id;
       break;
-    } 
+    }
   }
   return cityId;
 }
