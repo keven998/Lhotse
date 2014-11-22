@@ -1,55 +1,11 @@
-Travelpi = {};//全局对象
-$(function () {
-            
-    //图片滚动   
-    var id = function(el) {
-        return document.getElementById(el);
-    };  //好用！！获取一个元素(通过ID)
-    
-    var c = id('photo-list');//获取该元素(滚动图片列表)?! 
-    
-    $('#next').click(function(){
-        if(c) {
-            var ul = id('scroll'),
-                lis = ul.getElementsByTagName('li'),
-                itemCount = lis.length,
-                width = lis[0].offsetWidth, //获得每个img容器的宽度 100+9+（1+2）*2
-                marquee = function() {
-                    c.scrollLeft += 2;
-                    if(c.scrollLeft % width <= 1){  //当 c.scrollLeft 和 width 相等时，把第一个img追加到最后面
-                        ul.appendChild(ul.getElementsByTagName('li')[0]);
-                        c.scrollLeft = 300;
-                        clearInterval(timer);
-                    }
-                },
-                speed = 1; //数值越大越慢，50ms
-            ul.style.width = width*(itemCount+1) + 'px'; //加载完后设置容器长度   !!!
-            var timer = setInterval(marquee, speed);
-        }
-    })
-    $('#prev').click(function(){
-        if(c) {
-            var ul = id('scroll'),
-                lis = ul.getElementsByTagName('li'),
-                itemCount = lis.length,
-                width = lis[0].offsetWidth, //获得每个img容器的宽度 100+9+（1+2）*2
-                marquee = function() {
-                    c.scrollLeft -=2;
-                    if(c.scrollLeft % width <= 1){  //当 c.scrollLeft 和 width 相等时，把第一个img追加到最后面
-                        ul.insertBefore(lis[4],lis[0]);
-                        c.scrollLeft = 300;
-                        clearInterval(timer);
-                    }
-                },
-                speed = 5; //数值越大越慢，50ms
-            ul.style.width = width*(itemCount+1) + 'px'; //加载完后设置容器长度   !!!
-            var timer = setInterval(marquee, speed);
-        }
-    })
-    
+'use strict';
 
-            
-            
+var Travelpi = {},
+    selectPanel = null;
+
+$(function () {
+    map_container_initial();
+
     /*导航筛选器————点击空白处收起导航下拉项*/       
     //效果不好，点击其它的"a"元素也不能收起    //已阅
     var navLayers = $('.filter-nav>li .layer'),  //筛选器   筛选条件列表     //已改
@@ -80,8 +36,8 @@ $(function () {
             }
         }
     })
-    
-        
+
+
     /*条件筛选————tab点击效果*/ 
     //点击tab出现下拉选项表的过程   //已改
     var navList = $('.filter-nav>li>a');
@@ -124,8 +80,8 @@ $(function () {
             })
         })
     })
-    
-    
+
+
     /*条件筛选按钮列表操作函数*/
     //定义封装了点击列表和展示列表中的联动事件！
     var travelPi = {
@@ -137,7 +93,6 @@ $(function () {
             dataFrom = dataItem.dataNavItem + '@' + dataItem.selectItem;    
             //记录信息(ly03@cb-1 )，当。。。时，通过这个来删除
             selectListHtml = '<a data-from="' + dataFrom + '" class="bluebg option">' + value + '<i class="btn-close2"></i></a>';
-            console.log(selectListHtml);
             selectListContent.append(selectListHtml);
         },
         selectListRemove: function (value) {
@@ -175,8 +130,8 @@ $(function () {
             })
         }
     };
-    
-    
+
+
     var dataItem = {};
     /*icheck插件区域*/
     //radio样式控制     //已阅
@@ -216,7 +171,6 @@ $(function () {
             //ly01  nav中的编号
             dataItem.selectItem = $(this).attr('id');
             //cb01,cb02 选项中的编号
-            console.log(dataItem);
             travelPi.selectListUpdate(dataItem, $(this).attr('data-item'));
             //根据封装好的nav编号和选项编号，以及data-item(存储"独自出行"的数据)在.select-list中增加，先写好样式，有元素增加后就会自动撑开空间
             travelPi.selectListClose();
@@ -287,10 +241,8 @@ $(function () {
         }
     );
     */
-    
-    
-    
-    
+
+
     /*列表显隐切换*/  //已改
     //指列表中的下拉弹层
     var routeList = $('.routelist>li'),   //  routeList是指路线列表
@@ -300,33 +252,151 @@ $(function () {
     routeList.each(function () {
         var $this = $(this);
         $this.on('click', function (e) {
-            var target = e.target;
-            rListDatafor = $this.attr('data-for');
-            layerId = '#' + rListDatafor;
-            tabUl = layerId + ' ul';
-            if ( target.className !== 'fork ico-fork' ) {          //排除‘复制路线’按钮事件，未改
-                if ( $(layerId).css('display') === 'none' ) {
-                    $(layerId).show('fast');
-                    c.scrollLeft = 300;//出来的时候给滚动条初赋值！
-                } else {
-                    $(layerId).hide(400);
+            var target = e.target,
+                dropClassName = "drop_layer",
+                layerClass = "." + dropClassName,
+                tabUl = layerClass + ' ul';
+            var requestUrl = "/route/layer/" + $(this).attr('data-id');
+            if ( target.className !== 'fork ico-fork' ) {//排除‘复制路线’按钮事件，未改
+                //judge the next class and his data-id
+                if ($this.next().hasClass(dropClassName)){
+                    if ( $(layerClass).css('display') === 'none' ) {
+                        $(layerClass).show('fast');
+                    } else {
+                        $(layerClass).hide(400);
+                    }
+                }else{
+                    $(layerClass).remove();
+                    $('.slider_layer').remove();
+                    $.ajax({
+                        url : requestUrl,
+                        data : {},
+                        success : function (msg) {
+                            //show the map @CK
+                            selectPanel.updateData(msg.mapView);
+
+                            $this.after(msg.dropLayerHtml);
+                            $(tabUl).idTabs();  //实例化列表内tab选项卡  =>  实现tab功能
+
+                            //initial the tab-nav style
+                            /*
+                            $(tabUl).children('li:first').addClass("nav_click");
+                            var navList = $(tabUl).children('li');
+                            navList.each(function(index){
+                                $(this).bind('click',function(){
+                                    console.log(index);
+                                    if (! $(this).hasClass('nav_click')){
+                                        navList.removeClass('nav_click');
+                                        $(this).addClass('nav_click');
+                                    }
+                                })
+                            })
+                            */
+
+                            /*create the routedetail layer*/
+                            $this.parent('ul.routelist').after(msg.sliderLayerHtml);
+                            $('#route').on('click',function(){
+                                var sliderLayer = $('.slider_layer');
+                                sliderLayer.show();
+                                sliderLayer.animate({
+                                    left: 0
+                                },500,"swing")
+
+                                //tab
+                                var tab01 = $('#tab01'),
+                                    tab02 = $('#tab02'),
+                                    item01 = $('#item01'),
+                                    item02 = $('#item02');
+                                tab01.on('click', function (e) {
+                                    if (item01.css('display') == 'none'){
+                                        item01.show();
+                                        item02.hide();
+                                    } else {
+                                        return false;
+                                    }
+                                })
+                                tab02.on('click', function (e) {
+                                    if (item02.css('display') == 'none'){
+                                        item02.show();
+                                        item01.hide();
+                                    } else {
+                                        return false;
+                                    }
+                                })
+
+                                $('#slider_close').on('click',function(){
+                                    sliderLayer.animate({
+                                        left: -650
+                                    },500,"swing")
+                                })
+                            })
+                            $(layerClass).show('fast');
+
+                            //close the droplayer by the close btn
+                            //add the data-for to .close , for close the layer
+                            var closdBtn = $(layerClass).find('#drop_close');
+                            closdBtn.on('click', function (e) {
+                                $(layerClass).hide(400);
+                            })
+
+                            //图片滚动
+                            var id = function(el) {
+                                return document.getElementById(el);
+                            };
+
+                            var c = id('photo-list'),
+                                ul = id('scroll'),
+                                lis = ul.getElementsByTagName('li'),
+                                itemCount = lis.length,
+                                //width = lis[2].offsetWidth;//获得每个img容器的宽度 100+9+（1+2）*20
+                                width = 300,
+                                marginLeft = 315;
+                            ul.style.width = (width + 20) * itemCount + 'px';
+                            c.scrollLeft = marginLeft;
+                            $('#next').click(function(){
+                                if(c) {
+                                    var marquee = function() {
+                                        c.scrollLeft += 2;
+                                        console.log(c.scrollLeft);
+                                        if(c.scrollLeft % marginLeft <= 1){
+                                            //ul.append(ul.children('li')[0]);
+                                            ul.appendChild(ul.getElementsByTagName('li')[0]);
+                                            c.scrollLeft = marginLeft;
+                                            clearInterval(timer);
+                                        }
+                                    },
+                                    speed = 1; //数值越大越慢，50ms
+                                    ul.style.width = (marginLeft + 20) * itemCount + 'px'; //加载完后设置容器长度   !!!
+                                    var timer = setInterval(marquee, speed);
+                                }
+                            })
+                            $('#prev').click(function(){
+                                if(c) {
+                                    var marquee = function() {
+                                            c.scrollLeft -=2;
+                                            if(c.scrollLeft % marginLeft <= 1){
+                                                ul.insertBefore(lis[itemCount-1],lis[0]);
+                                                c.scrollLeft = marginLeft;
+                                                clearInterval(timer);
+                                            }
+                                        },
+                                        speed = 5;
+                                    ul.style.width = (marginLeft + 20) * itemCount + 'px';
+                                    var timer = setInterval(marquee, speed);
+                                }
+                            })
+                        },
+                        error : function () {
+                            console.log('error!!!')
+                        }
+                    });
                 }
-                
-                $(tabUl).idTabs();  //实例化列表内tab选项卡  =>  实现tab功能
-                
-                //关闭下拉弹层
-                $(layerId).find('.close').attr('data-for', layerId);
-                //add the data-for to .close , for close the layer
-                var closdBtn = $(layerId).find('.close');
-                closdBtn.on('click', function (e) {
-                    var currLayerId = $(this).attr('data-for');
-                    $(currLayerId).hide(400);
-                })
+            }else{
+                //
             }
         })
     });
-    
-    
+
     //排序事件
     $('.sort').on('click',function(){
         if($(this).children('i').hasClass('ico-arr03')){
@@ -336,24 +406,8 @@ $(function () {
             $(this).children('i').removeClass('ico-arr04').addClass('ico-arr03');
         }
     })
-    
-    
-    //路线详情弹层弹出来
-    $('#route').on('click',function(){
-        var sliderLayer = $('.slider_layer');
-        sliderLayer.show();
-        sliderLayer.animate({
-            left: 0
-        },500,"swing")
 
-        $('#layer_close').on('click',function(){
-            console.log("1");
-            sliderLayer.animate({
-                left: -650
-            },500,"swing")
-        })
-    })
-    
+
     /*
     //弹层
     routeList.on('click','a.c-img,h2,a.btn02-c1',function(e){
@@ -434,38 +488,7 @@ $(function () {
         });
     });
     */
-            
-    //tab切换
-    /*
-     * routeList
-     * */
-    var tab01 = $('#tab01'),
-        tab02 = $('#tab02'),
-        item01 = $('#item01'),
-        item02 = $('#item02');
-        
-    tab01.on('click', function (e) {
-        console.dir($(this))
-        if ( !$(this).hasClass('item01-hover') ) {
-            $(this).addClass('item01-hover').removeClass('item01-normal');
-            tab02.removeClass('item02-hover').addClass('item02-normal');
-            item01.show();
-            item02.hide();
-        } else {
-            return false;
-        }
-    })
-    
-    tab02.on('click', function (e) {
-        if ( !$(this).hasClass('item02-hover') ) {
-            $(this).addClass('item02-hover').removeClass('item02-normal');
-            tab01.removeClass('item01-hover').addClass('item01-normal');
-            item02.show();
-            item01.hide();
-        } else {
-            return false;
-        }
-    })
+
 
     //复制路线-弹层
     function getId(id){
@@ -694,8 +717,7 @@ $(function () {
                 }
             }
         },
-        getStyle : function(obj, attr)
-        {
+        getStyle : function(obj, attr){
             return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj, false)[attr];
         },
         sMove : function(obj, json, onEnd){
@@ -728,18 +750,256 @@ $(function () {
             }
         }
     };
-    $('.fork').on('click',function(){
-        console.log("a");
+    window.onload = function(){
         new Alert('but', 'box', {
-            title : '请选择需要自动规划的内容',
-            content : '<div class="size"><form><div><input type="checkbox" name="transpotation" />交通方式<input type="radio" name="sex" value="male" />飞机<input type="radio" name="sex" value="male" />火车<input type="radio" name="sex" value="male" />汽车</div><div><input type="checkbox" name="hotel" />酒店<input type="radio" name="sex" value="male" />最便捷<input type="radio" name="sex" value="male" />最便宜<input type="radio" name="sex" value="male" />最奢华</div><div><input type="checkbox" name="food" />美食<input type="radio" name="sex" value="male" />特色小吃<input type="radio" name="sex" value="male" />口碑最好<input type="radio" name="sex" value="male" />连锁名店</div><div><input type="checkbox" name="enjoy" />娱乐<input type="radio" name="sex" value="male" />酒店<input type="radio" name="sex" value="male" />活动</div></form></div><div class="but"><button class="button">规划</button><button class="button">取消</button></div>',
-            width : '',
-            height : '250px',
+            title : '规划包含',
+            content :
+                '<div class="plan_option">'+
+                    '<form>'+
+                        '<div>'+
+                            '<b>交通方式</b>'+
+                            '<input type="radio" name="transpotation" value="air" checked/><span>飞机</span>'+
+                            '<input type="radio" name="transpotation" value="train" /><span>火车</span>'+
+                            '<input type="radio" name="transpotation" value="car" /><span>汽车</span>'+
+                            '<input type="radio" name="transpotation" value="none" /><span>无</span>'+
+                        '</div>'+
+                        '<div>'+
+                            '<b>酒店</b>'+
+                            '<input type="radio" name="hotel" value="convenient" checked/><span>最便捷</span>'+
+                            '<input type="radio" name="hotel" value="cheep" /><span>最便宜</span>'+
+                            '<input type="radio" name="hotel" value="luxury" /><span>最奢华</span>'+
+                            '<input type="radio" name="hotel" value="none" /><span>无</span>'+
+                        '</div>'+
+                        '<div>'+
+                            '<b>美食</b>'+
+                            '<input type="radio" name="food" value="special" checked/><span>特色小吃</span>'+
+                            '<input type="radio" name="food" value="reputation" /><span>口碑最好</span>'+
+                            '<input type="radio" name="food" value="wellknow" /><span>连锁名店</span>'+
+                            '<input type="radio" name="food" value="none" /><span>无</span>'+
+                        '</div>'+
+                        '<div>'+
+                            '<b>娱乐</b>'+
+                            '<input type="radio" name="enjoy" value="bar" checked/><span>酒吧</span>'+
+                            '<input type="radio" name="enjoy" value="activity" /><span>活动</span>'+
+                            '<input type="radio" name="enjoy" value="none" /><span>无</span>'+
+                        '</div>'+
+                    '</form>'+
+                '</div>'+
+                '<div class="but">'+
+                    '<button class="mkplan"></button>'+
+                    '<button class="skip"></button>'+
+                '</div>',
+            width : '650px',
+            height : '380px',
             top : '',
             left : '',
             fixed : '',
             close : 'close'
         });
-    })  
-
+    }
 })
+
+
+/************map************/
+
+function mapDaySelectPanel(routeData, mapContainerDomId) {
+    var cthis = this,
+        routeData = routeData || null,
+        latLngArray = [],
+        idArray = [],
+        currentSelect = 0,
+        mapControl = null,
+        mapObject = null,
+        mapContainerDomId = mapContainerDomId,
+        currentRouteId = '';
+
+    cthis.getCurrentIndex = function() {
+        return currentSelect;
+    };
+
+    cthis.setCurrentIndex = function() {
+        // TODO
+    };
+
+    cthis.init = function() {
+        cthis.mapInitial();
+        if (routeData) {
+            cthis.setIdArray();
+            cthis.addMarker();
+            cthis.addSelectOptiontab();
+        }
+    };
+
+    this.setIdArray = function() {
+        for (var dayIndex in routeData) {
+            var oneDaySpots = routeData[dayIndex];
+            for (var spotIndex in oneDaySpots) {
+                idArray.push(oneDaySpots[spotIndex].id);
+            }
+        }
+    };
+
+    cthis.mapInitial = function() {
+        mapControl = new GMaper({});
+        var lat = '',
+            lng = '';
+            //116.403874,39.921087
+        if (!routeData) {
+            lat = '27.441219';
+            lng = '111.75401';
+        } else {
+            routeData.length && routeData[0].length
+            && routeData[0][0].lng && routeData[0][0].lat
+            && (lat = routeData[0][0].lng) && (lng = routeData[0][0].lat);
+        }
+        mapControl.init({
+            mapInner: mapContainerDomId,
+            lng: lng,
+            lat: lat,
+        });
+        mapObject = mapControl.getMap();
+        mapObject.setZoom(4);
+    };
+
+    cthis.addSelectOptiontab = function() {
+        var selectPanelDiv = document.createElement('div'),
+            selectDom = document.createElement('select'),
+            totalDay = routeData.length;
+
+        selectPanelDiv.index = 1;
+        selectDom.name = "selectPanel";
+        selectDom.id = "J_selectPanel";
+
+        for (var i = 0; i <= totalDay; i++) {
+            var option = document.createElement('option');
+            if (0 === i) {
+                option.innerHTML = '全程';
+            }else {
+                option.innerHTML = '第' + i + '天';
+            }
+            option.value = i;
+            selectDom.appendChild(option);
+        };
+        selectPanelDiv.appendChild(selectDom);
+        mapObject.controls[google.maps.ControlPosition.TOP_RIGHT].push(selectPanelDiv);
+        if (routeData) {
+            cthis.setFitView(0);
+        }
+
+        google.maps.event.addDomListener(selectDom, 'change', function() {
+            var index = $('#J_selectPanel option:selected').val();
+            currentSelect = index;
+            cthis.drawRoute(index);
+        });
+    };
+
+    cthis.addMarker = function() {
+        var indexInAll = 0;
+        for (var dayIndex in routeData) {
+            var oneDayData = routeData[dayIndex],
+                tempMarkerArray = [];
+            for (var index in oneDayData) {
+                indexInAll++;
+                var spot = oneDayData[index],
+                    marker = new google.maps.LatLng(spot.lat, spot.lng);
+                tempMarkerArray.push(marker);
+                spot.indexInAll = indexInAll;
+                spot = cthis.addHTML(spot);
+                mapControl.addMarker(spot, function(){})
+            }
+            latLngArray.push(tempMarkerArray);
+        }
+    };
+
+    cthis.drawRoute = function(index) {
+        mapControl.clearRoute();
+        if (0 == index) {
+            cthis.showAllMarker();
+        }else {
+            cthis.showOneDay(index);
+            mapControl.drawDriveRoute(routeData[index - 1], function() {});
+        }
+        cthis.setFitView(index);
+    };
+
+    cthis.setFitView = function(index) {
+        var bound = new google.maps.LatLngBounds();
+        if (0 == index ) {
+            for(var dayIndex in latLngArray) {
+                var oneDayData = latLngArray[dayIndex];
+                for (var j in oneDayData) {
+                    bound.extend(oneDayData[j]);
+                }
+            }
+        }else {
+            var selectMarkers = latLngArray[index - 1];
+            for (var j in selectMarkers) {
+                bound.extend(selectMarkers[j]);
+            }
+        }
+        mapObject.fitBounds(bound);
+    };
+
+    cthis.showOneDay = function(index) {
+        for (var j in idArray) {
+            var id = idArray[j];
+            mapControl.hideMarker(id);
+        }
+        var selectDayData = routeData[index - 1];
+        for (var spotIndex in selectDayData) {
+            mapControl.showMarker(selectDayData[spotIndex].id);
+        }
+    };
+
+    cthis.showAllMarker = function() {
+        for (var j in idArray) {
+            var id = idArray[j];
+            mapControl.showMarker(id);
+        }
+    };
+
+    cthis.addHTML = function(spot) {
+        var id = spot.id,
+            name = spot.name,
+            indexInAll = spot.indexInAll,
+            markerHtmlElements = [];
+
+        markerHtmlElements.push('<a class="map_marker" id="' + id + '" href="javascript:;" title="' + name + '">');
+        markerHtmlElements.push("\t<i>" + indexInAll + "</i>");
+        markerHtmlElements.push("\t<em>" + name + "</em>");
+        markerHtmlElements.push("</a>");
+        spot.markerHtml = markerHtmlElements.join("");
+        return spot;
+    };
+
+    cthis.updateData = function(data) {
+        routeData = data;
+        latLngArray = [];
+        idArray = [];
+        currentSelect = 0;
+        cthis.init();
+
+    }
+}
+
+
+function main() {
+    selectPanel = new mapDaySelectPanel(null, "map_inner");
+    selectPanel.init();
+}
+
+
+$(function() {
+    var h = "http://ditu.google.cn/maps/api/js?v=3&sensor=false&key=AIzaSyCuXDkC1uoHaSctnrsGSGfpj9QVCUrfw1w",
+        f = document.createElement("script");
+    f.type = "text/javascript";
+    f.src = h + "&callback=main";
+    document.body.appendChild(f);
+});
+
+
+/**set the width of map_inner**/
+function map_container_initial(){
+    var routelist_width = 585;
+    $('#map_inner').css('width',document.body.scrollWidth-580);
+}

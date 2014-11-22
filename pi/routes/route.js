@@ -5,6 +5,75 @@ var apiList = require('../url_api');
 var config = require('../conf/system');
 var utils = require( "../common/utils");
 
+var mu = require('mu2');
+var _dirname = 'public/htmltemplate/routePage';
+
+
+/*get data for route.jade's ajax request*/
+router.get('/layer/:ROUTEID', function(req, res){
+    mu.root = _dirname;
+    var dropLayerTemplate = 'droplayer.html',
+        dropLayerHtml = [],
+        sliderLayerTemplate = 'sliderlayer.html',
+        sliderLayerHtml = [];
+
+    /*get the details of the route*/
+    model.setUrl(apiList.apiHost + apiList.routeDetail);
+    model.getdata(req, function(data) {
+        if (data != null){
+            if (data.indexOf("!DOCTYPE") != -1){
+                console.log("The system is occured!");
+            }else{
+                var route_data = JSON.parse(data).result;
+            }
+        }else{
+            console.log("The data is NULL!");
+        }
+
+
+        /*get the relatived notes of the route*/
+        model.setUrl(apiList.apiHost + apiList.routeNotes);
+        model.getdata(req,function(data){
+            if (data != null){
+                if (data.indexOf("!DOCTYPE") != -1){
+                    console.log("The system is occured!");
+                }else{
+                    var misc_data = JSON.parse(data).result;
+                }
+            }else{
+                console.log("The data is NULL!");
+            }
+
+
+            /*render the html*/
+            var data = regroupData(route_data , misc_data);
+
+            mu.compileAndRender(dropLayerTemplate , data)
+            .on('data', function(chunk) {
+                dropLayerHtml.push(chunk);
+            })
+            .on('end', function() {
+                dropLayerHtml = dropLayerHtml.join("");
+                mu.compileAndRender(sliderLayerTemplate , data)
+                .on('data', function(chunk) {
+                    sliderLayerHtml.push(chunk);
+                })
+                .on('end', function() {
+                    sliderLayerHtml = sliderLayerHtml.join("");
+                    console.log(sliderLayerHtml);
+                    res.json('route', {
+                        dropLayerHtml: dropLayerHtml.toString(),
+                        sliderLayerHtml: sliderLayerHtml.toString(),
+                        mapView: data.mapView
+                    });
+                });
+            });
+        });
+    });
+})
+
+
+
 //景点详情(../route/detail)页面的数据获取
 router.get('/detail/:ROUTEID', function(req, res){
     model.setUrl(apiList.apiHost + apiList.routeDetail);
@@ -24,22 +93,6 @@ router.get('/detail/:ROUTEID', function(req, res){
 });
 
 
-router.get('/plans/detail/:ROUTEID', function(req, res){
-    model.setUrl(apiList.apiHost + apiList.routeDetail);
-    model.getdata(req, function(data) {
-        var details = JSON.parse(data);
-        model.setUrl(apiList.apiHost + apiList.routeNotes);
-        model.getdata(req,function(data){
-            var notes = JSON.parse(data);
-            res.json({
-                details: details.result,
-                notes: notes.result,
-                user_info: utils.get_user_info(req, res),
-                config: config,
-            });
-        });
-    });
-});
 /*
     接收路线列表中的用户筛选信息
 */
@@ -115,6 +168,111 @@ function selectUrl(tag, minDay, maxDay, arrId, fromId, page, pageSize) {
             "&pageSize=" + pageSize;
     return requestUrl;
 }
+
   
+/*regroup the data-struct*/
+function regroupData(route_data,misc_data){
+    /*for the scroll images*/
+    var imgView = [];
+    for(var key in route_data.imageList){
+        imgView.push({
+            img: route_data.imageList[key]
+        });
+    }
+    //the images is too much.
+    for(var day in route_data.details){
+        for(var item in route_data.details[day].actv){
+            for(var image in route_data.details[day].actv[item].details.imageList){
+                imgView.push({
+                    img: route_data.details[day].actv[item].details.imageList[image]
+                });
+            }
+        }
+    }
+
+
+    /*for the map appearance*/
+    var mapView = [];
+    for(var day in route_data.details){
+        var tempMap = [];
+        for(var item in route_data.details[day].actv){
+            tempMap.push({
+                name: route_data.details[day].actv[item].itemName,
+                id: route_data.details[day].actv[item].itemId,
+                type: route_data.details[day].actv[item].type,
+                lng: route_data.details[day].actv[item].details.addr.lng,
+                lat: route_data.details[day].actv[item].details.addr.lat
+            });
+        }
+        mapView.push(tempMap);
+    }
+
+
+    /*for the route preview*/
+    var dayView = [];
+    for(var i = 0;i < route_data.summary.length;i++){
+        dayView.push({
+            viewSpot: route_data.summary[i],
+            day: i+1
+        });
+    }
+
+
+    /*for the relative notes*/
+    var miscView = [];
+    var tempSource;
+    for(var note in misc_data){
+        switch (misc_data[note].source){
+            case 'baidu':
+                tempSource = "百度旅游";
+                break;
+            case 'qyer':
+                tempSource = "穷游网";
+                break;
+            case 'mafengwo':
+                tempSource = "蚂蜂窝";
+                break;
+            default:
+                tempSource = "";
+        }
+        miscView.push({
+            title: misc_data[note].title,
+            authorName: misc_data[note].authorName,
+            authorAvatar: misc_data[note].authorAvatar,
+            source: tempSource,
+            sourceUrl: misc_data[note].sourceUrl,
+            summary: misc_data[note].summary,
+            publishDate: misc_data[note].publishDate,
+            viewCnt: misc_data[note].viewCnt,
+            commentCnt: misc_data[note].commentCnt,
+            favorCnt: misc_data[note].favorCnt
+        });
+    }
+
+
+    /*the rest information of the route*/
+    var fullView = {
+        desc: route_data.desc,
+        title: route_data.title,
+        vsCnt: route_data.vsCnt,
+        days: route_data.days,
+        tags: route_data.tags.slice(0,3),
+        budget: {
+            sup: route_data.budget[0],
+            inf: route_data.budget[1]
+        },
+        moreDesc: route_data.moreDesc
+    }
+
+
+    return {
+        dayView: dayView,
+        imgView: imgView,
+        mapView: mapView,
+        fullView: fullView,
+        miscView: miscView
+    }
+}
+
 
 module.exports = router;
