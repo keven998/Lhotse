@@ -491,15 +491,13 @@ $(function() {
         TOPTITLEHEIGHT = 45,
         MAPMARGINLEFT = 307,
         height = docHeight - TOPNAVIBARHEIGHT - TOPTITLEHEIGHT,
-        width = docWidth - 310; // 958px
+        width = docWidth - 320; // 958px
     $('.edit_region').css({
         height: height
     });
     $('.map_box').css({
-        width: width,
+        width: width
     });
-    console.log(height);
-    console.log(width);
     /* width, height adjust END */
 
     var h = "http://ditu.google.cn/maps/api/js?v=3&sensor=false&key=AIzaSyCuXDkC1uoHaSctnrsGSGfpj9QVCUrfw1w",
@@ -507,21 +505,15 @@ $(function() {
     f.type = "text/javascript";
     f.src = h + "&callback=initMaper";
     document.body.appendChild(f);
-
-    /*to be deleted*/
-    // $('.ft').remove();
-    /*to be deleted*/
-
-
 });
 /*----function for creating google map END----*/
 
 
-/*----set the map height BEGIN----*/
+/*----set the map height and width while resize browser widnow BEGIN----*/
 $(function() {
     function h() {
-        var height = $(window).height() - 102,
-            width = $(window).width() - 272;
+        var height = $(window).height() - 105,
+            width = $(window).width() - 320;
 
         $(".map_box").css({
             height: height,
@@ -536,7 +528,7 @@ $(function() {
     });
     h();
 });
-/*----set the map height END----*/
+/*----set the map height and width while resize browser widnow END----*/
 
 
 /*---- 五个tab的切换 BEGIN ----*/
@@ -579,9 +571,10 @@ var tabMapControl = function() {
         $(activedTabDom).removeClass('active');
         $('.content_' + activedClassName).slideUp(400);
         that.clearSpots();
+        var width = $(window).width() - 320 + 'px';
         $(map_box).css({
-            'margin': '0px 0px 0px 320px',
-            'width': '74%',
+            'margin': '0px',
+            'width': width,
         });
     };
     that.clearSpots = function() {
@@ -591,9 +584,12 @@ var tabMapControl = function() {
     that.notActived = function() {
         $(activedTabDom).addClass('active');
         that.getListAjax();
+    };
+    that.mapBoxSilderToLeft = function() {
+        var width = $(window).width() - 280 - 320 + 'px';
         map_box.css({
-            'margin': '0px 0px 0px 600px',
-            'width': '51%',
+            'margin': '0px 0px 0px 280px',
+            'width': width,
         });
     };
     // searchAjax 可以复用这个函数，加入keyword
@@ -615,6 +611,7 @@ var tabMapControl = function() {
             data: postData,
             success: function(respondData) {
                 console.log(respondData);
+                that.mapBoxSilderToLeft();
                 that.addElement(respondData.html);
                 // 功能实现后要加上下面这句话
                 $('.content_' + activedClassName).slideDown(400).siblings().slideUp(400);
