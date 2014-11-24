@@ -483,15 +483,15 @@ function initMaper() {
 
 
 /*----function for creating google map BEGIN----*/
+var TOPNAVIBARHEIGHT = 60,
+    TOPTITLEHEIGHT = 45,
+    MAPMARGINLEFT = 320;
 $(function() {
     /* width, height adjust BEGIN */
     var docHeight = $(window).height(),
         docWidth = $(window).width(),
-        TOPNAVIBARHEIGHT = 60,
-        TOPTITLEHEIGHT = 45,
-        MAPMARGINLEFT = 307,
         height = docHeight - TOPNAVIBARHEIGHT - TOPTITLEHEIGHT,
-        width = docWidth - 320; // 958px
+        width = docWidth - MAPMARGINLEFT;
     $('.edit_region').css({
         height: height
     });
@@ -512,8 +512,8 @@ $(function() {
 /*----set the map height and width while resize browser widnow BEGIN----*/
 $(function() {
     function h() {
-        var height = $(window).height() - 105,
-            width = $(window).width() - 320;
+        var height = $(window).height() - TOPNAVIBARHEIGHT - TOPTITLEHEIGHT,
+            width = $(window).width() - MAPMARGINLEFT;
 
         $(".map_box").css({
             height: height,
@@ -571,7 +571,7 @@ var tabMapControl = function() {
         $(activedTabDom).removeClass('active');
         $('.content_' + activedClassName).slideUp(400);
         that.clearSpots();
-        var width = $(window).width() - 320 + 'px';
+        var width = $(window).width() - MAPMARGINLEFT + 'px';
         $(map_box).css({
             'margin': '0px',
             'width': width,
@@ -586,7 +586,7 @@ var tabMapControl = function() {
         that.getListAjax();
     };
     that.mapBoxSilderToLeft = function() {
-        var width = $(window).width() - 280 - 320 + 'px';
+        var width = $(window).width() - 280 - MAPMARGINLEFT + 'px';
         map_box.css({
             'margin': '0px 0px 0px 280px',
             'width': width,
@@ -749,14 +749,3 @@ $('.J_calendar').val(currentTime());
 
 
 /* ---- 修改title, 日历, 保存路线 END----- */
-
-/* ----浏览器自适应---- */
-var docHeight = $(document).height(),
-    docWidth = $(document).width(),
-    TOPNAVIBARHEIGHT = 60,
-    TOPTITLEHEIGHT = 45,
-    MAPMARGINLEFT = 320;
-console.log(height);
-console.log(width);
-/* ----浏览器自适应---- */
-/* ----浏览器自适应---- */
