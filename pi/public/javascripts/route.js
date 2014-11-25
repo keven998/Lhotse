@@ -381,7 +381,7 @@ $(function () {
                                     var marquee = function() {
                                             c.scrollLeft -=2;
                                             if(c.scrollLeft % marginLeft <= 1){
-                                                ul.insertBefore(lis[itemCount-1],lis[0]);
+                                                ul.insertBefore(lis[itemCount - 1],lis[0]);
                                                 c.scrollLeft = marginLeft;
                                                 clearInterval(timer);
                                             }
@@ -507,7 +507,7 @@ $(function () {
         var aElem = $$(oParent, '*');
         var aClass = [];
         var i = 0;
-        for(i=0;i<aElem.length;i++)
+        for(i = 0;i < aElem.length;i++)
             if(aElem[i].className == sClass)
                 aClass.push(aElem[i]);
         return aClass;
@@ -1021,6 +1021,6 @@ function container_initial(){
 
     $(window).resize(function(){
         var wWidth = $(window).width();
-        $('#map_inner').css('width',wWidth-routeListWidth);
+        $('#map_inner').css('width',wWidth - routeListWidth);
     })
 }
