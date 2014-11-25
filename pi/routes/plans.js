@@ -34,10 +34,20 @@ router.post('/timeline/save', function(req, res) {
     });
 });
 
+/* plan detail */
+router.get('/detail/:UGCID', function(req, res) {
+    console.log('in plans/detail:ugcId');
+    res.render('plans/detail', {
+
+        user_info: utils.get_user_info(req, res),
+        config: config,
+        already_saved: false,
+    });
+});
 
 /* edit route */
 router.get('/edit/:UGCID', function(req, res) {
-    console.log('in...');
+    console.log('in plans/edit:ugcId');
     res.render('plans/edit', {
 
         user_info: utils.get_user_info(req, res),
