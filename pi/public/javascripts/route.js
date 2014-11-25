@@ -1015,9 +1015,9 @@ function container_initial(){
         selectListHeight = $('.select-list').height(),
         gapHeight = 51,
         routeListWidth = $('.routelist').width();
-    $('#map_inner').css('width',wWidth-routeListWidth);
-    $('#map_inner').css('height',wHeight-hdHeight-searchHeight);
-    $('.routelist').css('height',wHeight-hdHeight-searchHeight-filternavHeight-selectListHeight-gapHeight);
+    $('#map_inner').css('width',wWidth - routeListWidth);
+    $('#map_inner').css('height',wHeight - hdHeight - searchHeight);
+    $('.routelist').css('height',wHeight - hdHeight - searchHeight - filternavHeight - selectListHeight - gapHeight);
 
     $(window).resize(function(){
         var wWidth = $(window).width();
