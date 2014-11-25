@@ -352,7 +352,7 @@ input[type="text"] {
 
 .list_spotview, .list_hotel {
     width: 100%;
-    height: 450px;
+    height: 100%;
     overflow: auto;
 }
 
