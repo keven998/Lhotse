@@ -483,15 +483,15 @@ function initMaper() {
 
 
 /*----function for creating google map BEGIN----*/
-var TOPNAVIBARHEIGHT = 60,
-    TOPTITLEHEIGHT = 45,
-    MAPMARGINLEFT = 320;
+var const_topNaviBarHeight = 60,
+    const_topTitleHeight = 45,
+    const_mapMarginLeft = 320;
 $(function() {
     /* width, height adjust BEGIN */
     var docHeight = $(window).height(),
         docWidth = $(window).width(),
-        height = docHeight - TOPNAVIBARHEIGHT - TOPTITLEHEIGHT,
-        width = docWidth - MAPMARGINLEFT;
+        height = docHeight - const_topNaviBarHeight - const_topTitleHeight,
+        width = docWidth - const_mapMarginLeft;
     $('.edit_region').css({
         height: height
     });
@@ -512,8 +512,8 @@ $(function() {
 /*----set the map height and width while resize browser widnow BEGIN----*/
 $(function() {
     function h() {
-        var height = $(window).height() - TOPNAVIBARHEIGHT - TOPTITLEHEIGHT,
-            width = $(window).width() - MAPMARGINLEFT;
+        var height = $(window).height() - const_topNaviBarHeight - const_topTitleHeight,
+            width = $(window).width() - const_mapMarginLeft;
 
         $(".map_box").css({
             height: height,
@@ -571,7 +571,7 @@ var tabMapControl = function() {
         $(activedTabDom).removeClass('active');
         $('.content_' + activedClassName).slideUp(400);
         that.clearSpots();
-        var width = $(window).width() - MAPMARGINLEFT + 'px';
+        var width = $(window).width() - const_mapMarginLeft + 'px';
         $(map_box).css({
             'margin': '0px',
             'width': width,
@@ -586,7 +586,7 @@ var tabMapControl = function() {
         that.getListAjax();
     };
     that.mapBoxSilderToLeft = function() {
-        var width = $(window).width() - 280 - MAPMARGINLEFT + 'px';
+        var width = $(window).width() - 280 - const_mapMarginLeft + 'px';
         map_box.css({
             'margin': '0px 0px 0px 280px',
             'width': width,
