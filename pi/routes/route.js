@@ -176,7 +176,7 @@ function regroupData(route_data,misc_data){
     var imgView = [];
     for(var key in route_data.imageList){
         imgView.push({
-            img: route_data.imageList[key]
+            img: route_data.imageList[key] + "?imageView2/1/w/300/h/150"
         });
     }
     //the images is too much.
@@ -209,14 +209,27 @@ function regroupData(route_data,misc_data){
 
 
     /*for the route preview*/
-    var dayView = [];
-    for(var i = 0;i < route_data.summary.length;i++){
-        dayView.push({
+    var dropDayList = [];
+    var max = route_data.summary.length;
+    var flag = 0;
+    if (max > 5){
+        flag = 1;
+        max = 4;
+    }
+    for(var i = 0;i < max;i++){
+        dropDayList.push({
             viewSpot: route_data.summary[i],
             day: i+1
         });
     }
 
+    var slideDayView = [];
+    for(var i = 0;i < route_data.summary.length;i++){
+        slideDayView.push({
+            viewSpot: route_data.summary[i],
+            day: i+1
+        });
+    }
 
     /*for the relative notes*/
     var miscView = [];
@@ -266,7 +279,11 @@ function regroupData(route_data,misc_data){
 
 
     return {
-        dayView: dayView,
+        dropDayView: {
+            flag: flag,
+            dropDayList: dropDayList
+        },
+        slideDayView: slideDayView,
         imgView: imgView,
         mapView: mapView,
         fullView: fullView,
