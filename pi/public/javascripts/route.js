@@ -47,7 +47,7 @@ $(function () {
                 $thisParent = $this.parent();
 
             //下拉箭头的切换   判断是否已选中过
-            icoClass = $this.children('i');
+            var icoClass = $this.children('i');
             if ( icoClass.hasClass('ico-arr01') ) {
                 icoClass.removeClass('ico-arr01').addClass('ico-arr02');
                 //$this.css('border-bottom', '3px solid #4fa7bd');
@@ -70,7 +70,7 @@ $(function () {
             navList.each(function (index) {
                 var $this = $(this),
                     $thisParent = $this.parent();
-                Display = $thisParent.children('.layer').css('display');
+                var Display = $thisParent.children('.layer').css('display');
                 if ( index !== Index && Display === 'block' ) {
                     $thisParent.children('.layer').hide('fast');
                   //  $this.css('border-bottom', 'none');
@@ -245,7 +245,8 @@ $(function () {
     var routeList = $('.routelist>li'),   //  routeList是指路线列表
         rListDatafor,   //  $this.attr('data-for')  =>  list-sub-01
         layerId,    //  '#' + rListDatafor  =>  #list-sub-01
-        tabUl;      //  layerId + ' ul';    =>  #list-sub-01 ul
+        tabUl,      //  layerId + ' ul';    =>  #list-sub-01 ul
+        locked = false;
     routeList.each(function () {
         var $this = $(this);
         $this.on('click', function (e) {
@@ -256,146 +257,171 @@ $(function () {
             var requestUrl = "/route/layer/" + $(this).attr('data-id');
             if ( target.className !== 'fork ico-fork' ) {//排除‘复制路线’按钮事件，未改
                 //judge the next class and his data-id
-                if ($this.next().hasClass(dropClassName)){
-                    if ( $(layerClass).css('display') === 'none' ) {
-                        $(layerClass).show('fast');
-                    } else {
-                        $(layerClass).hide(400);
-                    }
-                }else{
-                    $(layerClass).remove();
-                    $('.slider_layer').remove();
-                    $.ajax({
-                        url : requestUrl,
-                        data : {},
-                        success : function (msg) {
-                            //show the map @CK
-                            selectPanel.updateData(msg.mapView);
-                            console.log(msg.sliderLayerHtml);
-                            $this.after(msg.dropLayerHtml);
-                            $(tabUl).idTabs();  //实例化列表内tab选项卡  =>  实现tab功能
-
-                            //initial the tab-nav style
-                            /*
-                            $(tabUl).children('li:first').addClass("nav_click");
-                            var navList = $(tabUl).children('li');
-                            navList.each(function(index){
-                                $(this).bind('click',function(){
-                                    console.log(index);
-                                    if (! $(this).hasClass('nav_click')){
-                                        navList.removeClass('nav_click');
-                                        $(this).addClass('nav_click');
-                                    }
-                                })
-                            })
-                            */
-
-                            /*create the routedetail layer*/
-                            $this.parent('ul.routelist').append(msg.sliderLayerHtml);
-                            $('.moredesc').append(msg.moreDesc);
-                            $('#route').on('click',function(){
-                                var sliderLayer = $('.slider_layer');
-                                sliderLayer.show();
-
-                                //adjust the slider height
-                                $('.slider_layer').css('height',$('#map_inner').height());
-                                var sliderHdPadding = 30,
-                                    sliderHdHeight = $('.slider_hd').height() + sliderHdPadding,
-                                    sliderTabHeight = 31;
-                                $('.tab-c').css('height',$('#map_inner').height()-sliderHdHeight-sliderTabHeight);
-
-                                sliderLayer.animate({
-                                    left: 0
-                                },500,"swing")
-
-                                //tab
-                                var tab01 = $('#tab01'),
-                                    tab02 = $('#tab02'),
-                                    item01 = $('#item01'),
-                                    item02 = $('#item02');
-                                tab01.on('click', function (e) {
-                                    if (item01.css('display') == 'none'){
-                                        item01.show();
-                                        item02.hide();
-                                    } else {
-                                        return false;
-                                    }
-                                })
-                                tab02.on('click', function (e) {
-                                    if (item02.css('display') == 'none'){
-                                        item02.show();
-                                        item01.hide();
-                                    } else {
-                                        return false;
-                                    }
-                                })
-
-                                $('#slider_close').on('click',function(){
-                                    sliderLayer.animate({
-                                        left: -650
-                                    },500,"swing")
-                                })
-                            })
+                if (! locked){
+                    locked = true;
+                    if ($this.next().hasClass(dropClassName)){
+                        if ( $(layerClass).css('display') === 'none' ) {
                             $(layerClass).show('fast');
+                            locked = false;
+                        } else {
+                            $(layerClass).hide(400);
+                            locked = false;
+                        }
+                    }else{
+                        $(layerClass).remove();
+                        $('.slider_layer').remove();
+                        var tabNav =
+                            '<div style="display:none" class="drop_layer">' +
+                               ' <ul class="tab_nav">' +
+                                    //<li><a href="#route-tab1">线路简介</a></li>
+                                    '<li><a href="#route-tab1">景点列表</a></li>' +
+                                    '<li><a href="#route-tab2">图片</a></li>' +
+                                    '<li><a href="#route-tab3">相关游记</a></li>' +
+                                    '<li><a id="route">更多>></a></li>' +
+                                    '<span class="nav_close" id="drop_close"><i class="btn-close3"></i></span>' +
+                                '</ul>' +
+                                '<div class="loading">' +
+                                    '<i class="ico02 ico02-loading"></i>' +
+                                    '<a class="btn"></a>' +
+                                '</div>' +
+                            '</div>';
+                        $this.after(tabNav);
+                        $.ajax({
+                            url: requestUrl,
+                            async: true,
+                            type: "GET",
+                            data: {},
+                            success : function (msg) {
+                                //show the map @CK
+                                $('.tab_nav').after(msg.dropLayerHtml);
+                                $('.loading').remove();
+                                selectPanel.updateData(msg.mapView);
+                                $(tabUl).idTabs();//实例化列表内tab选项卡  =>  实现tab功能
 
-                            //close the droplayer by the close btn
-                            //add the data-for to .close , for close the layer
-                            var closdBtn = $(layerClass).find('#drop_close');
-                            closdBtn.on('click', function (e) {
-                                $(layerClass).hide(400);
-                            })
-
-                            //图片滚动
-                            var id = function(el) {
-                                return document.getElementById(el);
-                            };
-
-                            var c = id('photo-list'),
-                                ul = id('scroll'),
-                                lis = ul.getElementsByTagName('li'),
-                                itemCount = lis.length,
-                                //width = lis[2].offsetWidth;//获得每个img容器的宽度 100+9+（1+2）*20
-                                width = 300,
-                                marginLeft = 315;
-                            ul.style.width = (width + 20) * itemCount + 'px';
-                            c.scrollLeft = marginLeft;
-                            $('#next').click(function(){
-                                if(c) {
-                                    var marquee = function() {
-                                        c.scrollLeft += 2;
-                                        console.log(c.scrollLeft);
-                                        if(c.scrollLeft % marginLeft <= 1){
-                                            //ul.append(ul.children('li')[0]);
-                                            ul.appendChild(ul.getElementsByTagName('li')[0]);
-                                            c.scrollLeft = marginLeft;
-                                            clearInterval(timer);
+                                //initial the tab-nav style
+                                /*
+                                $(tabUl).children('li:first').addClass("nav_click");
+                                var navList = $(tabUl).children('li');
+                                navList.each(function(index){
+                                    $(this).bind('click',function(){
+                                        console.log(index);
+                                        if (! $(this).hasClass('nav_click')){
+                                            navList.removeClass('nav_click');
+                                            $(this).addClass('nav_click');
                                         }
-                                    },
-                                    speed = 1; //数值越大越慢，50ms
-                                    ul.style.width = (marginLeft + 20) * itemCount + 'px'; //加载完后设置容器长度   !!!
-                                    var timer = setInterval(marquee, speed);
-                                }
-                            })
-                            $('#prev').click(function(){
-                                if(c) {
-                                    var marquee = function() {
-                                            c.scrollLeft -=2;
+                                    })
+                                })
+                                */
+
+                                /*create the routedetail layer*/
+                                $this.parent('ul.routelist').append(msg.sliderLayerHtml);
+                                $('.moredesc').append(msg.moreDesc);
+                                $('#route').on('click',function(){
+                                    var sliderLayer = $('.slider_layer');
+                                    sliderLayer.show();
+
+                                    //adjust the slider height
+                                    $('.slider_layer').css('height',$('#map_inner').height());
+                                    var sliderHdPadding = 30,
+                                        sliderHdHeight = $('.slider_hd').height() + sliderHdPadding,
+                                        sliderTabHeight = 31;
+                                    $('.tab-c').css('height',$('#map_inner').height()-sliderHdHeight-sliderTabHeight);
+
+                                    sliderLayer.animate({
+                                        left: 0
+                                    },500,"swing")
+
+                                    //tab
+                                    var tab01 = $('#tab01'),
+                                        tab02 = $('#tab02'),
+                                        item01 = $('#item01'),
+                                        item02 = $('#item02');
+                                    tab01.on('click', function (e) {
+                                        if (item01.css('display') == 'none'){
+                                            item01.show();
+                                            item02.hide();
+                                        } else {
+                                            return false;
+                                        }
+                                    })
+                                    tab02.on('click', function (e) {
+                                        if (item02.css('display') == 'none'){
+                                            item02.show();
+                                            item01.hide();
+                                        } else {
+                                            return false;
+                                        }
+                                    })
+
+                                    $('#slider_close').on('click',function(){
+                                        sliderLayer.animate({
+                                            left: -650
+                                        },500,"swing")
+                                    })
+                                })
+                                $(layerClass).show('fast');
+
+                                //close the droplayer by the close btn
+                                //add the data-for to .close , for close the layer
+                                var closdBtn = $(layerClass).find('#drop_close');
+                                closdBtn.on('click', function (e) {
+                                    $(layerClass).hide(400);
+                                })
+
+                                //图片滚动
+                                var id = function(el) {
+                                    return document.getElementById(el);
+                                };
+
+                                var c = id('photo-list'),
+                                    ul = id('scroll'),
+                                    lis = ul.getElementsByTagName('li'),
+                                    itemCount = lis.length,
+                                    //width = lis[2].offsetWidth;//获得每个img容器的宽度 100+9+（1+2）*20
+                                    width = 300,
+                                    marginLeft = 315;
+                                ul.style.width = (width + 20) * itemCount + 'px';
+                                c.scrollLeft = marginLeft;
+                                $('#next').click(function(){
+                                    if(c) {
+                                        var marquee = function() {
+                                            c.scrollLeft += 2;
+                                            console.log(c.scrollLeft);
                                             if(c.scrollLeft % marginLeft <= 1){
-                                                ul.insertBefore(lis[itemCount - 1],lis[0]);
+                                                //ul.append(ul.children('li')[0]);
+                                                ul.appendChild(ul.getElementsByTagName('li')[0]);
                                                 c.scrollLeft = marginLeft;
                                                 clearInterval(timer);
                                             }
                                         },
-                                        speed = 5;
-                                    ul.style.width = (marginLeft + 20) * itemCount + 'px';
-                                    var timer = setInterval(marquee, speed);
-                                }
-                            })
-                        },
-                        error : function () {
-                            console.log('error!!!')
-                        }
-                    });
+                                        speed = 1; //数值越大越慢，50ms
+                                        ul.style.width = (marginLeft + 20) * itemCount + 'px'; //加载完后设置容器长度   !!!
+                                        var timer = setInterval(marquee, speed);
+                                    }
+                                })
+                                $('#prev').click(function(){
+                                    if(c) {
+                                        var marquee = function() {
+                                                c.scrollLeft -=2;
+                                                if(c.scrollLeft % marginLeft <= 1){
+                                                    ul.insertBefore(lis[itemCount - 1],lis[0]);
+                                                    c.scrollLeft = marginLeft;
+                                                    clearInterval(timer);
+                                                }
+                                            },
+                                            speed = 5;
+                                        ul.style.width = (marginLeft + 20) * itemCount + 'px';
+                                        var timer = setInterval(marquee, speed);
+                                    }
+                                })
+                                locked = false;
+                            },
+                            error : function () {
+                                console.log('error!!!');
+                                locked = false;
+                            }
+                        });
+                    }
                 }
             }else{
                 //
