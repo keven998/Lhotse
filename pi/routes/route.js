@@ -60,11 +60,11 @@ router.get('/layer/:ROUTEID', function(req, res){
                 })
                 .on('end', function() {
                     sliderLayerHtml = sliderLayerHtml.join("");
-                    console.log(sliderLayerHtml);
                     res.json('route', {
                         dropLayerHtml: dropLayerHtml.toString(),
                         sliderLayerHtml: sliderLayerHtml.toString(),
-                        mapView: data.mapView
+                        mapView: data.mapView,
+                        moreDesc: data.fullView.moreDesc
                     });
                 });
             });

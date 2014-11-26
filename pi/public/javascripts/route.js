@@ -4,9 +4,8 @@ var Travelpi = {},
     selectPanel = null;
 
 $(function () {
-    map_container_initial();
-
-    /*导航筛选器————点击空白处收起导航下拉项*/       
+    container_initial();
+    /*导航筛选器————点击空白处收起导航下拉项*/
     //效果不好，点击其它的"a"元素也不能收起    //已阅
     var navLayers = $('.filter-nav>li .layer'),  //筛选器   筛选条件列表     //已改
         sortLayer = $('#sort + .layer'),    //排序    条件列表
@@ -24,8 +23,8 @@ $(function () {
                     //tabSelect.css('border-bottom','none');
                 }
             });
-            
-            
+
+
             //有很多个筛选器，只有一个排序列表和一个登录列表
             if ( sortLayer.css('display') === 'block' ) {
                 sortLayer.hide('fast');
@@ -38,7 +37,7 @@ $(function () {
     })
 
 
-    /*条件筛选————tab点击效果*/ 
+    /*条件筛选————tab点击效果*/
     //点击tab出现下拉选项表的过程   //已改
     var navList = $('.filter-nav>li>a');
     navList.each(function (index) {//index表示是list中的第几个元素
@@ -46,7 +45,7 @@ $(function () {
             var Index = index,
                 $this = $(this),
                 $thisParent = $this.parent();
-                
+
             //下拉箭头的切换   判断是否已选中过
             icoClass = $this.children('i');
             if ( icoClass.hasClass('ico-arr01') ) {
@@ -56,17 +55,17 @@ $(function () {
                 icoClass.removeClass('ico-arr02').addClass('ico-arr01');
                 //$this.css('border-bottom', 'none');
             }
-            
+
             //绑定下拉的收回事件,此处需要off         绑定了最后的last类(可点击的小三角)
             $thisParent.children('.layer').find('.list-last').on('click', function () {
                 $(this).parents('.layer').hide('fast');
                 icoClass.removeClass('ico-arr01').addClass('ico-arr02');
                 //$this.attr('border-bottom', 'none');
             })
-            
+
             //筛选条件列表下拉
             $thisParent.children('.layer').fadeToggle('fast');
-            
+
             //下拉列表的回滚判定       二次点击筛选器时，判断是否是同一个筛选器,假如不是得处理自身
             navList.each(function (index) {
                 var $this = $(this),
@@ -90,7 +89,7 @@ $(function () {
                 dataFrom,
                 selectListHtml,
                 selectListContent = $('.select-list');
-            dataFrom = dataItem.dataNavItem + '@' + dataItem.selectItem;    
+            dataFrom = dataItem.dataNavItem + '@' + dataItem.selectItem;
             //记录信息(ly03@cb-1 )，当。。。时，通过这个来删除
             selectListHtml = '<a data-from="' + dataFrom + '" class="bluebg option">' + value + '<i class="btn-close2"></i></a>';
             selectListContent.append(selectListHtml);
@@ -150,12 +149,11 @@ $(function () {
         $(this).parents('.layer').hide('fast');
         $(this).parents('li').find('.ico').removeClass('ico-02').addClass('ico-03');
         $(this).parents('.layer').parent().children('a').css('border-bottom', '3px solid #111');
-    })
-        .on('ifUnchecked', function (e) {
-            //单选列表项被移除 回调函数
-            travelPi.selectListRemove($(this).attr('data-item'));
-            travelPi.selectListClose();
-        });
+    }).on('ifUnchecked', function (e) {
+        //单选列表项被移除 回调函数
+        travelPi.selectListRemove($(this).attr('data-item'));
+        travelPi.selectListClose();
+    });
     $('input.cb').iCheck({
         checkboxClass: 'icheckbox_square-blue'
 //        radioClass   : 'iradio_square-blue'
@@ -165,7 +163,7 @@ $(function () {
     $('input.cb').on('ifChecked', function (e) {
             //多选列表项被选中 回调函数
             //$('input.cb') =>  存储cb用的list
-            
+
             //checkbox
             dataItem.dataNavItem = $(this).parents('.layer').attr('id');
             //ly01  nav中的编号
@@ -176,14 +174,13 @@ $(function () {
             travelPi.selectListClose();
             //绑定一个click事件，点击筛选条件卡就删除(同时改变列表中的样式)
             //$(this).parents('.layer').parent().children('a')为行程天数的border  ,应该考虑在取消check时删除该border
-    })
-        .on('ifUnchecked', function (e) {
+    }).on('ifUnchecked', function (e) {
             //多选列表项被移除 回调函数
             travelPi.selectListRemove($(this).attr('data-item'));
             travelPi.selectListClose();
-        });
-        
-        
+    });
+
+
     /*滑竿*/
     /*
     //原先在筛选条件中，选数字范围时使用(如价格范围)
@@ -246,8 +243,8 @@ $(function () {
     /*列表显隐切换*/  //已改
     //指列表中的下拉弹层
     var routeList = $('.routelist>li'),   //  routeList是指路线列表
-        rListDatafor,   //  $this.attr('data-for')  =>  list-sub-01 
-        layerId,    //  '#' + rListDatafor  =>  #list-sub-01 
+        rListDatafor,   //  $this.attr('data-for')  =>  list-sub-01
+        layerId,    //  '#' + rListDatafor  =>  #list-sub-01
         tabUl;      //  layerId + ' ul';    =>  #list-sub-01 ul
     routeList.each(function () {
         var $this = $(this);
@@ -274,7 +271,7 @@ $(function () {
                         success : function (msg) {
                             //show the map @CK
                             selectPanel.updateData(msg.mapView);
-
+                            console.log(msg.sliderLayerHtml);
                             $this.after(msg.dropLayerHtml);
                             $(tabUl).idTabs();  //实例化列表内tab选项卡  =>  实现tab功能
 
@@ -294,10 +291,19 @@ $(function () {
                             */
 
                             /*create the routedetail layer*/
-                            $this.parent('ul.routelist').after(msg.sliderLayerHtml);
+                            $this.parent('ul.routelist').append(msg.sliderLayerHtml);
+                            $('.moredesc').append(msg.moreDesc);
                             $('#route').on('click',function(){
                                 var sliderLayer = $('.slider_layer');
                                 sliderLayer.show();
+
+                                //adjust the slider height
+                                $('.slider_layer').css('height',$('#map_inner').height());
+                                var sliderHdPadding = 30,
+                                    sliderHdHeight = $('.slider_hd').height() + sliderHdPadding,
+                                    sliderTabHeight = 31;
+                                $('.tab-c').css('height',$('#map_inner').height()-sliderHdHeight-sliderTabHeight);
+
                                 sliderLayer.animate({
                                     left: 0
                                 },500,"swing")
@@ -375,7 +381,7 @@ $(function () {
                                     var marquee = function() {
                                             c.scrollLeft -=2;
                                             if(c.scrollLeft % marginLeft <= 1){
-                                                ul.insertBefore(lis[itemCount-1],lis[0]);
+                                                ul.insertBefore(lis[itemCount - 1],lis[0]);
                                                 c.scrollLeft = marginLeft;
                                                 clearInterval(timer);
                                             }
@@ -501,7 +507,7 @@ $(function () {
         var aElem = $$(oParent, '*');
         var aClass = [];
         var i = 0;
-        for(i=0;i<aElem.length;i++)
+        for(i = 0;i < aElem.length;i++)
             if(aElem[i].className == sClass)
                 aClass.push(aElem[i]);
         return aClass;
@@ -689,7 +695,7 @@ $(function () {
                         document.onmousemove = null;
                     };
                     return false;
-                
+
                 };
                 if(this.oFrame){
                     if(!-[1,] && !window.XMLHttpRequest){
@@ -730,12 +736,12 @@ $(function () {
         dMove : function(obj, json, onEnd){
             this.attr = '';
             this.bStop = true;
-        
+
             for(this.attr in json){
-                this.iCur = 0;          
+                this.iCur = 0;
                 this.attr == 'opacity' ? this.iCur = parseInt(parseFloat(this.getStyle(obj, this.attr))*100) : this.iCur = parseInt(this.getStyle(obj, this.attr));
                 this.iSpeed = (json[this.attr] - this.iCur) / 7;
-                this.iSpeed = this.iSpeed > 0 ? Math.ceil(this.iSpeed) : Math.floor(this.iSpeed);           
+                this.iSpeed = this.iSpeed > 0 ? Math.ceil(this.iSpeed) : Math.floor(this.iSpeed);
                 if(json[this.attr] != this.iCur)this.bStop = false;
                 if(this.attr == 'opacity'){
                     obj.style.filter = 'alpha(opacity:' + (this.iCur + this.iSpeed) +')';
@@ -745,7 +751,7 @@ $(function () {
                 }
             }
             if(this.bStop){
-                clearInterval(obj.timer);           
+                clearInterval(obj.timer);
                 if(onEnd)onEnd();
             }
         }
@@ -998,8 +1004,23 @@ $(function() {
 });
 
 
-/**set the width of map_inner**/
-function map_container_initial(){
-    var routelist_width = 585;
-    $('#map_inner').css('width',document.body.scrollWidth-580);
+/**set the width/height of container,including map,routelist**/
+function container_initial(){
+    var wHeight = $(window).height(),
+        wWidth = $(window).width(),
+        hdHeight = $('.hd').height(),
+        searchHeight = 70,
+        //searchHeight = $('.bg-blue').height(),    the 'search' div has the padding that's not in .height()
+        filternavHeight = 46,
+        selectListHeight = $('.select-list').height(),
+        gapHeight = 51,
+        routeListWidth = $('.routelist').width();
+    $('#map_inner').css('width',wWidth - routeListWidth);
+    $('#map_inner').css('height',wHeight - hdHeight - searchHeight);
+    $('.routelist').css('height',wHeight - hdHeight - searchHeight - filternavHeight - selectListHeight - gapHeight);
+
+    $(window).resize(function(){
+        var wWidth = $(window).width();
+        $('#map_inner').css('width',wWidth - routeListWidth);
+    })
 }
