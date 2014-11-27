@@ -7,9 +7,9 @@ block page_var
             path: '',
         }
     script(src='http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js' type='text/ecmascript')
-    
-    
-    
+
+
+
 block content
     .bd
         .slider-content
@@ -25,12 +25,12 @@ block content
                 .s
                     i.ico02.ico02-position
                     b
-                        | 我的位置 : 
+                        | 我的位置 :
                     input.s-ip(type="text" name="fromName" placeholder='城市' id="from" onkeyup="suggestion_from(this.value)" autocomplete="off")
-                    
+
                     b.line
                     i.ico02.ico02-where
-                    b 想要去哪玩 : 
+                    b 想要去哪玩 :
                     input.s-ip(type="text" name="arrivName" placeholder='景点/城市/省份' id="arrive" onkeyup="suggestion_to(this.value)" autocomplete="off")
                     a(href="#" onclick="go_plan_list()")
                         #search-btn.s-btn()
@@ -132,7 +132,7 @@ block content
                                         <img src="http://lvxingpai-img-store.qiniudn.com/assets/images/46fcfe9041da2dc012630f39405e8cd5.jpg?imageView2/1/w/342/h/180" width="342" height="180">
                                 else
                                     <img src="http://lvxingpai-img-store.qiniudn.com/assets/images/46fcfe9041da2dc012630f39405e8cd5.jpg?imageView2/1/w/342/h/180" width="342" height="180">
-                                //    
+                                //
                                     img(src=route.image[0].url+"?imageView2/1/w/342/h/180" width=342 height=180)
                             .left
                                 .bottom

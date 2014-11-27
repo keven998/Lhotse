@@ -16,36 +16,7 @@
             }
         ]
     });
-    var timelist=$('#sideCatalog');
-    var f_left=timelist.css('left');
-    timelist.css({
-        position:'absolute',
-        left:'-65px',
-        top:'30px'
-    });
-    scrollListener();
-    $(window).resize(function () {//当浏览器大小变化时
-        scrollListener();
-    });
-    function scrollListener(){
-        $(window).on("scroll", function (evt) {
-            var st=$(window).scrollTop()-0;
-            //console.log(st);
-            if(st >= 450){
-                timelist.css({
-                    position:'fixed',
-                    left:f_left,
-                    top:'100px'
-                });
-            }else{
-                timelist.css({
-                    position:'absolute',
-                    left:'-65px',
-                    top:'30px'
-                });
-            }
-        })
-    }
+
     /*
     * 左侧列表条目事件绑定
     * */
@@ -74,7 +45,7 @@
             count = parseInt(self.position().top+500),
             h=self.height(),
             item={};
-        console.log(h);
+        //console.log(h);
         self.attr('data-position', count);
         timelistitem.eq(Index).attr('id', count);
         item={
@@ -88,18 +59,18 @@
         var scrollTop = $(this).scrollTop() - 0,
             timelistId ='#'+trigVal(scrollTop, itemArr);
         //console.log(scrollTop);
-        $(timelistId).trigger('click');//触发时间线‘天数’点击事件
+        $(timelistId).trigger('click',[true]);//触发时间线‘天数’点击事件
     }
     /*
      * 判断滚动条滚动位置，返回触发值
-     */
+     * */
     function trigVal(val, arr) {
         var item;
         //console.dir(arr)
         for ( var i in arr ) {
             item=arr[i];
-            if ( val >= item.pos - 100 && val <= item.pos + item.height - 100 )
-                return item.pos;
+            if ( val >= item.pos-50 && val <= item.pos+item.height-50 ) return item.pos;
+            //if ( val === item.pos|| val === item.pos+item.height ) return item.pos;
         }
     }
 })();

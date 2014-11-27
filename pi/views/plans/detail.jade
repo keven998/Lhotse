@@ -8,469 +8,687 @@ block page_var
         }
 
 block content
-    //
-     内容
-    .pl_wrapper
-      //
-         头部
-      .headers
-        .banners
-          img.bimg(src='/images/plans/detail/banner.jpg')
-          //
-             info
-          .infos
-            //
-               title
-            .title
-              span.in
-              p
-                span.main_title
-                  | 北京、苏州、杭州8日游
-            //
-               other
-            .other
-              p
-                span.plan_view 浏览 220
-                span.plan_copy 复制 1
-          .mask_bg
-      //
-         头部
+  .pl_wrapper
+    // 头部
+    .headers
+      .banners
+        img.bimg(src='/images/plans/detail/banner.jpg')
+        // info
+        .infos
+          // title
+          .title
+            span.in
+            p
+              span.main_title
+                | 北京、苏州、杭州8日游
+          // other
+          .other
+            p
+              span.plan_view 浏览 220
+              span.plan_copy 复制 1
+        .mask_bg
+    // 头部
     .pl_fixed_menu.fontYaHei
-        .pl_fixed_menu_box.clearfix
-          ul.menu
-            li.pl.current
-              a 行程总览
-            li.pvw_date
-              a 日程模式
-          .seting
-            .link
-              a.ui_buttonC 复制行程
-              a.ui_buttonA 创建行程
-    .pl_contents(style="display:block")
-        //
-           day list
-        .pl_day_list.fontYaHei
-          .day_item
-            .day_row
-              #day1.dayanchor(name='day1')
-              .day_clock(name='day1')
-                | D1
-              .day_desc
-                span
-                p
-                  span.day_time 2014-11-30
-                  br
-                  span.day_local
-                    | 上海浦东新区,札幌
-              .clear
-            ul.day_list
-              li(data-mode='traffic', data-id='1706803')
-                .fly_row
-                  .day_mark
-                    span.icons.plane_icon
-                  .fly_desc
-                    p.fly_time
-                      span.traffic_place 上海国际机场
-                .line.line_traffic
-                  span.js_showPoiTrafficPopup 两地距离：0.3 km
-                  span.line_01
-                    | 上海：9:00
-                    i.ico01.ico_feiji
-                    | 丽江：12:00
-              li(data-mode='traffic', data-id='1706808')
-                .fly_row
-                  .day_mark
-                    span.icons.plane_icon
-                  .fly_desc
-                    p.fly_time
-                      span.traffic_place 丽江机场
-                .line_traffic
-              li(data-mode='traffic', data-id='1706809')
-                .fly_row
-                  .day_mark
-                    span.icons.train_icon
-                  .fly_desc
-                    p.fly_time
-                      span.traffic_place 丽江火车站
-                .line.line_traffic
-                  span.js_showPoiTrafficPopup 两地距离：0.3 km
-                  span.line_01
-                    | 丽江：9:00
-                    i.ico01.ico_gongjiao
-                    | 香格里拉：12:00
-              li(data-mode='traffic', data-id='1706805')
-                .fly_row
-                  .day_mark
-                    span.icons.train_icon
-                  .fly_desc
-                    p.fly_time
-                      span.traffic_place 香格里拉酒店
-                .line_traffic
-              li(data-mode='poi', data-id='26432662', data-pid='106674')
-                .number_row
-                  .day_mark
-                    .number 1
-                  .fly_desc
-                    .row_info
-                      img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
-                      .row_title
-                        h2.mainTitle 独克宗古城
-                        h2.subTitle
-                          | 评分：
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.empty
-                          em 门票：20元
-                          em 建议游玩：2小时
-                  .day_local
-                    span.local(data-day='1')
-                .line
-                  span.js_showPoiTrafficPopup 两地距离：0.3 km
-                  span.line_01 查看交通
-              li(data-mode='poi', data-id='26432660', data-pid='116104')
-                .number_row
-                  .day_mark
-                    .number 2
-                  .fly_desc
-                    .row_info
-                      img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
-                      .row_title
-                        h2.mainTitle 独克宗古城
-                        h2.subTitle
-                          | 评分：
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.empty
-                          em 门票：20元
-                          em 建议游玩：2小时
-                  .day_local
-                    span.local(data-day='1')
-                .line
-                  span.js_showPoiTrafficPopup 两地距离：0.6 km
-              li(data-mode='poi', data-id='26432596', data-pid='71367')
-                .number_row
-                  .day_mark
-                    .number 3
-                  .fly_desc
-                    .row_info
-                      img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
-                      .row_title
-                        h2.mainTitle 独克宗古城
-                        h2.subTitle
-                          | 评分：
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.empty
-                          em 门票：20元
-                          em 建议游玩：2小时
-                  .day_local
-                    span.local(data-day='1', data-pos='43.061089,141.356384')
-                .line
-                  span.js_showPoiTrafficPopup 两地距离：0.3 km
-              li(data-mode='poi', data-id='26432594', data-pid='71372')
-                .number_row
-                  .day_mark
-                    .number 4
-                  .fly_desc
-                    .row_info
-                      img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
-                      .row_title
-                        h2.mainTitle 独克宗古城
-                        h2.subTitle
-                          | 评分：
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.empty
-                          em 门票：20元
-                          em 建议游玩：2小时
-                  .day_local
-                    span.local(data-day='1')
-                .line
-              li(data-mode='poi', data-id='26432630', data-pid='106628')
-                .number_row
-                  .day_mark
-                    .number 5
-                  .fly_desc
-                    .row_info
-                      img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
-                      .row_title
-                        h2.mainTitle 独克宗古城
-                        h2.subTitle
-                          | 评分：
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.empty
-                          em 门票：20元
-                          em 建议游玩：2小时
-                  .day_local
-                    span.local(data-day='1', data-pos='43.071556,141.368530')
-                .line
-              li(data-mode='poi', data-id='26432656', data-pid='106626')
-                .number_row
-                  .day_mark
-                    .number 6
-                  .fly_desc
-                    .row_info
-                      img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
-                      .row_title
-                        h2.mainTitle 独克宗古城
-                        h2.subTitle
-                          | 评分：
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.empty
-                          em 门票：20元
-                          em 建议游玩：2小时
-                  .day_local
-                    span.local(data-day='1', data-pos='43.067932,141.352615')
-                .line
-              li(data-mode='poi', data-id='26432598', data-pid='106639')
-                .number_row
-                  .day_mark
-                    .number 7
-                  .fly_desc
-                    .row_info
-                      img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
-                      .row_title
-                        h2.mainTitle 独克宗古城
-                        h2.subTitle
-                          | 评分：
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.empty
-                          em 门票：20元
-                          em 建议游玩：2小时
-                  .day_local
-                    span.local(data-day='1')
-                .line
-              li(data-mode='poi', data-id='26432835', data-pid='106684')
-                .number_row
-                  .day_mark
-                    .number 8
-                  .fly_desc
-                    .row_info
-                      img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
-                      .row_title
-                        h2.mainTitle 独克宗古城
-                        h2.subTitle
-                          | 评分：
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.empty
-                          em 门票：20元
-                          em 建议游玩：2小时
-                  .day_local
-                    span.local(data-day='1')
-                .line
-              li(data-mode='poi', data-id='26432645', data-pid='71358')
-                .number_row
-                  .day_mark
-                    .number 9
-                  .fly_desc
-                    .row_info
-                      img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
-                      .row_title
-                        h2.mainTitle 独克宗古城
-                        h2.subTitle
-                          | 评分：
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.empty
-                          em 门票：20元
-                          em 建议游玩：2小时
-                  .day_local
-                    span.local(data-day='1')
-                .line
-              li(data-mode='poi', data-id='26432597', data-pid='71369')
-                .number_row
-                  .day_mark
-                    .number 10
-                  .fly_desc
-                    .row_info
-                      img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
-                      .row_title
-                        h2.mainTitle 独克宗古城
-                        h2.subTitle
-                          | 评分：
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.empty
-                          em 门票：20元
-                          em 建议游玩：2小时
-                  .day_local
-                    span.local(data-day='1', data-pos='43.090328,141.271561')
-                .line
-              li(data-mode='hotel', data-id='26437068', data-pid='71369')
-                .sleep_row.last_row
-                  .day_mark
-                    span.icons.sleep_icon
-                  .fly_desc
-                    .row_info
-                      img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
-                      .row_title
-                        h2.mainTitle 独克宗古城
-                        h2.subTitle
-                          | 评分：
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.empty
-                          em 门票：20元
-                          em 建议游玩：2小时
-                  .day_local
-                    span.local(data-day='1')
-          .day_item
-            .day_row
-              #day2.dayanchor(name='day2')
-              .day_clock(name='day2')
-                .day_clock_top
-                | D2
-              .day_desc
-                span
-                p
-                  span.day_time 2014-12-01
-                  br
-                  span.day_local 札幌,定山溪
-              .clear
-            ul.day_list
-              li(data-mode='poi', data-id='26433353', data-pid='71395')
-                .number_row.first_row
-                  .day_mark
-                    .number 1
-                  .fly_desc
-                    .row_info
-                      img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
-                      .row_title
-                        h2.mainTitle 独克宗古城
-                        h2.subTitle
-                          | 评分：
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.empty
-                          em 门票：20元
-                          em 建议游玩：2小时
-                  .day_local
-                    span.local(data-day='2')
-                .line
-              li(data-mode='poi', data-id='26434425', data-pid='116077')
-                .number_row.first_row
-                  .day_mark
-                    .number 1
-                  .fly_desc
-                    .row_info
-                      img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
-                      .row_title
-                        h2.mainTitle 独克宗古城
-                        h2.subTitle
-                          | 评分：
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.empty
-                          em 门票：20元
-                          em 建议游玩：2小时
-                  .day_local
-                    span.local(data-day='2')
-                .line
-              li(data-mode='poi', data-id='26433172', data-pid='116099')
-                .number_row
-                  .day_mark
-                    .number 3
-                  .fly_desc
-                    .row_info
-                      img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
-                      .row_title
-                        h2.mainTitle 独克宗古城
-                        h2.subTitle
-                          | 评分：
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.empty
-                          em 门票：20元
-                          em 建议游玩：2小时
-                  .day_local
-                    span.local(data-day='2')
-                .line
-              li(data-mode='poi', data-id='26433178', data-pid='116102')
-                .number_row
-                  .day_mark
-                    .number 4
-                  .fly_desc
-                    .row_info
-                      img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
-                      .row_title
-                        h2.mainTitle 独克宗古城
-                        h2.subTitle
-                          | 评分：
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.empty
-                          em 门票：20元
-                          em 建议游玩：2小时
-                  .day_local
-                    span.local(data-day='2')
-                .line
-              li(data-mode='hotel', data-id='26451854', data-pid='116102')
-                .sleep_row.last_row
-                  .day_mark
-                    span.icons.sleep_icon
-                  .fly_desc
-                    .row_info
-                      img(src='/images/plans/detail/80.jpg')
-                      .row_title
-                        h2.mainTitle 汉庭快捷酒店
-                        h2.subTitle
-                          | 评分：
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.star
-                          span.qui-icon.empty
-                          em 电话：123-45678900
-                          em 地址：地址地址地址地址地址地址地址
-                  .day_local
-                    span.local(data-day='2')
-        //
-          day list END
-        //
-          sidebar
-        .pl_sidebar
-          .pl_fixed_sidebar
-            //
-               侧栏容器
-            .info.map
-              #mapContainer.container
-                img(src='/images/plans/detail/map.png')
-        //
-          siderbar END
+      .pl_fixed_menu_box.clearfix
+        ul.menu
+          li.pl.current
+            a 行程总览
+          li.pvw_date
+            a 日程模式
+        .seting
+          .link
+            a.ui_buttonC 复制行程
+            a.ui_buttonA 创建行程
+
+
+    .pl_contents
+      // day list
+      .pl_day_list.fontYaHei
+        .day_item
+          .day_row
+            #day1.dayanchor(name='day1')
+            .day_clock(name='day1')
+              b.clock_number D1
+            .day_desc
+              span
+              p
+                span.day_time 2014-11-30
+                br
+                span.day_local
+                  | 上海浦东新区,札幌
+            .clear
+          ul.day_list
+            li(data-mode='traffic', data-id='1706803')
+              .fly_row
+                .day_mark
+                  span.icons.plane_icon
+                .fly_desc
+                  p.fly_time
+                    span.traffic_place 上海国际机场
+              .line.line_traffic
+                span.js_showPoiTrafficPopup 两地距离：0.3 km
+                span.line_01
+                  | 上海：9:00
+                  i.ico01.ico_feiji
+                  | 丽江：12:00
+            li(data-mode='traffic', data-id='1706808')
+              .fly_row
+                .day_mark
+                  span.icons.plane_icon
+                .fly_desc
+                  p.fly_time
+                    span.traffic_place 丽江机场
+              .line_traffic
+            li(data-mode='traffic', data-id='1706809')
+              .fly_row
+                .day_mark
+                  span.icons.train_icon
+                .fly_desc
+                  p.fly_time
+                    span.traffic_place 丽江火车站
+              .line.line_traffic
+                span.js_showPoiTrafficPopup 两地距离：0.3 km
+                span.line_01
+                  | 丽江：9:00
+                  i.ico01.ico_gongjiao
+                  | 香格里拉：12:00
+            li(data-mode='traffic', data-id='1706805')
+              .fly_row
+                .day_mark
+                  span.icons.train_icon
+                .fly_desc
+                  p.fly_time
+                    span.traffic_place 香格里拉酒店
+              .line_traffic
+            li(data-mode='poi', data-id='26432662', data-pid='106674')
+              .number_row
+                .day_mark
+                  .number 1
+                .fly_desc
+                  .row_info
+                    img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
+                    .row_title
+                      h2.mainTitle 独克宗古城
+                      h2.subTitle
+                        | 评分：
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.empty
+                        em 门票：20元
+                        em 建议游玩：2小时
+                .day_local
+                  span.local(data-day='1')
+              .line
+                span.js_showPoiTrafficPopup 两地距离：0.3 km
+                span.line_01 查看交通
+            li(data-mode='poi', data-id='26432660', data-pid='116104')
+              .number_row
+                .day_mark
+                  .number 2
+                .fly_desc
+                  .row_info
+                    img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
+                    .row_title
+                      h2.mainTitle 独克宗古城
+                      h2.subTitle
+                        | 评分：
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.empty
+                        em 门票：20元
+                        em 建议游玩：2小时
+                .day_local
+                  span.local(data-day='1')
+              .line
+                span.js_showPoiTrafficPopup 两地距离：0.6 km
+            li(data-mode='poi', data-id='26432596', data-pid='71367')
+              .number_row
+                .day_mark
+                  .number 3
+                .fly_desc
+                  .row_info
+                    img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
+                    .row_title
+                      h2.mainTitle 独克宗古城
+                      h2.subTitle
+                        | 评分：
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.empty
+                        em 门票：20元
+                        em 建议游玩：2小时
+                .day_local
+                  span.local(data-day='1', data-pos='43.061089,141.356384')
+              .line
+                span.js_showPoiTrafficPopup 两地距离：0.3 km
+            li(data-mode='poi', data-id='26432594', data-pid='71372')
+              .number_row
+                .day_mark
+                  .number 4
+                .fly_desc
+                  .row_info
+                    img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
+                    .row_title
+                      h2.mainTitle 独克宗古城
+                      h2.subTitle
+                        | 评分：
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.empty
+                        em 门票：20元
+                        em 建议游玩：2小时
+                .day_local
+                  span.local(data-day='1')
+              .line
+            li(data-mode='poi', data-id='26432630', data-pid='106628')
+              .number_row
+                .day_mark
+                  .number 5
+                .fly_desc
+                  .row_info
+                    img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
+                    .row_title
+                      h2.mainTitle 独克宗古城
+                      h2.subTitle
+                        | 评分：
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.empty
+                        em 门票：20元
+                        em 建议游玩：2小时
+                .day_local
+                  span.local(data-day='1', data-pos='43.071556,141.368530')
+              .line
+            li(data-mode='poi', data-id='26432656', data-pid='106626')
+              .number_row
+                .day_mark
+                  .number 6
+                .fly_desc
+                  .row_info
+                    img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
+                    .row_title
+                      h2.mainTitle 独克宗古城
+                      h2.subTitle
+                        | 评分：
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.empty
+                        em 门票：20元
+                        em 建议游玩：2小时
+                .day_local
+                  span.local(data-day='1', data-pos='43.067932,141.352615')
+              .line
+            li(data-mode='poi', data-id='26432598', data-pid='106639')
+              .number_row
+                .day_mark
+                  .number 7
+                .fly_desc
+                  .row_info
+                    img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
+                    .row_title
+                      h2.mainTitle 独克宗古城
+                      h2.subTitle
+                        | 评分：
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.empty
+                        em 门票：20元
+                        em 建议游玩：2小时
+                .day_local
+                  span.local(data-day='1')
+              .line
+            li(data-mode='poi', data-id='26432835', data-pid='106684')
+              .number_row
+                .day_mark
+                  .number 8
+                .fly_desc
+                  .row_info
+                    img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
+                    .row_title
+                      h2.mainTitle 独克宗古城
+                      h2.subTitle
+                        | 评分：
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.empty
+                        em 门票：20元
+                        em 建议游玩：2小时
+                .day_local
+                  span.local(data-day='1')
+              .line
+            li(data-mode='poi', data-id='26432645', data-pid='71358')
+              .number_row
+                .day_mark
+                  .number 9
+                .fly_desc
+                  .row_info
+                    img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
+                    .row_title
+                      h2.mainTitle 独克宗古城
+                      h2.subTitle
+                        | 评分：
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.empty
+                        em 门票：20元
+                        em 建议游玩：2小时
+                .day_local
+                  span.local(data-day='1')
+              .line
+            li(data-mode='poi', data-id='26432597', data-pid='71369')
+              .number_row
+                .day_mark
+                  .number 10
+                .fly_desc
+                  .row_info
+                    img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
+                    .row_title
+                      h2.mainTitle 独克宗古城
+                      h2.subTitle
+                        | 评分：
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.empty
+                        em 门票：20元
+                        em 建议游玩：2小时
+                .day_local
+                  span.local(data-day='1', data-pos='43.090328,141.271561')
+              .line
+            li(data-mode='hotel', data-id='26437068', data-pid='71369')
+              .sleep_row.last_row
+                .day_mark
+                  span.icons.sleep_icon
+                .fly_desc
+                  .row_info
+                    img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
+                    .row_title
+                      h2.mainTitle 独克宗古城
+                      h2.subTitle
+                        | 评分：
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.empty
+                        em 门票：20元
+                        em 建议游玩：2小时
+                .day_local
+                  span.local(data-day='1')
+        .day_item
+          .day_row
+            #day2.dayanchor(name='day2')
+            .day_clock(name='day2')
+              b.clock_number D2
+            .day_desc
+              span
+              p
+                span.day_time 2014-12-01
+                br
+                span.day_local 札幌,定山溪
+            .clear
+          ul.day_list
+            li(data-mode='poi', data-id='26433353', data-pid='71395')
+              .number_row.first_row
+                .day_mark
+                  .number 1
+                .fly_desc
+                  .row_info
+                    img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
+                    .row_title
+                      h2.mainTitle 独克宗古城
+                      h2.subTitle
+                        | 评分：
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.empty
+                        em 门票：20元
+                        em 建议游玩：2小时
+                .day_local
+                  span.local(data-day='2')
+              .line
+            li(data-mode='poi', data-id='26434425', data-pid='116077')
+              .number_row.first_row
+                .day_mark
+                  .number 1
+                .fly_desc
+                  .row_info
+                    img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
+                    .row_title
+                      h2.mainTitle 独克宗古城
+                      h2.subTitle
+                        | 评分：
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.empty
+                        em 门票：20元
+                        em 建议游玩：2小时
+                .day_local
+                  span.local(data-day='2')
+              .line
+            li(data-mode='poi', data-id='26433172', data-pid='116099')
+              .number_row
+                .day_mark
+                  .number 3
+                .fly_desc
+                  .row_info
+                    img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
+                    .row_title
+                      h2.mainTitle 独克宗古城
+                      h2.subTitle
+                        | 评分：
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.empty
+                        em 门票：20元
+                        em 建议游玩：2小时
+                .day_local
+                  span.local(data-day='2')
+              .line
+            li(data-mode='poi', data-id='26433178', data-pid='116102')
+              .number_row
+                .day_mark
+                  .number 4
+                .fly_desc
+                  .row_info
+                    img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
+                    .row_title
+                      h2.mainTitle 独克宗古城
+                      h2.subTitle
+                        | 评分：
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.empty
+                        em 门票：20元
+                        em 建议游玩：2小时
+                .day_local
+                  span.local(data-day='2')
+              .line
+            li(data-mode='hotel', data-id='26451854', data-pid='116102')
+              .sleep_row.last_row
+                .day_mark
+                  span.icons.sleep_icon
+                .fly_desc
+                  .row_info
+                    img(src='/images/plans/detail/80.jpg')
+                    .row_title
+                      h2.mainTitle 汉庭快捷酒店
+                      h2.subTitle
+                        | 评分：
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.star
+                        span.qui-icon.empty
+                        em 电话：123-45678900
+                        em 地址：地址地址地址地址地址地址地址
+                .day_local
+                  span.local(data-day='2')
+      // day list END
+      // sidebar
+      .pl_sidebar
+        .pl_fixed_sidebar
+          // 侧栏容器
+          .info.map
+            #mapContainer.container
+              img(src='/images/plans/detail/map.png')
+          // 交通工具
+          //
+            <div class="info traffic" style="left: 0px; width: 437px; opacity: 1;">
+                <div class="info_head"><span class="info_close" data-bn-ipt="Planview-popup-trans-close">关闭</span></div>
+                <div class="info_content" style="width: 100%; overflow-y: auto; max-height: 230px;">
+                    <div class="info_memo">
+                        <div class="info_traffic">
+                            <div class="traffic_start"><h3>上海</h3>
+                                <p>09:00</p></div>
+                            <div class="traffic_tool"><p class="type"><span class="traffic_plane"></span></p>
+                                <p class="line"></p>
+                                <p class="price"></p></div>
+                            <div class="traffic_end"><h3>札幌</h3>
+                                <p>12:50</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          //
+            <div class="info poi" style="left: 0px; width: 437px; opacity: 1;">
+            <div class="info_head">
+                <span class="info_close">关闭</span>
+                            <span class="info_title">
+                                <a href="#">成吉思汗达摩本店</a>
+                            </span>
+                <span class="info_control">加入备选</span>
+            </div>
+            <div class="info_content" style="width: 100%; overflow-y: auto; max-height: 464px;">
+            <div class="scrollImg">
+                &lt;!&ndash;qyerSlidImg插件html格式 BEGIN&ndash;&gt;
+                <div class="qui-slide">
+                    <div class="qui-slide-img-wrap">
+                        <img class="qui-slide-img" src="/images/plans/detail/s1.jpg" onerror="this.src='/images/plans/detail/poi_80_80.png'">
+                    </div>
+                    <ul class="qui-slide-ul">
+                        <li>
+                            <img src="/images/plans/detail/ss1.jpg"
+                                 data-src="/images/plans/detail/s1.jpg"
+                                 onerror="this.src='/images/plans/detail/poi_80_80.png'"
+                                 class="qui-slide-li_active">
+                        </li>
+                        <li>
+                            <img src="/images/plans/detail/ss2.jpg"
+                                 data-src="/images/plans/detail/s2.jpg"
+                                 onerror="this.src='/images/plans/detail/poi_80_80.png'">
+                        </li>
+                        <li>
+                            <img src="/images/plans/detail/ss3.jpg"
+                                 data-src="/images/plans/detail/s3.jpg"
+                                 onerror="this.src='/images/plans/detail/poi_80_80.png'">
+                        </li>
+                    </ul>
+                    <div class="qui-slide-clear"></div>
+                </div>
+                &lt;!&ndash;qyerSlidImg插件html格式 END&ndash;&gt;
+            </div>
+            <div class="info_memo">
+                <h3>我的备注</h3>
+                <p class="memo_self">开始时间:--:--<br>结束时间:--:--<br>费用：--</p>
+            </div>
+            <div class="info_star">
+                <h3>评分 <span class="qui-icon star"></span>
+                    <span class="qui-icon star"></span>
+                    <span class="qui-icon star"></span>
+                    <span class="qui-icon star"></span>
+                    <span class="qui-icon empty"></span>
+                </h3>
+            </div>
+            <div class="info_intro"><h3>简介</h3>
+                <div class="texts">
+                    <p>
+                        〝达摩〞（だるま）是札幌一家有60年历史的老店，闻名全日本的成吉思汗烤肉就是源自于此。该店选用只出生一年的小羊肉，用祖传秘方将羊肉的腥膻味去除，只留下羊肉的鲜嫩甜美。将羔羊肉或成羊肉放在独特的山状成吉思汗锅上烤，就着以酱油为主的调料汁食用--这就是北海道的代表性料理，成吉思汗烤肉。
+                    </p>
+                </div>
+            </div>
+            <div class="info_comment">
+                <h3>点评(9)
+                                    <span>
+                                    <a href="#">查看全部点评</a>
+                                    </span>
+                </h3>
+                <div class="comment_item">
+                    <div class="comment_item_left">
+                        <a href="#"><img src="/images/plans/detail/80.jpg" width="50" height="50"
+                                         onerror="this.src='/images/plans/detail/poi_80_80.png'"></a>
+                    </div>
+                    <div class="comment_item_content">
+                        <p class="comment_item_content_content">这家店在薄野站徒步大概7
+                            8分钟的样子，店很小，但是人气很旺，我们去的时候已经晚上11点了还是都坐满了。一份羊肉
+                            735元，我们2个人吃了5份，再来一瓶秋季限定的啤酒。总共大概是4000JPY的样子。羊肉没有一点膻味，很嫩很好吃。强烈推荐</p>
+                        <p class="comment_item_content_footer">
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="comment_item">
+                    <div class="comment_item_left">
+                        <a href="#"><img src="/images/plans/detail/80.jpg" width="50" height="50"
+                                         onerror="this.src='/images/plans/detail/poi_80_80.png'"></a>
+                    </div>
+                    <div class="comment_item_content">
+                        <p class="comment_item_content_content">这家店在薄野站徒步大概7
+                            8分钟的样子，店很小，但是人气很旺，我们去的时候已经晚上11点了还是都坐满了。一份羊肉
+                            735元，我们2个人吃了5份，再来一瓶秋季限定的啤酒。总共大概是4000JPY的样子。羊肉没有一点膻味，很嫩很好吃。强烈推荐</p>
+                        <p class="comment_item_content_footer">
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="comment_item">
+                    <div class="comment_item_left">
+                        <a href="#"><img src="/images/plans/detail/80.jpg" width="50" height="50"
+                                         onerror="this.src='/images/plans/detail/poi_80_80.png'"></a>
+                    </div>
+                    <div class="comment_item_content">
+                        <p class="comment_item_content_content">这家店在薄野站徒步大概7
+                            8分钟的样子，店很小，但是人气很旺，我们去的时候已经晚上11点了还是都坐满了。一份羊肉
+                            735元，我们2个人吃了5份，再来一瓶秋季限定的啤酒。总共大概是4000JPY的样子。羊肉没有一点膻味，很嫩很好吃。强烈推荐</p>
+                        <p class="comment_item_content_footer">
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="comment_item">
+                    <div class="comment_item_left">
+                        <a href="#"><img src="/images/plans/detail/80.jpg" width="50" height="50"
+                                         onerror="this.src='/images/plans/detail/poi_80_80.png'"></a>
+                    </div>
+                    <div class="comment_item_content">
+                        <p class="comment_item_content_content">这家店在薄野站徒步大概7
+                            8分钟的样子，店很小，但是人气很旺，我们去的时候已经晚上11点了还是都坐满了。一份羊肉
+                            735元，我们2个人吃了5份，再来一瓶秋季限定的啤酒。总共大概是4000JPY的样子。羊肉没有一点膻味，很嫩很好吃。强烈推荐</p>
+                        <p class="comment_item_content_footer">
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="comment_item">
+                    <div class="comment_item_left">
+                        <a href="#"><img src="/images/plans/detail/80.jpg" width="50" height="50"
+                                         onerror="this.src='/images/plans/detail/poi_80_80.png'"></a>
+                    </div>
+                    <div class="comment_item_content">
+                        <p class="comment_item_content_content">这家店在薄野站徒步大概7
+                            8分钟的样子，店很小，但是人气很旺，我们去的时候已经晚上11点了还是都坐满了。一份羊肉
+                            735元，我们2个人吃了5份，再来一瓶秋季限定的啤酒。总共大概是4000JPY的样子。羊肉没有一点膻味，很嫩很好吃。强烈推荐</p>
+                        <p class="comment_item_content_footer">
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="comment_item">
+                    <div class="comment_item_left">
+                        <a href="#"><img src="/images/plans/detail/80.jpg" width="50" height="50"
+                                         onerror="this.src='/images/plans/detail/poi_80_80.png'"></a>
+                    </div>
+                    <div class="comment_item_content">
+                        <p class="comment_item_content_content">这家店在薄野站徒步大概7
+                            8分钟的样子，店很小，但是人气很旺，我们去的时候已经晚上11点了还是都坐满了。一份羊肉
+                            735元，我们2个人吃了5份，再来一瓶秋季限定的啤酒。总共大概是4000JPY的样子。羊肉没有一点膻味，很嫩很好吃。强烈推荐</p>
+                        <p class="comment_item_content_footer">
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="comment_item">
+                    <div class="comment_item_left">
+                        <a href="#"><img src="/images/plans/detail/80.jpg" width="50" height="50"
+                                         onerror="this.src='/images/plans/detail/poi_80_80.png'"></a>
+                    </div>
+                    <div class="comment_item_content">
+                        <p class="comment_item_content_content">这家店在薄野站徒步大概7
+                            8分钟的样子，店很小，但是人气很旺，我们去的时候已经晚上11点了还是都坐满了。一份羊肉
+                            735元，我们2个人吃了5份，再来一瓶秋季限定的啤酒。总共大概是4000JPY的样子。羊肉没有一点膻味，很嫩很好吃。强烈推荐</p>
+                        <p class="comment_item_content_footer">
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="comment_item">
+                    <div class="comment_item_left">
+                        <a href="#"><img src="/images/plans/detail/80.jpg" width="50" height="50"
+                                         onerror="this.src='/images/plans/detail/poi_80_80.png'"></a>
+                    </div>
+                    <div class="comment_item_content">
+                        <p class="comment_item_content_content">这家店在薄野站徒步大概7
+                            8分钟的样子，店很小，但是人气很旺，我们去的时候已经晚上11点了还是都坐满了。一份羊肉
+                            735元，我们2个人吃了5份，再来一瓶秋季限定的啤酒。总共大概是4000JPY的样子。羊肉没有一点膻味，很嫩很好吃。强烈推荐</p>
+                        <p class="comment_item_content_footer">
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                            <span class="qui-icon star"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+      // siderbar END
+
 
     .pvw_date_contents(style="display:none")
       .d_title
@@ -479,41 +697,39 @@ block content
           li.dt2
             span 日期
           li.dt3
-            span 城市
-          li.dt4
             span 交通
-          li.dt5
+          li.dt4
             span 景点
-          li.dt6
+          li.dt5
             span 住宿
+          li.dt6
+            span 费用
+          li.dt7
+            span 备注
       table(width='100%', border='0', cellspacing='0', cellpadding='0')
         tbody
           tr
             td
               .tt1
-                span 01
+                span D1
             td
               .tt2
-                em 30
-                span 11月
-                strong 星期天
+                .time 12月27日
+                span.xq 星期六
+                ul.adlist
+                  li
+                    i.circle
+                    b 上海
+                  li
+                    i.circle
+                    b 香格里拉
             td(valign='top')
               .tt3
-                ul
-                  li
-                    span.cn 上海浦东新区
-                  li
-                    span.cn
-                      a.cGray(href='#') 札幌
-                    span.en
-                      a.cLightgray(href='#') Sapporo
-            td(valign='top')
-              .tt4
                 .list
                   strong.title 09:00 - 12:50
                   p.city
                     a.cLightgray(href='', target='_blank') 上海
-                    span.plane
+                    span.traffic_plane
                     a.cLightgray(href='#') 札幌
                   .no --
                 .list
@@ -524,7 +740,7 @@ block content
                     a.cLightgray(href='#') 札幌
                   .no --
             td(valign='top')
-              .tt5
+              .tt4
                 ul
                   li
                     | 1.
@@ -548,19 +764,7 @@ block content
                       | ，
                       a.cLightgray(href='#') Jingisukan daruma honten
             td(valign='top')
-              .tt6
-                textarea 反垄断姐夫绿色
-          tr.table_bg
-            td
-              .tt1
-                span 02
-            td
-              .tt2
-                em 01
-                span 12月
-                strong 星期一
-            td(valign='top')
-              .tt3
+              .tt5
                 ul
                   li
                     span.cn
@@ -570,45 +774,68 @@ block content
                   li
                     span.cn 定山溪
             td(valign='top')
-              .tt4
-            td(valign='top')
-              .tt5
-                ul
-                  li
-                    | 1.
-                    span.cn
-                      a.cGray(href='#') 二条鱼市场
-                    span.en
-                      | ，
-                      a.cLightgray(href='#') Ni-jō Ichiba
-                  li
-                    | 2.
-                    span.cn
-                      a.cGray(href='#') 二条鱼市场
-                    span.en
-                      | ，
-                      a.cLightgray(href='#') Ni-jō Ichiba
-                  li
-                    | 3.
-                    span.cn
-                      a.cGray(href='#') 二条鱼市场
-                    span.en
-                      | ，
-                      a.cLightgray(href='#') Ni-jō Ichiba
-            td(valign='top')
               .tt6
+                | 费用
+            td(valign='top')
+              .tt7
                 textarea 反垄断姐夫绿色
           tr
             td
               .tt1
-                span 04
+                span D1
             td
               .tt2
-                em 01
-                span 12月
-                strong 星期一
+                .time 12月27日
+                span.xq 星期六
+                ul.adlist
+                  li
+                    i.circle
+                    b 上海
+                  li
+                    i.circle
+                    b 香格里拉
             td(valign='top')
               .tt3
+                .list
+                  strong.title 09:00 - 12:50
+                  p.city
+                    a.cLightgray(href='', target='_blank') 上海
+                    span.traffic_plane
+                    a.cLightgray(href='#') 札幌
+                  .no --
+                .list
+                  strong.title 14:00 - 15:00
+                  p.city
+                    | 新千岁机场
+                    span.train
+                    a.cLightgray(href='#') 札幌
+                  .no --
+            td(valign='top')
+              .tt4
+                ul
+                  li
+                    | 1.
+                    span.cn
+                      a.cGray(href='#') 成吉思汗达摩本店
+                    span.en
+                      | ，
+                      a.cLightgray(href='#') Jingisukan daruma honten
+                  li
+                    | 2.
+                    span.cn
+                      a.cGray(href='#') 成吉思汗达摩本店
+                    span.en
+                      | ，
+                      a.cLightgray(href='#') Jingisukan daruma honten
+                  li
+                    | 3.
+                    span.cn
+                      a.cGray(href='#') 成吉思汗达摩本店
+                    span.en
+                      | ，
+                      a.cLightgray(href='#') Jingisukan daruma honten
+            td(valign='top')
+              .tt5
                 ul
                   li
                     span.cn
@@ -618,82 +845,12 @@ block content
                   li
                     span.cn 定山溪
             td(valign='top')
-              .tt4
-            td(valign='top')
-              .tt5
-                ul
-                  li
-                    | 1.
-                    span.cn
-                      a.cGray(href='#') 二条鱼市场
-                    span.en
-                      | ，
-                      a.cLightgray(href='#') Ni-jō Ichiba
-                  li
-                    | 2.
-                    span.cn
-                      a.cGray(href='#') 二条鱼市场
-                    span.en
-                      | ，
-                      a.cLightgray(href='#') Ni-jō Ichiba
-                  li
-                    | 3.
-                    span.cn
-                      a.cGray(href='#') 二条鱼市场
-                    span.en
-                      | ，
-                      a.cLightgray(href='#') Ni-jō Ichiba
-            td(valign='top')
               .tt6
+                | 费用
+            td(valign='top')
+              .tt7
                 textarea 反垄断姐夫绿色
-          tr.table_bg
-            td
-              .tt1
-                span 03
-            td
-              .tt2
-                em 01
-                span 12月
-                strong 星期一
-            td(valign='top')
-              .tt3
-                ul
-                  li
-                    span.cn
-                      a.cGray(href='#') 札幌
-                    span.en
-                      a.cLightgray(href='#') Sapporo
-                  li
-                    span.cn 定山溪
-            td(valign='top')
-              .tt4
-            td(valign='top')
-              .tt5
-                ul
-                  li
-                    | 1.
-                    span.cn
-                      a.cGray(href='#') 二条鱼市场
-                    span.en
-                      | ，
-                      a.cLightgray(href='#') Ni-jō Ichiba
-                  li
-                    | 2.
-                    span.cn
-                      a.cGray(href='#') 二条鱼市场
-                    span.en
-                      | ，
-                      a.cLightgray(href='#') Ni-jō Ichiba
-                  li
-                    | 3.
-                    span.cn
-                      a.cGray(href='#') 二条鱼市场
-                    span.en
-                      | ，
-                      a.cLightgray(href='#') Ni-jō Ichiba
-            td(valign='top')
-              .tt6
-                textarea 反垄断姐夫绿色
+
 
 
     script(src='/javascripts/lib/jquery-1.11.1.min.js')

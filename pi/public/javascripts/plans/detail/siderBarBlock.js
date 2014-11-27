@@ -21,11 +21,10 @@ var InfoBlock = {
             },
             error  : function (msg) {
                 callback && callback('ajaxData');//Debug
-                console.log('ajaxError!');
+                //console.log('ajaxError!');
             }
         })
-    },
-    render    : function (data) {//侧栏渲染入口函数
+    }, render    : function (data) {//侧栏渲染入口函数
         var me = this;
         if ( me.id == data.id ) { //重复点击则终止
             return;
@@ -38,7 +37,7 @@ var InfoBlock = {
         })
     },
     html         : function (data) {//getAjaxData 请求结果回调
-        console.dir(data);//ajax请求返回的数据
+        //console.dir(data);//ajax请求返回的数据
         var me = this;
         me.hideMap();
         var htmlstr = me.getTestHTML(me.mode);//测试数据
@@ -152,7 +151,7 @@ var InfoBlock = {
     hide         : function (dom) { //侧栏隐藏动画函数
         if ( dom ) {
             var node=dom.parentNode.parentNode;
-            console.dir(node);
+            //console.dir(node);
             node.removeNode ? node.removeNode(true):node.remove();
             //node.remove();
             InfoBlock.showMap();
