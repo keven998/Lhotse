@@ -5,7 +5,7 @@ html
         meta(http-equiv='X-UA-Compatible', content='IE=Edge')
         block page_var
         script.
-            var page_url = location.search; 
+            var page_url = location.search;
         link(href='/stylesheets/common/reset.css', rel='stylesheet')
         link(href='/stylesheets/common/travelpi.css', rel='stylesheet')
         script(src='/javascripts/lib/jquery-1.11.1.min.js', rel='javascripts')
@@ -51,11 +51,11 @@ html
                 img(src='/images/common/logo.png')
             .lg-contain
                 h2 使用第三方平台登录
-                - var source_url = 
+                - var source_url =
                 a.weibo(href=config.weibo_call_back)
                 a.qq(href=config.qq_call_back)
         .shadow_layer(style='display: none;')
-    
+
         block content
 
         .ft
@@ -78,12 +78,12 @@ html
                         h3 反馈
                         p
                             | 请告诉我们您的需求、建议或意见。
-                            |  
+
                     .m-p.fl
                         h3 联系我们
                         p
                             //- i.ico02.ico02-qq
-                            i.ico02.ico02-weibo 
+                            i.ico02.ico02-weibo
                             a(href="http://weibo.com/lvxingpai" target="_blank") 旅行派
                     b.company-name ©2014 | 北京爱走天下网络科技有限责任公司
             script(type="text/javascript").
