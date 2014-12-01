@@ -20,6 +20,7 @@ router.get('/layer/:ROUTEID', function(req, res){
     /*get the details of the route*/
     model.setUrl(apiList.apiHost + apiList.routeDetail);
     model.getdata(req, function(data) {
+        console.log(model.getUrl());
         if (data != null){
             if (data.indexOf("!DOCTYPE") != -1){
                 console.log("The system is occured!");
