@@ -210,13 +210,13 @@ function regroupData(route_data,misc_data){
 
     /*for the route preview*/
     var dropDayList = [];
-    var max = route_data.summary.length;
-    var flag = 0;
-    if (max > 5){
-        flag = 1;
-        max = 4;
+    var dayMax = route_data.summary.length;
+    var dayFlag = 0;
+    if (dayMax > 5){
+        dayFlag = 1;
+        dayMax = 4;
     }
-    for(var i = 0;i < max;i++){
+    for(var i = 0;i < dayMax;i++){
         dropDayList.push({
             viewSpot: route_data.summary[i],
             day: i+1
@@ -232,8 +232,24 @@ function regroupData(route_data,misc_data){
     }
 
     /*for the relative notes*/
-    var miscView = [];
+    var dropMiscList = [];
     var tempSource;
+    var miscMax = misc_data.length;
+    var miscFlag = 0;
+    if (miscMax > 4){
+        miscFlag = 1;
+        miscMax = 3;
+    }
+    for(var i = 0;i < miscMax;i++){
+        dropMiscList.push({
+            title: misc_data[i].title,
+            authorName: misc_data[i].authorName,
+            publishDate: misc_data[i].publishDate,
+            sourceUrl: misc_data[i].sourceUrl
+        });
+    }
+
+    var miscView = [];
     for(var note in misc_data){
         switch (misc_data[note].source){
             case 'baidu':
@@ -280,13 +296,17 @@ function regroupData(route_data,misc_data){
 
     return {
         dropDayView: {
-            flag: flag,
+            flag: dayFlag,
             dropDayList: dropDayList
         },
         slideDayView: slideDayView,
         imgView: imgView,
         mapView: mapView,
         fullView: fullView,
+        dropMiscView: {
+            flag: miscFlag,
+            dropMiscList: dropMiscList
+        },
         miscView: miscView
     }
 }
