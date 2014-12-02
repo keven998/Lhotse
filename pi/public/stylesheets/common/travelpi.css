@@ -23,10 +23,11 @@ html body{height: 100%;position: relative;}
 .ico02{display: inline-block;width: 30px;height: 30px;position: relative;top: 0;}
 .ico02-position{background-size: 30px;background:url("/images/common/position.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/position.png',sizingMethod='scale');}
 .ico02-where{background-size:30px;background:url("/images/common/where.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/where.png',sizingMethod='scale');}
-.ico02-qq{background-size: 30px;background:url("/images/common/qq.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/qq.png',sizingMethod='scale');width: 32px;height: 32px;}
-.ico02-weibo{background-size:30px;background:url("/images/common/weibo.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/weibo.png',sizingMethod='scale');width: 32px;height: 32px;}
+.ico02-qq{background:url("/images/common/ico_qq_20.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/ico_qq_20.png',sizingMethod='scale');width: 20px;height: 20px;}
+.ico02-weibo{background:url("/images/common/ico_weibo_20.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/ico_weibo_20.png',sizingMethod='scale');width: 20px;height: 20px;}
 .ico02-loading{background-size:30px;background:url("/images/common/loading.gif") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/loading.gif',sizingMethod='scale');top: 10px;}
 .ico02-circle{background:url("/images/common/circle.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/circle.png',sizingMethod='scale');top: 10px;left: 5px;}
+.ico-lxp-26{display:inline-block;background:url("/images/common/ico_lxp_26.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/images/common/ico_lxp_26.png",sizingMethod='scale');width: 30px;height: 30px;}
 
 /*btn*/
 .btn{display: inline-block;width: auto;height: 10px;line-height: 10px;color: #08DCA9;padding: 10px 15px;text-align: center;}
@@ -49,23 +50,24 @@ html body{height: 100%;position: relative;}
 .user .txt{display:inline-block;_zoom:1;*display:inline;height: 40px;width:70px;}
 .user .b1{display:block;line-height: 15px;}
 .user .b2{display:block;font-size: 12px;line-height: 15px;}
-/**/
-/*.content{width: 1002px;height: auto;margin: 0 auto;padding-bottom: 280px;padding-top: 60px;}*/
 .content{width: 1002px;height: auto;margin: 0 auto;padding-bottom: 80px;padding-top: 60px;}
 /*travepi-----footer*/
-/*.ft{position: absolute;left: 0;bottom: 0;width: 100%;background: #aaa;z-index: 112;}*/
-.ft{width: 100%;background: #aaa;}
-.ft .top{width: auto;height: 150px;padding: 20px 0 20px 120px;}
-.ft .top .company-name{text-align: center;width: 1000px;display: block; float:left; margin-top: 10px;color: white;}
+.ft{width: 100%;background: #494949;}
+.ft .top{width: auto;height: 130px;padding: 45px 20px 20px 100px;}
+.ft .top .company-name{margin:15px 0 0 5px;}
+.ft .top .company-name p{display: inline-block;line-height: 1.5;}
 .ft .ft-c{width: 1200px;margin:0 auto;}
-.m-p{width: 250px;height: auto;color: #fff; margin-right: 20px;}
-.m-p h3{font-weight: bold;font-size: 18px;margin-bottom: 10px;}
-.m-p p{font-size: 13px;line-height: 1.5;}
-.m-p p a{font-size: 15px;line-height: 1.5;color: white;vertical-align: super;margin-left: 5px;}
+.m-p{width: 230px;height: auto;color: #979797; padding-left: 20px;}
+.m-p h3{font-weight: bold;font-size: 18px;margin-bottom: 10px;color:#fff;}
+.m-p p{font-size: 13px;line-height: 2;}
+.m-p p a{font-size: 15px;line-height: 2;vertical-align: super;margin-left: 5px;color: #979797;}
+.bd_l{border-left: 1px solid #979797;width: 280px;}
 .email-ip{width: 150px;height: 20px;padding: 5px 30px 5px 15px;border: 0 none;border-radius: 30px;}
 .email{margin-right: -30px;margin-top: -30px;background: #a22;position: relative;float: right;}
 .ft .bottom{width: auto;height: 50px;line-height: 1.5;padding: 10px 80px;background: #fff;color: #555;text-align: right;}
 .ft .bottom img{width: 70px;height: 30px;float: left;}
+
+.ft a img{visibility: hidden;display: inline-block;}
 /*backtop css*/
 .backToTop{bottom: 0px!important;bottom: auto;position:fixed;_position:absolute;width:43px;height:43px;background: url(/images/common/gotop.png) no-repeat 0 0;cursor: pointer;z-index:1990;bottom:0;display:none;}
 .backToTop:hover{background-position: 0 -43px;-webkit-transition:background 0.2s ease 0s;-moz-transition:background 0.2s ease 0s;-o-transition:background 0.2s ease 0s;-ms-transition:background 0.2s ease 0s;transition:background 0.2s ease 0s;}
