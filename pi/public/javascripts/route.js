@@ -271,7 +271,7 @@ $(function () {
                         $(layerClass).remove();
                         $('.slider_layer').remove();
                         var tabNav =
-                            '<div style="display:none" class="drop_layer">' +
+                            '<div class="drop_layer">' +
                                ' <ul class="tab_nav">' +
                                     //<li><a href="#route-tab1">线路简介</a></li>
                                     '<li><a href="#route-tab1">景点列表</a></li>' +
@@ -292,10 +292,12 @@ $(function () {
                             type: "GET",
                             data: {},
                             success : function (msg) {
-                                //show the map @CK
                                 $('.tab_nav').after(msg.dropLayerHtml);
                                 $('.loading').remove();
+
+                                //show the map @CK
                                 selectPanel.updateData(msg.mapView);
+
                                 $(tabUl).idTabs();//实例化列表内tab选项卡  =>  实现tab功能
 
                                 //initial the tab-nav style

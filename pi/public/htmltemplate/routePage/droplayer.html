@@ -29,7 +29,7 @@
             {{/dropDayList}}
         </ul>
         {{#flag}}
-        <a href="" class="more"> >> more << </a>
+        <a href="" class="more"> << more >> </a>
         {{/flag}}
     {{/dropDayView}}
     </div>
@@ -44,4 +44,20 @@
         <i id="next" class="btn-arr-right"></i>
         <i id="prev" class="btn-arr-left"></i>
     </div>
-    <div id="route-tab3" class="tab_item"></div>
+    <div id="route-tab3" class="tab_item">
+    {{#dropMiscView}}
+        <ul class="about-list">
+            {{#dropMiscList}}
+            <li>
+                <a href="{{{sourceUrl}}}" target="_blank" class="n0">
+                <h1 class="t1">{{{title}}}</h1>
+                <em><span class="au">{{{authorName}}}</span>发表于</em>
+                <em class="time">{{{publishDate}}}</em>
+            </li>
+            {{/dropMiscList}}
+            {{#flag}}
+            <a href="" class="more"> << more >> </a>
+            {{/flag}}
+        </ul>
+    {{/dropMiscView}}
+    </div>
