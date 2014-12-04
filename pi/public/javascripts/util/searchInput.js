@@ -23,7 +23,6 @@ var setCookie = function(c_name,value,expiredays) {
 
     document.cookie=c_name+ "=" + escape(value)+ ((expiredays==null) ? "" : ";expires="+exdate.toGMTString()) + ";path=/";
 };
-
 /* ---- END: cookies ---- */
 
 
@@ -135,6 +134,7 @@ function myTrim(x) {
     return x.replace(/^\s+|\s+$/gm,'');
 }
 
+//input文本框的隐藏
 arrInput.forEach(function(t){
     if (!t[0].val()) {
         t[1].css({
@@ -305,16 +305,16 @@ function go_plan_list(){
     } 
     else if (from_poi_type == zone.type.city){
         if (arr_poi_type ==zone.type.city){
-            url += zone.searchRoutesUrl.city;
+            url += "?city=" + arr_name;
         }else if(arr_poi_type == zone.type.viewspot){
-            url += zone.searchRoutesUrl.viewspot;
+            url += "?vs=" + arr_name;
         }else if(arr_poi_type == zone.type.province){
-            url += zone.searchRoutesUrl.province;
+            url += "?pro=" + arr_name;
         }else {
             alert('请输入正确的目的地 : 景点/城市/省份')
             return ;
         }
-        url += '?arrName=' + arr_name + '&fromName=' + from_name;
+        url += '&fromName=' + from_name;
         window.location.href = url;
     }else{
         alert(from_name + '是省份名，请输入城市名作为出发地');
