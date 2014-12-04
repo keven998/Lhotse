@@ -9,7 +9,6 @@ block page_var
     script(src='http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js' type='text/ecmascript')
 
 
-
 block content
     .bd
         .slider-content
@@ -175,3 +174,5 @@ block content
                                             - var short_desc = route.description.desc.toString().substring(0, 40)
                                             | #{short_desc}...
                                     .label #{route.editor}
+
+    script(src='/javascripts/util/searchInput.js', rel='javascripts')
