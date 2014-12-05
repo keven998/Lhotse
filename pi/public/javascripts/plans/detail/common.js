@@ -16,5 +16,6 @@
             $(".pl_fixed_menu .pl_fixed_menu_box .link .mapbtn").hide();
         }
     });
+    return null;
 })();
 

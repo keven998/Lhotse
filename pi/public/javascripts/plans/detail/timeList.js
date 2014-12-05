@@ -1,12 +1,14 @@
 (function () {
-    function timeList(opt) {
-        this.init(opt);
+    function timeList() {
+        this.init();
+        this.reset();
     }
 
     timeList.prototype = {
         id         : "sideCatalog",
         className  : "sideCatalog",
         data       : [],
+
         htmlTpl    : '<div class="%%" id="##">' +
         '<div class="%%-btn %%-up">' +
         '<span class="navi_btn"  id="##-up" style="display: inline;" data-dir="up">总程</span>' +
@@ -17,16 +19,34 @@
         '</div>' +
         '</div>' +
         '</div>',
+
         step       : 84,
         actionClass: "action",
         curLi      : null,
-        init       : function (opt) {
-            $.extend(this, opt);
+        init       : function () {
+            this.getData();
             this.render();
             this.setWidth();
             this.bindEvent();
         },
-        bindEvent  : function () {
+        getData    : function() {
+            var dayItems = $('.pl_day_list').children(),
+                len = $(dayItems).length,
+                tempData = [];
+            for(var i = 0; i < len; i++) {
+                var name = dayItems.eq(i)
+                        .find('div.day_desc p span.day_local')
+                        .text();
+                var tempObj = {
+                    "day"   : 'D' + (i+1),
+                    "anchor": 'day' + (i+1),
+                    "name"  : name
+                }
+                tempData.push(tempObj);
+            }
+            this.data = tempData;
+        },
+        bindEvent : function () {
             var me = this;
             //上下滚动
             this.dom.on("click", "li", function (e, flag) {
@@ -62,7 +82,6 @@
                 left:'-65px',
                 top:'30px'
             });
-
         },
         getDom     : function (postfix) {
             return $("#" + this.id + "-" + postfix);
@@ -71,25 +90,30 @@
             this.dom = $(this.getHtml());
             $(".pl_contents").append(this.dom);
         },
-        "reset":function(){
-            var st=$(window).scrollTop()-0;
+        reset      : function() {
+            var st = $(window).scrollTop() - 0;
             var docw = $(document).width();
             var left = (docw - $(".pl_wrapper").width()) / 2;
             //console.log(st);
-            if(st>=450){
+            if(st>=480) {
                 this.dom.css({
-                    position:'fixed',
-                    left:left,
-                    top:'100px'
+                    position: 'fixed',
+                    left: left,
+                    top: '100px'
                 });
-            }else{
+            } else {
                 this.dom.css({
-                    position:'absolute',
-                    left:'-65px',
-                    top:'30px'
+                    position: 'absolute',
+                    left: '-65px',
+                    top: '30px'
                 });
             }
         }
     };
-    return window.timeList = timeList;
+
+    var timeList = new timeList(); // 导航栏
+    // window.timeList = timeList;
+
+    // if delete above sentence, cause error:
+    // timelist is undefined in index.js
 })();

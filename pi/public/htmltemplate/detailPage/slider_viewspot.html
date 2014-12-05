@@ -1,0 +1,46 @@
+{{#data}}
+<div class="info viewspot" style="left: 0px; width: 427px; opacity: 1;">
+	<div class="info_head">
+		<span class="info_close" onclick="InfoBlock.hide(this)">关闭</span>
+		    <span class="info_title">
+		    	<a href="#">{{name}}</a>
+		    </span>
+	</div>
+	<div class="info_content" style="width: 100%; overflow-y: auto; max-height: 305px;">
+		<div class="scrollImg">
+		    <div class="qui-slide">
+		            <div class="qui-slide-img-wrap">
+		                <img class="qui-slide-img" src="{{image}}" onerror="this.src='images/poi_80_80.png'">
+		            </div>
+                    <ul class="qui-slide-ul">
+                    	{{#imageList}}
+                    	<li>
+                    		<img src="{{image}}" data-src="{{image}}" onerror="this.src='/images/plans/detail/80.png'" class="qui-slide-li_active">
+                    	</li>
+                    	{{/imageList}}
+                    </ul>
+                    <div class="qui-slide-clear">
+
+                    </div>
+		    </div>
+		</div>
+        <div class="info_star">
+        	<h3>评分
+        		<span class="qui-icon star"></span>
+	        	<span class="qui-icon star"></span>
+	        	<span class="qui-icon star"></span>
+	        	<span class="qui-icon star"></span>
+	        	<span class="qui-icon empty"></span>
+        	</h3>
+        </div>
+        <div class="info_intro">
+        	<h3>简介</h3>
+        	<div class="texts">
+        		<p>
+        			{{desc}}
+        		</p>
+        	</div>
+        </div>
+    </div>
+</div>
+{{/data}}

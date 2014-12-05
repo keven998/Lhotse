@@ -1,7 +1,7 @@
 /*
  * 右侧栏根据滚动条设置位置效果封装对象；
  * */
-(function () {
+define(function () {
     var sliderBar = function () {
     };
     sliderBar.prototype = {
@@ -14,6 +14,7 @@
             this.bindEvent();
         }, bindEvent   : function () {
             var me = this, top, disTop;
+            me.fireScroll();
             $(window).on("scroll", function (evt) {
                 me.fireScroll();
             })
@@ -46,6 +47,9 @@
             this.fireScroll();
         }
     };
-    window.sliderBar = sliderBar;
-})();
+    //window.sliderBar = sliderBar;
+    return {
+        sliderBar: sliderBar,
+    };
+});
 

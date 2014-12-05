@@ -7,10 +7,13 @@
     $('.menu').children().on('click', function() {
         var curContent = $(curLi).attr('class').split(' ')[0],
             toShowContent = $(this).attr('class');
-        $(curLi).removeClass("current");
-        $(this).addClass("current");
-        $('.' + curContent + '_contents').hide();
-        $('.' + toShowContent + '_contents').show();
-        curLi = $(this);
+
+        if(toShowContent != $(curLi).attr('class')) {
+            $(curLi).removeClass("current");
+            $('.' + curContent + '_contents').hide();
+            $(this).addClass("current");
+            $('.' + toShowContent + '_contents').show();
+            curLi = $(this);
+        }
     });
 })();

@@ -1401,7 +1401,7 @@ a {
 
 .pl_day_list
 .day_item {
-    margin-bottom : 30px;
+    margin-bottom : 5px;
     border-bottom : 1px solid #ebebeb;
     position      : relative
 }
@@ -1776,6 +1776,7 @@ li {
 .day_list
 .line {
     width        : auto;
+    cursor: pointer;
     padding-left : 20px;
     color        : #b5b5b5;
     background   : #F7F7F7;
@@ -1828,6 +1829,8 @@ p {
 
 .pl_sidebar .map {
     position : absolute;
+    width: 100%;
+    height: 100%;
     opacity  : 1;
     z-index  : 10;
     border   : 0;
@@ -1931,7 +1934,7 @@ h3 {
 .pl_sidebar .info .info_intro
 .texts {
     max-height : 90px;
-    overflow   : hidden;
+    /*overflow   : hidden;*/
     color      : #999;
 }
 
@@ -1942,7 +1945,7 @@ p {
 .pl_sidebar .info .info_comment
 h3 {
     background-position : 0 -87px;
-    overflow            : hidden
+    /*overflow            : hidden*/
 }
 
 .pl_sidebar .info .info_recommend
@@ -2649,9 +2652,64 @@ li {
     display : none !important
 }
 
+#mapContainer{
+    width: 100%;
+    height: 350px;
+}
+
 .sideCatalogBgSmall .sideCatalog-btn .navi_btn {
     left : 0;
 }
 
 .sideCatalogBgSmall .sideCatalog-list .name {
     display : none;}
+
+/*map*/
+.map_container{position: absolute;right: 0;top: 116px;}
+#map_inner{width:700px;height:550px;}
+.map_marker {
+  cursor: pointer;
+  position: absolute;
+  white-space: nowrap
+}
+
+.map_marker i
+{
+  background: url(/images/route/index/icon-map-pos.png) no-repeat;
+  color: blue;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  height: 48px;
+  width: 34px;
+  line-height: 36px;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  z-index: 1
+}
+
+.map_marker em
+{
+  display: inline-block;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 2px 0 #ccc;
+  color: #333;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 28px;
+  line-height: 28px;
+  max-width: 120px;
+  *width: 80px;
+  color: #333;
+  left: -14px;
+  top: -15px;
+  *top: -14px;
+  padding: 0 18px;
+  border-radius: 0 14px 14px 0
+}
