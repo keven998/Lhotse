@@ -24,16 +24,19 @@ block content
                 .bg
                 .s
                     i.ico02.ico02-position
-                    b
-                        | 我的位置 :
-                    input.s-ip(type="text" name="fromName" placeholder='城市' id="from" onkeyup="suggestion_from(this.value)" autocomplete="off")
+                    input.s-ip.w40(type="text" name="fromName" placeholder='城市' id="from" onkeyup="suggestion_from(this.value)" autocomplete="off")
+
+                    b.change [更换]
 
                     b.line
                     i.ico02.ico02-where
-                    b 想要去哪玩 :
+                    b 想去:
                     input.s-ip(type="text" name="arrivName" placeholder='景点/城市/省份' id="arrive" onkeyup="suggestion_to(this.value)" autocomplete="off")
+
+                    i.ico-addpos
+
                     a(href="#" onclick="go_plan_list()")
-                        #search-btn.s-btn()
+                        #search-btn.s-btn
                     #suggestion_to.suggestion(style="margin-left:270px;width:373px;")
                     #suggestion_from.suggestion(style="width:250px;")
     .content.f-cb

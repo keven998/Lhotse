@@ -29,6 +29,7 @@ html body{height: 100%;position: relative;}
 .ico02-circle{background:url("/images/common/circle.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/circle.png',sizingMethod='scale');top: 10px;left: 5px;}
 .ico-lxp-26{display:inline-block;background:url("/images/common/ico_lxp_26.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/images/common/ico_lxp_26.png",sizingMethod='scale');width: 30px;height: 30px;}
 
+.ico-addpos{display:inline-block;width:30px;height:28px;background-size: 30px;background:url(/images/route/index/btn-add-search.png) no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/route/index/btn-add-search.png',sizingMethod='scale');vertical-align:top;}
 /*btn*/
 .btn{display: inline-block;width: auto;height: 10px;line-height: 10px;color: #08DCA9;padding: 10px 15px;text-align: center;}
 .btn02{display: inline-block;width: auto;height: 10px;line-height: 10px;background: #F7F7F7;color: #333;padding: 5px;text-align: center;border-radius: 5px;margin-right: 10px;}
