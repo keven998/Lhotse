@@ -3,6 +3,7 @@ html
     head
         meta(charset='utf-8')
         meta(http-equiv='X-UA-Compatible', content='IE=Edge')
+        script(src='/javascripts/lib/jquery-1.11.1.min.js', rel='javascripts')
         block page_var
         script.
             var page_url = location.search;
@@ -22,7 +23,6 @@ html
             loadCss(page_path, page_id)
         link(href='/stylesheets/common/reset.css', rel='stylesheet')
         link(href='/stylesheets/common/travelpi.css', rel='stylesheet')
-        script(src='/javascripts/lib/jquery-1.11.1.min.js', rel='javascripts')
         script(src='/javascripts/lib/checklogin.js', rel='javascripts')
 
         title 旅行派
@@ -78,28 +78,37 @@ html
                     .m-p.fl
                         h3 关于我们
                         p
-                            | 地址:北京市海淀区海淀西大街70号3层 <br>
-                            | 邮编:100080 <br>
-                            | 电话:010-56232857 <br>
-                            | Email:services@lvxingpai.cn <br>
+                            | 地址：北京市海淀区海淀西大街70号3层 <br>
+                            | 邮编：100080 <br>
+                            | 电话：010-56232857 <br>
                     .m-p.fl
                         h3 业务合作
                         p
-                            | 产品合作:keven@lvxingpai.cn <br>
-                            | 广告业务:steven@lvxingpai.cn <br>
-                            | 其它业务:services@lvxingpai.cn <br>
+                            | 产品合作：keven@lvxingpai.cn <br>
+                            | 广告业务：steven@lvxingpai.cn <br>
+                            | 其它业务：services@lvxingpai.cn <br>
                     .m-p.fl
+                        h3 联系我们
+                        p
+                            i.ico02.ico02-qq
+                            a(href="http://t.qq.com/lvxingpai") 旅行派_爱走<br>
+                            i.ico02.ico02-weibo 
+                            a(href="http://weibo.com/lvxingpai") 旅行派<br>
+                    .m-p.fl.bd_l
                         h3 反馈
                         p
                             | 请告诉我们您的需求、建议或意见。
-
                     .m-p.fl
                         h3 联系我们
                         p
                             //- i.ico02.ico02-qq
                             i.ico02.ico02-weibo
                             a(href="http://weibo.com/lvxingpai" target="_blank") 旅行派
-                    b.company-name ©2014 | 北京爱走天下网络科技有限责任公司
+                    .company-name
+                        i.ico-lxp-26
+                            p
+                                |   Copyright©2014 京ICP备14027571号-1<br>
+                                |   北京爱走天下网络科技有限责任公司
             script.
                 /* load css */
                 var loadJS = function(page_path, page_id, use_require_js) {
@@ -114,7 +123,6 @@ html
                     document.head.appendChild(script);
                 };
                 loadJS(page_path, page_id, use_require_js);
-
             script(type="text/javascript").
                 var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
                 document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F642d04109c4306c85015d272c1938156' type='text/javascript'%3E%3C/script%3E"));

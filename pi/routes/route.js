@@ -60,11 +60,11 @@ router.get('/layer/:ROUTEID', function(req, res){
                 })
                 .on('end', function() {
                     sliderLayerHtml = sliderLayerHtml.join("");
-                    console.log(sliderLayerHtml);
                     res.json('route', {
                         dropLayerHtml: dropLayerHtml.toString(),
                         sliderLayerHtml: sliderLayerHtml.toString(),
-                        mapView: data.mapView
+                        mapView: data.mapView,
+                        moreDesc: data.fullView.moreDesc
                     });
                 });
             });
@@ -176,7 +176,7 @@ function regroupData(route_data,misc_data){
     var imgView = [];
     for(var key in route_data.imageList){
         imgView.push({
-            img: route_data.imageList[key]
+            img: route_data.imageList[key] + "?imageView2/1/w/300/h/150"
         });
     }
     //the images is too much.
@@ -209,18 +209,47 @@ function regroupData(route_data,misc_data){
 
 
     /*for the route preview*/
-    var dayView = [];
-    for(var i = 0;i < route_data.summary.length;i++){
-        dayView.push({
+    var dropDayList = [];
+    var dayMax = route_data.summary.length;
+    var dayFlag = 0;
+    if (dayMax > 5){
+        dayFlag = 1;
+        dayMax = 4;
+    }
+    for(var i = 0;i < dayMax;i++){
+        dropDayList.push({
             viewSpot: route_data.summary[i],
             day: i+1
         });
     }
 
+    var slideDayView = [];
+    for(var i = 0;i < route_data.summary.length;i++){
+        slideDayView.push({
+            viewSpot: route_data.summary[i],
+            day: i+1
+        });
+    }
 
     /*for the relative notes*/
-    var miscView = [];
+    var dropMiscList = [];
     var tempSource;
+    var miscMax = misc_data.length;
+    var miscFlag = 0;
+    if (miscMax > 4){
+        miscFlag = 1;
+        miscMax = 3;
+    }
+    for(var i = 0;i < miscMax;i++){
+        dropMiscList.push({
+            title: misc_data[i].title,
+            authorName: misc_data[i].authorName,
+            publishDate: misc_data[i].publishDate,
+            sourceUrl: misc_data[i].sourceUrl
+        });
+    }
+
+    var miscView = [];
     for(var note in misc_data){
         switch (misc_data[note].source){
             case 'baidu':
@@ -266,10 +295,18 @@ function regroupData(route_data,misc_data){
 
 
     return {
-        dayView: dayView,
+        dropDayView: {
+            flag: dayFlag,
+            dropDayList: dropDayList
+        },
+        slideDayView: slideDayView,
         imgView: imgView,
         mapView: mapView,
         fullView: fullView,
+        dropMiscView: {
+            flag: miscFlag,
+            dropMiscList: dropMiscList
+        },
         miscView: miscView
     }
 }

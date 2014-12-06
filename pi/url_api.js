@@ -18,6 +18,8 @@ var urlApi = {
     
     // 根据现有城市名字查询城市ID
     searchCityIdByName : "/geo/localities/search?keyword=", 
+
+    // 根据城市ID查询城市名字
     searchCityNameById : "/web/geo/localities/fromLocId",   //:fromLocId
 
     // 通过景点名字获取景点ID
@@ -25,6 +27,7 @@ var urlApi = {
 
     // 获取包含XX景点的路线列表
     searchRouteIncludeViewspot : "/web/plans/explore?poi=",
+
     // 获得相关城市的路线列表
     getRouteList : '/web/plans/explore',
 
