@@ -107,15 +107,15 @@ router.get('/route', function(req, res) {
     var queryFromName = urlApi.apiHost + urlApi.searchCityIdByName + decodeURIComponent(fromLocName);
     var arrLocName , queryArrName , poiType;
     if (req.query.vs){
-        poiType = "vs";
+        poiType = zone.type.viewspot;
         arrLocName = req.query.vs;
         queryArrName = urlApi.apiHost + urlApi.searchViewspotIdByName + decodeURIComponent(arrLocName) + "&sort=desc";
     }else if (req.query.city){
-        poiType = "city";
+        poiType = zone.type.city;
         arrLocName = req.query.city;
         queryArrName = urlApi.apiHost + urlApi.searchCityIdByName + arrLocName;
     }else if (req.query.pro){
-        poiType = "pro";
+        poiType = zone.type.province;
         arrLocName = req.query.pro;
         queryArrName = urlApi.apiHost + urlApi.searchCityIdByName + arrLocName;
     }else{
@@ -136,7 +136,7 @@ router.get('/route', function(req, res) {
             model.getdata(req, function(data){
                 data = JSON.parse(data);
                 var id;
-                if (poiType == "vs"){
+                if (poiType == zone.type.viewspot){
                     id = data.result[0]['_id'];
                 }else{
                     id = selectCityId(data.result);
@@ -149,7 +149,7 @@ router.get('/route', function(req, res) {
         var fromId = results.from;
         var arriveId = results.arrive;
         var indexGoUrl;
-        if(poiType == "vs"){
+        if(poiType == zone.type.viewspot){
             indexGoUrl = urlApi.apiHost + urlApi.searchRouteIncludeViewspot + arriveId + "&tag=&minDays=0&maxDays=99";
         }else{
             indexGoUrl = urlApi.apiHost + urlApi.getRouteList + "?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
