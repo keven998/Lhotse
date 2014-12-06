@@ -82,7 +82,7 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock'],
         }
 
         /*
-         *详情列表滚动对导航栏的互动
+         * 详情列表滚动对导航栏的互动
          */
         $(window).on('scroll',scrollAction);
         function scrollAction(){
@@ -93,7 +93,7 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock'],
         }
 
         /*
-         *导航栏对详情列表的互动
+         * 导航栏对详情列表的互动
          */
         $(timelistitem).on('click', function() {
             $(document).scrollTop($(this).attr('id'));

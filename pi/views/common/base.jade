@@ -6,11 +6,21 @@ html
         block page_var
         script.
             var page_url = location.search;
+            var page_path = page_var.path,
+                page_id = page_var.id,
+                cssRootUrl = '/stylesheets/',
+                jsRootUrl = '/javascripts/',
+                href = (cssRootUrl + page_path + page_id + '.css').toString();
+                console.log(href)
         link(href='/stylesheets/common/reset.css', rel='stylesheet')
         link(href='/stylesheets/common/travelpi.css', rel='stylesheet')
+        //
+            link(href=href, type = "text/css",rel='stylesheet')
+        link(href='/stylesheets/plans/edit.css', rel='stylesheet')
         script(src='/javascripts/lib/jquery-1.11.1.min.js', rel='javascripts')
         script(src='/javascripts/lib/checklogin.js', rel='javascripts')
         script(data-main='/require/main.js', src='/javascripts/lib/require.js')
+
         title 旅行派
 
     body
@@ -86,6 +96,7 @@ html
                             i.ico02.ico02-weibo
                             a(href="http://weibo.com/lvxingpai" target="_blank") 旅行派
                     b.company-name ©2014 | 北京爱走天下网络科技有限责任公司
+            script(data-main=jsRootUrl + page_path + page_id + '.js', src='/javascripts/lib/require.js')
             script(type="text/javascript").
                 var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
                 document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F642d04109c4306c85015d272c1938156' type='text/javascript'%3E%3C/script%3E"));
