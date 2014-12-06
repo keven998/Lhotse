@@ -133,8 +133,7 @@ router.get('/route', function(req, res) {
         },
         arrive: function(callback) {
             model.setUrl(encodeURI(queryArrName));
-            model.getdata(req, function(data){
-                data = JSON.parse(data);
+            model.getdata(req, function(data){                data = JSON.parse(data);
                 var id;
                 if (poiType == zone.type.viewspot){
                     id = data.result[0]['_id'];

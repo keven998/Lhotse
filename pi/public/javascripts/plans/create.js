@@ -6,11 +6,11 @@ $('.city_nav').children('a').click(function(){
         fromLocName = getCookie('fromLoc');
     }
     if ($(this).attr('data-type') === zone.type.city) {
-        $(this).attr('href','/route/city/?&fromName=' + fromLocName + '&arrName=' + arrLocName);
+        $(this).attr('href','/route?fromName=' + fromLocName + '&city=' + arrLocName);
     } else if ($(this).attr('data-type') === zone.type.viewspot) {
-        $(this).attr('href','/route/include/?&fromName=' + fromLocName + '&arrName=' + arrLocName);
+        $(this).attr('href','/route?fromName=' + fromLocName + '&vs=' + arrLocName);
     } else if ($(this).attr('data-type') === zone.type.province) {
-        $(this).attr('href','/route/province/?&fromName=' + fromLocName + '&arrName=' + arrLocName);
+        $(this).attr('href','/route?fromName=' + fromLocName + '&pro=' + arrLocName);
     }
 })
 
