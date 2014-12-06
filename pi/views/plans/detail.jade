@@ -5,6 +5,7 @@ block page_var
         var page_var = {
             id: 'detail',
             path: 'plans/detail/',
+            use_require_js: true
         };
 
 block content
@@ -335,7 +336,8 @@ block content
 
     //
       require.js
-    script(data-main='/javascripts/plans/detail/detail.js', src='/javascripts/lib/require.js')
+    //
+      script(data-main='/javascripts/plans/detail/detail.js', src='/javascripts/lib/require.js')
     script(src='/javascripts/lib/jquery-1.11.1.min.js')
     //
       顶部导航效果、中部导航效果

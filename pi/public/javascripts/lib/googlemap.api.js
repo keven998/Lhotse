@@ -7,7 +7,7 @@ require.config({
     }
 });
 /* -----GOOGLE MODULE BEGIN-----*/
-define(['async!http://ditu.google.cn/maps/api/js?v=3&sensor=false&key=AIzaSyCuXDkC1uoHaSctnrsGSGfpj9QVCUrfw1w'], function() {
+define(['async!http://ditu.google.cn/maps/api/js?v=3&sensor=false&libraries=geometry&key=AIzaSyCuXDkC1uoHaSctnrsGSGfpj9QVCUrfw1w'], function() {
     // Google Maps API and all its dependencies will be loaded here.
 
 

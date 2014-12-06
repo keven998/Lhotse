@@ -1,18 +1,5 @@
-var page_id = page_var.id;
-var page_path = page_var.path;
+'use strict';
 
-/* load css */
-loadCss(page_path, page_id);
-
-function loadCss(page_path, page_id) {
-    var link = document.createElement("link");
-    link.type = "text/css";
-    link.rel = "stylesheet";
-    link.href = '/stylesheets/' + page_path + page_id + '.css';
-    document.getElementsByTagName("head")[0].appendChild(link);
-}
-console.log('toLoadScript...');
-/* load js */
 require.config({
     baseUrl: '/javascripts/',
     paths: {
@@ -23,32 +10,14 @@ require.config({
     },
 });
 
-$(function() {
-        var h = "http://ditu.google.cn/maps/api/js?v=3&sensor=false&key=AIzaSyCuXDkC1uoHaSctnrsGSGfpj9QVCUrfw1w",
-            f = document.createElement("script");
-        f.type = "text/javascript";
-        f.src = h + "&callback=main";
-        document.body.appendChild(f);
-    });
-
-
-function main() {
-    console.log('map callback');
-}
-
 require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock'],
     function(sliderBar, googlemapApi, gmapControl, siderBarBlock){
 
     var index = function () {
-        //$('.scrollImg').qyerSlidImg();//右侧图片组图切换效果，即调用qyerSlidImg插件
-
 
         var mapControl = new gmapControl.mapControlPanel(null, "mapContainer");
         mapControl.init();
 
-        function main(){
-                console.log('callback main');
-            };
         var infoBlock = new siderBarBlock.InfoBlock();
         infoBlock.init();
 
@@ -105,19 +74,18 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock'],
          */
         $(".day_list .line").on("click", function () {
             // TODO
-            var index = $(this).attr('data-index'),
-                distance = mapControl.calcuDistance(index);
-            $(this).find('.js_showPoiTrafficPopup').text(distance);
+
         });
 
 
         /*
          * 距离间隔栏获取距离
          */
-        setTimeout(addDistance, 15000);
+        setTimeout(addDistance, 1000);
         function addDistance() {
+            console.log('hello');
             $(".day_list .line").each(function(){
-                var index = $(this).attr('data-index');
+                var index = $(this).attr('data-index'),
                     distance = mapControl.calcuDistance(index);
                 $(this).find('.js_showPoiTrafficPopup').text(distance);
             });

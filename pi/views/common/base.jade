@@ -8,18 +8,22 @@ html
             var page_url = location.search;
             var page_path = page_var.path,
                 page_id = page_var.id,
+                use_require_js = page_var.use_require_js,
                 cssRootUrl = '/stylesheets/',
-                jsRootUrl = '/javascripts/',
-                href = (cssRootUrl + page_path + page_id + '.css').toString();
-                console.log(href)
+                jsRootUrl = '/javascripts/';
+            /* load css */
+            var loadCss = function(page_path, page_id) {
+                var link = document.createElement("link");
+                link.type = "text/css";
+                link.rel = "stylesheet";
+                link.href = '/stylesheets/' + page_path + page_id + '.css';
+                document.head.appendChild(link);
+            };
+            loadCss(page_path, page_id)
         link(href='/stylesheets/common/reset.css', rel='stylesheet')
         link(href='/stylesheets/common/travelpi.css', rel='stylesheet')
-        //
-            link(href=href, type = "text/css",rel='stylesheet')
-        link(href='/stylesheets/plans/edit.css', rel='stylesheet')
         script(src='/javascripts/lib/jquery-1.11.1.min.js', rel='javascripts')
         script(src='/javascripts/lib/checklogin.js', rel='javascripts')
-        script(data-main='/require/main.js', src='/javascripts/lib/require.js')
 
         title 旅行派
 
@@ -96,7 +100,21 @@ html
                             i.ico02.ico02-weibo
                             a(href="http://weibo.com/lvxingpai" target="_blank") 旅行派
                     b.company-name ©2014 | 北京爱走天下网络科技有限责任公司
-            script(data-main=jsRootUrl + page_path + page_id + '.js', src='/javascripts/lib/require.js')
+            script.
+                /* load css */
+                var loadJS = function(page_path, page_id, use_require_js) {
+                    var script = document.createElement("script");
+                    script.type = "text/javascript";
+                    if(use_require_js){
+                        script.setAttribute('data-main', '/javascripts/' + page_path + page_id + '.js');
+                        script.src = '/javascripts/lib/require.js';
+                    } else{
+                        script.src = '/javascripts/' + page_path + page_id + '.js';
+                    }
+                    document.head.appendChild(script);
+                };
+                loadJS(page_path, page_id, use_require_js);
+
             script(type="text/javascript").
                 var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
                 document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F642d04109c4306c85015d272c1938156' type='text/javascript'%3E%3C/script%3E"));
