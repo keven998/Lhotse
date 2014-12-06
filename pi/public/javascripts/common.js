@@ -28,7 +28,7 @@ $(function () {
         navHeight = 100,
         wHeight = $(window).height()
         lgHeight = wHeight - navHeight;
-        
+
     topHd.on('click','a.login',function(e){
         //qq登录时的当前页面的记录
         var qq_call_back = $(".qq").attr("href") + "&referer=" + window.location.href;
@@ -55,6 +55,62 @@ $(function () {
     /* ---- END: login layer ---- */
 })
 
+
+/* ---- BEGIN: cookies ---- */
+var getCookie = function(c_name) {
+    if (document.cookie.length > 0)
+        {
+            var c_start = document.cookie.indexOf(c_name + "=");
+            if (c_start != -1) {
+                c_start = c_start + c_name.length + 1;
+                c_end = document.cookie.indexOf(";",c_start);
+
+                if (c_end == -1)
+                    c_end = document.cookie.length;
+
+                return unescape(document.cookie.substring(c_start,c_end));
+            }
+        }
+    return "";
+};
+
+var setCookie = function(c_name,value,expiredays) {
+    var exdate=new Date();
+    exdate.setDate(exdate.getDate()+expiredays);
+
+    document.cookie=c_name+ "=" + escape(value)+ ((expiredays==null) ? "" : ";expires="+exdate.toGMTString()) + ";path=/";
+};
+/* ---- END: cookies ---- */
+
+/* ---- BEGIN : user setting ---- */
+// 鼠标悬停头像时弹出下拉菜单
+$(function (){
+    var userIcon = $('.user-avatar'),
+        dropMenu = $('.drop-menu');
+    var slug = false;
+
+    userIcon.mouseover(
+        function(e){
+            dropMenu.css('display') == 'none' ? 
+                dropMenu.css({'display': 'block'}) : null//dropMenu.css({'display': 'none'})
+        }).mouseout(
+         function(e){
+            dropMenu.css('display') == 'block' && slug ? null :  dropMenu.css({'display': 'none'});
+            slug = false; 
+        });
+
+    $('.drop-menu').mouseover(
+        function(e){
+            slug = true;
+    }).mouseout(
+        function(e){
+            dropMenu.css({'display': 'none'});
+        });
+    
+})
+/* ---- END : user setting ---- */
+
+
 /* ---- BEGIN: cookies ---- */
 var getCookie = function(c_name) {
     if (document.cookie.length > 0)
@@ -79,7 +135,6 @@ var setCookie = function(c_name,value,expiredays) {
 
     document.cookie=c_name+ "=" + escape(value)+ ((expiredays==null) ? "" : ";expires="+exdate.toGMTString()) + ";path=/";
 };
-
 /* ---- END: cookies ---- */
 
 
@@ -104,7 +159,7 @@ function select_from(input, poi_type){
     setCookie('userInputFrom', input, 1);//将用户填写的地址记录到cookies
 }
 
-// 若用户有输入目的地，则记录到cookies
+//  假如出发地已经存在，则记录到cookies
 (function(){
     var userInput = getCookie('userInputFrom');    //userInputFrom用户自己输入的地址
     if (!userInput) {
@@ -191,6 +246,7 @@ function myTrim(x) {
     return x.replace(/^\s+|\s+$/gm,'');
 }
 
+//input文本框的隐藏
 arrInput.forEach(function(t){
     if (!t[0].val()) {
         t[1].css({
@@ -342,35 +398,6 @@ array.forEach(function(t){
 /* ----END: suggestion code ---- */
 
 
-/* ---- BEGIN : user setting ---- */
-// 鼠标悬停头像时弹出下拉菜单
-$(function (){
-    var userIcon = $('.user-avatar'),
-        dropMenu = $('.drop-menu');
-    var slug = false;
-
-    userIcon.mouseover(
-        function(e){
-            dropMenu.css('display') == 'none' ? 
-                dropMenu.css({'display': 'block'}) : null//dropMenu.css({'display': 'none'})
-        }).mouseout(
-         function(e){
-            dropMenu.css('display') == 'block' && slug ? null :  dropMenu.css({'display': 'none'});
-            slug = false; 
-        });
-
-    $('.drop-menu').mouseover(
-        function(e){
-            slug = true;
-    }).mouseout(
-        function(e){
-            dropMenu.css({'display': 'none'});
-        });
-    
-})
-/* ---- END : user setting ---- */
-
-
 // 点击GO时, 跳转
 function go_plan_list(){
     var arr_name = $('#arrive').val(),
@@ -390,20 +417,19 @@ function go_plan_list(){
     } 
     else if (from_poi_type == zone.type.city){
         if (arr_poi_type ==zone.type.city){
-            url += zone.searchRoutesUrl.city;
+            url += "?city=" + arr_name;
         }else if(arr_poi_type == zone.type.viewspot){
-            url += zone.searchRoutesUrl.viewspot;
+            url += "?vs=" + arr_name;
         }else if(arr_poi_type == zone.type.province){
-            url += zone.searchRoutesUrl.province;
+            url += "?pro=" + arr_name;
         }else {
             alert('请输入正确的目的地 : 景点/城市/省份')
             return ;
         }
-        url += '?arrName=' + arr_name + '&fromName=' + from_name;
+        url += '&fromName=' + from_name;
         window.location.href = url;
     }else{
         alert(from_name + '是省份名，请输入城市名作为出发地');
         $('#from').val('');
     }
 }
-

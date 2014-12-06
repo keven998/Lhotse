@@ -54,7 +54,7 @@
 
 /*drop layer*/
 .drop_layer{position:relative;}
-.tab_item{height:175px;display: none;}
+.tab_item{height:175px;}
 /*the nav of a route-item's drop layer*/
 .tab_nav{width:580px;height:30px;background-color:#e0f6f1;}
 .tab_nav li{display:inline-block;height:30px;line-height:30px;font-size:14px;padding:0 10px;}
