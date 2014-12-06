@@ -4,6 +4,7 @@ html
         meta(charset='utf-8')
         meta(http-equiv='X-UA-Compatible', content='IE=Edge')
         script(src='/javascripts/lib/jquery-1.11.1.min.js', rel='javascripts')
+        script(src='/javascripts/common.js', rel='javascripts')
         block page_var
         script.
             var page_url = location.search;
@@ -20,7 +21,7 @@ html
                 link.href = '/stylesheets/' + page_path + page_id + '.css';
                 document.head.appendChild(link);
             };
-            loadCss(page_path, page_id)
+            loadCss(page_path, page_id);
         link(href='/stylesheets/common/reset.css', rel='stylesheet')
         link(href='/stylesheets/common/travelpi.css', rel='stylesheet')
         script(src='/javascripts/lib/checklogin.js', rel='javascripts')
@@ -117,6 +118,7 @@ html
                     if(use_require_js){
                         script.setAttribute('data-main', '/javascripts/' + page_path + page_id + '.js');
                         script.src = '/javascripts/lib/require.js';
+                        console.log('/javascripts/' + page_path + page_id + '.js');
                     } else{
                         script.src = '/javascripts/' + page_path + page_id + '.js';
                     }
