@@ -1,4 +1,5 @@
-// 'use strict';
+'use strict';
+
 require.config({
     baseUrl: '/javascripts/',
     paths: {
@@ -148,7 +149,7 @@ require(['googlemapApi'], function(GMaper) {
         });
         $('input.rd').on('ifChecked', function (e) {
             //单选列表项被选中 回调函数
-            
+
             //radio
             dataItem.dataNavItem = $(this).parents('.layer').attr('id');
             dataItem.selectItem = $(this).attr('id');
@@ -959,7 +960,7 @@ require(['googlemapApi'], function(GMaper) {
                 cthis.showAllMarker();
             }else {
                 cthis.showOneDay(index);
-                mapControl.drawDriveRoute(routeData[index - 1], function() {});
+                mapControl.drawDriveRoute(routeData[index - 1], null, function() {});
             }
             cthis.setFitView(index);
         };
@@ -1031,15 +1032,6 @@ require(['googlemapApi'], function(GMaper) {
     }
     main();
 
-    // $(function() {
-    //     var h = "http://ditu.google.cn/maps/api/js?v=3&sensor=false&key=AIzaSyCuXDkC1uoHaSctnrsGSGfpj9QVCUrfw1w",
-    //         f = document.createElement("script");
-    //     f.type = "text/javascript";
-    //     f.src = h + "&callback=main";
-    //     document.body.appendChild(f);
-    // });
-
-
     /**set the width/height of container,including map,routelist**/
     function container_initial(){
         var wHeight = $(window).height(),
@@ -1060,4 +1052,4 @@ require(['googlemapApi'], function(GMaper) {
             $('#map_inner').css('width',wWidth - routeListWidth);
         })
     }
-})
+});

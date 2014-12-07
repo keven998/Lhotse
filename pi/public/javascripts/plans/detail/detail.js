@@ -18,8 +18,11 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock'],
         var mapControl = new gmapControl.mapControlPanel(null, "mapContainer");
         mapControl.init();
 
-        var infoBlock = new siderBarBlock.InfoBlock();
+        var infoBlock = new siderBarBlock.leftSiderBar();
         infoBlock.init();
+        // 如果不抛到window全局域，就会导致关闭左侧栏时，出现infoBlock is undefined
+        window.infoBlock = infoBlock;
+
 
         /*
          * 左侧列表和地图的交互：动态效果还没有出来，问题不明
@@ -142,9 +145,5 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock'],
         var sliderbar = new sliderBar.sliderBar();//实例化SliderBar 对象
         sliderbar.init(); //初始化
     };
-
-
-    //if not add following sentence, error in calculating itemArr
     window.onload = index;
-    //$(document).ready(index());  // don't use this, as picture not onload, height will not right
 });

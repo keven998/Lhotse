@@ -727,17 +727,7 @@ $(function() {
     $('.map_box').css({
         width: width
     });
-    /* width, height adjust END */
 
-    // console.log('load gmap');
-
-    // var h = "http://ditu.google.cn/maps/api/js?v=3&sensor=false&key=AIzaSyCuXDkC1uoHaSctnrsGSGfpj9QVCUrfw1w",
-    //     f = document.createElement("script");
-    // f.type = "text/javascript";
-    // f.src = h + "&callback=initMaper";
-    // console.log('gmap callback');
-    // document.body.appendChild(f);
-    // console.log('append to html');
     initMaper();
 
 

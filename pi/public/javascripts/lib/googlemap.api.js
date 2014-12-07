@@ -4,14 +4,11 @@ require.config({
     baseUrl: '/javascripts/',
     paths: {
         'async': 'lib/requirejs-async'
-    }
+    },
 });
 
 /* -----GOOGLE MODULE BEGIN-----*/
 define(['async!http://ditu.google.cn/maps/api/js?v=3&sensor=false&libraries=geometry&key=AIzaSyCuXDkC1uoHaSctnrsGSGfpj9QVCUrfw1w'], function() {
-    // Google Maps API and all its dependencies will be loaded here.
-
-
     var GMaper = function(h) {
         var that = this, // [f]
             mapObj = null, // [l]
