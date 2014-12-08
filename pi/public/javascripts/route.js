@@ -558,6 +558,7 @@ require(['googlemapApi'], function(GMaper) {
                     this.iLeft = this.onEnd.left;
                     this.iFixed = this.onEnd.fixed;
                     this.iClose = this.onEnd.close;
+                    this.route_id = this.onEnd.route_id;
                     _this.create();
                     // this.obj.onclick = function(){_this.create(),_this.backg();};
                     // window.onresize = function(){_this.backg();};
@@ -643,7 +644,16 @@ require(['googlemapApi'], function(GMaper) {
                 this.oButton = $$(this.tit, 'button');
                 var i = 0;
                 var _this = this;
-                for(i=0;i<this.oButton.length;i++)this.oButton[i].onclick = function(){_this.em.onclick()};
+                for(i = 0;i < this.oButton.length;i++){
+                    this.oButton[i].onclick = function(){
+                        if ($(this).hasClass('mkplan')){
+                            window.location.assign("/plans/detail/" + _this.route_id);
+                        }else if ($(this).hasClass('skip')){
+                            window.location.assign("/plans/detail/" + _this.route_id);
+                        }
+                        _this.em.onclick();
+                    };
+                }
             },
             width : function(){
                 this.oBackg = $$$(this.tit, 'alert_backg')[0];
@@ -790,29 +800,33 @@ require(['googlemapApi'], function(GMaper) {
                                     '<b>交通方式</b>'+
                                     '<input type="radio" name="transpotation" value="air" checked/><span>飞机</span>'+
                                     '<input type="radio" name="transpotation" value="train" /><span>火车</span>'+
-                                    '<input type="radio" name="transpotation" value="car" /><span>汽车</span>'+
+                                    // '<input type="radio" name="transpotation" value="car" /><span>汽车</span>'+
                                     '<input type="radio" name="transpotation" value="none" /><span>无</span>'+
                                 '</div>'+
                                 '<div>'+
                                     '<b>酒店</b>'+
-                                    '<input type="radio" name="hotel" value="convenient" checked/><span>最便捷</span>'+
-                                    '<input type="radio" name="hotel" value="cheep" /><span>最便宜</span>'+
-                                    '<input type="radio" name="hotel" value="luxury" /><span>最奢华</span>'+
+                                    '<input type="radio" name="hotel" value="star" checked/><span>星级酒店</span>'+
+                                    '<input type="radio" name="hotel" value="budget" /><span>经济型酒店</span>'+
+                                    '<input type="radio" name="hotel" value="special" /><span>青旅或民俗</span>'+
+                                    // '<input type="radio" name="hotel" value="youth" /><span>青年旅社</span>'+
+                                    // '<input type="radio" name="hotel" value="folk" /><span>民俗酒店</span>'+
                                     '<input type="radio" name="hotel" value="none" /><span>无</span>'+
                                 '</div>'+
                                 '<div>'+
                                     '<b>美食</b>'+
-                                    '<input type="radio" name="food" value="special" checked/><span>特色小吃</span>'+
-                                    '<input type="radio" name="food" value="reputation" /><span>口碑最好</span>'+
-                                    '<input type="radio" name="food" value="wellknow" /><span>连锁名店</span>'+
+                                    '<input type="radio" name="food" value="reputation" checked/><span>口碑最好</span>'+
+                                    '<input type="radio" name="food" value="special" ><span>特色小吃</span>'+
+                                    // '<input type="radio" name="food" value="special" checked/><span>特色小吃</span>'+
+                                    // '<input type="radio" name="food" value="reputation" /><span>口碑最好</span>'+
+                                    // '<input type="radio" name="food" value="wellknow" /><span>连锁名店</span>'+
                                     '<input type="radio" name="food" value="none" /><span>无</span>'+
                                 '</div>'+
-                                '<div>'+
-                                    '<b>娱乐</b>'+
-                                    '<input type="radio" name="enjoy" value="bar" checked/><span>酒吧</span>'+
-                                    '<input type="radio" name="enjoy" value="activity" /><span>活动</span>'+
-                                    '<input type="radio" name="enjoy" value="none" /><span>无</span>'+
-                                '</div>'+
+                                // '<div>'+
+                                //     '<b>娱乐</b>'+
+                                //     '<input type="radio" name="enjoy" value="bar" checked/><span>酒吧</span>'+
+                                //     '<input type="radio" name="enjoy" value="activity" /><span>活动</span>'+
+                                //     '<input type="radio" name="enjoy" value="none" /><span>无</span>'+
+                                // '</div>'+
                             '</form>'+
                         '</div>'+
                         '<div class="but">'+
@@ -820,11 +834,12 @@ require(['googlemapApi'], function(GMaper) {
                             '<button class="skip"></button>'+
                         '</div>',
                     width : '650px',
-                    height : '380px',
+                    height : '320px',
                     top : '',
                     left : '',
                     fixed : 'fixed',    //the default is "relative"
-                    close : 'close'
+                    close : 'close',
+                    route_id : $(this).parents('.route').attr('data-id')
                 });
             })
         })

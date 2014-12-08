@@ -103,10 +103,8 @@ block content
                     i.ico-arr03
             ul.routelist
                 if plans.length > 0
-                    - var index = 0;
                     each plan in plans
-                        - index ++;
-                        li.route(data-id="#{plan._id}")
+                        li.route(data-id='#{plan._id}')
                             .left
                                 if (plan.imageList[0])
                                     img(src='#{plan.imageList}' + '?imageView2/1/w/165/h/150' width=165 height=150)
@@ -139,7 +137,7 @@ block content
                                 p
                                     i.ico01.ico01-cost
                                     b 预算 ￥#{plan.budget[0]}-￥#{plan.budget[1]}
-                                a.fork.ico-fork(href="javascript:;" id='#{index}')
+                                a.fork.ico-fork(href="javascript:;")
                 else
                     .no-data 很遗憾，没有为您找到相关路线，请尝试输入其他目的地。
         .map_container
