@@ -545,9 +545,9 @@ require(['googlemapApi'], function(GMaper) {
         };
         Alert.prototype = {
             initialize : function(obj, frame, onEnd){
-                if(getId(obj)){
+                if(obj){
                     var _this = this;
-                    this.obj = getId(obj);
+                    this.obj = obj;
                     this.frame = frame;
                     this.oEve(onEnd);
                     this.oTitle = this.onEnd.title;
@@ -558,8 +558,9 @@ require(['googlemapApi'], function(GMaper) {
                     this.iLeft = this.onEnd.left;
                     this.iFixed = this.onEnd.fixed;
                     this.iClose = this.onEnd.close;
-                    this.obj.onclick = function(){_this.create(),_this.backg();};
-                    window.onresize = function(){_this.backg();};
+                    _this.create();
+                    // this.obj.onclick = function(){_this.create(),_this.backg();};
+                    // window.onresize = function(){_this.backg();};
                 }
             },
             create : function(){
@@ -778,53 +779,55 @@ require(['googlemapApi'], function(GMaper) {
                 }
             }
         };
-        window.onload = function(){
-            new Alert('but', 'box', {
-                title : '规划包含',
-                content :
-                    '<div class="plan_option">'+
-                        '<form>'+
-                            '<div>'+
-                                '<b>交通方式</b>'+
-                                '<input type="radio" name="transpotation" value="air" checked/><span>飞机</span>'+
-                                '<input type="radio" name="transpotation" value="train" /><span>火车</span>'+
-                                '<input type="radio" name="transpotation" value="car" /><span>汽车</span>'+
-                                '<input type="radio" name="transpotation" value="none" /><span>无</span>'+
-                            '</div>'+
-                            '<div>'+
-                                '<b>酒店</b>'+
-                                '<input type="radio" name="hotel" value="convenient" checked/><span>最便捷</span>'+
-                                '<input type="radio" name="hotel" value="cheep" /><span>最便宜</span>'+
-                                '<input type="radio" name="hotel" value="luxury" /><span>最奢华</span>'+
-                                '<input type="radio" name="hotel" value="none" /><span>无</span>'+
-                            '</div>'+
-                            '<div>'+
-                                '<b>美食</b>'+
-                                '<input type="radio" name="food" value="special" checked/><span>特色小吃</span>'+
-                                '<input type="radio" name="food" value="reputation" /><span>口碑最好</span>'+
-                                '<input type="radio" name="food" value="wellknow" /><span>连锁名店</span>'+
-                                '<input type="radio" name="food" value="none" /><span>无</span>'+
-                            '</div>'+
-                            '<div>'+
-                                '<b>娱乐</b>'+
-                                '<input type="radio" name="enjoy" value="bar" checked/><span>酒吧</span>'+
-                                '<input type="radio" name="enjoy" value="activity" /><span>活动</span>'+
-                                '<input type="radio" name="enjoy" value="none" /><span>无</span>'+
-                            '</div>'+
-                        '</form>'+
-                    '</div>'+
-                    '<div class="but">'+
-                        '<button class="mkplan"></button>'+
-                        '<button class="skip"></button>'+
-                    '</div>',
-                width : '650px',
-                height : '380px',
-                top : '',
-                left : '',
-                fixed : '',
-                close : 'close'
-            });
-        }
+        $('.fork').each(function(){
+            $(this).on('click',function(){
+                new Alert($(this), 'box', {
+                    title : '规划包含',
+                    content :
+                        '<div class="plan_option">'+
+                            '<form>'+
+                                '<div>'+
+                                    '<b>交通方式</b>'+
+                                    '<input type="radio" name="transpotation" value="air" checked/><span>飞机</span>'+
+                                    '<input type="radio" name="transpotation" value="train" /><span>火车</span>'+
+                                    '<input type="radio" name="transpotation" value="car" /><span>汽车</span>'+
+                                    '<input type="radio" name="transpotation" value="none" /><span>无</span>'+
+                                '</div>'+
+                                '<div>'+
+                                    '<b>酒店</b>'+
+                                    '<input type="radio" name="hotel" value="convenient" checked/><span>最便捷</span>'+
+                                    '<input type="radio" name="hotel" value="cheep" /><span>最便宜</span>'+
+                                    '<input type="radio" name="hotel" value="luxury" /><span>最奢华</span>'+
+                                    '<input type="radio" name="hotel" value="none" /><span>无</span>'+
+                                '</div>'+
+                                '<div>'+
+                                    '<b>美食</b>'+
+                                    '<input type="radio" name="food" value="special" checked/><span>特色小吃</span>'+
+                                    '<input type="radio" name="food" value="reputation" /><span>口碑最好</span>'+
+                                    '<input type="radio" name="food" value="wellknow" /><span>连锁名店</span>'+
+                                    '<input type="radio" name="food" value="none" /><span>无</span>'+
+                                '</div>'+
+                                '<div>'+
+                                    '<b>娱乐</b>'+
+                                    '<input type="radio" name="enjoy" value="bar" checked/><span>酒吧</span>'+
+                                    '<input type="radio" name="enjoy" value="activity" /><span>活动</span>'+
+                                    '<input type="radio" name="enjoy" value="none" /><span>无</span>'+
+                                '</div>'+
+                            '</form>'+
+                        '</div>'+
+                        '<div class="but">'+
+                            '<button class="mkplan"></button>'+
+                            '<button class="skip"></button>'+
+                        '</div>',
+                    width : '650px',
+                    height : '380px',
+                    top : '',
+                    left : '',
+                    fixed : 'fixed',    //the default is "relative"
+                    close : 'close'
+                });
+            })
+        })
     })
 
 
