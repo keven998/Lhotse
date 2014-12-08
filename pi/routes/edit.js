@@ -5,7 +5,27 @@ var async = require('async');
 var config = require('../conf/system');
 var zone = require('../conf/zone');
 var mu = require('mu2');
-mu.root = 'public/htmltemplate/editPage/';
+var _ = require('underscore');
+mu.root = 'public/htmltemplate/';
+
+/*
+ * @input   : (String, Array)
+ * @output  : [{String: Array[0]}, {String: Array[1]}, ...]
+ */
+var arrayToKVArray = function(string, array){
+    if(_.isString(string) && _.isArray(array)){
+        var data = array,
+            tempObj = {},
+            tempArr = [];
+        for(var i in data){
+            tempObj[string] = data[i] + '?imageView2/2/w/425/h/548';
+            tempArr.push(tempObj);
+            tempObj = {};
+        }
+        return tempArr;
+    }
+    return null;
+};
 
 // 新方法
 var model = require('../model/sup_model.js');
@@ -17,7 +37,7 @@ router.post('/tabContent', function(req, res) {
         querys = postData.option;
 
     getListContent(querys, type, function(data){
-        var htmlTemplateRoute = 'tab_list_' + type + '.html',
+        var htmlTemplateRoute = 'editPage/tab_list_' + type + '.html',
             html = [];
         mu.compileAndRender(htmlTemplateRoute, {data: data})
             .on('data', function(chunk) {
@@ -25,15 +45,12 @@ router.post('/tabContent', function(req, res) {
             })
             .on('end', function() {
                 html = html.join("");
-                console.log(html.toString());
                 res.json({
                     html: html.toString(),
                     detailData: data
                 });
             });
     });
-    console.log('ajax in...');
-    console.log(postData);
 });
 
 router.post('/spotInfo', function(req, res) {
@@ -41,7 +58,6 @@ router.post('/spotInfo', function(req, res) {
         type = postData.type,
         id = postData.id,
         requestUrl = selectUrlForSpotInfo(type);
-    console.log(id);
     if (requestUrl) {
         var options = {
             url: requestUrl + id,
@@ -51,9 +67,8 @@ router.post('/spotInfo', function(req, res) {
             if (err) {
                 throw err;
             }
-            //console.log(data);
             var spotInfo = extractDataForspotInfo(JSON.parse(data), type),
-                htmlTemplateRoute = 'spot_pop_window_' + type + '.html',
+                htmlTemplateRoute = 'editPage/spot_pop_window_' + type + '.html',
                 html = [];
             mu.compileAndRender(htmlTemplateRoute, {data: spotInfo})
                 .on('data', function(chunk) {
@@ -70,11 +85,47 @@ router.post('/spotInfo', function(req, res) {
         });
     };
 
-})
+});
+
+
+/*
+    detail页面的ajax请求
+*/
+router.post('/detail', function(req, res) {
+    var postData = req.body,
+        type = postData.type,
+        id = postData.id,
+        requestUrl = selectUrlForSpotInfo(type);
+    if (requestUrl) {
+        var options = {
+            url: requestUrl + id,
+            method: 'GET'
+        };
+        request(options, function(err, respond, data) {
+            if (err) {
+                throw err;
+            }
+            var spotInfo = extractDataForspotInfo(JSON.parse(data), type),
+                htmlTemplateRoute = 'detailPage/slider_' + type + '.html',
+                html = [];
+            mu.compileAndRender(htmlTemplateRoute, {data: spotInfo})
+                .on('data', function(chunk) {
+                    html.push(chunk);
+                })
+                .on('end', function() {
+                    html = html.join("");
+                    res.json({
+                        html: html.toString(),
+                    });
+                });
+        });
+    };
+
+});
+
 
 function getListContent(querys, type, callback) {
     var requestUrl = selectUrlForSpotsInCity(type);
-
     var options = {
         url: requestUrl,
         qs: querys,
@@ -88,7 +139,6 @@ function getListContent(querys, type, callback) {
         // if (0 !== data.code) {
         //     return [];
         // }
-        console.log('request send');
         callback(extractData(JSON.parse(data), type));
     });
 }
@@ -118,7 +168,6 @@ function selectUrlForSpotsInCity(type) {
             console.log('type is not correct');
             break;
     }
-    console.log(requestUrl);
     return requestUrl;
 }
 
@@ -127,10 +176,10 @@ function selectUrlForSpotInfo(type) {
     var requestUrl = '';
     switch(type) {
         case 'viewspot':
-            requestUrl = 'http://api.lvxingpai.cn/web/poi/view-spots/';
+            requestUrl = 'http://api.lvxingpai.com/web/poi/view-spots/';
             break;
         case 'vs':
-            requestUrl = 'http://api.lvxingpai.cn/web/poi/view-spots/';
+            requestUrl = 'http://api.lvxingpai.com/web/poi/view-spots/';
             break;
         case 'restaurant':
             requestUrl = '';
@@ -148,7 +197,6 @@ function selectUrlForSpotInfo(type) {
             console.log('type is not correct');
             break;
     }
-    console.log(requestUrl);
     return requestUrl;
 }
 
@@ -169,20 +217,21 @@ function extractData(data, type) {
         tempObject.type = type;
         extractedData.push(tempObject);
     }
-    console.log(extractedData);
     return extractedData;
 }
 
 function extractDataForspotInfo(data, type) {
     var result = data.result,
         tempObject = {};
-    tempObject.id = result._id,
-    tempObject.name = result.name,
-    tempObject.image = result.imageList ? (result.imageList.length ? result.imageList[0] : " ") : " ",
-    tempObject.ranking = result.ratings ? result.ratings.ranking : 0,
-    tempObject.timeCost = result.timeCost,
-    tempObject.lng = result.addr ? result.addr.lng : '',
-    tempObject.lat = result.addr ? result.addr.lat : '',
+    tempObject.id = result._id;
+    tempObject.name = result.name;
+    tempObject.image = result.imageList ? (result.imageList.length ? result.imageList[0] : " ") : " ";
+    tempObject.imageList = result.imageList;
+    tempObject.imageList = arrayToKVArray('image', tempObject.imageList);
+    tempObject.ranking = result.ratings ? result.ratings.ranking : 0;
+    tempObject.timeCost = result.timeCost;
+    tempObject.lng = result.addr ? result.addr.lng : '';
+    tempObject.lat = result.addr ? result.addr.lat : '';
     tempObject.price = result.price ? result.price : "没有价格";
     tempObject.type = type;
     tempObject.desc = result.description ? result.description.desc : "抱歉，还没有相关介绍";
@@ -191,5 +240,7 @@ function extractDataForspotInfo(data, type) {
 
     return tempObject;
 }
+
+
 
 module.exports = router;

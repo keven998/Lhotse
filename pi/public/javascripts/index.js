@@ -200,7 +200,7 @@ $(function(){
     getCookie for this page
 */
 
-/*
+
 function getCookie_(c_name) {
     if (document.cookie.length > 0) {
         var c_start = document.cookie.indexOf(c_name + "=");
@@ -228,7 +228,7 @@ $(function(){
     setCookie('fromLoc',encodeURI(cityName), 1);
 })
 
-*/
+
 // // 联想功能
 // var suggestionData = (function() {
 //     var popupDiv = document.getElementById("popup");//获得对应的div对象

@@ -37,11 +37,171 @@ router.post('/timeline/save', function(req, res) {
 /* plan detail */
 router.get('/detail/:UGCID', function(req, res) {
     console.log('in plans/detail:ugcId');
+    var basicInfo = {
+            title   : "北京、苏州、杭州8日游",
+            copyCnt : "20",
+            viewCnt : "200",
+            picUrl  : "/images/plans/detail/banner.jpg",
+        },
+        spotData = [
+                        [
+                            {
+                                "id": "53abdfba10114e5815feb2d7",
+                                "name": "长沙站",
+                                "type": "trainStation",
+                                "locId": "53aa9a6510114e3fd4783acf",
+                                "locName": "长沙市",
+                                lng: 113.019827,
+                                lat: 28.200445
+                            },
+                            {
+                                "id": "53abf34110114e59bc20822f",
+                                "name": "T201",
+                                "type": "trainRoute",
+                                "locId": undefined,
+                                "locName": undefined
+                            }
+                        ],
+                        [
+                            {
+                                "id": "53abdfb610114e5815feb2b1",
+                                "name": "三亚站",
+                                "type": "trainStation",
+                                "locId": "53aa9a6510114e3fd4783c68",
+                                "locName": "三亚市",
+                                lng: 109.499414,
+                                lat: 18.30188
+                            },
+                            {
+                                "id": "53f3124e10114e376de5c29c",
+                                "name": "亚龙湾",
+                                "type": "viewspot",
+                                "locId": "53aa9a6510114e3fd4783c68",
+                                "locName": "三亚市",
+                                "lng": 109.671945,
+                                "lat": 18.213763
+                            },
+                            {
+                                "id": "53b0577810114e0595456e26",
+                                "name": "三亚凯莱仙人掌度假酒店",
+                                "type": "hotel",
+                                "locId": "53aa9a6510114e3fd4783c68",
+                                "locName": "三亚市",
+                                "lng": 109.654465265,
+                                "lat": 18.2365043862,
+                                "phone": "0898-88568866",
+                                "address": "三亚市亚龙湾国家旅游度假区"
+                            }
+                        ],
+                        [
+                            {
+                                "id": "53f30d5b10114e376de5b43d",
+                                "name": "蜈支洲岛",
+                                "type": "viewspot",
+                                "locId": "53aa9a6510114e3fd4783c68",
+                                "locName": "三亚市",
+                                "lng": 109.774859,
+                                "lat": 18.315233
+                            },
+                            {
+                                "id": "53b0577810114e0595456e26",
+                                "name": "三亚凯莱仙人掌度假酒店",
+                                "type": "hotel",
+                                "locId": "53aa9a6510114e3fd4783c68",
+                                "locName": "三亚市",
+                                "lng": 109.654465265,
+                                "lat": 18.2365043862,
+                                "phone": "0898-88568866",
+                                "address": "三亚市亚龙湾国家旅游度假区"
+                            }
+                        ],
+                        [
+                            {
+                                "id": "53f3105e10114e3779f93379",
+                                "name": "三亚湾",
+                                "type": "viewspot",
+                                "locId": "53aa9a6510114e3fd4783c68",
+                                "locName": "三亚市",
+                                "lng": 109.496987539,
+                                "lat": 18.2701703067
+                            },
+                            {
+                                "id": "53f311f910114e377228b230",
+                                "name": "鹿回头",
+                                "type": "viewspot",
+                                "locId": "53aa9a6510114e3fd4783c68",
+                                "locName": "三亚市",
+                                "lng": 109.490675095,
+                                "lat": 18.202998081
+                            },
+                            {
+                                "id": "53b0577810114e0595456e26",
+                                "name": "三亚凯莱仙人掌度假酒店",
+                                "type": "hotel",
+                                "locId": "53aa9a6510114e3fd4783c68",
+                                "locName": "三亚市",
+                                "lng": 109.654465265,
+                                "lat": 18.2365043862,
+                                "phone": "0898-88568866",
+                                "address": "三亚市亚龙湾国家旅游度假区"
+                            }
+                        ],
+                        [
+                            {
+                                "id": "53f30c4510114e376de5b119",
+                                "name": "南山文化旅游区",
+                                "type": "viewspot",
+                                "locId": "53aa9a6510114e3fd4783c68",
+                                "locName": "三亚市",
+                                "lng": 109.219445,
+                                "lat": 18.312019
+                            },
+                            {
+                                "id": "53f30e3810114e377228a770",
+                                "name": "天涯海角",
+                                "type": "viewspot",
+                                "locId": "53aa9a6510114e3fd4783c68",
+                                "locName": "三亚市",
+                                "lng": 109.349545,
+                                "lat": 18.305113
+                            },
+                            {
+                                "id": "53abdfb610114e5815feb2b1",
+                                "name": "三亚站",
+                                "type": "trainStation",
+                                "locId": "53aa9a6510114e3fd4783c68",
+                                "locName": "三亚市",
+                                lng: 109.499414,
+                                lat: 18.30188
+                            },
+                            {
+                                "id": "53abf34110114e59bc20822f",
+                                "name": "T201",
+                                "type": "trainRoute",
+                                "locId": undefined,
+                                "locName": undefined
+                            }
+                        ],
+                        [
+                            {
+                                "id": "53abdfba10114e5815feb2d7",
+                                "name": "长沙站",
+                                "type": "trainStation",
+                                "locId": "53aa9a6510114e3fd4783acf",
+                                "locName": "长沙市",
+                                lng: 113.019827,
+                                lat: 28.200445
+                            }
+                        ]
+                    ];
+    console.log((JSON.stringify(basicInfo)));
     res.render('plans/detail', {
-
-        user_info: utils.get_user_info(req, res),
-        config: config,
-        already_saved: false,
+        basicInfo       : basicInfo,
+        spotData        : spotData,
+        mapData         : JSON.stringify(spotData),
+        user_info       : utils.get_user_info(req, res),
+        config          : config,
+        already_saved   : false,
     });
 });
 

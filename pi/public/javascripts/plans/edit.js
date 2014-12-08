@@ -1,4 +1,12 @@
 'use strict';
+require.config({
+    baseUrl: '/javascripts/',
+    paths: {
+        "googlemapApi": "lib/googlemap.api",
+    },
+});
+require(['googlemapApi'], function(GMaper) {
+
 /*----marker animate BEGIN----*/
 function MarkerAnimate(h) {
     var l = [-30, 0],
@@ -56,7 +64,7 @@ var DayMapControl = function(constructInput) {
         that.init = function(poiData, callback) {
             poiData && (0 < poiData.length && 0 < poiData[0].length &&
                 poiData[0][0].lng && poiData[0][0].lat) && (inputBuff =
-                poiData, map = new GMaper({
+                poiData, map = new GMaper.GMaper({
                     clickListener: function() {
                         that.removeMarkerCurrent();
                         that.removeNearbyCurrent();
@@ -452,62 +460,6 @@ var DayMapControl = function(constructInput) {
     };
 /*------DayMapControl END-----*/
 
-var dayMapControl = null,
-    tabMapControl = null;
-
-
-/*----function for map initial BEGIN----*/
-function initMaper() {
-    dayMapControl = new DayMapControl({
-        getInfoData: function(spotInfo, callback) {
-            INTERFACE.getInfoData(spotInfo, function(ajaxData) {
-            console.log('getInfoData\'s callback running, console out the ajaxData');
-                callback(ajaxData);
-            });
-        }
-    });
-    dayMapControl.init(INTERFACE.spotData, function() {});
-
-    tabMapControl = new tabMapControl();
-    tabMapControl.init(dayMapControl.getMaper());
-
-    dayMapControl.listenDeletePoi();
-    $('.day_detail').sortable({
-        //items: ':not(.disabled)',
-        connectWith: '.day_detail',
-        placeholder: "ui-state-highlight",
-    });
-    console.log('初始化结束');
-}
-/*----function for map initial END----*/
-
-
-/*----function for creating google map BEGIN----*/
-var const_topNaviBarHeight = 60,
-    const_topTitleHeight = 45,
-    const_mapMarginLeft = 320;
-$(function() {
-    /* width, height adjust BEGIN */
-    var docHeight = $(window).height(),
-        docWidth = $(window).width(),
-        height = docHeight - const_topNaviBarHeight - const_topTitleHeight,
-        width = docWidth - const_mapMarginLeft;
-    $('.edit_region').css({
-        height: height
-    });
-    $('.map_box').css({
-        width: width
-    });
-    /* width, height adjust END */
-
-    var h = "http://ditu.google.cn/maps/api/js?v=3&sensor=false&key=AIzaSyCuXDkC1uoHaSctnrsGSGfpj9QVCUrfw1w",
-        f = document.createElement("script");
-    f.type = "text/javascript";
-    f.src = h + "&callback=initMaper";
-    document.body.appendChild(f);
-});
-/*----function for creating google map END----*/
-
 
 /*----set the map height and width while resize browser widnow BEGIN----*/
 $(function() {
@@ -532,7 +484,7 @@ $(function() {
 
 
 /*---- 五个tab的切换 BEGIN ----*/
-var tabMapControl = function() {
+var TabMapControl = function() {
     var that = this,
         activedTabName = '',
         activedTabDom = null,
@@ -728,6 +680,60 @@ var tabMapControl = function() {
 };
 /* ---- 五个tab的切换 END ---- */
 
+/*----function for map initial BEGIN----*/
+var dayMapControl = null,
+    tabMapControl = null;
+
+
+/*----function for creating google map BEGIN----*/
+var const_topNaviBarHeight = 60,
+    const_topTitleHeight = 45,
+    const_mapMarginLeft = 320;
+function initMaper() {
+    console.log('callback in');
+    dayMapControl = new DayMapControl({
+        getInfoData: function(spotInfo, callback) {
+            INTERFACE.getInfoData(spotInfo, function(ajaxData) {
+            console.log('getInfoData\'s callback running, console out the ajaxData');
+                callback(ajaxData);
+            });
+        }
+    });
+    dayMapControl.init(INTERFACE.spotData, function() {});
+
+    tabMapControl = new TabMapControl();
+    tabMapControl.init(dayMapControl.getMaper());
+
+    dayMapControl.listenDeletePoi();
+    $('.day_detail').sortable({
+        //items: ':not(.disabled)',
+        connectWith: '.day_detail',
+        placeholder: "ui-state-highlight",
+    });
+    console.log('初始化结束');
+}
+/*----function for map initial END----*/
+
+
+$(function() {
+    /* width, height adjust BEGIN */
+    var docHeight = $(window).height(),
+        docWidth = $(window).width(),
+        height = docHeight - const_topNaviBarHeight - const_topTitleHeight,
+        width = docWidth - const_mapMarginLeft;
+    $('.edit_region').css({
+        height: height
+    });
+    $('.map_box').css({
+        width: width
+    });
+
+    initMaper();
+
+
+});
+/*----function for creating google map END----*/
+
 /* ---- 修改title, 日历, 保存路线 BEGIN----- */
 $('.J_calendar').datetimepicker({
     buttonText: "Select date",
@@ -749,3 +755,4 @@ $('.J_calendar').val(currentTime());
 
 
 /* ---- 修改title, 日历, 保存路线 END----- */
+})
