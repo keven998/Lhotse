@@ -309,21 +309,6 @@ require(['googlemapApi'], function(GMaper) {
 
                                     $(tabUl).idTabs();//实例化列表内tab选项卡  =>  实现tab功能
 
-                                    //initial the tab-nav style
-                                    /*
-                                    $(tabUl).children('li:first').addClass("nav_click");
-                                    var navList = $(tabUl).children('li');
-                                    navList.each(function(index){
-                                        $(this).bind('click',function(){
-                                            console.log(index);
-                                            if (! $(this).hasClass('nav_click')){
-                                                navList.removeClass('nav_click');
-                                                $(this).addClass('nav_click');
-                                            }
-                                        })
-                                    })
-                                    */
-
                                     /*create the routedetail layer*/
                                     $this.parent('ul.routelist').append(msg.sliderLayerHtml);
                                     $('.moredesc').append(msg.moreDesc);

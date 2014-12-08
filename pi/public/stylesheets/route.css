@@ -58,9 +58,10 @@
 /*the nav of a route-item's drop layer*/
 .tab_nav{width:580px;height:30px;background-color:#e0f6f1;}
 .tab_nav li{display:inline-block;height:30px;line-height:30px;font-size:14px;padding:0 10px;}
-/*.tab_nav .nav_click{background-color: #2b708c;}*/
+/*.tab_nav a.selected{background-color: #2b708c;}*/
 .tab_nav a{color:#898989;}
 .tab_nav a:hover{color:#4fa7bd;}
+.tab_nav a.selected{color:#4fa7bd;}
 .nav_close{position: absolute;right: 30px;top:6px;color: #0479F2;font-weight: bold;cursor: pointer;}
 
 /*推荐理由*/
