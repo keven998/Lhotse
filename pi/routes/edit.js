@@ -27,6 +27,16 @@ var arrayToKVArray = function(string, array){
     return null;
 };
 
+var getStrArray = function(length) {
+    var tempArr = [];
+    if(length <= 0)
+        return tempArr;
+    for(var i = 0; i < length; i++) {
+        tempArr.push('o');
+    }
+    return tempArr;
+}
+
 // 新方法
 var model = require('../model/sup_model.js');
 var apiList = require('../url_api');
@@ -35,7 +45,7 @@ router.post('/tabContent', function(req, res) {
     var postData = req.body,
         type = postData.type,
         querys = postData.option;
-
+    console.log(querys);
     getListContent(querys, type, function(data){
         var htmlTemplateRoute = 'editPage/tab_list_' + type + '.html',
             html = [];
@@ -105,15 +115,22 @@ router.post('/detail', function(req, res) {
             if (err) {
                 throw err;
             }
+            console.log(data);
             var spotInfo = extractDataForspotInfo(JSON.parse(data), type),
                 htmlTemplateRoute = 'detailPage/slider_' + type + '.html',
                 html = [];
+            if (!spotInfo) {
+                console.log('没有数据');
+                return ;
+            };
             mu.compileAndRender(htmlTemplateRoute, {data: spotInfo})
                 .on('data', function(chunk) {
                     html.push(chunk);
                 })
                 .on('end', function() {
+
                     html = html.join("");
+                    console.log(html.toString());
                     res.json({
                         html: html.toString(),
                     });
@@ -136,21 +153,56 @@ function getListContent(querys, type, callback) {
         if (err) {
             throw err;
         }
-        // if (0 !== data.code) {
-        //     return [];
-        // }
+        console.log('edit page tab list data:');
+        console.log(data);
+
         callback(extractData(JSON.parse(data), type));
     });
 }
 
+/* for detail page */
+function selectUrlForSpotInfo(type) {
+    var requestUrl = '';
+    console.log('type is: ' + type);
+    switch(type) {
+        case 'viewspot':
+            requestUrl = 'http://api.lvxingpai.com/web/poi/view-spots/';
+            break;
+        case 'vs':
+            requestUrl = 'http://api.lvxingpai.com/web/poi/view-spots/';
+            break;
+        case 'restaurant':
+            requestUrl = '';
+            break;
+        case 'hotel':
+            requestUrl = 'http://api.lvxingpai.com/web/poi/hotels/';
+            break;
+        case 'shopping':
+            requestUrl = '';
+            break;
+
+        //                      ＊＊＊＊改写借口＊＊＊＊
+        case 'trainStation':
+        case 'airport':
+            requestUrl = 'http://api.lvxingpai.com/web/poi/hotels/';
+            break;
+
+        default:
+            console.log('type is not correct');
+            break;
+    }
+    return requestUrl;
+}
+
+/* for edit page tab list */
 function selectUrlForSpotsInCity(type) {
     var requestUrl = '';
     switch(type) {
         case 'viewspot':
-            requestUrl = 'http://api.lvxingpai.cn/web/poi/view-spots/search';
+            requestUrl = 'http://api.lvxingpai.com/web/poi/view-spots/search';
             break;
         case 'vs':
-            requestUrl = 'http://api.lvxingpai.cn/web/poi/view-spots/search';
+            requestUrl = 'http://api.lvxingpai.com/web/poi/view-spots/search';
             break;
         case 'restaurant':
             requestUrl = '';
@@ -171,35 +223,7 @@ function selectUrlForSpotsInCity(type) {
     return requestUrl;
 }
 
-
-function selectUrlForSpotInfo(type) {
-    var requestUrl = '';
-    switch(type) {
-        case 'viewspot':
-            requestUrl = 'http://api.lvxingpai.com/web/poi/view-spots/';
-            break;
-        case 'vs':
-            requestUrl = 'http://api.lvxingpai.com/web/poi/view-spots/';
-            break;
-        case 'restaurant':
-            requestUrl = '';
-            break;
-        case 'hotel':
-            requestUrl = '';
-            break;
-        case 'shopping':
-            requestUrl = '';
-            break;
-        case 'traffic':
-            requestUrl = '';
-            break;
-        default:
-            console.log('type is not correct');
-            break;
-    }
-    return requestUrl;
-}
-
+/* for edit page */
 function extractData(data, type) {
     var result = data.result,
         extractedData = [];
@@ -221,6 +245,33 @@ function extractData(data, type) {
 }
 
 function extractDataForspotInfo(data, type) {
+    if(!data) {
+        return;
+    }
+    var usefulData = null;
+    if(type){
+        switch (type) {
+            case 'viewspot':
+                usefulData = extractViewSpotInfo(data, type);
+                break;
+            case 'hotel':
+                usefulData = extractHotelInfo(data, type);
+                break;
+            case 'trainStation':
+            case 'airport':
+                usefulData = extractTrafficInfo(data, type);
+                break;
+            default:
+                break;
+        }
+    }
+    console.log('-=-=-=');
+    console.log(usefulData);
+    return usefulData;
+}
+
+/* viewspot info */
+function extractViewSpotInfo(data, type) {
     var result = data.result,
         tempObject = {};
     tempObject.id = result._id;
@@ -239,6 +290,33 @@ function extractDataForspotInfo(data, type) {
     tempObject.traffic = result.description ? (result.description.traffic ? result.description.traffic : "抱歉，还没有交通提示") : "抱歉，还没有交通提示";
 
     return tempObject;
+}
+
+/* hotel info */
+function extractHotelInfo(data, type) {
+    var result = data.result,
+        tempObject = {};
+    tempObject.id = result._id;
+    tempObject.name = result.name;
+    tempObject.image = result.imageList ? (result.imageList.length ? result.imageList[0] : " ") : " ";
+    tempObject.imageList = result.imageList;
+    tempObject.imageList = arrayToKVArray('image', tempObject.imageList);
+    // get array for loop in mustache
+    tempObject.starLevel = getStrArray(result.ratings.starLevel);
+    tempObject.desc = result.desc ? result.desc : "抱歉，还没有相关介绍";
+    var phoneList = result.contact ? (result.contact.phoneList ? ( result.contact.phoneList) : "") : "";
+    _.isArray(phoneList) ? (tempObject.phone = phoneList[0]) : (tempObject.phone = '暂无')
+
+    return tempObject;
+}
+
+/* traffic info */
+function extractTrafficInfo(data, type) {
+    var fakeData = {
+        id      : "2312312313211",
+        name    : "汽车火车飞机（等待接口信息）",
+    };
+    return fakeData
 }
 
 

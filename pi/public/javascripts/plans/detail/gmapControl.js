@@ -5,8 +5,9 @@ define(['googlemapApi'], function(GMaper){
     var mapDaySelectPanel = function(routeData, mapContainerDomId) {
         var cthis = this,
             routeData = routeData || null,
-            latLngArray = [], // 按天
-            latLngs = [], // 所有的点
+            latLngArray = [],   // 按天
+            latLngs = [],       // 所有的点
+            spotNames = [],     // 所有点的name，除去交通
             idArray = [],
             currentSelect = 0,
             mapControl = null,
@@ -23,7 +24,10 @@ define(['googlemapApi'], function(GMaper){
         };
 
         cthis.getMapData = function() {
+            // hack skill, nodeRenderData包含所有的数据
             var data = $('.nodeRenderData').val();
+            console.log('_+_');
+            console.log(data);
             routeData = JSON.parse(data);
             for(var i in routeData) {
                 for(var j in routeData[i]) {
@@ -117,6 +121,7 @@ define(['googlemapApi'], function(GMaper){
                         marker = new google.maps.LatLng(spot.lat, spot.lng);
                     tempMarkerArray.push(marker);
                     latLngs.push(marker);
+                    spotNames.push(spot.name);
                     spot.indexInAll = indexInAll;
                     spot = cthis.addHTML(spot);
                     mapControl.addMarker(spot, function(){});
@@ -131,7 +136,7 @@ define(['googlemapApi'], function(GMaper){
                 cthis.showAllMarker();
             }else {
                 cthis.showOneDay(index);
-                mapControl.drawDriveRoute(routeData[index - 1], null, function() {});
+                mapControl.drawPublicTransitRoute(routeData[index - 1], null, function() {});
             }
             cthis.setFitView(index);
         };
@@ -231,7 +236,7 @@ define(['googlemapApi'], function(GMaper){
             cthis.init();
         };
 
-        cthis.calcuDistance = function(index){
+        cthis.calcuDistance = function(index) {
             if(index < 0 || (index >= latLngs.length)) {
             return '两地相距: ' + 0 + ' Km';
                 return
@@ -241,6 +246,14 @@ define(['googlemapApi'], function(GMaper){
                 LatLng_2 = latLngs[index],
                 distance = mapControl.distance(LatLng_1, LatLng_2) / 1000;
             return '两地相距: ' + distance.toFixed(2) + ' Km';
+        };
+
+        cthis.getLatLngs = function() {
+            return latLngs;
+        };
+
+        cthis.getSpotsName = function() {
+            return spotNames;
         }
     };
 

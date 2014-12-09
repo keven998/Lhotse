@@ -116,6 +116,7 @@ define(['async!http://ditu.google.cn/maps/api/js?v=3&sensor=false&libraries=geom
                     markers[id].setMap(mapObj);
                 }
         };
+
         that.getMarker = function(id) {
             var marker;
             //markers[id] && marker = markers[id]
@@ -240,10 +241,43 @@ define(['async!http://ditu.google.cn/maps/api/js?v=3&sensor=false&libraries=geom
                         v = v.replace(/<\/?[^>]*>/g, ""),
                         m.steps.push(v);
                 }
-                console.log(m);
-                callback(m);
+                //console.log(result);
+                callback(result);
             });
         };
+
+        that.drawTransitRoute = function (start, end, domPanel, callback) {
+            directionsService.route({
+                origin      : start,
+                destination : end,
+                travelMode  : google.maps.TravelMode.TRANSIT,
+                unitSystem  : google.maps.UnitSystem.METRIC
+            }, function(result, state) {
+                if (state == google.maps.DirectionsStatus.OK) {
+                    directionsRenderer.getMap() ||
+                    directionsRenderer.setMap(mapObj);
+                    //directionsRenderer.setPanel(domPanel),
+                    directionsRenderer.setDirections(result);
+                }
+                callback(result);
+            });
+            var bound = new google.maps.LatLngBounds();
+            bound.extend(start);
+            bound.extend(end);
+            mapObj.fitBounds(bound);
+            var startMarker = new google.maps.Marker({
+                  position: start,
+                  map: mapObj,
+                  title: "起点"
+            });
+            var endMarker = new google.maps.Marker({
+                  position: end,
+                  map: mapObj,
+                  title: "终点"
+            });
+
+        };
+
         that.drawWalkRoute = function(h, dom, l) {
             that.drawRoute(h, dom, google.maps.TravelMode.WALKING, l);
         };

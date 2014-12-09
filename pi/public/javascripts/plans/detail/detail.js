@@ -1,17 +1,18 @@
 'use strict';
 
 require.config({
-    baseUrl: '/javascripts/',
+    baseUrl: "/javascripts/",
     paths: {
-        "sliderBar": 'plans/detail/sliderBar',
-        "googlemapApi": "lib/googlemap.api",
-        "siderBarBlock": 'plans/detail/siderBarBlock',
-        "gmapControl": "plans/detail/gmapControl",
+        "sliderBar"     : "plans/detail/sliderBar",
+        "googlemapApi"  : "lib/googlemap.api",
+        "siderBarBlock" : "plans/detail/siderBarBlock",
+        "gmapControl"   : "plans/detail/gmapControl",
+        "PopLayer"      : "lib/popLayer"
     },
 });
 
-require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock'],
-    function(sliderBar, googlemapApi, gmapControl, siderBarBlock){
+require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock', 'PopLayer'],
+    function(sliderBar, googlemapApi, gmapControl, siderBarBlock, PopLayer){
 
     var index = function () {
 
@@ -23,7 +24,13 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock'],
         // 如果不抛到window全局域，就会导致关闭左侧栏时，出现infoBlock is undefined
         window.infoBlock = infoBlock;
 
-
+        /*
+         * 取消顶部导航栏的fixed状态
+         */
+         $('.hd').css({
+            "position": "absolute",
+            //"margin-bottom": "60px"
+         })
         /*
          * 左侧列表和地图的交互：动态效果还没有出来，问题不明
          */
@@ -64,6 +71,7 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock'],
             $(timelistId).siblings().removeClass('current');
         }
 
+
         /*
          * 导航栏对详情列表的互动
          */
@@ -75,10 +83,85 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock'],
         /*
          * 距离间隔栏点击效果
          */
-        $(".day_list .line").on("click", function () {
-            // TODO
-
+        var googleMap = new googlemapApi.GMaper({});
+        var poplayer  = new PopLayer.PopLayer({
+            targetCls : ".day_list .line",
+            title     : "ck",
         });
+        var latlngs   = mapControl.getLatLngs(),
+            spotsName = mapControl.getSpotsName();
+
+        $(".day_list .line").each(function (index, item) {
+            $(item).unbind('click');
+            $(item).bind('click', function() {
+                var index     = $(this).attr('data-index'),
+                    startName = spotsName[index-1],
+                    endName   = spotsName[index],
+                    title     = startName + " 至 " + endName;
+                // todo get traffic data
+                var content = "<div id='pop_traffic_info'>"
+                            + "</div>"
+                            + "<div id='pop_MapInner' width='430px' height='450px'></div>";
+
+                poplayer.setTitle(title);
+                poplayer.pop(content, 'text');
+                googleMap.init({
+                    mapInner    : "pop_MapInner",
+                    lat         : '27.441219',
+                    lng         : '111.75401'
+                });
+                var dom = document.getElementById("pop_traffic_info");
+                var traffic_instructions = [];
+                googleMap.drawTransitRoute(latlngs[index-1], latlngs[index], null,
+                function(result){
+                    if(result.status == "OK"){
+                        var routes = result.routes[0],
+                            legs   = routes.legs[0],
+                            steps  = legs.steps;
+                        for(var i in steps){
+                            var step     = steps[i],
+                                tempStep = {};
+                            tempStep.mode         = step.travel_mode;
+                            tempStep.instructions = step.instructions;
+                            tempStep.distance     = step.distance.text;
+                            tempStep.duration     = step.duration.text;
+                            if(tempStep.mode == "TRANSIT"){
+                                tempStep.arrival_stop = step.transit.arrival_stop.name;
+                                tempStep.departure_stop = step.transit.departure_stop.name;
+                                tempStep.headsign = step.transit.headsign;
+                                tempStep.num_stops = step.transit.num_stops;
+                                tempStep.line_name = step.transit.line.short_name;
+                            }
+                            traffic_instructions.push(tempStep);
+                        }
+                    }
+                    // to add html
+                    var html = [];
+                    for(var i in traffic_instructions){
+                        var instruction = traffic_instructions[i],
+                            tempHtml    = '';
+                        switch(instruction.mode){
+                            case "DRIVING":
+                                tempHtml = "<div class='drive'>" + '<span>' + "<img src='/images/plans/detail/pop_layer_drive.png'></span><span>" + instruction.instructions + "</span></div><div class='traffic_desc'>" + instruction.distance + "--约" + instruction.duration + "</div>";
+                                html.push(tempHtml);
+                                break;
+                            case "TRANSIT":
+                                tempHtml = "<div class='transit'>" + '<span>' + "<img src='/images/plans/detail/pop_layer_bus.png'></span><span>" + instruction.line_name + " " + instruction.instructions + "</span></div><div class='traffic_desc'>" + instruction.num_stops + "站" + "  约" +instruction.duration + "</div>";
+                                html.push(tempHtml);
+                                break;
+                            case "WALKING":
+                                tempHtml = "<div class='walk'><span><img src='/images/plans/detail/pop_layer_walk.png'></span><span>" + instruction.instructions + "</span></div><div class='traffic_desc'>" + instruction.distance + "</div>";
+                                html.push(tempHtml);
+                                break;
+                            default :
+                                break;
+                        }
+                    }
+                    html = html.join("");
+                    $('#pop_traffic_info').append(html);
+                });
+            });
+        })
 
 
         /*
@@ -86,7 +169,6 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock'],
          */
         setTimeout(addDistance, 1000);
         function addDistance() {
-            console.log('hello');
             $(".day_list .line").each(function(){
                 var index = $(this).attr('data-index'),
                     distance = mapControl.calcuDistance(index);
@@ -100,31 +182,7 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock'],
         $(".day_list").on("click", 'li', function () {
             var mode    = $(this).attr("data-mode"),
                 id      = $(this).attr("data-id"),
-                dataUrl = '';
-                console.log(id);
-            switch ( mode ) {
-                case 'trainStation':
-                    dataUrl = '/traffic.php';
-                    break;
-                case 'trainRoute':
-                    dataUrl = '/xxxxxxxxx';
-                    break;
-                case 'airport':
-                    dataUrl = '/xxxxxxxxx';
-                    break;
-                case 'airRoute':
-                    dataUrl = '/xxxxxxxxxx';
-                    break;
-                case 'viewspot' :
-                    dataUrl = '/edit/detail';
-                    break;
-                case 'hotel':
-                    dataUrl = '/hotel.php';
-                    break;
-                default:
-                    break;
-            }
-            //siderBarBlock.js 弹出渲染窗口
+                dataUrl = '/edit/detail';
             infoBlock.render({url: dataUrl, mode: mode, id: id});
         })
 
