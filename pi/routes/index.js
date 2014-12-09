@@ -55,6 +55,17 @@ router.get('/', function(req, res) {
 });
 
 
+router.get('/route', function(req, res) {
+            res.render('route', {
+                plans : [],
+                fromName : "beijing",
+                arriveId : "arriveId",
+                fromId : "fromId",  // 用于配置“复制路线”的url
+                arriveName : "shanghai",
+                user_info: utils.get_user_info(req, res),
+                config: config,
+            });
+});
 /*
 router.get('/route', function(req, res) {
     var fromLocName = "北京";

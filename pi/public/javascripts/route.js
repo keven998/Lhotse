@@ -29,7 +29,7 @@ require(['googlemapApi'], function(GMaper) {
                         $(this).hide('fast');
                         var tabSelect = $(this).parents('li').children('a');
                         tabSelect.children('i').removeClass('ico-arr02').addClass('ico-arr01');
-                        //tabSelect.css('border-bottom','none');
+                        // tabSelect.children('b').css('border-bottom','none');
                     }
                 });
 
@@ -55,21 +55,21 @@ require(['googlemapApi'], function(GMaper) {
                     $this = $(this),
                     $thisParent = $this.parent();
 
-                //下拉箭头的切换   判断是否已选中过
+                //下拉箭头的切换
                 var icoClass = $this.children('i');
                 if ( icoClass.hasClass('ico-arr01') ) {
                     icoClass.removeClass('ico-arr01').addClass('ico-arr02');
-                    //$this.css('border-bottom', '3px solid #4fa7bd');
+                    // $this.children('b').css('border-bottom', '3px solid #4fa7bd');
                 } else {
                     icoClass.removeClass('ico-arr02').addClass('ico-arr01');
-                    //$this.css('border-bottom', 'none');
+                    // $this.children('b').css('border-bottom', 'none');
                 }
 
                 //绑定下拉的收回事件,此处需要off         绑定了最后的last类(可点击的小三角)
                 $thisParent.children('.layer').find('.list-last').on('click', function () {
                     $(this).parents('.layer').hide('fast');
                     icoClass.removeClass('ico-arr01').addClass('ico-arr02');
-                    //$this.attr('border-bottom', 'none');
+                    // $this.children('b').css('border-bottom', 'none');
                 })
 
                 //筛选条件列表下拉
@@ -82,7 +82,7 @@ require(['googlemapApi'], function(GMaper) {
                     var Display = $thisParent.children('.layer').css('display');
                     if ( index !== Index && Display === 'block' ) {
                         $thisParent.children('.layer').hide('fast');
-                      //  $this.css('border-bottom', 'none');
+                        // $this.children('b').css('border-bottom', 'none');
                         $this.children('i').removeClass('ico-arr02').addClass('ico-arr01');
                     }
                 })
@@ -91,17 +91,17 @@ require(['googlemapApi'], function(GMaper) {
 
 
         /*条件筛选按钮列表操作函数*/
-        //定义封装了点击列表和展示列表中的联动事件！
         var travelPi = {
             selectListUpdate: function (dataItem, value) {
+                console.log(dataItem);
                 var value = value,
                     dataFrom,
                     selectListHtml,
                     selectListContent = $('.select-list');
-                dataFrom = dataItem.dataNavItem + '@' + dataItem.selectItem;
-                //记录信息(ly03@cb-1 )，当。。。时，通过这个来删除
+                dataFrom = dataItem.dataNavItem + '@' + dataItem.selectItem;//记录信息(ly03@cb-1 )，当。。。时，通过这个来删除
                 selectListHtml = '<a data-from="' + dataFrom + '" class="bluebg option">' + value + '<i class="btn-close2"></i></a>';
                 selectListContent.append(selectListHtml);
+                travelPi.selectListClose(dataFrom);
             },
             selectListRemove: function (value) {
                 var value = value,
@@ -112,83 +112,38 @@ require(['googlemapApi'], function(GMaper) {
                     }
                 })
             },
-            selectListClose : function () {
-                /*条件筛选按钮*/
+            selectListClose : function (dataFrom) {
                 var btnList = $('.select-list>a'),
-                    dataFrom,
+                    dataFrom = dataFrom,
                     aDataFrom = [],
-                    dataFromID,
-                    dataFromParent;
+                    dataFromID;
                 btnList.each(function () {
-                    $(this).on('click', function () {
-                        dataFrom = $(this).attr('data-from');
-                        aDataFrom = dataFrom.split('@');
-                        dataFromParent = '#' + aDataFrom[0];
-                        dataFromID = '#' + aDataFrom[1];
-                        $(dataFromID).iCheck('uncheck');
-                        if ( aDataFrom[0] === 'ly01' || aDataFrom[0] === 'ly02' ) {
-                            //$(dataFromParent).parent().children('a').css('border-bottom', 'none');
-                        } else if ( aDataFrom[0] === 'ly03' ) {
-                            //($(dataFromParent).find('li>div').hasClass('checked')) ? 0 : $(dataFromParent).parent().children('a').css('border-bottom', 'none');
-                        } else{
-                            $(dataFromParent).find('.slider').slider( 'value' , [0] )
-                        }
-                        $(this).remove();
-                    })
+                    if ($(this).attr('data-from') === dataFrom){
+                        $(this).on('click', function () {
+                            console.log("1");
+                            aDataFrom = dataFrom.split('@');
+                            dataFromID = '#' + aDataFrom[1];
+                            $(dataFromID).iCheck('uncheck');
+                            $(this).remove();
+                        })
+                    }
                 })
             }
         };
 
 
         var dataItem = {};
-        /*icheck插件区域*/
-        //radio样式控制     //已阅
-        $('input.rd').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass   : 'iradio_square-blue'
+        $('input.cb').iCheck({
+            checkboxClass: 'icheckbox_square-blue'
+            // radioClass   : 'iradio_square-blue'
         });
-        $('input.rd').on('ifChecked', function (e) {
-            //单选列表项被选中 回调函数
-
-            //radio
+        $('input.cb').on('ifChecked', function (e) {
             dataItem.dataNavItem = $(this).parents('.layer').attr('id');
             dataItem.selectItem = $(this).attr('id');
             travelPi.selectListUpdate(dataItem, $(this).attr('data-item'));
-            travelPi.selectListClose();
-            $(this).parents('.layer').hide('fast');
-            $(this).parents('li').find('.ico').removeClass('ico-02').addClass('ico-03');
-            $(this).parents('.layer').parent().children('a').css('border-bottom', '3px solid #111');
         }).on('ifUnchecked', function (e) {
-            //单选列表项被移除 回调函数
             travelPi.selectListRemove($(this).attr('data-item'));
-            travelPi.selectListClose();
         });
-        $('input.cb').iCheck({
-            checkboxClass: 'icheckbox_square-blue'
-    //        radioClass   : 'iradio_square-blue'
-        });
-    //    $('input.cb').each(function(){
-      //      $(this).on('ifChecked', function (e) {
-        $('input.cb').on('ifChecked', function (e) {
-                //多选列表项被选中 回调函数
-                //$('input.cb') =>  存储cb用的list
-
-                //checkbox
-                dataItem.dataNavItem = $(this).parents('.layer').attr('id');
-                //ly01  nav中的编号
-                dataItem.selectItem = $(this).attr('id');
-                //cb01,cb02 选项中的编号
-                travelPi.selectListUpdate(dataItem, $(this).attr('data-item'));
-                //根据封装好的nav编号和选项编号，以及data-item(存储"独自出行"的数据)在.select-list中增加，先写好样式，有元素增加后就会自动撑开空间
-                travelPi.selectListClose();
-                //绑定一个click事件，点击筛选条件卡就删除(同时改变列表中的样式)
-                //$(this).parents('.layer').parent().children('a')为行程天数的border  ,应该考虑在取消check时删除该border
-        }).on('ifUnchecked', function (e) {
-                //多选列表项被移除 回调函数
-                travelPi.selectListRemove($(this).attr('data-item'));
-                travelPi.selectListClose();
-        });
-
 
         /*滑竿*/
         /*
