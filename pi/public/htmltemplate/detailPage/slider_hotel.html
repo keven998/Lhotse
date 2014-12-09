@@ -24,13 +24,14 @@
 	    </div>
 	</div>
     <div class="info_star">
-    	<h3>评分
-    		<span class="qui-icon star"></span>
-        	<span class="qui-icon star"></span>
-        	<span class="qui-icon star"></span>
-        	<span class="qui-icon star"></span>
-        	<span class="qui-icon empty"></span>
+    	<h3> 星级:
+            {{#starLevel}}
+                <span class="qui-icon star"></span>
+            {{/starLevel}}
     	</h3>
+    </div>
+    <div class="info_intro">
+        <h3>电话: {{phone}}</h3>
     </div>
     <div class="info_intro">
     	<h3>简介</h3>
@@ -40,5 +41,6 @@
     		</p>
     	</div>
     </div>
+
 </div>
 {{/data}}

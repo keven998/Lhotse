@@ -103,3 +103,34 @@ h1.logo{height:70px;padding-top:5px;}/*原先的高度阻碍其它点击事件*/
 /*}*/
 /*.drop-menu li a:hover {color: #08DCA9;}*/
 /*.user-center-menu-list {background-color: rgba(249, 252, 249, 1); color: blue;}*/
+
+/* 弹层的CSS BEGIN */
+*{margin:0;padding:0;list-style-type:none;}
+a,img{border:0;}
+body{font:12px/180% Arial, Helvetica, sans-serif;}
+label{cursor:pointer;}
+
+#window-box{
+	border:2px solid #ccc;
+	border-radius: 10px;
+	background:#FFF;
+	overflow: auto;
+}
+/*.windown-title{position:relative;height:30px;border:1px solid #A6C9E1;overflow:hidden;background:url(/images/common/pop_layer.png) 0 0 repeat-x;}*/
+
+#window-close{position:absolute;right: 13px;
+top: 13px;width:10px;height:16px;text-indent:-10em;overflow:hidden;background:url(/images/common/pop_layer.png) 100% -49px no-repeat;cursor:pointer;}
+#window-content-border{
+	padding:5px 0 5px 5px;
+	overflow: hidden;
+}
+.pop_divider{
+	display: block;
+	border-bottom: 1px solid #ccc;
+	margin-top:10px;
+}
+#window-content {
+	position: relative;
+	overflow: hidden;
+}
+/* 弹层的CSS END */

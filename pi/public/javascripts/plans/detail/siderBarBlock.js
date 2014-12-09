@@ -2,8 +2,6 @@
  * require  jquery,qyerSlidImg
  * 左侧弹窗
  * */
-// infoBlock.render({url: dataUrl, mode: mode, id: id});
-
 
 define(function(gmapControl) {
     function InfoBlock() {
@@ -13,6 +11,7 @@ define(function(gmapControl) {
     InfoBlock.prototype = {
         currentBlock : null,
         isTrigger    : true,
+        sliderHtmls  : {},
 
         init         : function () {
             var me = this;
@@ -47,13 +46,21 @@ define(function(gmapControl) {
             me.url = data.url; //侧栏数据请求地址
             me.mode = data.mode; //侧栏模块标识
             me.id = data.id; //侧栏数据请求参数 id
-            var postData = {
-                type : me.mode,
-                id   : me.id,
-            };
-            me.getAjaxData(me.url, postData, function (data) {  //发起请求
-                me.html(data.html);  //ajax回调函数
-            })
+
+            if (me.sliderHtmls[data.id]) {
+                me.html(me.sliderHtmls[data.id]);
+            } else {
+                var postData = {
+                    type : me.mode,
+                    id   : me.id,
+                },
+                id = me.id;
+                me.getAjaxData(me.url, postData, function (data) {  //发起请求
+                    me.sliderHtmls[id] = data.html;
+                    console.log(me.sliderHtmls);
+                    me.html(data.html);  //ajax回调函数
+                })
+            }
         },
 
         html         : function (data) {
@@ -110,6 +117,7 @@ define(function(gmapControl) {
                 node.removeNode ? node.removeNode(true):node.remove();
                 //node.remove();
                 me.showMap();
+                me.id = null;
                 return;
             }
 
