@@ -92,17 +92,16 @@ require(['googlemapApi'], function(GMaper) {
 
         /*条件筛选按钮列表操作函数*/
         var travelPi = {
-            selectListUpdate: function (dataItem, value) {
-                console.log(dataItem);
+            selectListUpdate: function (selectItemId, value) {
                 var value = value,
-                    dataFrom,
+                    dataFrom = selectItemId,
                     selectListHtml,
                     selectListContent = $('.select-list');
-                dataFrom = dataItem.dataNavItem + '@' + dataItem.selectItem;//记录信息(ly03@cb-1 )，当。。。时，通过这个来删除
                 selectListHtml = '<a data-from="' + dataFrom + '" class="bluebg option">' + value + '<i class="btn-close2"></i></a>';
                 selectListContent.append(selectListHtml);
                 travelPi.selectListClose(dataFrom);
             },
+            //close the filterList-item will make the selectList-item with the special value closed
             selectListRemove: function (value) {
                 var value = value,
                     selectListContent = $('.select-list');
@@ -112,17 +111,16 @@ require(['googlemapApi'], function(GMaper) {
                     }
                 })
             },
+            //close the selectList-item will make the filterList-item with the special Id closed
             selectListClose : function (dataFrom) {
-                var btnList = $('.select-list>a'),
+                var selectList = $('.select-list>a'),
                     dataFrom = dataFrom,
                     aDataFrom = [],
                     dataFromID;
-                btnList.each(function () {
+                selectList.each(function () {
                     if ($(this).attr('data-from') === dataFrom){
                         $(this).on('click', function () {
-                            console.log("1");
-                            aDataFrom = dataFrom.split('@');
-                            dataFromID = '#' + aDataFrom[1];
+                            dataFromID = '#' + dataFrom;
                             $(dataFromID).iCheck('uncheck');
                             $(this).remove();
                         })
@@ -132,15 +130,13 @@ require(['googlemapApi'], function(GMaper) {
         };
 
 
-        var dataItem = {};
         $('input.cb').iCheck({
             checkboxClass: 'icheckbox_square-blue'
             // radioClass   : 'iradio_square-blue'
         });
         $('input.cb').on('ifChecked', function (e) {
-            dataItem.dataNavItem = $(this).parents('.layer').attr('id');
-            dataItem.selectItem = $(this).attr('id');
-            travelPi.selectListUpdate(dataItem, $(this).attr('data-item'));
+            var selectItemId = $(this).attr('id');
+            travelPi.selectListUpdate(selectItemId, $(this).attr('data-item'));
         }).on('ifUnchecked', function (e) {
             travelPi.selectListRemove($(this).attr('data-item'));
         });
