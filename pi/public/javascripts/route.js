@@ -300,6 +300,9 @@ require(['googlemapApi'], function(GMaper) {
                                             }
                                         })
 
+                                        //fork
+                                        $('.slider_layer').find('.fork').on('click', popLayer);
+
                                         $('#slider_close').on('click',function(){
                                             sliderLayer.animate({
                                                 left: -650
@@ -754,59 +757,60 @@ require(['googlemapApi'], function(GMaper) {
                 }
             }
         };
+        function popLayer(){
+            new Alert($(this), 'box', {
+                title : '规划包含',
+                content :
+                    '<div class="plan_option">'+
+                        '<form>'+
+                            '<div>'+
+                                '<b>交通方式</b>'+
+                                '<input type="radio" name="traffic" value="air" checked/><span>飞机</span>'+
+                                '<input type="radio" name="traffic" value="train" /><span>火车</span>'+
+                                // '<input type="radio" name="traffic" value="car" /><span>汽车</span>'+
+                                '<input type="radio" name="traffic" value="none" /><span>无</span>'+
+                            '</div>'+
+                            '<div>'+
+                                '<b>酒店</b>'+
+                                '<input type="radio" name="hotel" value="star" checked/><span>星级酒店</span>'+
+                                '<input type="radio" name="hotel" value="budget" /><span>经济型酒店</span>'+
+                                '<input type="radio" name="hotel" value="youthandfolk" /><span>青旅或民俗</span>'+
+                                // '<input type="radio" name="hotel" value="youth" /><span>青年旅社</span>'+
+                                // '<input type="radio" name="hotel" value="folk" /><span>民俗酒店</span>'+
+                                '<input type="radio" name="hotel" value="none" /><span>无</span>'+
+                            '</div>'+
+                            '<div>'+
+                                '<b>美食</b>'+
+                                '<input type="radio" name="restaurant" value="reputation" checked/><span>口碑最好</span>'+
+                                '<input type="radio" name="restaurant" value="special" ><span>特色小吃</span>'+
+                                // '<input type="radio" name="restaurant" value="special" checked/><span>特色小吃</span>'+
+                                // '<input type="radio" name="restaurant" value="reputation" /><span>口碑最好</span>'+
+                                // '<input type="radio" name="restaurant" value="wellknow" /><span>连锁名店</span>'+
+                                '<input type="radio" name="restaurant" value="none" /><span>无</span>'+
+                            '</div>'+
+                            // '<div>'+
+                            //     '<b>娱乐</b>'+
+                            //     '<input type="radio" name="enjoy" value="bar" checked/><span>酒吧</span>'+
+                            //     '<input type="radio" name="enjoy" value="activity" /><span>活动</span>'+
+                            //     '<input type="radio" name="enjoy" value="none" /><span>无</span>'+
+                            // '</div>'+
+                        '</form>'+
+                    '</div>'+
+                    '<div class="but">'+
+                        '<button class="mkplan" title="点击此处，帮您一键规划行程！"></button>'+
+                        '<button class="skip" title="谢谢，我不需要任何帮忙！"></button>'+
+                    '</div>',
+                width : '650px',
+                height : '320px',
+                top : '',
+                left : '',
+                fixed : 'fixed',    //the default is "relative"
+                close : 'close',
+                route_id : $(this).attr('data-id')
+            });
+        }
         $('.fork').each(function(){
-            $(this).on('click',function(){
-                new Alert($(this), 'box', {
-                    title : '规划包含',
-                    content :
-                        '<div class="plan_option">'+
-                            '<form>'+
-                                '<div>'+
-                                    '<b>交通方式</b>'+
-                                    '<input type="radio" name="traffic" value="air" checked/><span>飞机</span>'+
-                                    '<input type="radio" name="traffic" value="train" /><span>火车</span>'+
-                                    // '<input type="radio" name="traffic" value="car" /><span>汽车</span>'+
-                                    '<input type="radio" name="traffic" value="none" /><span>无</span>'+
-                                '</div>'+
-                                '<div>'+
-                                    '<b>酒店</b>'+
-                                    '<input type="radio" name="hotel" value="star" checked/><span>星级酒店</span>'+
-                                    '<input type="radio" name="hotel" value="budget" /><span>经济型酒店</span>'+
-                                    '<input type="radio" name="hotel" value="youthandfolk" /><span>青旅或民俗</span>'+
-                                    // '<input type="radio" name="hotel" value="youth" /><span>青年旅社</span>'+
-                                    // '<input type="radio" name="hotel" value="folk" /><span>民俗酒店</span>'+
-                                    '<input type="radio" name="hotel" value="none" /><span>无</span>'+
-                                '</div>'+
-                                '<div>'+
-                                    '<b>美食</b>'+
-                                    '<input type="radio" name="restaurant" value="reputation" checked/><span>口碑最好</span>'+
-                                    '<input type="radio" name="restaurant" value="special" ><span>特色小吃</span>'+
-                                    // '<input type="radio" name="restaurant" value="special" checked/><span>特色小吃</span>'+
-                                    // '<input type="radio" name="restaurant" value="reputation" /><span>口碑最好</span>'+
-                                    // '<input type="radio" name="restaurant" value="wellknow" /><span>连锁名店</span>'+
-                                    '<input type="radio" name="restaurant" value="none" /><span>无</span>'+
-                                '</div>'+
-                                // '<div>'+
-                                //     '<b>娱乐</b>'+
-                                //     '<input type="radio" name="enjoy" value="bar" checked/><span>酒吧</span>'+
-                                //     '<input type="radio" name="enjoy" value="activity" /><span>活动</span>'+
-                                //     '<input type="radio" name="enjoy" value="none" /><span>无</span>'+
-                                // '</div>'+
-                            '</form>'+
-                        '</div>'+
-                        '<div class="but">'+
-                            '<button class="mkplan" title="点击此处，帮您一键规划行程！"></button>'+
-                            '<button class="skip" title="谢谢，我不需要任何帮忙！"></button>'+
-                        '</div>',
-                    width : '650px',
-                    height : '320px',
-                    top : '',
-                    left : '',
-                    fixed : 'fixed',    //the default is "relative"
-                    close : 'close',
-                    route_id : $(this).parents('.route').attr('data-id')
-                });
-            })
+            $(this).on('click', popLayer)
         })
     })
 
