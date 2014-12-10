@@ -29,7 +29,7 @@ require(['googlemapApi'], function(GMaper) {
                         $(this).hide('fast');
                         var tabSelect = $(this).parents('li').children('a');
                         tabSelect.children('i').removeClass('ico-arr02').addClass('ico-arr01');
-                        //tabSelect.css('border-bottom','none');
+                        // tabSelect.children('b').css('border-bottom','none');
                     }
                 });
 
@@ -55,21 +55,21 @@ require(['googlemapApi'], function(GMaper) {
                     $this = $(this),
                     $thisParent = $this.parent();
 
-                //下拉箭头的切换   判断是否已选中过
+                //下拉箭头的切换
                 var icoClass = $this.children('i');
                 if ( icoClass.hasClass('ico-arr01') ) {
                     icoClass.removeClass('ico-arr01').addClass('ico-arr02');
-                    //$this.css('border-bottom', '3px solid #4fa7bd');
+                    // $this.children('b').css('border-bottom', '3px solid #4fa7bd');
                 } else {
                     icoClass.removeClass('ico-arr02').addClass('ico-arr01');
-                    //$this.css('border-bottom', 'none');
+                    // $this.children('b').css('border-bottom', 'none');
                 }
 
                 //绑定下拉的收回事件,此处需要off         绑定了最后的last类(可点击的小三角)
                 $thisParent.children('.layer').find('.list-last').on('click', function () {
                     $(this).parents('.layer').hide('fast');
                     icoClass.removeClass('ico-arr01').addClass('ico-arr02');
-                    //$this.attr('border-bottom', 'none');
+                    // $this.children('b').css('border-bottom', 'none');
                 })
 
                 //筛选条件列表下拉
@@ -82,7 +82,7 @@ require(['googlemapApi'], function(GMaper) {
                     var Display = $thisParent.children('.layer').css('display');
                     if ( index !== Index && Display === 'block' ) {
                         $thisParent.children('.layer').hide('fast');
-                      //  $this.css('border-bottom', 'none');
+                        // $this.children('b').css('border-bottom', 'none');
                         $this.children('i').removeClass('ico-arr02').addClass('ico-arr01');
                     }
                 })
@@ -91,18 +91,17 @@ require(['googlemapApi'], function(GMaper) {
 
 
         /*条件筛选按钮列表操作函数*/
-        //定义封装了点击列表和展示列表中的联动事件！
         var travelPi = {
-            selectListUpdate: function (dataItem, value) {
+            selectListUpdate: function (selectItemId, value) {
                 var value = value,
-                    dataFrom,
+                    dataFrom = selectItemId,
                     selectListHtml,
                     selectListContent = $('.select-list');
-                dataFrom = dataItem.dataNavItem + '@' + dataItem.selectItem;
-                //记录信息(ly03@cb-1 )，当。。。时，通过这个来删除
                 selectListHtml = '<a data-from="' + dataFrom + '" class="bluebg option">' + value + '<i class="btn-close2"></i></a>';
                 selectListContent.append(selectListHtml);
+                travelPi.selectListClose(dataFrom);
             },
+            //close the filterList-item will make the selectList-item with the special value closed
             selectListRemove: function (value) {
                 var value = value,
                     selectListContent = $('.select-list');
@@ -112,83 +111,35 @@ require(['googlemapApi'], function(GMaper) {
                     }
                 })
             },
-            selectListClose : function () {
-                /*条件筛选按钮*/
-                var btnList = $('.select-list>a'),
-                    dataFrom,
+            //close the selectList-item will make the filterList-item with the special Id closed
+            selectListClose : function (dataFrom) {
+                var selectList = $('.select-list>a'),
+                    dataFrom = dataFrom,
                     aDataFrom = [],
-                    dataFromID,
-                    dataFromParent;
-                btnList.each(function () {
-                    $(this).on('click', function () {
-                        dataFrom = $(this).attr('data-from');
-                        aDataFrom = dataFrom.split('@');
-                        dataFromParent = '#' + aDataFrom[0];
-                        dataFromID = '#' + aDataFrom[1];
-                        $(dataFromID).iCheck('uncheck');
-                        if ( aDataFrom[0] === 'ly01' || aDataFrom[0] === 'ly02' ) {
-                            //$(dataFromParent).parent().children('a').css('border-bottom', 'none');
-                        } else if ( aDataFrom[0] === 'ly03' ) {
-                            //($(dataFromParent).find('li>div').hasClass('checked')) ? 0 : $(dataFromParent).parent().children('a').css('border-bottom', 'none');
-                        } else{
-                            $(dataFromParent).find('.slider').slider( 'value' , [0] )
-                        }
-                        $(this).remove();
-                    })
+                    dataFromID;
+                selectList.each(function () {
+                    if ($(this).attr('data-from') === dataFrom){
+                        $(this).on('click', function () {
+                            dataFromID = '#' + dataFrom;
+                            $(dataFromID).iCheck('uncheck');
+                            $(this).remove();
+                        })
+                    }
                 })
             }
         };
 
 
-        var dataItem = {};
-        /*icheck插件区域*/
-        //radio样式控制     //已阅
-        $('input.rd').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass   : 'iradio_square-blue'
-        });
-        $('input.rd').on('ifChecked', function (e) {
-            //单选列表项被选中 回调函数
-
-            //radio
-            dataItem.dataNavItem = $(this).parents('.layer').attr('id');
-            dataItem.selectItem = $(this).attr('id');
-            travelPi.selectListUpdate(dataItem, $(this).attr('data-item'));
-            travelPi.selectListClose();
-            $(this).parents('.layer').hide('fast');
-            $(this).parents('li').find('.ico').removeClass('ico-02').addClass('ico-03');
-            $(this).parents('.layer').parent().children('a').css('border-bottom', '3px solid #111');
-        }).on('ifUnchecked', function (e) {
-            //单选列表项被移除 回调函数
-            travelPi.selectListRemove($(this).attr('data-item'));
-            travelPi.selectListClose();
-        });
         $('input.cb').iCheck({
             checkboxClass: 'icheckbox_square-blue'
-    //        radioClass   : 'iradio_square-blue'
+            // radioClass   : 'iradio_square-blue'
         });
-    //    $('input.cb').each(function(){
-      //      $(this).on('ifChecked', function (e) {
         $('input.cb').on('ifChecked', function (e) {
-                //多选列表项被选中 回调函数
-                //$('input.cb') =>  存储cb用的list
-
-                //checkbox
-                dataItem.dataNavItem = $(this).parents('.layer').attr('id');
-                //ly01  nav中的编号
-                dataItem.selectItem = $(this).attr('id');
-                //cb01,cb02 选项中的编号
-                travelPi.selectListUpdate(dataItem, $(this).attr('data-item'));
-                //根据封装好的nav编号和选项编号，以及data-item(存储"独自出行"的数据)在.select-list中增加，先写好样式，有元素增加后就会自动撑开空间
-                travelPi.selectListClose();
-                //绑定一个click事件，点击筛选条件卡就删除(同时改变列表中的样式)
-                //$(this).parents('.layer').parent().children('a')为行程天数的border  ,应该考虑在取消check时删除该border
+            var selectItemId = $(this).attr('id');
+            travelPi.selectListUpdate(selectItemId, $(this).attr('data-item'));
         }).on('ifUnchecked', function (e) {
-                //多选列表项被移除 回调函数
-                travelPi.selectListRemove($(this).attr('data-item'));
-                travelPi.selectListClose();
+            travelPi.selectListRemove($(this).attr('data-item'));
         });
-
 
         /*滑竿*/
         /*
@@ -308,21 +259,6 @@ require(['googlemapApi'], function(GMaper) {
                                     selectPanel.updateData(msg.mapView);
 
                                     $(tabUl).idTabs();//实例化列表内tab选项卡  =>  实现tab功能
-
-                                    //initial the tab-nav style
-                                    /*
-                                    $(tabUl).children('li:first').addClass("nav_click");
-                                    var navList = $(tabUl).children('li');
-                                    navList.each(function(index){
-                                        $(this).bind('click',function(){
-                                            console.log(index);
-                                            if (! $(this).hasClass('nav_click')){
-                                                navList.removeClass('nav_click');
-                                                $(this).addClass('nav_click');
-                                            }
-                                        })
-                                    })
-                                    */
 
                                     /*create the routedetail layer*/
                                     $this.parent('ul.routelist').append(msg.sliderLayerHtml);
@@ -534,6 +470,14 @@ require(['googlemapApi'], function(GMaper) {
 
 
         //复制路线-弹层
+        function getParamsFromRadio(flag, name){
+            var elems = document.getElementsByName(name);
+            for(var i in elems){
+                if (elems[i].checked && elems[i].value!="none")
+                    return (flag + "=" + elems[i].value + "&");
+            }
+            return "";
+        }
         function getId(id){
             return typeof id === "string" ? document.getElementById(id) : id;
         }
@@ -560,9 +504,9 @@ require(['googlemapApi'], function(GMaper) {
         };
         Alert.prototype = {
             initialize : function(obj, frame, onEnd){
-                if(getId(obj)){
+                if(obj){
                     var _this = this;
-                    this.obj = getId(obj);
+                    this.obj = obj;
                     this.frame = frame;
                     this.oEve(onEnd);
                     this.oTitle = this.onEnd.title;
@@ -573,8 +517,10 @@ require(['googlemapApi'], function(GMaper) {
                     this.iLeft = this.onEnd.left;
                     this.iFixed = this.onEnd.fixed;
                     this.iClose = this.onEnd.close;
-                    this.obj.onclick = function(){_this.create(),_this.backg();};
-                    window.onresize = function(){_this.backg();};
+                    this.route_id = this.onEnd.route_id;
+                    _this.create();
+                    // this.obj.onclick = function(){_this.create(),_this.backg();};
+                    // window.onresize = function(){_this.backg();};
                 }
             },
             create : function(){
@@ -657,7 +603,22 @@ require(['googlemapApi'], function(GMaper) {
                 this.oButton = $$(this.tit, 'button');
                 var i = 0;
                 var _this = this;
-                for(i=0;i<this.oButton.length;i++)this.oButton[i].onclick = function(){_this.em.onclick()};
+                for(i = 0;i < this.oButton.length;i++){
+                    this.oButton[i].onclick = function(){
+                        if ($(this).hasClass('mkplan')){
+                            var params = "?",
+                                flags = ["trafficFlag", "hotelFlag", "restaurantFlag"],
+                                names = ["traffic", "hotel", "restaurant"];
+                            for (var index in flags){
+                                params += getParamsFromRadio(flags[index], names[index]);
+                            }
+                            window.location.assign("/plans/detail/" + _this.route_id + params);
+                        }else if ($(this).hasClass('skip')){
+                            window.location.assign("/plans/detail/" + _this.route_id);
+                        }
+                        _this.em.onclick();
+                    };
+                }
             },
             width : function(){
                 this.oBackg = $$$(this.tit, 'alert_backg')[0];
@@ -793,53 +754,60 @@ require(['googlemapApi'], function(GMaper) {
                 }
             }
         };
-        window.onload = function(){
-            new Alert('but', 'box', {
-                title : '规划包含',
-                content :
-                    '<div class="plan_option">'+
-                        '<form>'+
-                            '<div>'+
-                                '<b>交通方式</b>'+
-                                '<input type="radio" name="transpotation" value="air" checked/><span>飞机</span>'+
-                                '<input type="radio" name="transpotation" value="train" /><span>火车</span>'+
-                                '<input type="radio" name="transpotation" value="car" /><span>汽车</span>'+
-                                '<input type="radio" name="transpotation" value="none" /><span>无</span>'+
-                            '</div>'+
-                            '<div>'+
-                                '<b>酒店</b>'+
-                                '<input type="radio" name="hotel" value="convenient" checked/><span>最便捷</span>'+
-                                '<input type="radio" name="hotel" value="cheep" /><span>最便宜</span>'+
-                                '<input type="radio" name="hotel" value="luxury" /><span>最奢华</span>'+
-                                '<input type="radio" name="hotel" value="none" /><span>无</span>'+
-                            '</div>'+
-                            '<div>'+
-                                '<b>美食</b>'+
-                                '<input type="radio" name="food" value="special" checked/><span>特色小吃</span>'+
-                                '<input type="radio" name="food" value="reputation" /><span>口碑最好</span>'+
-                                '<input type="radio" name="food" value="wellknow" /><span>连锁名店</span>'+
-                                '<input type="radio" name="food" value="none" /><span>无</span>'+
-                            '</div>'+
-                            '<div>'+
-                                '<b>娱乐</b>'+
-                                '<input type="radio" name="enjoy" value="bar" checked/><span>酒吧</span>'+
-                                '<input type="radio" name="enjoy" value="activity" /><span>活动</span>'+
-                                '<input type="radio" name="enjoy" value="none" /><span>无</span>'+
-                            '</div>'+
-                        '</form>'+
-                    '</div>'+
-                    '<div class="but">'+
-                        '<button class="mkplan"></button>'+
-                        '<button class="skip"></button>'+
-                    '</div>',
-                width : '650px',
-                height : '380px',
-                top : '',
-                left : '',
-                fixed : '',
-                close : 'close'
-            });
-        }
+        $('.fork').each(function(){
+            $(this).on('click',function(){
+                new Alert($(this), 'box', {
+                    title : '规划包含',
+                    content :
+                        '<div class="plan_option">'+
+                            '<form>'+
+                                '<div>'+
+                                    '<b>交通方式</b>'+
+                                    '<input type="radio" name="traffic" value="air" checked/><span>飞机</span>'+
+                                    '<input type="radio" name="traffic" value="train" /><span>火车</span>'+
+                                    // '<input type="radio" name="traffic" value="car" /><span>汽车</span>'+
+                                    '<input type="radio" name="traffic" value="none" /><span>无</span>'+
+                                '</div>'+
+                                '<div>'+
+                                    '<b>酒店</b>'+
+                                    '<input type="radio" name="hotel" value="star" checked/><span>星级酒店</span>'+
+                                    '<input type="radio" name="hotel" value="budget" /><span>经济型酒店</span>'+
+                                    '<input type="radio" name="hotel" value="youthandfolk" /><span>青旅或民俗</span>'+
+                                    // '<input type="radio" name="hotel" value="youth" /><span>青年旅社</span>'+
+                                    // '<input type="radio" name="hotel" value="folk" /><span>民俗酒店</span>'+
+                                    '<input type="radio" name="hotel" value="none" /><span>无</span>'+
+                                '</div>'+
+                                '<div>'+
+                                    '<b>美食</b>'+
+                                    '<input type="radio" name="restaurant" value="reputation" checked/><span>口碑最好</span>'+
+                                    '<input type="radio" name="restaurant" value="special" ><span>特色小吃</span>'+
+                                    // '<input type="radio" name="restaurant" value="special" checked/><span>特色小吃</span>'+
+                                    // '<input type="radio" name="restaurant" value="reputation" /><span>口碑最好</span>'+
+                                    // '<input type="radio" name="restaurant" value="wellknow" /><span>连锁名店</span>'+
+                                    '<input type="radio" name="restaurant" value="none" /><span>无</span>'+
+                                '</div>'+
+                                // '<div>'+
+                                //     '<b>娱乐</b>'+
+                                //     '<input type="radio" name="enjoy" value="bar" checked/><span>酒吧</span>'+
+                                //     '<input type="radio" name="enjoy" value="activity" /><span>活动</span>'+
+                                //     '<input type="radio" name="enjoy" value="none" /><span>无</span>'+
+                                // '</div>'+
+                            '</form>'+
+                        '</div>'+
+                        '<div class="but">'+
+                            '<button class="mkplan" title="点击此处，帮您一键规划行程！"></button>'+
+                            '<button class="skip" title="谢谢，我不需要任何帮忙！"></button>'+
+                        '</div>',
+                    width : '650px',
+                    height : '320px',
+                    top : '',
+                    left : '',
+                    fixed : 'fixed',    //the default is "relative"
+                    close : 'close',
+                    route_id : $(this).parents('.route').attr('data-id')
+                });
+            })
+        })
     })
 
 

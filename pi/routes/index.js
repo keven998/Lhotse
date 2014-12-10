@@ -10,6 +10,7 @@ var map_data = require('../conf/map_data');
 var config = require('../conf/system');
 var zone = require('../conf/zone');
 var utils = require( "../common/utils");
+var route_filters = require('../conf/route_filters');
 
 router.get('/', function(req, res) {
     async.parallel({
@@ -164,6 +165,7 @@ router.get('/route', function(req, res) {
                 arriveName : arrLocName,
                 user_info: utils.get_user_info(req, res),
                 config: config,
+                route_filters: route_filters
             });
         });
     });

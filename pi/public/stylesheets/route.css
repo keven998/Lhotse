@@ -58,9 +58,10 @@
 /*the nav of a route-item's drop layer*/
 .tab_nav{width:580px;height:30px;background-color:#e0f6f1;}
 .tab_nav li{display:inline-block;height:30px;line-height:30px;font-size:14px;padding:0 10px;}
-/*.tab_nav .nav_click{background-color: #2b708c;}*/
+/*.tab_nav a.selected{background-color: #2b708c;}*/
 .tab_nav a{color:#898989;}
 .tab_nav a:hover{color:#4fa7bd;}
+.tab_nav a.selected{color:#4fa7bd;}
 .nav_close{position: absolute;right: 30px;top:6px;color: #0479F2;font-weight: bold;cursor: pointer;}
 
 /*推荐理由*/
@@ -219,6 +220,13 @@ p.tip{color:#666;line-height:20px;padding:5px;margin:0;text-indent:3px;}
     cursor: pointer;
 }
 
+.icheckbox_square-blue {background-position: 0 0;}
+.icheckbox_square-blue.hover {background-position: -24px 0;}
+.icheckbox_square-blue.checked {background-position: -48px 0;}
+.icheckbox_square-blue.disabled {background-position: -72px 0;cursor: default;}
+.icheckbox_square-blue.checked.disabled {background-position: -96px 0;}
+
+/*
 .icheckbox_square-blue {
     background-position: 0 0;
 }
@@ -235,7 +243,6 @@ p.tip{color:#666;line-height:20px;padding:5px;margin:0;text-indent:3px;}
     .icheckbox_square-blue.checked.disabled {
         background-position: -96px 0;
     }
-
 .iradio_square-blue {
     background-position: -120px 0;
 }
@@ -252,6 +259,7 @@ p.tip{color:#666;line-height:20px;padding:5px;margin:0;text-indent:3px;}
     .iradio_square-blue.checked.disabled {
         background-position: -216px 0;
     }
+*/
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
