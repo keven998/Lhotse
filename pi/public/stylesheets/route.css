@@ -166,7 +166,7 @@ li p.ico-g{display:inline-block;color:#4fa7bd;}
 .plan_option{width:100%;margin:20px 0 20px 50px;text-align:left;line-height:30px;color:#000;font-size:14px}
 .plan_option form div{margin-bottom:20px;}
 .plan_option b{font-size:20px;display: inline-block;width:120px;}
-.plan_option span{font-size:18px;color:#898989;display: inline-block;width:100px;}
+.plan_option label{font-size:18px;color:#898989;display: inline-block;width:100px;}
 
 /*poplayer edited by @lyn*/
 .but {width:100%;margin:20px 50px;}
