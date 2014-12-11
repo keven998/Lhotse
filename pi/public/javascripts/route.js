@@ -207,6 +207,26 @@ require(['googlemapApi'], function(GMaper) {
             layerId,    //  '#' + rListDatafor  =>  #list-sub-01
             tabUl,      //  layerId + ' ul';    =>  #list-sub-01 ul
             locked = false;
+
+        function addTabNav($this){
+            var tabNav =
+                '<div class="drop_layer">' +
+                   ' <ul class="tab_nav">' +
+                        //<li><a href="#route-tab1">线路简介</a></li>
+                        '<li><a href="#route-tab1">景点列表</a></li>' +
+                        '<li><a href="#route-tab2">图片</a></li>' +
+                        '<li><a href="#route-tab3">相关游记</a></li>' +
+                        '<li><a id="route">更多>></a></li>' +
+                        '<span class="nav_close" id="drop_close"><i class="btn-close3"></i></span>' +
+                    '</ul>' +
+                    '<div class="loading">' +
+                        '<i class="ico02 ico02-loading"></i>' +
+                        '<a class="btn"></a>' +
+                    '</div>' +
+                '</div>';
+            $this.after(tabNav);
+            return ;
+        }
         routeList.each(function () {
             var $this = $(this);
             $this.on('click', function (e) {
@@ -230,22 +250,7 @@ require(['googlemapApi'], function(GMaper) {
                         }else{
                             $(layerClass).remove();
                             $('.slider_layer').remove();
-                            var tabNav =
-                                '<div class="drop_layer">' +
-                                   ' <ul class="tab_nav">' +
-                                        //<li><a href="#route-tab1">线路简介</a></li>
-                                        '<li><a href="#route-tab1">景点列表</a></li>' +
-                                        '<li><a href="#route-tab2">图片</a></li>' +
-                                        '<li><a href="#route-tab3">相关游记</a></li>' +
-                                        '<li><a id="route">更多>></a></li>' +
-                                        '<span class="nav_close" id="drop_close"><i class="btn-close3"></i></span>' +
-                                    '</ul>' +
-                                    '<div class="loading">' +
-                                        '<i class="ico02 ico02-loading"></i>' +
-                                        '<a class="btn"></a>' +
-                                    '</div>' +
-                                '</div>';
-                            $this.after(tabNav);
+                            addTabNav($this);
                             $.ajax({
                                 url: requestUrl,
                                 async: true,
