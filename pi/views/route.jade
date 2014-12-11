@@ -14,15 +14,20 @@ block content
         .bg-blue
             .search-bg
                 i.ico-position
-                b 北京
+                b #{fromName}
+                //
+                    input.w40(type="text" name="fromName" placeholder='城市' id="from" onkeyup="suggestion_from(this.value)" autocomplete="off" value='#{fromName}')
                 b.change [更换]
                 b.line
-                input(type="text" name="arrivName" placeholder='景点/城市/省份' id="arrive" onkeyup="suggestion_to(this.value)" autocomplete="off")
+                input(type="text" name="arrivName" placeholder='景点/城市/省份' id="arrive" onkeyup="suggestion_to(this.value)" autocomplete="off" value='#{arriveName}')
                 i.ico-addpos
-                a(href="#" onclick="go_plan_list()")
-                    #search-btn.s-btn()
-                #suggestion_to.suggestion(style="margin-left:270px;width:373px;")
-                #suggestion_from.suggestion(style="width:250px;")
+                //
+                    a(href="#" onclick="go_plan_list()")
+                        #search-btn.s-btn()
+                    #suggestion_to.suggestion(style="margin-left:270px;width:373px;")
+                    #suggestion_from.suggestion(style="width:250px;")
+                    input.cityinput#fromcity(type="text" placeholder="出发地")
+                    input.cityinput#tocity(type="text" placeholder="目的地")
         .route_container
             ul.filter-nav
                 - var index = 0;
@@ -90,3 +95,4 @@ block content
 
     script(src='/javascripts/lib/icheck.min.js' rel='javascript')
     script(src='/javascripts/lib/jquery.idTabs.min.js' rel='javascript')
+    script(src='/javascripts/common/cityselector.js' rel='javascript')

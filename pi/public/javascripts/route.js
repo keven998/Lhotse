@@ -947,4 +947,6 @@ require(['googlemapApi'], function(GMaper) {
             $('#map_inner').css('width',wWidth - routeListWidth);
         })
     }
+
+
 });
