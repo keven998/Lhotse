@@ -57,7 +57,6 @@ define(function(gmapControl) {
                 id = me.id;
                 me.getAjaxData(me.url, postData, function (data) {  //发起请求
                     me.sliderHtmls[id] = data.html;
-                    console.log(me.sliderHtmls);
                     me.html(data.html);  //ajax回调函数
                 })
             }

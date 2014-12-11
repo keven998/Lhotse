@@ -217,7 +217,7 @@ define(function() {
             var self    = this,
                 _config = self.config,
                 _cache  = self.cache;
-            $("#window-box") && $("#window-box").show();
+            $("#window-box") && $("#window-box").fadeIn(100);
             _cache.isshow = true;
             if(_config.time == '' || typeof _config.time == 'undefined') {
                 return;
@@ -236,7 +236,7 @@ define(function() {
         hide: function(){
             var self    = this,
                 _cache  = self.cache;
-            $("#window-box") && $("#window-box").hide();
+            $("#window-box") && $("#window-box").fadeOut(200);
             _cache.isshow = false;
         },
 
@@ -285,8 +285,9 @@ define(function() {
             }
             if(_config.showBg) {
                 $("#windowbg").hide();
+            }else{
+                $("#windowbg").animate({"opacity" : 0}, 'normal');
             }
-            $("#windowbg").animate({"opacity" : 0}, 'normal');
         },
 
 

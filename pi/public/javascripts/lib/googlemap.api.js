@@ -153,10 +153,8 @@ define(['async!http://ditu.google.cn/maps/api/js?v=3&sensor=false&libraries=geom
         //------------------------------------
         that.createInfo = function(data, callback) {//h:data
             console.log('data is:');
-            console.log(data);
             var id = data.id,
                 infoWindow = infoWindows[id];
-            console.log(id);
             if (infoWindow) {
                 if (infoWindow.getMap()) return;
             } else {
@@ -351,12 +349,8 @@ define(['async!http://ditu.google.cn/maps/api/js?v=3&sensor=false&libraries=geom
                     // "this" is global function
                     //获取屏幕像素坐标和经纬度对之间的转换
                     console.log('bound......');
-                    console.log(mapObj);
-                    console.log(mapObj.getCenter());
-                    console.log(mapObj.getZoom());
                     var coordinate_pixel = this.getProjection(),
                         mapBound = mapObj.getBounds();
-                         console.log(mapBound);
                         var divPixel = coordinate_pixel.fromLatLngToDivPixel(this.latLng),
                         // s = mapBound.getNorthEast(),
                         // u = mapBound.getSouthWest(),
@@ -367,9 +361,6 @@ define(['async!http://ditu.google.cn/maps/api/js?v=3&sensor=false&libraries=geom
                         v = v / 2,
                         left = divPixel.x - v + this.offset[0] + 50 ,
                         bottom = -divPixel.y + (h + this.offset[1]) - 200;
-                        console.log($(this.div.firstChild));
-                        console.log(v);
-                        console.log(h);
                     this.div.style.left = left + "px";
                     this.div.style.bottom = bottom + "px";
                     // console.log('bound......');

@@ -1,3 +1,13 @@
-h1= message
-h2= error.status
-pre #{error.stack}
+extends ../common/base
+
+block page_var
+    script.
+        var page_var = {
+
+        };
+
+block content
+    div.error_tips
+        | 错误,&nbsp&nbsp
+        a(href='/')
+            | 返回主页
