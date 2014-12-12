@@ -147,6 +147,7 @@ Vcity.regExChiese = /([\u4E00-\u9FA5\uf900-\ufa2d]+)/;
         }
     }
 })();
+
 /* 城市HTML模板 */
 Vcity._template = [
     '<p class="tip">热门城市(支持汉字/拼音)</p>',
@@ -164,31 +165,27 @@ Vcity._template = [
  * */
 
 Vcity.CitySelector = function () {
-
-    
     this.initialize.apply(this, arguments);
 };
 
 Vcity.CitySelector.prototype = {
 
-    constructor:Vcity.CitySelector,
+    constructor: Vcity.CitySelector,
 
     /* 初始化 */
 
     initialize :function (options) {
         var input = options.input;
-        this.input = Vcity._m.$('#'+ input);
+        this.input = Vcity._m.$('#'+ input);    //#from,#arrive
         this.inputEvent();
     },
 
     /* *
-     * @createWarp
+     * @createWrap
      * 创建城市BOX HTML 框架
      * */
 
-    createWarp:function(){
-
-    
+    createWrap:function(){
         var inputPos = Vcity._m.getPos(this.input);
         var div = this.rootDiv = document.createElement('div');
         var that = this;
@@ -203,7 +200,6 @@ Vcity.CitySelector.prototype = {
             event = Vcity._m.getEvent(event);
             var target = Vcity._m.getTarget(event);
             if(target == that.input) return false;
-            //console.log(target.className);
             if (that.cityBox)Vcity._m.addClass('hide', that.cityBox);
             if (that.ul)Vcity._m.addClass('hide', that.ul);
             if(that.myIframe)Vcity._m.addClass('hide',that.myIframe);
@@ -319,7 +315,14 @@ Vcity.CitySelector.prototype = {
         var that = this;
         for(var i=0,n=links.length;i<n;i++){
             links[i].onclick = function(){
-                that.input.value = this.innerHTML;
+                // that.input.value = this.innerHTML;
+                if (that.input.nodeName == 'INPUT'){
+                    that.input.value = this.innerHTML;
+                }
+                else{
+                    document.getElementById('from').innerHTML = this.innerHTML;
+                }
+
                 Vcity._m.addClass('hide',that.cityBox);
                 /* 点击城市名的时候隐藏myIframe */
                 Vcity._m.addClass('hide',that.myIframe);
@@ -336,26 +339,30 @@ Vcity.CitySelector.prototype = {
         var that = this;
         Vcity._m.on(this.input,'click',function(event){
             event = event || window.event;
+
             if(!that.cityBox){
-                that.createWarp();
+                that.createWrap();
             }else if(!!that.cityBox && Vcity._m.hasClass('hide',that.cityBox)){
                 // slideul 不存在或者 slideul存在但是是隐藏的时候 两者不能共存
                 if(!that.ul || (that.ul && Vcity._m.hasClass('hide',that.ul))){
                     Vcity._m.removeClass('hide',that.cityBox);
 
                     /* IE6 移除iframe 的hide 样式 */
-                    //alert('click');
                     Vcity._m.removeClass('hide',that.myIframe);
                     that.changeIframe();
                 }
             }
         });
+        /*该函数会使得Input获取焦点(focus)时,Input原有文本消失
         Vcity._m.on(this.input,'focus',function(){
             that.input.select();
-            if(that.input.value == '出发地') that.input.value = '';
-        });
+            if(that.input.value == '出发地')
+                that.input.value = '';
+        });*/
+        //???
         Vcity._m.on(this.input,'blur',function(){
-            if(that.input.value == '') that.input.value = '';
+            if(that.input.value == '')
+                that.input.value = '';
         });
         Vcity._m.on(this.input,'keyup',function(event){
             event = event || window.event;
@@ -377,9 +384,9 @@ Vcity.CitySelector.prototype = {
      * 生成下拉选择列表
      * @ createUl
      * */
+    //智能提示列表的事件
 
     createUl:function () {
-        //console.log('createUL');
         var str;
         var value = Vcity._m.trim(this.input.value);
         // 当value不等于空的时候执行
@@ -444,6 +451,7 @@ Vcity.CitySelector.prototype = {
      * 特定键盘事件，上、下、Enter键
      * @ KeyboardEvent
      * */
+    //智能提示列表的事件
 
     KeyboardEvent:function(event,keycode){
         var lis = Vcity._m.$('li',this.ul);
@@ -481,6 +489,7 @@ Vcity.CitySelector.prototype = {
      * 下拉列表的li事件
      * @ liEvent
      * */
+    //智能提示列表的事件
 
     liEvent:function(){
         var that = this;
@@ -508,6 +517,5 @@ Vcity.CitySelector.prototype = {
     }
 };
 
-//var test = new Vcity.CitySelector({input:'fromcity'});
+var from = new Vcity.CitySelector({input:'from'});
 var arrive = new Vcity.CitySelector({input:'arrive'});
-
