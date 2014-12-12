@@ -185,9 +185,6 @@ var DayMapControl = function(constructInput) {
                         //cityId: spot.cityId,
                         type: spot.type
                     };
-                    console.log(ajaxConfig);
-                    console.log('show dom');
-                    console.log(dom);
                 dom.on("click.open-info", function(e) {
                     map.setCenter(latLng);
                     map.setZoom(12);

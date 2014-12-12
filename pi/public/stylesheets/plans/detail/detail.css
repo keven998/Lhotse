@@ -249,7 +249,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     margin-left: 4px;
 }
 .ico_feiji{
-    background-image: url("/images/plans/detail/iconfont-feiji.png");
+    background: url("/images/plans/detail/iconfont-feiji.png") no-repeat;
 }
 .ico_gongjiao{
     background-image: url("/images/plans/detail/iconfont-huochepiao.png");
@@ -1767,7 +1767,9 @@ a {
     overflow      : hidden;
     border-top    : 1px solid transparent;
     border-bottom : 1px solid transparent;
-    position      : relative
+    position      : relative;
+    width: 100%;
+    height: 100%;
 }
 
 .day_list {
@@ -2286,7 +2288,7 @@ td {
 .pvw_date_contents table
 .tt2 .time{
     color: #7EBBCB;
-    font-size: 20px;}
+    font-size: 18px;}
 .pvw_date_contents table
 .tt2 .xq{
     color: #BCBCBC;

@@ -25,12 +25,13 @@
 	</div>
     <div class="info_star">
     	<h3>评分
-    		<span class="qui-icon star"></span>
-        	<span class="qui-icon star"></span>
-        	<span class="qui-icon star"></span>
-        	<span class="qui-icon star"></span>
-        	<span class="qui-icon empty"></span>
-    	</h3>
+            {{#ranking}}
+        		<span class="qui-icon star"></span>
+            {{/ranking}}
+            {{#reverse_ranking}}
+        	   <span class="qui-icon empty"></span>
+    	    {{/reverse_ranking}}
+        </h3>
     </div>
     <div class="info_intro">
     	<h3>简介</h3>

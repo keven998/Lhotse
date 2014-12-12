@@ -5,6 +5,7 @@ var async = require('async');
 var config = require('../conf/system');
 var zone = require('../conf/zone');
 var mu = require('mu2');
+var utils = require("../common/utils");
 var _ = require('underscore');
 mu.root = 'public/htmltemplate/';
 
@@ -41,6 +42,7 @@ var getStrArray = function(length) {
 var model = require('../model/sup_model.js');
 var apiList = require('../url_api');
 
+/* 编辑页面的列表 */
 router.post('/tabContent', function(req, res) {
     var postData = req.body,
         type = postData.type,
@@ -63,6 +65,8 @@ router.post('/tabContent', function(req, res) {
     });
 });
 
+
+/* 编辑页面的spot详情 */
 router.post('/spotInfo', function(req, res) {
     var postData = req.body,
         type = postData.type,
@@ -73,9 +77,18 @@ router.post('/spotInfo', function(req, res) {
             url: requestUrl + id,
             method: 'GET'
         };
+
         request(options, function(err, respond, data) {
             if (err) {
                 throw err;
+            }
+            if(!utils.checkApiRequestState(data)) {
+                console.log("==== api request error ====");
+                console.log("request url: ");
+                console.log(requestUrl + id);
+                res.json({
+                    state : 0,
+                });
             }
             var spotInfo = extractDataForspotInfo(JSON.parse(data), type),
                 htmlTemplateRoute = 'editPage/spot_pop_window_' + type + '.html',
@@ -87,7 +100,8 @@ router.post('/spotInfo', function(req, res) {
                 .on('end', function() {
                     html = html.join("");
                     res.json({
-                        html: html.toString(),
+                        state : 0,
+                        html  : html.toString(),
                         // detailData: data
                     });
                 });
@@ -111,11 +125,23 @@ router.post('/detail', function(req, res) {
             url: requestUrl + id,
             method: 'GET'
         };
+        console.log("请求的链接:");
+        console.log(requestUrl + id);
         request(options, function(err, respond, data) {
             if (err) {
                 throw err;
             }
+            console.log('请求返回数据:');
             console.log(data);
+            if(!utils.checkApiRequestState(data)) {
+                console.log("==== api request error ====");
+                console.log("request url: ");
+                console.log(requestUrl + id);
+                /* render error page */
+                res.json({
+                    state : 0,
+                });
+            }
             var spotInfo = extractDataForspotInfo(JSON.parse(data), type),
                 htmlTemplateRoute = 'detailPage/slider_' + type + '.html',
                 html = [];
@@ -132,7 +158,8 @@ router.post('/detail', function(req, res) {
                     html = html.join("");
                     console.log(html.toString());
                     res.json({
-                        html: html.toString(),
+                        state : 0,
+                        html  : html.toString(),
                     });
                 });
         });
@@ -166,25 +193,25 @@ function selectUrlForSpotInfo(type) {
     console.log('type is: ' + type);
     switch(type) {
         case 'viewspot':
-            requestUrl = 'http://api.lvxingpai.com/web/poi/view-spots/';
+            requestUrl = 'http://api.lvxingpai.cn/web/poi/view-spots/';
             break;
         case 'vs':
-            requestUrl = 'http://api.lvxingpai.com/web/poi/view-spots/';
+            requestUrl = 'http://api.lvxingpai.cn/web/poi/view-spots/';
             break;
         case 'restaurant':
             requestUrl = '';
             break;
         case 'hotel':
-            requestUrl = 'http://api.lvxingpai.com/web/poi/hotels/';
+            requestUrl = 'http://api.lvxingpai.cn/web/poi/hotels/';
             break;
         case 'shopping':
             requestUrl = '';
             break;
-
-        //                      ＊＊＊＊改写借口＊＊＊＊
         case 'trainStation':
+            requestUrl = 'http://api.lvxingpai.cn/web/itineraries/trainstation/';
+            break;
         case 'airport':
-            requestUrl = 'http://api.lvxingpai.com/web/poi/hotels/';
+            requestUrl = 'http://api.lvxingpai.cn/web/itineraries/airport/';
             break;
 
         default:
@@ -258,6 +285,8 @@ function extractDataForspotInfo(data, type) {
                 usefulData = extractHotelInfo(data, type);
                 break;
             case 'trainStation':
+                usefulData = extractTrafficInfo(data, type);
+                break;
             case 'airport':
                 usefulData = extractTrafficInfo(data, type);
                 break;
@@ -274,21 +303,21 @@ function extractDataForspotInfo(data, type) {
 function extractViewSpotInfo(data, type) {
     var result = data.result,
         tempObject = {};
-    tempObject.id = result._id;
-    tempObject.name = result.name;
-    tempObject.image = result.imageList ? (result.imageList.length ? result.imageList[0] : " ") : " ";
-    tempObject.imageList = result.imageList;
-    tempObject.imageList = arrayToKVArray('image', tempObject.imageList);
-    tempObject.ranking = result.ratings ? result.ratings.ranking : 0;
-    tempObject.timeCost = result.timeCost;
-    tempObject.lng = result.addr ? result.addr.lng : '';
-    tempObject.lat = result.addr ? result.addr.lat : '';
-    tempObject.price = result.price ? result.price : "没有价格";
-    tempObject.type = type;
-    tempObject.desc = result.description ? result.description.desc : "抱歉，还没有相关介绍";
-    tempObject.tips = result.description ? (result.description.tips ? result.description.tips : "抱歉，还没有tips") : "抱歉，还没有tips";
-    tempObject.traffic = result.description ? (result.description.traffic ? result.description.traffic : "抱歉，还没有交通提示") : "抱歉，还没有交通提示";
-
+    tempObject.id           = result._id;
+    tempObject.name         = result.name;
+    tempObject.image        = result.imageList ? (result.imageList.length ? result.imageList[0] : " ") : " ";
+    tempObject.imageList    = result.imageList;
+    tempObject.imageList    = arrayToKVArray('image', tempObject.imageList);
+    tempObject.ranking      = getStrArray(Math.ceil(result.ratings.ranking * 5));
+    tempObject.reverse_ranking = getStrArray(5 - Math.ceil(result.ratings.ranking * 5));
+    tempObject.timeCost     = result.timeCost;
+    tempObject.lng          = result.addr ? result.addr.lng : '';
+    tempObject.lat          = result.addr ? result.addr.lat : '';
+    tempObject.price        = result.price ? result.price : "没有价格";
+    tempObject.type         = type;
+    tempObject.desc         = result.description ? result.description.desc : "抱歉，还没有相关介绍";
+    tempObject.tips         = result.description ? (result.description.tips ? result.description.tips : "抱歉，还没有tips") : "抱歉，还没有tips";
+    tempObject.traffic      = result.description ? (result.description.traffic ? result.description.traffic : "抱歉，还没有交通提示") : "抱歉，还没有交通提示";
     return tempObject;
 }
 
@@ -296,27 +325,29 @@ function extractViewSpotInfo(data, type) {
 function extractHotelInfo(data, type) {
     var result = data.result,
         tempObject = {};
-    tempObject.id = result._id;
-    tempObject.name = result.name;
-    tempObject.image = result.imageList ? (result.imageList.length ? result.imageList[0] : " ") : " ";
-    tempObject.imageList = result.imageList;
-    tempObject.imageList = arrayToKVArray('image', tempObject.imageList);
+    tempObject.id           = result._id;
+    tempObject.name         = result.name;
+    tempObject.image        = result.imageList ? (result.imageList.length ? result.imageList[0] : " ") : " ";
+    tempObject.imageList    = result.imageList;
+    tempObject.imageList    = arrayToKVArray('image', tempObject.imageList);
     // get array for loop in mustache
-    tempObject.starLevel = getStrArray(result.ratings.starLevel);
-    tempObject.desc = result.desc ? result.desc : "抱歉，还没有相关介绍";
+    tempObject.starLevel    = getStrArray(result.ratings.starLevel);
+    tempObject.reverse_starLevel = getStrArray(5 - result.ratings.starLevel);
+    tempObject.desc         = result.desc ? result.desc : "抱歉，还没有相关介绍";
+
     var phoneList = result.contact ? (result.contact.phoneList ? ( result.contact.phoneList) : "") : "";
     _.isArray(phoneList) ? (tempObject.phone = phoneList[0]) : (tempObject.phone = '暂无')
-
+    console.log(tempObject);
     return tempObject;
 }
 
-/* traffic info */
+/* traffic info: airpart | trainStation */
 function extractTrafficInfo(data, type) {
-    var fakeData = {
-        id      : "2312312313211",
-        name    : "汽车火车飞机（等待接口信息）",
-    };
-    return fakeData
+    var result      = data.result,
+        tempObject  = {};
+    tempObject.name = result.zhName;
+    tempObject.desc = result.desc;
+    return tempObject
 }
 
 

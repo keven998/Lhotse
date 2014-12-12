@@ -50,7 +50,6 @@
             var me = this;
             //上下滚动
             this.dom.on("click", "li", function (e, flag) {
-                //console.log(flag);
                 $(me.curLi).removeClass("current");
                 $(this).addClass("current");
                 me.curLi = this;
@@ -94,12 +93,11 @@
             var st = $(window).scrollTop() - 0;
             var docw = $(document).width();
             var left = (docw - $(".pl_wrapper").width()) / 2;
-            //console.log(st);
-            if(st>=480) {
+            if(st >= 490) {
                 this.dom.css({
                     position: 'fixed',
                     left: left,
-                    top: '100px'
+                    top: '110px'
                 });
             } else {
                 this.dom.css({
@@ -112,8 +110,4 @@
     };
 
     var timeList = new timeList(); // 导航栏
-    // window.timeList = timeList;
-
-    // if delete above sentence, cause error:
-    // timelist is undefined in index.js
 })();

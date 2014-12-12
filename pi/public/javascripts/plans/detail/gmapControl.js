@@ -27,7 +27,6 @@ define(['googlemapApi'], function(GMaper){
             // hack skill, nodeRenderData包含所有的数据
             var data = $('.nodeRenderData').val();
             console.log('_+_');
-            console.log(data);
             routeData = JSON.parse(data);
             for(var i in routeData) {
                 for(var j in routeData[i]) {
@@ -136,7 +135,7 @@ define(['googlemapApi'], function(GMaper){
                 cthis.showAllMarker();
             }else {
                 cthis.showOneDay(index);
-                mapControl.drawPublicTransitRoute(routeData[index - 1], null, function() {});
+                mapControl.drawDriveRoute(routeData[index - 1], null, function() {});
             }
             cthis.setFitView(index);
         };

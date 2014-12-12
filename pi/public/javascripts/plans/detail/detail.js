@@ -30,7 +30,8 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock', 'PopLayer'
          $('.hd').css({
             "position": "absolute",
             //"margin-bottom": "60px"
-         })
+         });
+         $('.line.line_traffic:last').empty();
         /*
          * 左侧列表和地图的交互：动态效果还没有出来，问题不明
          */
@@ -63,9 +64,9 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock', 'PopLayer'
         /*
          * 详情列表滚动对导航栏的互动
          */
-        $(window).on('scroll',scrollAction);
+        $(window).on('scroll', scrollAction);
         function scrollAction(){
-            var scrollTop = $(this).scrollTop() - 0,
+            var scrollTop = $(this).scrollTop(),
                 timelistId ='#' + trigVal(scrollTop, itemArr);
             $(timelistId).addClass('current');
             $(timelistId).siblings().removeClass('current');
@@ -76,7 +77,7 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock', 'PopLayer'
          * 导航栏对详情列表的互动
          */
         $(timelistitem).on('click', function() {
-            $(document).scrollTop($(this).attr('id'));
+            $(window).scrollTop($(this).attr('id'));
         })
 
 

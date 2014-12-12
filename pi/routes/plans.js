@@ -6,6 +6,9 @@ var request = require('request');
 var async = require('async');
 var config = require('../conf/system');
 var zone = require('../conf/zone');
+var _    = require('underscore');
+var moment = require('moment');
+moment.lang('zh-cn');
 
 // 新方法
 var model = require('../model/sup_model.js');
@@ -35,173 +38,63 @@ router.post('/timeline/save', function(req, res) {
 });
 
 /* plan detail */
-router.get('/detail/:UGCID', function(req, res) {
-    console.log('in plans/detail:ugcId');
-    var basicInfo = {
-            title   : "北京、苏州、杭州8日游",
-            copyCnt : "20",
-            viewCnt : "200",
-            picUrl  : "/images/plans/detail/banner.jpg",
-        },
-        spotData = [
-                        [
-                            {
-                                "id": "53abdfba10114e5815feb2d7",
-                                "name": "长沙站",
-                                "type": "trainStation",
-                                "locId": "53aa9a6510114e3fd4783acf",
-                                "locName": "长沙市",
-                                lng: 113.019827,
-                                lat: 28.200445
-                            },
-                            {
-                                "id": "53abf34110114e59bc20822f",
-                                "name": "T201",
-                                "type": "trainRoute",
-                                "locId": undefined,
-                                "locName": undefined
-                            }
-                        ],
-                        [
-                            {
-                                "id": "53abdfb610114e5815feb2b1",
-                                "name": "三亚站",
-                                "type": "trainStation",
-                                "locId": "53aa9a6510114e3fd4783c68",
-                                "locName": "三亚市",
-                                lng: 109.499414,
-                                lat: 18.30188
-                            },
-                            {
-                                "id": "53f3124e10114e376de5c29c",
-                                "name": "亚龙湾",
-                                "type": "viewspot",
-                                "locId": "53aa9a6510114e3fd4783c68",
-                                "locName": "三亚市",
-                                "lng": 109.671945,
-                                "lat": 18.213763
-                            },
-                            {
-                                "id": "53b0577810114e0595456e26",
-                                "name": "三亚凯莱仙人掌度假酒店",
-                                "type": "hotel",
-                                "locId": "53aa9a6510114e3fd4783c68",
-                                "locName": "三亚市",
-                                "lng": 109.654465265,
-                                "lat": 18.2365043862,
-                                "phone": "0898-88568866",
-                                "address": "三亚市亚龙湾国家旅游度假区"
-                            }
-                        ],
-                        [
-                            {
-                                "id": "53f30d5b10114e376de5b43d",
-                                "name": "蜈支洲岛",
-                                "type": "viewspot",
-                                "locId": "53aa9a6510114e3fd4783c68",
-                                "locName": "三亚市",
-                                "lng": 109.774859,
-                                "lat": 18.315233
-                            },
-                            {
-                                "id": "53b0577810114e0595456e26",
-                                "name": "三亚凯莱仙人掌度假酒店",
-                                "type": "hotel",
-                                "locId": "53aa9a6510114e3fd4783c68",
-                                "locName": "三亚市",
-                                "lng": 109.654465265,
-                                "lat": 18.2365043862,
-                                "phone": "0898-88568866",
-                                "address": "三亚市亚龙湾国家旅游度假区"
-                            }
-                        ],
-                        [
-                            {
-                                "id": "53f3105e10114e3779f93379",
-                                "name": "三亚湾",
-                                "type": "viewspot",
-                                "locId": "53aa9a6510114e3fd4783c68",
-                                "locName": "三亚市",
-                                "lng": 109.496987539,
-                                "lat": 18.2701703067
-                            },
-                            {
-                                "id": "53f311f910114e377228b230",
-                                "name": "鹿回头",
-                                "type": "viewspot",
-                                "locId": "53aa9a6510114e3fd4783c68",
-                                "locName": "三亚市",
-                                "lng": 109.490675095,
-                                "lat": 18.202998081
-                            },
-                            {
-                                "id": "53b0577810114e0595456e26",
-                                "name": "三亚凯莱仙人掌度假酒店",
-                                "type": "hotel",
-                                "locId": "53aa9a6510114e3fd4783c68",
-                                "locName": "三亚市",
-                                "lng": 109.654465265,
-                                "lat": 18.2365043862,
-                                "phone": "0898-88568866",
-                                "address": "三亚市亚龙湾国家旅游度假区"
-                            }
-                        ],
-                        [
-                            {
-                                "id": "53f30c4510114e376de5b119",
-                                "name": "南山文化旅游区",
-                                "type": "viewspot",
-                                "locId": "53aa9a6510114e3fd4783c68",
-                                "locName": "三亚市",
-                                "lng": 109.219445,
-                                "lat": 18.312019
-                            },
-                            {
-                                "id": "53f30e3810114e377228a770",
-                                "name": "天涯海角",
-                                "type": "viewspot",
-                                "locId": "53aa9a6510114e3fd4783c68",
-                                "locName": "三亚市",
-                                "lng": 109.349545,
-                                "lat": 18.305113
-                            },
-                            {
-                                "id": "53abdfb610114e5815feb2b1",
-                                "name": "三亚站",
-                                "type": "trainStation",
-                                "locId": "53aa9a6510114e3fd4783c68",
-                                "locName": "三亚市",
-                                lng: 109.499414,
-                                lat: 18.30188
-                            },
-                            {
-                                "id": "53abf34110114e59bc20822f",
-                                "name": "T201",
-                                "type": "trainRoute",
-                                "locId": undefined,
-                                "locName": undefined
-                            }
-                        ],
-                        [
-                            {
-                                "id": "53abdfba10114e5815feb2d7",
-                                "name": "长沙站",
-                                "type": "trainStation",
-                                "locId": "53aa9a6510114e3fd4783acf",
-                                "locName": "长沙市",
-                                lng: 113.019827,
-                                lat: 28.200445
-                            }
-                        ]
-                    ];
-    console.log((JSON.stringify(basicInfo)));
-    res.render('plans/detail', {
-        basicInfo       : basicInfo,
-        spotData        : spotData,
-        mapData         : JSON.stringify(spotData),
-        user_info       : utils.get_user_info(req, res),
-        config          : config,
-        already_saved   : false,
+router.get('/detail/:TEMPLATEID', function(req, res) {
+    console.log('in...');
+    var templateId = req.params.TEMPLATEID,
+        query      = req._parsedUrl.query;
+
+    model.setUrl(apiList.ugc.planDetail + templateId + '?' + query);
+    model.getdata(null, function(data){
+        if(!utils.checkApiRequestState(data)) {
+            console.log("==== api request error ====");
+            console.log("request url: ");
+            console.log(model.getUrl());
+            /* render error page */
+            res.render('common/error', {
+                user_info       : utils.get_user_info(req, res),
+                config          : config,
+                already_saved   : false,
+            })
+            return ;
+        }
+        console.log(model.getUrl());
+        var oriData     = JSON.parse(data),
+            result      = oriData.result,
+
+            title       = result.title,
+            copyCnt     = result.forkedCnt,
+            viewCnt     = result.vsCnt,
+            days        = result.days,
+            picUrl      = (result.imageList && (_.isArray(result.imageList)) && result.imageList[0]) ? result.imageList[0] : "用来替换的pic图片",
+            startDate   = result.startDate.substring(0, 10),
+            endDate     = result.endDate.substring(0, 10),
+            basicInfo   = {
+                title       : title,
+                copyCnt     : copyCnt,
+                viewCnt     : viewCnt,
+                picUrl      : picUrl,
+                days        : days,
+                startDate   : startDate,
+                endDate     : endDate,
+            },
+            ugcDetail       = result.details,
+            detailInfo      = dataExtract.detailData(null, ugcDetail),
+            spotData        = detailInfo.spotData,
+            viewspotCnt     = detailInfo.viewspotCnt,
+            dates           = detailInfo.dates,
+            calendarData    = detailInfo.calendarData;
+
+            res.render('plans/detail', {
+                basicInfo       : basicInfo,
+                spotData        : spotData,
+                dates           : dates,
+                calendarData    : calendarData,
+                viewspotCnt     : viewspotCnt,
+                mapData         : JSON.stringify(spotData),
+                user_info       : utils.get_user_info(req, res),
+                config          : config,
+                already_saved   : false,
+            });
     });
 });
 
@@ -214,7 +107,8 @@ router.get('/edit/:UGCID', function(req, res) {
         config: config,
         already_saved: false,
     });
-    // async.parallel([
+//{
+    //async.parallel([
     //     function route(callback) {
     //         ugcDataEdit.route(req, callback);
     //     },
@@ -247,6 +141,7 @@ router.get('/edit/:UGCID', function(req, res) {
     //             startDate: currentDate,
     //         });
     //     })
+//}
 });
 
 
@@ -461,7 +356,7 @@ router.get('/create/', function(req, res){
     });
 });
 
-
+        /* old data to be delete BEGIN*/
 /* route timeline */
 router.get('/timeline/:TEMPLATES', function(req, res) {
     var ori_res = res;
@@ -509,6 +404,8 @@ router.get('/timeline/customized/:UGCID', function(req, res) {
         });
     });
 });
+        /* old data to be delete BEGIN*/
+
 
 
                 /* ---- 以下代码为调用函数 ---- */
@@ -777,104 +674,113 @@ var dataExtract = (function () {
     };
 
 
-    var detailData = function(req, data) {
-        var result = data.result;
-        var details = result.details;
-        // extract date, e.x. "2014-08-30 00:00:00+0800" --> "2014-08-30"
-        for (var i = 0; i < details.length; i++) {
-        details[i].date = details[i].date.split(" ")[0];
+    var detailData = function(req, details) {
+        if(!_.isArray(details)){
+            return null;
         }
+        var spotInfo     = [],
+            viewspotCnt  = [],
+            dates        = [],
+            calendarData = [];
+        for(var dayIndex in details){
+            var oneDayPlan      = details[dayIndex].actv,
+                tempOneDay      = [],
+                viewspotSlug    = 0,
+                // data for calendar format
+                oneDayCalendar  = {},
+                trafficCalendar = [],
+                viewspotCalendar= [],
+                hotelCalendar   = [],
+                costCalendar    = 0,
+                remarkCalendar  = '';
 
-        // detail information
-        var allRoutes = new Array();
-        for (var dayNumber = 0; dayNumber < details.length; dayNumber++) {
-            var oneDay = new Object();
-            var tempDay = details[dayNumber];
+            var date        = gstTime.date(details[dayIndex].date),
+                weekFlay    = moment(date).format('dddd');
+            dates.push(date);
+            oneDayCalendar.date     = date;
+            oneDayCalendar.weekFlay = weekFlay;
 
-            oneDay['date'] = tempDay.date;
-            oneDay['hasTraffic'] = "no"; //default "no"
+            if(_.isArray(oneDayPlan)){
+                for(var spotIndex in oneDayPlan){
+                    var curSpot      = oneDayPlan[spotIndex],
+                        tempSpot     = {},
+                        type         = curSpot.type,
+                        subType      = curSpot.subType;
 
-            var oneDayTempRoutes = tempDay.actv;
-            var oneDayRoutes = new Array();
-            for (var routeNum = 0; routeNum < oneDayTempRoutes.length; routeNum++) {
-                var tempRoute = new Object();
-                // 景点信息提取
-                if (oneDayTempRoutes[routeNum].type == "vs") {
-                    tempRoute['itemId'] = oneDayTempRoutes[routeNum].itemId;
-                    tempRoute['itemName'] = oneDayTempRoutes[routeNum].itemName;
-                    tempRoute['locId'] = oneDayTempRoutes[routeNum].locId;
-                    tempRoute['locName'] = oneDayTempRoutes[routeNum].locName;
-                    tempRoute['type'] = oneDayTempRoutes[routeNum].type;
-                    tempRoute['imageList'] = oneDayTempRoutes[routeNum].details.imageList;
-                    tempRoute['tags'] = oneDayTempRoutes[routeNum].details.tags;
-                    tempRoute['price'] = oneDayTempRoutes[routeNum].details.price || 0;
-                    tempRoute['timeCost'] = oneDayTempRoutes[routeNum].details.timeCost;
-                    tempRoute['lat'] = oneDayTempRoutes[routeNum].details.addr.lat;
-                    tempRoute['lng'] = oneDayTempRoutes[routeNum].details.addr.lng;
-                    tempRoute['openTime'] = oneDayTempRoutes[routeNum].details.openTime;
-                    oneDayRoutes.push(tempRoute);
-                }
-                else if (oneDayTempRoutes[routeNum].type == "traffic") {
-                    oneDay['hasTraffic'] = "yes";
-                    // 机场信息提取
-                    if (oneDayTempRoutes[routeNum].subType == "airport" || oneDayTempRoutes[routeNum].subType == "trainStation") {
-                        tempRoute['itemId'] = oneDayTempRoutes[routeNum].itemId;
-                        tempRoute['itemName'] = oneDayTempRoutes[routeNum].itemName;
-                        tempRoute['locId'] = oneDayTempRoutes[routeNum].locId;
-                        tempRoute['locName'] = oneDayTempRoutes[routeNum].locName;
-                        tempRoute['type'] = oneDayTempRoutes[routeNum].subType;;
-                        tempRoute['stopType'] = oneDayTempRoutes[routeNum].stopType;
-                        tempRoute['lat'] = oneDayTempRoutes[routeNum].lat;
-                        tempRoute['lng'] = oneDayTempRoutes[routeNum].lng;
-
-                        oneDayRoutes.push(tempRoute);
+                    if(subType == 'airRoute' || subType == 'trainRoute') {
+                        continue;
                     }
-                    else if (oneDayTempRoutes[routeNum].subType == "airRoute" || oneDayTempRoutes[routeNum].subType == "trainRoute") {
-                        // 航班路线提取
-                        tempRoute['itemId'] = oneDayTempRoutes[routeNum].itemId;
-                        tempRoute['itemName'] = oneDayTempRoutes[routeNum].itemName;
-                        tempRoute['type'] = oneDayTempRoutes[routeNum].subType;
-                        tempRoute['ts'] = gstTime.time(oneDayTempRoutes[routeNum].ts);
-                        tempRoute['arrTime'] = gstTime.time(oneDayTempRoutes[routeNum].arrTime);
-                        oneDayRoutes.push(tempRoute);
-                    }
-                    else if (oneDayTempRoutes[routeNum].subType == "train") {
-                        // 火车路线提取
-                        tempRoute['itemId'] = oneDayTempRoutes[routeNum].itemId;
-                        tempRoute['itemName'] = oneDayTempRoutes[routeNum].itemName;
-                        tempRoute['type'] = oneDayTempRoutes[routeNum].subType;
-                        tempRoute['ts'] = gstTime.time(oneDayTempRoutes[routeNum].ts);
-                        tempRoute['arrTime'] = gstTime.time(oneDayTempRoutes[routeNum].arrTime);
 
-                        oneDayRoutes.push(tempRoute);
-                    }
-                }
-                else if (oneDayTempRoutes[routeNum].type == "hotel") {
-                    // 酒店信息提取
-                    tempRoute['itemId'] = oneDayTempRoutes[routeNum].itemId;
-                    tempRoute['itemName'] = oneDayTempRoutes[routeNum].itemName;
-                    tempRoute['locId'] = oneDayTempRoutes[routeNum].locId;
-                    tempRoute['locName'] = oneDayTempRoutes[routeNum].locName;
-                    tempRoute['type'] = oneDayTempRoutes[routeNum].type;
-                    tempRoute['imageList'] = oneDayTempRoutes[routeNum].details.imageList;
-                    tempRoute['starLevel'] = oneDayTempRoutes[routeNum].details.ratings.starLevel;
-                    tempRoute['desc'] = oneDayTempRoutes[routeNum].details.desc;
-                    tempRoute['price'] = oneDayTempRoutes[routeNum].details.price || 0;
-                    tempRoute['phoneList'] = oneDayTempRoutes[routeNum].details.contact.phoneList;
-                    tempRoute['lat'] = oneDayTempRoutes[routeNum].details.addr.lat;
-                    tempRoute['lng'] = oneDayTempRoutes[routeNum].details.addr.lng;
-                    tempRoute['addr'] = oneDayTempRoutes[routeNum].details.addr.addr;
+                    tempSpot.id      = curSpot.itemId;
+                    tempSpot.name    = curSpot.itemName;
+                    tempSpot.locId   = curSpot.locId;
+                    tempSpot.locName = curSpot.locName;
 
-                    oneDayRoutes.push(tempRoute);
+                    switch(type) {
+                        case 'vs':
+                            tempSpot.type       = 'viewspot';
+                            tempSpot.lng        = curSpot.details.addr.lng;
+                            tempSpot.lat        = curSpot.details.addr.lat;
+                            tempSpot.price      = curSpot.details.priceDesc || 0;
+                            tempSpot.timeCost   = curSpot.details.timeCost;
+                            tempSpot.ranking    = Math.ceil(curSpot.details.ratings.ranking * 5);
+                            tempSpot.img        = curSpot.details.imageList[0];
+                            viewspotSlug        = viewspotSlug + 1;
+                            costCalendar        = costCalendar + parseInt(tempSpot.price);
+                            viewspotCalendar.push(tempSpot.name);
+                            break;
+                        case 'hotel':
+                            tempSpot.type       = 'hotel';
+                            tempSpot.lng        = curSpot.details.addr.lng;
+                            tempSpot.lat        = curSpot.details.addr.lat;
+                            tempSpot.price      = curSpot.details.price;
+                            tempSpot.img        = curSpot.details.imageList[0];
+                            tempSpot.starLevel  = curSpot.details.ratings.starLevel;
+                            costCalendar        = costCalendar + parseInt(tempSpot.price);
+                            hotelCalendar.push(tempSpot.name);
+                            break;
+                        case 'traffic':
+                            tempSpot.type       = curSpot.subType;
+                            tempSpot.lng        = curSpot.lng;
+                            tempSpot.lat        = curSpot.lat;
+                            break;
+                        case 'food':
+                            tempSpot.type       = "food";
+                        default:
+                            break;
+                    }
+                    if (type == 'traffic' && curSpot.stopType == "dep") {
+                        var nextIndex   = parseInt(spotIndex) + 1,
+                            nextSpot    = oneDayPlan[nextIndex];
+                        tempSpot.detail = {
+                            name     : nextSpot.itemName,
+                            type     : nextSpot.subType,
+                            transfer : nextSpot.transfer,
+                            depTime  : gstTime.time(nextSpot.depTime),
+                            arrTime  : gstTime.time(nextSpot.arrTime),
+                            date     : gstTime.date(nextSpot.depTime)
+                        };
+                        trafficCalendar.push(tempSpot.detail);
+                    };
+                    tempOneDay.push(tempSpot);
                 }
+                viewspotCnt.push(viewspotSlug);
+                spotInfo.push(tempOneDay);
+                // data for calendar format
+                oneDayCalendar.traffics      = trafficCalendar;
+                oneDayCalendar.viewspots     = viewspotCalendar;
+                oneDayCalendar.hotels        = hotelCalendar;
+                oneDayCalendar.cost         = costCalendar;
+                oneDayCalendar.remark       = remarkCalendar;
+                calendarData.push(oneDayCalendar);
             }
-            oneDay['actv'] = oneDayRoutes;
-            oneDayRoutes = null;
-            allRoutes.push(oneDay);
-            oneDay = null;
         }
-
-        return allRoutes;
+        return {
+            spotData    : spotInfo,
+            viewspotCnt : viewspotCnt,
+            dates       : dates,
+            calendarData: calendarData
+        };
     };
 
     return {
