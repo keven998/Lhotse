@@ -125,7 +125,6 @@ Vcity.regExChiese = /([\u4E00-\u9FA5\uf900-\ufa2d]+)/;
             reg2 = /^[a-h]$/i, reg3 = /^[i-p]$/i, reg4 = /^[q-z]$/i;
     if (!Vcity.oCity) {
         Vcity.oCity = {hot:{},ABCDEFGH:{}, IJKLMNOP:{}, QRSTUVWXYZ:{}};
-        //console.log(citys.length);
         for (var i = 0, n = citys.length; i < n; i++) {
             match = regEx.exec(citys[i]);
             letter = match[3].toUpperCase();
@@ -199,10 +198,14 @@ Vcity.CitySelector.prototype = {
         Vcity._m.on(document, 'click', function (event) {
             event = Vcity._m.getEvent(event);
             var target = Vcity._m.getTarget(event);
-            if(target == that.input) return false;
-            if (that.cityBox)Vcity._m.addClass('hide', that.cityBox);
-            if (that.ul)Vcity._m.addClass('hide', that.ul);
-            if(that.myIframe)Vcity._m.addClass('hide',that.myIframe);
+            if(target == that.input)
+                return false;
+            if (that.cityBox)
+                Vcity._m.addClass('hide', that.cityBox);
+            if (that.ul)
+                Vcity._m.addClass('hide', that.ul);
+            if(that.myIframe)
+                Vcity._m.addClass('hide',that.myIframe);
         });
         div.className = 'citySelector';
         div.style.position = 'absolute';
@@ -320,7 +323,7 @@ Vcity.CitySelector.prototype = {
                     that.input.value = this.innerHTML;
                 }
                 else{
-                    document.getElementById('from').innerHTML = this.innerHTML;
+                    document.getElementById('fromText').innerHTML = this.innerHTML;
                 }
 
                 Vcity._m.addClass('hide',that.cityBox);
@@ -518,4 +521,4 @@ Vcity.CitySelector.prototype = {
 };
 
 var from = new Vcity.CitySelector({input:'from'});
-var arrive = new Vcity.CitySelector({input:'arrive'});
+// var arrive = new Vcity.CitySelector({input:'arrive'});

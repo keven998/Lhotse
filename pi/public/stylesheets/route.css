@@ -205,7 +205,7 @@ p.tip{color:#666;line-height:20px;padding:5px;margin:0;text-indent:3px;}
 .cityTab dl dd a:hover{text-decoration:underline;color:red}
 .cityinput{border-width:1px;border-style:solid;border-color:#666 #ccc #ccc #666;height:24px;line-height:24px;width:175px;font-size:12px;padding-left:2px;background:url(T1EPyLXm0hXXXXXXXX-200-100.png) no-repeat 150px 5px;}
 */
-
+#from{display: inline-block;vertical-align: top;}
 .citySelector{  font:12px/1.5 tahoma,arial,\5b8b\4f53; background: #fff; text-align:left; }
 .cityslide {width:250px; list-style:none; margin:-2px 0 0 -2px; padding:0; border: 1px solid #85BEE5; border-right-color: #3485C0; border-bottom-color: #3485C0;box-shadow: 2px 2px 3px rgba(0,0,0,0.3);}
 .cityslide li { list-style:none; overflow:hidden;  height:16px; padding:4px 5px;}
