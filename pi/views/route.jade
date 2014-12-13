@@ -14,15 +14,19 @@ block content
         .bg-blue
             .search-bg
                 i.ico-position
-                b 北京
-                b.change [更换]
+                #from
+                    b#fromText #{fromName}
+                    //
+                        input.w40(type="text" name="fromName" placeholder='城市' id="from" onkeyup="suggestion_from(this.value)" autocomplete="off" value='#{fromName}')
+                    b.change [更换]
                 b.line
-                input(type="text" name="arrivName" placeholder='景点/城市/省份' id="arrive" onkeyup="suggestion_to(this.value)" autocomplete="off")
+                input(type="text" name="arriveName" placeholder='景点/城市/省份' id="arrive" onkeyup="suggestion_to(this.value)" autocomplete="off" value='#{arriveName}')
                 i.ico-addpos
-                a(href="#" onclick="go_plan_list()")
-                    #search-btn.s-btn()
-                #suggestion_to.suggestion(style="margin-left:270px;width:373px;")
-                #suggestion_from.suggestion(style="width:250px;")
+                #suggestion_to.suggestion(style="margin-left:130px;width:350px;z-index:100;")
+                //
+                    a(href="#" onclick="go_plan_list()")
+                        #search-btn.s-btn()
+                    #suggestion_from.suggestion(style="width:250px;")
         .route_container
             ul.filter-nav
                 - var index = 0;
@@ -87,6 +91,3 @@ block content
                     .no-data 很遗憾，没有为您找到相关路线，请尝试输入其他目的地。
         .map_container
             #map_inner
-
-    script(src='/javascripts/lib/icheck.min.js' rel='javascript')
-    script(src='/javascripts/lib/jquery.idTabs.min.js' rel='javascript')

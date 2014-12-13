@@ -4,10 +4,13 @@ require.config({
     baseUrl: '/javascripts/',
     paths: {
         "googlemapApi": "lib/googlemap.api",
+        "citySelector": "lib/cityselector",
+        "idTabs": "lib/jquery.idTabs.min",
+        "iCheck": "lib/icheck.min",
     },
 });
 
-require(['googlemapApi'], function(GMaper) {
+require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
 
     var Travelpi = {},
         selectPanel = null;
@@ -15,15 +18,15 @@ require(['googlemapApi'], function(GMaper) {
     $(function () {
         container_initial();
         /*导航筛选器————点击空白处收起导航下拉项*/
-        //效果不好，点击其它的"a"元素也不能收起    //已阅
-        var navLayers = $('.filter-nav>li .layer'),  //筛选器   筛选条件列表     //已改
+        //效果不好，点击其它的"a"元素也不能收起
+        var navLayers = $('.filter-nav>li .layer'),  //筛选器   筛选条件列表
             sortLayer = $('#sort + .layer'),    //排序    条件列表
             moreLayer = $('.ico-more-list + .layer');   //登录注册列表
         //$(document).on('click', '.g-bd,.g-hd,.filter-nav', function (e) {
         $(document).on('click', '.full-screen', function (e) {
             var target = e.target;
             if ( target.nodeName !== 'A' && target.nodeName !== 'I' && target.nodeName !== 'B' && target.nodeName !== 'LI' ) {
-                //判定方式是触发的元素是否与列表中的元素类型一样...太泛了(除非其它地方都不用这些元素！) //已改
+                //判定方式是触发的元素是否与列表中的元素类型一样...太泛了(除非其它地方都不用这些元素！)
                 navLayers.each(function () {
                     if ( $(this).css('display') === 'block' ) {
                         $(this).hide('fast');
@@ -47,9 +50,9 @@ require(['googlemapApi'], function(GMaper) {
 
 
         /*条件筛选————tab点击效果*/
-        //点击tab出现下拉选项表的过程   //已改
+        /********* Filter Select *********/
         var navList = $('.filter-nav>li>a');
-        navList.each(function (index) {//index表示是list中的第几个元素
+        navList.each(function (index) {
             $(this).on('click', function () {
                 var Index = index,
                     $this = $(this),
@@ -65,7 +68,7 @@ require(['googlemapApi'], function(GMaper) {
                     // $this.children('b').css('border-bottom', 'none');
                 }
 
-                //绑定下拉的收回事件,此处需要off         绑定了最后的last类(可点击的小三角)
+                //绑定下拉的收回事件,此处需要off ?         绑定了最后的last类(可点击的小三角)
                 $thisParent.children('.layer').find('.list-last').on('click', function () {
                     $(this).parents('.layer').hide('fast');
                     icoClass.removeClass('ico-arr01').addClass('ico-arr02');
@@ -198,15 +201,33 @@ require(['googlemapApi'], function(GMaper) {
             }
         );
         */
+        /********** Filter End ***********/
 
 
-        /*列表显隐切换*/  //已改
-        //指列表中的下拉弹层
-        var routeList = $('.routelist>li'),   //  routeList是指路线列表
-            rListDatafor,   //  $this.attr('data-for')  =>  list-sub-01
-            layerId,    //  '#' + rListDatafor  =>  #list-sub-01
-            tabUl,      //  layerId + ' ul';    =>  #list-sub-01 ul
+        /*列表显隐切换*/
+        /********* Route DropLayer *********/
+        var routeList = $('.routelist>li'),
             locked = false;
+
+        function addTabNav($this){
+            var tabNav =
+                '<div class="drop_layer">' +
+                   ' <ul class="tab_nav">' +
+                        //<li><a href="#route-tab1">线路简介</a></li>
+                        '<li><a href="#route-tab1">景点列表</a></li>' +
+                        '<li><a href="#route-tab2">图片</a></li>' +
+                        '<li><a href="#route-tab3">相关游记</a></li>' +
+                        '<li><a id="route">更多>></a></li>' +
+                        '<span class="nav_close" id="drop_close"><i class="btn-close3"></i></span>' +
+                    '</ul>' +
+                    '<div class="loading">' +
+                        '<i class="ico02 ico02-loading"></i>' +
+                        '<a class="btn"></a>' +
+                    '</div>' +
+                '</div>';
+            $this.after(tabNav);
+            return ;
+        }
         routeList.each(function () {
             var $this = $(this);
             $this.on('click', function (e) {
@@ -230,22 +251,7 @@ require(['googlemapApi'], function(GMaper) {
                         }else{
                             $(layerClass).remove();
                             $('.slider_layer').remove();
-                            var tabNav =
-                                '<div class="drop_layer">' +
-                                   ' <ul class="tab_nav">' +
-                                        //<li><a href="#route-tab1">线路简介</a></li>
-                                        '<li><a href="#route-tab1">景点列表</a></li>' +
-                                        '<li><a href="#route-tab2">图片</a></li>' +
-                                        '<li><a href="#route-tab3">相关游记</a></li>' +
-                                        '<li><a id="route">更多>></a></li>' +
-                                        '<span class="nav_close" id="drop_close"><i class="btn-close3"></i></span>' +
-                                    '</ul>' +
-                                    '<div class="loading">' +
-                                        '<i class="ico02 ico02-loading"></i>' +
-                                        '<a class="btn"></a>' +
-                                    '</div>' +
-                                '</div>';
-                            $this.after(tabNav);
+                            addTabNav($this);
                             $.ajax({
                                 url: requestUrl,
                                 async: true,
@@ -378,6 +384,8 @@ require(['googlemapApi'], function(GMaper) {
                 }
             })
         });
+        /************ Drop End *************/
+
 
         //排序事件
         $('.sort').on('click',function(){
@@ -390,89 +398,8 @@ require(['googlemapApi'], function(GMaper) {
         })
 
 
-        /*
-        //弹层
-        routeList.on('click','a.c-img,h2,a.btn02-c1',function(e){
-            var requestUrl = $(this).parents('li').attr('data-url');//假设单项的数据请求地址写在父级dom li中
-            sider.css('height', sider_height);
-            layer.fadeIn("fast");
-            sider.show();
-            sider.animate({
-                right: 0
-            }, 300, "swing", function(){
-                $.ajax({
-                    url : requestUrl,
-                    data : {},
-                    success : function (msg) {
-                        $("span.day span").text("全程 " + msg.details.days+ " 天");
-                        $("span.vsCnt span").text("共 " + msg.details.vsCnt + " 个景点");
-                        var tags = "旅途印象: ";
-                        for (var i = 0; i < msg.details.tags.length-1; i++) {
-                            tags += msg.details.tags[i] + ", ";
-                        }
-                        tags += msg.details.tags[i];
-                        $("span.tags span").text(tags);
-                        $("ul.l").empty();
-                        for (var i = 0; i < msg.details.summary.length; i++) {
-                            $("ul.l").append("<li><b class='date'>D" + (i+1) + "</b>" + msg.details.summary[i] + "</li>");
-                        }
-                        $(".c .routename").text(msg.details.title);
-                        $(".c .moredesc").append(msg.details.moreDesc);
-                        $(".c").show();
-                        $(".loading").hide();
-                        //请求成功后，写入dom,打开侧栏、遮罩
-                        var noteList = $('#item02').children('ul'),
-                            note, noteItem;
-                        for (var i = 0; i < msg.notes.length; i++){
-                            note = msg.notes[i];
-                            noteList.append('<li><a class="n' + i + '"></a></li>');
-                            noteItem = noteList.find('a.n'+ i);//在DOM中定位
-                            noteItem.attr('href',note.sourceUrl);
-                            noteItem.attr('target', '_blank');
-                            noteItem.append('<img class="sider-userimg" src="' + note.authorAvatar + '">');
-                            noteItem.append('<h1 class="t1">' + note.title +'</h1>');
-                            noteItem.append('<em><span class="au">' + note.authorName + '</span>发表于</em>');
-                            noteItem.append('<em class="time">' + note.publishDate + '</em>');
-                            noteItem.append('<p class="txt">' + note.summary.substring(0,100) + "..." + '</p>');
-                            noteItem.append('<p class="ico-g"><i class="ico01 ico01-eye"></i><b>浏览' + note.viewCnt + '</b></p>');
-                            var source;
-                            switch (msg.notes[0].source){
-                                case 'baidu':
-                                    source = "来自百度旅游";
-                                    break;
-                                case 'qyer':
-                                    source = "来自穷游网";
-                                    break;
-                                case 'mafengwo':
-                                    source = "来自蚂蜂窝";
-                                    break;
-                                default:
-                                    source = "";
-                            }
-                            noteItem.append('<p class="ico-g"><i class="ico01 ico01-source"></i><b>' + source + '</b></p>');
-                        }
-                    },
-                    error : function () {
-                        console.log('error!!!')
-                    }
-                });
-
-                layer.on('click',function(e){
-                    sider.animate({
-                        right: -600
-                    }, 300, 'swing');
-                    $(".c").hide();
-                    $(".loading").show();
-                    $(".c .moredesc").empty();
-                    $("ul.about-list").empty();
-                    layer.fadeOut("fast");
-                });
-            });
-        });
-        */
-
-
         //复制路线-弹层
+        /********* Fork poplayer *********/
         function getParamsFromRadio(flag, name){
             var elems = document.getElementsByName(name);
             for(var i in elems){
@@ -810,6 +737,12 @@ require(['googlemapApi'], function(GMaper) {
         $('.fork').each(function(){
             $(this).on('click', popLayer)
         })
+        /*********** Fork End ************/
+
+        /********* City Selector *********/
+        var from = new Vcity.CitySelector({input:'from'});
+        // var arrive = new Vcity.CitySelector({input:'arrive'});
+        /*********** City End ************/
     })
 
 
@@ -1022,4 +955,6 @@ require(['googlemapApi'], function(GMaper) {
             $('#map_inner').css('width',wWidth - routeListWidth);
         })
     }
+
+
 });
