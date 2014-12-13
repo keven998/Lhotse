@@ -46,7 +46,7 @@ router.get('/layer/:ROUTEID', function(req, res){
 
 
             /*render the html*/
-            var data = regroupData(route_data , misc_data);
+            var data = regroupData(route_data, misc_data);
 
             mu.compileAndRender(dropLayerTemplate , data)
             .on('data', function(chunk) {
@@ -171,7 +171,7 @@ function selectUrl(tag, minDay, maxDay, arrId, fromId, page, pageSize) {
 
   
 /*regroup the data-struct*/
-function regroupData(route_data,misc_data){
+function regroupData(route_data, misc_data){
     /*for the scroll images*/
     var imgView = [];
     for(var key in route_data.imageList){
@@ -307,7 +307,8 @@ function regroupData(route_data,misc_data){
             flag: miscFlag,
             dropMiscList: dropMiscList
         },
-        miscView: miscView
+        miscView: miscView,
+        routeId: route_data._id
     }
 }
 
