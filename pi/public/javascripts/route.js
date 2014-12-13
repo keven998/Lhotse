@@ -4,11 +4,13 @@ require.config({
     baseUrl: '/javascripts/',
     paths: {
         "googlemapApi": "lib/googlemap.api",
-        "citySelector": "lib/cityselector"
+        "citySelector": "lib/cityselector",
+        "idTabs": "lib/jquery.idTabs.min",
+        "iCheck": "lib/icheck.min",
     },
 });
 
-require(['googlemapApi','citySelector'], function(GMaper) {
+require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
 
     var Travelpi = {},
         selectPanel = null;
