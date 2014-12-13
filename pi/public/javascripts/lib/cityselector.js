@@ -519,6 +519,3 @@ Vcity.CitySelector.prototype = {
         }
     }
 };
-
-var from = new Vcity.CitySelector({input:'from'});
-// var arrive = new Vcity.CitySelector({input:'arrive'});

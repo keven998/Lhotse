@@ -4,10 +4,11 @@ require.config({
     baseUrl: '/javascripts/',
     paths: {
         "googlemapApi": "lib/googlemap.api",
+        "citySelector": "lib/cityselector"
     },
 });
 
-require(['googlemapApi'], function(GMaper) {
+require(['googlemapApi','citySelector'], function(GMaper) {
 
     var Travelpi = {},
         selectPanel = null;
@@ -735,6 +736,11 @@ require(['googlemapApi'], function(GMaper) {
             $(this).on('click', popLayer)
         })
         /*********** Fork End ************/
+
+        /********* City Selector *********/
+        var from = new Vcity.CitySelector({input:'from'});
+        // var arrive = new Vcity.CitySelector({input:'arrive'});
+        /*********** City End ************/
     })
 
 
