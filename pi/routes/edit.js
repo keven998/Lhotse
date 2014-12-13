@@ -308,16 +308,19 @@ function extractViewSpotInfo(data, type) {
     tempObject.image        = result.imageList ? (result.imageList.length ? result.imageList[0] : " ") : " ";
     tempObject.imageList    = result.imageList;
     tempObject.imageList    = arrayToKVArray('image', tempObject.imageList);
+    // ranking is a array,like ['o', 'o']. the same as reverse_ranking
+    // do this just want to use loop in mustache
     tempObject.ranking      = getStrArray(Math.ceil(result.ratings.ranking * 5));
     tempObject.reverse_ranking = getStrArray(5 - Math.ceil(result.ratings.ranking * 5));
     tempObject.timeCost     = result.timeCost;
     tempObject.lng          = result.addr ? result.addr.lng : '';
     tempObject.lat          = result.addr ? result.addr.lat : '';
-    tempObject.price        = result.price ? result.price : "没有价格";
+    tempObject.price        = result.priceDesc ? result.priceDesc : "没有价格";
     tempObject.type         = type;
-    tempObject.desc         = result.description ? result.description.desc : "抱歉，还没有相关介绍";
+    tempObject.openTime     = result.openTime;
+    tempObject.desc         = result.desc ? result.desc : "抱歉，还没有相关介绍";
     tempObject.tips         = result.description ? (result.description.tips ? result.description.tips : "抱歉，还没有tips") : "抱歉，还没有tips";
-    tempObject.traffic      = result.description ? (result.description.traffic ? result.description.traffic : "抱歉，还没有交通提示") : "抱歉，还没有交通提示";
+    tempObject.traffic      = result.trafficInfo ? result.trafficInfo : "抱歉，还没有交通提示";
     return tempObject;
 }
 

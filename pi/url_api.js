@@ -57,7 +57,8 @@ var urlApi = {
         // 有待扩充
         timeline : '/web/ugc-plans/templates/TEMPLATES?fromLoc=_fromLoc',
         // 暂时不能保存路线，所以用查询某个模板路线的数据代替
-        edit : '/web/ugc-plans/UGCID',
+        // TODO  换成 .com的接口  对应plans.js中的 路由'/edit/:UGCI'
+        edit : 'http://api.lvxingpai.cn/web/ugc-plans/',
     },
 
     //mine页面，根据用户ID获取我的计划列表

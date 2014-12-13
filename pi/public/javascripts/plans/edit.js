@@ -344,7 +344,7 @@ var DayMapControl = function(constructInput) {
             } else {
                 currDayData = inputBuff[num];
             }
-            1 !== currDayData.length && map.drawDriveRoute(currDayData, function() {});
+            1 !== currDayData.length && map.drawDriveRoute(currDayData, null,function() {});
         };
         // 隐藏一天的点
         that.hideDayMarkers = function(num) {
@@ -545,12 +545,13 @@ var TabMapControl = function() {
     that.getListAjax = function() {
         // TODO get data
         console.log("get " + activedClassName + ' data');
+        var locId = $('.title').attr('data-locId');
         var postData = {
             'type': activedClassName,
             'option': {
-                'locId': INTERFACE.basicInfo.locId,
-                'pageSize': 10,
-                'page': 1,
+                'locId'     : locId,
+                'pageSize'  : 10,
+                'page'      : 1,
             },
         };
         $.ajax({
@@ -687,16 +688,36 @@ var const_topNaviBarHeight = 60,
     const_topTitleHeight = 45,
     const_mapMarginLeft = 320;
 function initMaper() {
-    console.log('callback in');
+    // hack skill, nodeRenderData包含所有的数据
+    var data        = $('.nodeRenderData').val(),
+        spotData    = JSON.parse(data);
+
+    console.log(spotData);
+
+    function getSpotData(spotInfo, callback) {
+        console.log("－－弹层数据请求－－");
+         $.ajax({
+             url: "/edit/spotInfo",
+             type: "post",
+             async: true,
+             data: { "id": spotInfo.id, "type": spotInfo.type },
+             success: function (data) {
+                 console.log('送回弹层html');
+                 console.log(data);
+                 callback(data);
+            }
+         });
+     };
+
     dayMapControl = new DayMapControl({
         getInfoData: function(spotInfo, callback) {
-            INTERFACE.getInfoData(spotInfo, function(ajaxData) {
+            getSpotData(spotInfo, function(ajaxData) {
             console.log('getInfoData\'s callback running, console out the ajaxData');
                 callback(ajaxData);
             });
         }
     });
-    dayMapControl.init(INTERFACE.spotData, function() {});
+    dayMapControl.init(spotData, function() {});
 
     tabMapControl = new TabMapControl();
     tabMapControl.init(dayMapControl.getMaper());

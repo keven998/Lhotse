@@ -8,7 +8,7 @@ var config = require('../conf/system');
 var zone = require('../conf/zone');
 var _    = require('underscore');
 var moment = require('moment');
-moment.lang('zh-cn');
+moment.locale('zh-cn');
 
 // 新方法
 var model = require('../model/sup_model.js');
@@ -58,27 +58,11 @@ router.get('/detail/:TEMPLATEID', function(req, res) {
             return ;
         }
         console.log(model.getUrl());
-        var oriData     = JSON.parse(data),
-            result      = oriData.result,
-
-            title       = result.title,
-            copyCnt     = result.forkedCnt,
-            viewCnt     = result.vsCnt,
-            days        = result.days,
-            picUrl      = (result.imageList && (_.isArray(result.imageList)) && result.imageList[0]) ? result.imageList[0] : "用来替换的pic图片",
-            startDate   = result.startDate.substring(0, 10),
-            endDate     = result.endDate.substring(0, 10),
-            basicInfo   = {
-                title       : title,
-                copyCnt     : copyCnt,
-                viewCnt     : viewCnt,
-                picUrl      : picUrl,
-                days        : days,
-                startDate   : startDate,
-                endDate     : endDate,
-            },
+        var oriData         = JSON.parse(data),
+            result          = oriData.result,
             ugcDetail       = result.details,
             detailInfo      = dataExtract.detailData(null, ugcDetail),
+            basicInfo       = dataExtract.basicData(null, result),
             spotData        = detailInfo.spotData,
             viewspotCnt     = detailInfo.viewspotCnt,
             dates           = detailInfo.dates,
@@ -100,48 +84,42 @@ router.get('/detail/:TEMPLATEID', function(req, res) {
 
 /* edit route */
 router.get('/edit/:UGCID', function(req, res) {
-    console.log('in plans/edit:ugcId');
-    res.render('plans/edit', {
+    console.log('－－－－－－－－－');
+    var ugcId = req.params.UGCID;
+    console.log(apiList.apiHost + apiList.ugc.edit + ugcId);
+    model.setUrl(apiList.ugc.edit + ugcId);
+    model.getdata(null, function(data) {
+        console.log('_+_+_+');
+        console.log(model.getUrl());
+        if(!utils.checkApiRequestState(data)) {
+            console.log("==== api request error ====");
+            console.log("request url: ");
+            console.log(model.getUrl());
+            /* render error page */
+            res.render('common/error', {
+                user_info       : utils.get_user_info(req, res),
+                config          : config,
+                already_saved   : false
+            })
+            return ;
+        }
+        var oriData         = JSON.parse(data),
+            result          = oriData.result,
+            ugcDetail       = result.details,
+            detailInfo      = dataExtract.detailData(null, ugcDetail),
+            basicInfo       = dataExtract.basicData(null, result),
+            spotData        = detailInfo.spotData;
 
-        user_info: utils.get_user_info(req, res),
-        config: config,
-        already_saved: false,
+        //res.json(spotData);
+        res.render('plans/edit', {
+            user_info       : utils.get_user_info(req, res),
+            config          : config,
+            already_saved   : false,
+            basicInfo       : basicInfo,
+            spotData        : spotData,
+            spotDataStr     : JSON.stringify(spotData)
+        });
     });
-//{
-    //async.parallel([
-    //     function route(callback) {
-    //         ugcDataEdit.route(req, callback);
-    //     },
-    //     function spots(callback) {
-    //         ugcDataEdit.spots(req, callback);
-    //     },
-    //     function hotels(callback) {
-    //         ugcDataEdit.hotels(req, callback);
-    //     },
-    //     function locName(callback) {
-    //         ugcDataEdit.locName(req, callback);
-    //     }],
-
-    //     function(err, results) {
-    //         var dataObj = results[0];
-    //         var spots = results[1];
-    //         var hotels = results[2];
-    //         var locName = results[3];
-    //         var currentDate = calendar.currentDate();
-    //         res.render('plans/edit', {
-    //             title: dataObj.title,
-    //             daysRoute : dataObj.dayRoute,
-    //             id : dataObj._id,   // 表明这个ugc id，ajax传递给node后，获取别的信息，减少前段任务
-    //             spots : spots,      // 城市景点
-    //             locName : locName,  // 对象：起点和目的地
-    //             hotels : hotels,
-    //             user_info: utils.get_user_info(req, res),
-    //             config: config,
-    //             already_saved: false,
-    //             startDate: currentDate,
-    //         });
-    //     })
-//}
 });
 
 
@@ -614,33 +592,26 @@ var dataExtract = (function () {
 
 
     // basic infomation
-    var basicData = function(req, data) {
-        var fromLocId = req.query._fromLoc || " ";
-        var requestUrl = req.originalUrl;
-        var lastModified = data.lastModified;
-        var result = data.result;
-        var _id = result._id;
-        var templateId = result.templateId;
-        var targets = result.targets;
-        var tags = result.tags;
-        var title = result.title;
-        var days = result.days;
-        var imageList = result.imageList;
-        var budget = result.budget;
-        var destinaton = result.target;
-        destinaton.name = destinaton.name.replace("市","");
+    var basicData = function(req, result) {
+        var title       = result.title,
+            id          = result._id,
+            copyCnt     = result.forkedCnt,
+            viewCnt     = result.vsCnt,
+            days        = result.days,
+            picUrl      = (result.imageList && (_.isArray(result.imageList)) && result.imageList[0]) ? result.imageList[0] : "用来替换的pic图片",
+            startDate   = result.startDate.substring(0, 10),
+            endDate     = result.endDate.substring(0, 10),
 
-        // basic information
-        var basicInfo = new Object();
-        basicInfo['_id'] = _id;
-        basicInfo['templateId'] = templateId;
-        basicInfo['title'] = title;
-        basicInfo['desc'] = result.desc || "";
-        basicInfo['days'] = days;
-        basicInfo['budget'] = budget;
-        basicInfo['requestUrl'] = requestUrl;
-        basicInfo['destinaton'] = destinaton;
-        basicInfo['fromLocId'] = fromLocId;
+            basicInfo   = {
+                title       : title,
+                id          : id,
+                copyCnt     : copyCnt,
+                viewCnt     : viewCnt,
+                picUrl      : picUrl,
+                days        : days,
+                startDate   : startDate,
+                endDate     : endDate,
+            };
 
         return basicInfo;
     };

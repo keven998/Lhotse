@@ -395,7 +395,7 @@ input[type="text"] {
 }
 
 
-.spotview_star, .ticket_price, .suggestion_time, .hotel_star, .hotel_phone, .hotel_address {
+.ticket_price, .suggestion_time, .hotel_phone, .hotel_address {
     height: 20px;
     font-size: 13px;
     /* margin: 2px 2px 0px 10px; */
@@ -593,6 +593,25 @@ border-radius: 3px;
 padding: 0 10px;
 }
 
+.qui-icon {
+    display : inline-block
+}
+
+span.star {
+    background     : url(/images/plans/detail/face_a.png) 0 0 no-repeat;
+    width          : 14px;
+    height         : 14px;
+    vertical-align : middle
+}
+
+span.empty {
+    background     : url(/images/plans/detail/face_b.png) 0 0 no-repeat;
+    width          : 14px;
+    height         : 14px;
+    vertical-align : middle
+}
+
+
 /*----css for templates begin----*/
 .pop_window_viewspot {
     border: 1px solid #DDD;
@@ -625,11 +644,10 @@ padding: 0 10px;
 
 
 
-.spotview_star {
+.spotview_star a,  .hotel_star a {
     font-size: 14px;
     font-family: monospace;
-    /* padding-left: 15px; */
-    /* margin-top: 7px; */
+    color: black;
 }
 
 .ticket_price {
@@ -710,13 +728,31 @@ p.viewspot_desc_content {
 
 .btn_add_to_plan {
     display: inline-block;
-    border: 1px solid blueviolet;
+    background-color: #53A9BF;
     width: 50px;
     height: 50px;
     cursor: pointer;
-    color: black;
+    color: white;
     position: absolute;
     right: 2px;
-    bottom: 2px;
+    bottom: 15px;
+    border-radius: 5px;
+}
+
+.btn_add_to_plan:hover {
+    display: inline-block;
+    background-color: rgba(0, 164, 204, 1);
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    color: white;
+    position: absolute;
+    right: 2px;
+    bottom: 15px;
+    border-radius: 5px;
+}
+
+.btn_add_to_plan .text{
+    margin: 4px 10px;
 }
 /*----css for templates end----*/
