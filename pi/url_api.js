@@ -1,6 +1,6 @@
 var urlApi = {
     // 域名地址
-    apiHost : 'http://api.lvxingpai.com',
+    apiHost : 'http://api.lvxingpai.cn',
     //首页推荐
     newRoute : "/web/recommend/newitem",
     editorRoute : "/web/recommend/editor",
@@ -16,8 +16,8 @@ var urlApi = {
     routeDetail:  '/web/plans/ROUTEID',
     routeNotes:    '/misc/notes/search?planId=ROUTEID',
 
-    // 根据现有城市名字查询城市ID
-    searchCityIdByName : "/geo/localities/search?keyword=",
+    // 根据现有城市名字查询城市ID   =>  新定义中包含但不限于城市，只有"目的地"概念
+    searchCityIdByName : "/web/geo/localities/search?keyword=",
 
     // 根据城市ID查询城市名字
     searchCityNameById : "/web/geo/localities/fromLocId",   //:fromLocId

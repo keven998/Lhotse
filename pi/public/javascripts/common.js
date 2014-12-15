@@ -1,21 +1,8 @@
 /* ---- BEGIN: enum var ----*/
 var zone = {
-    level: {
-        country: 0,
-        province: 1,
-        city: 2,
-    },
     type: {
-        country: 'country',
-        province: 'province',
-        city: 'loc',
+        locality: 'loc',
         viewspot: 'vs',
-    },
-    searchRoutesUrl: {
-        country: '/country/',
-        province: '/province/',
-        city: '/city/',
-        viewspot: '/include/',
     }
 };
 /* ---- END: enum var---- */
@@ -111,32 +98,6 @@ $(function (){
 /* ---- END : user setting ---- */
 
 
-/* ---- BEGIN: cookies ---- */
-var getCookie = function(c_name) {
-    if (document.cookie.length > 0)
-        {
-            var c_start = document.cookie.indexOf(c_name + "=");
-            if (c_start != -1) {
-                c_start = c_start + c_name.length + 1;
-                c_end = document.cookie.indexOf(";",c_start);
-                
-                if (c_end == -1)
-                    c_end = document.cookie.length;
-
-                return unescape(document.cookie.substring(c_start,c_end));
-            }
-        }
-    return "";
-};
-
-var setCookie = function(c_name,value,expiredays) {
-    var exdate=new Date();
-    exdate.setDate(exdate.getDate()+expiredays);
-
-    document.cookie=c_name+ "=" + escape(value)+ ((expiredays==null) ? "" : ";expires="+exdate.toGMTString()) + ";path=/";
-};
-/* ---- END: cookies ---- */
-
 
 /* ---- BEGIN: innerText ---- */
 function compatible_innerText(domElement) {
@@ -220,7 +181,7 @@ function suggestion_from(input){
 
 function suggestion(slug, input){
     $.ajax({
-        url: "/suggestion?type=" + slug +"&input="+input,
+        url: "/suggestion?type=" + slug +"&input="+input,// type:['from','to'],input:
         cache: false,
         success: function(result){
             var html = '';
@@ -405,31 +366,30 @@ function go_plan_list(){
         from_name = $('#from').val(),
         from_poi_type = $('#from').attr('poi_type'),
         url = '/route';
-
+/*
     if (! arr_poi_type){
-        arr_poi_type = zone.type.city;
+        arr_poi_type = zone.type.locality;
     }
     if (! from_poi_type){
-        from_poi_type = zone.type.city;
+        from_poi_type = zone.type.locality;
     }
+*/
     if (!from_name || !arr_name){
         alert('请输入出发地和目的地');
     } 
-    else if (from_poi_type == zone.type.city){
-        if (arr_poi_type ==zone.type.city){
-            url += "?city=" + arr_name;
+    else if (from_poi_type == zone.type.locality){
+        if (arr_poi_type ==zone.type.locality){
+            url += "?locality=" + arr_name;
         }else if(arr_poi_type == zone.type.viewspot){
-            url += "?vs=" + arr_name;
-        }else if(arr_poi_type == zone.type.province){
-            url += "?pro=" + arr_name;
+            url += "?viewspot=" + arr_name;
         }else {
-            alert('请输入正确的目的地 : 景点/城市/省份')
+            alert('未查到该地点，请再次输入您的目的地！');
             return ;
         }
         url += '&fromName=' + from_name;
         window.location.href = url;
     }else{
-        alert(from_name + '是省份名，请输入城市名作为出发地');
+        alert(from_name + '不可以作为出发地，请您输入大一些的地点名称，如：北京');
         $('#from').val('');
     }
 }
