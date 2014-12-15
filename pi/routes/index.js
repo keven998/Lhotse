@@ -77,7 +77,7 @@ router.get('/route', function(req, res) {
             queryArrName = urlApi.apiHost + urlApi.searchCityIdByName + arrLocName;
     }else{
         console.log("No destination!");
-    };
+    }
 
     async.parallel({
         from: function(callback) {
@@ -90,7 +90,7 @@ router.get('/route', function(req, res) {
                     callback(null, id);
                 }else{
                     console.log(Error[0]);
-                };
+                }
             });
 
         },
@@ -104,7 +104,7 @@ router.get('/route', function(req, res) {
                     callback(null, id);
                 }else{
                     console.log(Error[1]);
-                };
+                }
             });
         }
     },
@@ -124,11 +124,11 @@ router.get('/route', function(req, res) {
         model.getdata(null, function(data){
             data = JSON.parse(data);
             res.render('route', {
-                plans : data.result || [],
-                fromName : fromLocName,
-                arriveId : arriveId,
-                fromId : fromId,  // 用于配置“复制路线”的url
-                arriveName : arrLocName,
+                plans: data.result || [],
+                fromName: fromLocName,
+                arriveId: arriveId,
+                fromId: fromId,  // 用于配置“复制路线”的url
+                arriveName: arrLocName,
                 user_info: utils.get_user_info(req, res),
                 config: config,
                 route_filters: route_filters
