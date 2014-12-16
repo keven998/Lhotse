@@ -59,8 +59,9 @@ block content
                                     img(src='#{plan.imageList}' + '?imageView2/1/w/165/h/150' width=165 height=150)
                                 else
                                     img(src="/images/route/index/285-215.png" width="165" height="150")
-                                img.most_tag(src='/images/route/index/triangle.png')
-                                h2.most_tag #{plan.lxpTag}
+                                if (plan.lxpTag[0] != undefined)
+                                    img.most_tag(src='/images/route/index/triangle.png')
+                                    h2.most_tag #{plan.lxpTag[0]}
                             .right
                                 h2.r-title  #{plan.title}
                                 h3.usetimes  (#{plan.forkedCnt}人使用)
