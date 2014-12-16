@@ -24,4 +24,9 @@ api_model.setUrl = function(url) {
 api_model.getUrl = function() {
    return api_model.prototype.getUrls();
 }
+
+// print url
+api_model.consoleUrl = function() {
+   console.log(api_model.prototype.getUrls());
+}
 module.exports = api_model;

@@ -67,13 +67,13 @@ router.get('/route', function(req, res) {
     var fromLocName = req.query.fromName;
     /*get locId*/
     var queryFromName = urlApi.apiHost + urlApi.searchCityIdByName + decodeURIComponent(fromLocName);
-    if (req.query.viewspot != undefined){
+    if (req.query[zone.type.viewspot] != undefined){
         var poiType = zone.type.viewspot,
-            arrLocName = req.query.viewspot,
+            arrLocName = req.query[zone.type.viewspot],
             queryArrName = urlApi.apiHost + urlApi.searchViewspotIdByName + decodeURIComponent(arrLocName) + "&sort=desc";
-    }else if (req.query.locality != undefined){
+    }else if (req.query[zone.type.locality] != undefined){
         var poiType = zone.type.locality,
-            arrLocName = req.query.locality,
+            arrLocName = req.query[zone.type.locality],
             queryArrName = urlApi.apiHost + urlApi.searchCityIdByName + arrLocName;
     }else{
         console.log("No destination!");
@@ -82,44 +82,26 @@ router.get('/route', function(req, res) {
     async.parallel({
         from: function(callback) {
             model.setUrl(encodeURI(queryFromName));
-            // model.getdata(req, getIdFromName(data , 0));
-            model.getdata(req, function(data){
-                var data = JSON.parse(data);
-                if (data.result && (_.isArray(data.result)) && data.result[0]){
-                    var id = data.result[0].id;
-                    callback(null, id);
-                }else{
-                    console.log(Error[0]);
-                }
+            model.getdata(null, function(data){
+               callback(null, getIdFromName(data,0));
             });
-
         },
         arrive: function(callback) {
             model.setUrl(encodeURI(queryArrName));
-            // model.getdata(req, getIdFromName(data , 1));
-            model.getdata(req, function(data){
-                var data = JSON.parse(data);
-                if (data.result && (_.isArray(data.result)) && data.result[0]){
-                    var id = data.result[0].id;
-                    callback(null, id);
-                }else{
-                    console.log(Error[1]);
-                }
+            model.getdata(null, function(data){
+               callback(null, getIdFromName(data,1));
             });
         }
     },
     function(err, results) {
         var fromId = results.from;
         var arriveId = results.arrive;
-        console.log(fromId);
-        console.log(arriveId);
         var indexGoUrl;
         if(poiType == zone.type.viewspot){
             indexGoUrl = urlApi.apiHost + urlApi.searchRouteIncludeViewspot + arriveId + "&tag=&minDays=0&maxDays=99";
         }else{
             indexGoUrl = urlApi.apiHost + urlApi.getRouteList + "?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
         }
-        console.log(indexGoUrl);
         model.setUrl(encodeURI(indexGoUrl));
         model.getdata(null, function(data){
             data = JSON.parse(data);
@@ -276,16 +258,15 @@ var suggestionUrl = function (input, restaurant, hotel, loc, vs) {
     return requestUrl + '?' + queryStr;
 };
 
-// var getIdFromName = function(data , errorCode){
-//     var data = JSON.parse(data);
-//         console.log("1");
-//     if (data.result && (_.isArray(data.result)) && data.result[0]){
-//         var id = data.result[0].id;
-//         console.log(id);
-//         callback(null, id);
-//     }else{
-//         console.log(Error[errorCode]);
-//     }
-// }
+var getIdFromName = function(data , errorCode){
+    var data = JSON.parse(data);
+    if (data.result && (_.isArray(data.result)) && data.result[0]){
+        var id = data.result[0].id;
+        return id;
+    }else{
+        console.log(Error[errorCode]);
+        return false;
+    }
+}
 
 module.exports = router;

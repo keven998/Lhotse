@@ -379,9 +379,9 @@ function go_plan_list(){
     } 
     else if (from_poi_type == zone.type.locality){
         if (arr_poi_type ==zone.type.locality){
-            url += "?locality=" + arr_name;
+            url += "?" + zone.type.locality + "=" + arr_name;
         }else if(arr_poi_type == zone.type.viewspot){
-            url += "?viewspot=" + arr_name;
+            url += "?" + zone.type.viewspot + "=" + arr_name;
         }else {
             alert('未查到该地点，请再次输入您的目的地！');
             return ;
