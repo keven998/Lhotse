@@ -6,8 +6,8 @@ require.config({
         "googlemapApi": "lib/googlemap.api",
         "citySelector": "lib/cityselector",
         "idTabs": "lib/jquery.idTabs.min",
-        "iCheck": "lib/icheck.min",
-    },
+        "iCheck": "lib/icheck.min"
+    }
 });
 
 require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
@@ -740,9 +740,10 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
         /*********** Fork End ************/
 
         /********* City Selector *********/
-        var from = new Vcity.CitySelector({input:'from'});
+        var fromWrap = new Vcity.CitySelector({input:'fromWrap'});
         // var arrive = new Vcity.CitySelector({input:'arrive'});
         /*********** City End ************/
+
     })
 
 

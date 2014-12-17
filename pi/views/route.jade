@@ -1,6 +1,7 @@
 extends common/base
 
 block page_var
+    link(href='/stylesheets/lib/cityselector.css', rel='stylesheet')
     script.
         var page_var = {
             id: 'route',
@@ -14,19 +15,14 @@ block content
         .bg-blue
             .search-bg
                 i.ico-position
-                #from
-                    b#fromText #{fromName}
-                    //
-                        input.w40(type="text" name="fromName" placeholder='城市' id="from" onkeyup="suggestion_from(this.value)" autocomplete="off" value='#{fromName}')
-                    b.change [更换]
+                #fromWrap
+                b#from(data-page = "route" poi_type = "city") #{fromName}
+                b.change [更换]
                 b.line
                 input(type="text" name="arriveName" placeholder='景点/城市/省份' id="arrive" onkeyup="suggestion_to(this.value)" autocomplete="off" value='#{arriveName}')
-                i.ico-addpos
-                #suggestion_to.suggestion(style="margin-left:130px;width:350px;z-index:100;")
                 //
-                    a(href="#" onclick="go_plan_list()")
-                        #search-btn.s-btn()
-                    #suggestion_from.suggestion(style="width:250px;")
+                    i.ico-addpos
+                #suggestion_to.suggestion(style="margin-left:130px;width:350px;z-index:100;")
         .route_container
             ul.filter-nav
                 - var index = 0;

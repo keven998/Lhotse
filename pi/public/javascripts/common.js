@@ -62,10 +62,10 @@ var getCookie = function(c_name) {
 };
 
 var setCookie = function(c_name,value,expiredays) {
-    var exdate=new Date();
-    exdate.setDate(exdate.getDate()+expiredays);
+    var exdate = new Date();
+    exdate.setDate(exdate.getDate() + expiredays);
 
-    document.cookie=c_name+ "=" + escape(value)+ ((expiredays==null) ? "" : ";expires="+exdate.toGMTString()) + ";path=/";
+    document.cookie = c_name + "=" + escape(value) + ((expiredays == null) ? "" : ";expires=" + exdate.toGMTString()) + ";path=/";
 };
 /* ---- END: cookies ---- */
 
@@ -111,14 +111,6 @@ function compatible_innerText(domElement) {
 
 
 /* ---- BEGIN: suggestion ---- */
-// from location
-function select_from(input, poi_type){
-    $('#from').val(input);
-    $('#from').attr('poi_type', poi_type);
-    $("#suggestion_from").empty();
-    $("#suggestion_from").hide();
-    setCookie('userInputFrom', input, 1);//将用户填写的地址记录到cookies
-}
 
 //  假如出发地已经存在，则记录到cookies
 (function(){
@@ -146,7 +138,7 @@ function select_to(input, poi_type){
     $("#suggestion_to").hide();
 }
 
-// onclick event
+// onclick event (used in html)
 function suggestion_to(input){
     var slug = 'to';
     var inputText = $('#arrive').val();
@@ -162,21 +154,21 @@ function suggestion_to(input){
     }    
 }
 
-// onclick event
-function suggestion_from(input){
-    var slug = 'from';
-    var inputText = $('#from').val();
-    if(inputText !== $('#from').attr('tem')){
-        $('#from').attr('tem', inputText);
-        if (myTrim(inputText)) {
-            suggestion(slug, myTrim(inputText));                    
-        }else {
-            $('#suggestion_from').css({
-                'display' : 'none'
-            });        
-        }
-    }
-}
+// onclick event (used in html)
+// function suggestion_from(input){
+//     var slug = 'from';
+//     var inputText = $('#from').val();
+//     if(inputText !== $('#from').attr('tem')){
+//         $('#from').attr('tem', inputText);
+//         if (myTrim(inputText)) {
+//             suggestion(slug, myTrim(inputText));
+//         }else {
+//             $('#suggestion_from').css({
+//                 'display' : 'none'
+//             });
+//         }
+//     }
+// }
 
 
 function suggestion(slug, input){
@@ -228,7 +220,7 @@ arrInput.forEach(function(t){
             });
 
         }
-    }); 
+    });
 
 });
 
@@ -363,7 +355,7 @@ array.forEach(function(t){
 function go_plan_list(){
     var arr_name = $('#arrive').val(),
         arr_poi_type = $('#arrive').attr('poi_type'),
-        from_name = $('#from').val(),
+        from_name = $('#from').text(),
         from_poi_type = $('#from').attr('poi_type'),
         url = '/route';
 /*

@@ -220,14 +220,19 @@ function getCookie_(c_name) {
 $(function(){
     var cityName = remote_ip_info["city"];// + remote_ip_info["city"];
     if (!getCookie_('userInputFrom')) {
-        $('#from').val(cityName);
+        document.getElementById('from').innerHTML = cityName;
     }else{
-        $('#from').val(getCookie_('userInputFrom'));
+        document.getElementById('from').innerHTML = getCookie_('userInputFrom');
     }
     $('#from').attr("poi_type","loc");
     setCookie('fromLoc',encodeURI(cityName), 1);
 })
 
+
+/********* City Selector *********/
+var fromWrap = new Vcity.CitySelector({input:'fromWrap'});
+// var arrive = new Vcity.CitySelector({input:'arrive'});
+/*********** City End ************/
 
 // // 联想功能
 // var suggestionData = (function() {

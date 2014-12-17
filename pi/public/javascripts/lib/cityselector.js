@@ -210,8 +210,12 @@ Vcity.CitySelector.prototype = {
         div.className = 'citySelector';
         div.style.position = 'absolute';
         div.style.left = inputPos.left + 'px';
-        // div.style.top = inputPos.bottom + 'px';
-        div.style.top = '50px'; //static
+        if ($('#from').attr('data-page') == 'route'){
+            div.style.top = '50px';
+        }else{
+            div.style.top = inputPos.bottom + 'px';
+        }
+
         div.style.zIndex = 999999;
 
         // 判断是否IE6，如果是IE6需要添加iframe才能遮住SELECT框
@@ -323,7 +327,8 @@ Vcity.CitySelector.prototype = {
                     that.input.value = this.innerHTML;
                 }
                 else{
-                    document.getElementById('fromText').innerHTML = this.innerHTML;
+                    document.getElementById('from').innerHTML = this.innerHTML;
+                    setCookie('userInputFrom', this.innerHTML , 1);
                 }
 
                 Vcity._m.addClass('hide',that.cityBox);
