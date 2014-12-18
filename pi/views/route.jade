@@ -16,7 +16,7 @@ block content
             .search-bg
                 i.ico-position
                 #fromWrap
-                b#from(data-page = "route" poi_type = "city") #{fromName}
+                b#from(data-page = "route") #{fromName}
                 b.change [更换]
                 b.line
                 input(type="text" name="arriveName" placeholder='景点/城市/省份' id="arrive" onkeyup="suggestion_to(this.value)" autocomplete="off" value='#{arriveName}')

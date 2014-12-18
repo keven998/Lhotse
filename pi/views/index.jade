@@ -28,7 +28,7 @@ block content
                 .s
                     i.ico02.ico02-position
                     #fromWrap
-                    b#from(data-page = "index" poi_type = "city") 北京
+                    b#from(data-page = "index") 北京
                     //
                         input.s-ip.w40(type="text" name="fromName" placeholder='城市' id="from" onkeyup="suggestion_from(this.value)" autocomplete="off")
                     b.change [更换]
@@ -41,7 +41,6 @@ block content
                     a(href="#" onclick="go_plan_list()")
                         #search-btn.s-btn
                     #suggestion_to.suggestion(style="margin-left:270px;width:373px;")
-                    #suggestion_from.suggestion(style="width:250px;")
     .content.f-cb
         //- p.t
         //-     b.txt01 精彩的旅程，也需要你的发现

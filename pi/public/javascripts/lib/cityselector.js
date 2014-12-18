@@ -395,57 +395,57 @@ Vcity.CitySelector.prototype = {
     //智能提示列表的事件
 
     createUl:function () {
-        var str;
-        var value = Vcity._m.trim(this.input.value);
-        // 当value不等于空的时候执行
-        if (value !== '') {
-            var reg = new RegExp("^" + value + "|\\|" + value, 'gi');
-            // 此处需设置中文输入法也可用onpropertychange
-            var searchResult = [];
-            for (var i = 0, n = Vcity.allCity.length; i < n; i++) {
-                if (reg.test(Vcity.allCity[i])) {
-                    var match = Vcity.regEx.exec(Vcity.allCity[i]);
-                    if (searchResult.length !== 0) {
-                        str = '<li><b class="cityname">' + match[1] + '</b><b class="cityspell">' + match[2] + '</b></li>';
-                    } else {
-                        str = '<li class="on"><b class="cityname">' + match[1] + '</b><b class="cityspell">' + match[2] + '</b></li>';
-                    }
-                    searchResult.push(str);
-                }
-            }
-            this.isEmpty = false;
-            // 如果搜索数据为空
-            if (searchResult.length == 0) {
-                this.isEmpty = true;
-                str = '<li class="empty">对不起，没有找到数据 "<em>' + value + '</em>"</li>';
-                searchResult.push(str);
-            }
-            // 如果slideul不存在则添加ul
-            if (!this.ul) {
-                var ul = this.ul = document.createElement('ul');
-                ul.className = 'cityslide';
-                this.rootDiv && this.rootDiv.appendChild(ul);
-                // 记录按键次数，方向键
-                this.count = 0;
-            } else if (this.ul && Vcity._m.hasClass('hide', this.ul)) {
-                this.count = 0;
-                Vcity._m.removeClass('hide', this.ul);
-            }
-            this.ul.innerHTML = searchResult.join('');
+        // var str;
+        // var value = Vcity._m.trim(this.input.value);
+        // // 当value不等于空的时候执行
+        // if (value !== '') {
+        //     var reg = new RegExp("^" + value + "|\\|" + value, 'gi');
+        //     // 此处需设置中文输入法也可用onpropertychange
+        //     var searchResult = [];
+        //     for (var i = 0, n = Vcity.allCity.length; i < n; i++) {
+        //         if (reg.test(Vcity.allCity[i])) {
+        //             var match = Vcity.regEx.exec(Vcity.allCity[i]);
+        //             if (searchResult.length !== 0) {
+        //                 str = '<li><b class="cityname">' + match[1] + '</b><b class="cityspell">' + match[2] + '</b></li>';
+        //             } else {
+        //                 str = '<li class="on"><b class="cityname">' + match[1] + '</b><b class="cityspell">' + match[2] + '</b></li>';
+        //             }
+        //             searchResult.push(str);
+        //         }
+        //     }
+        //     this.isEmpty = false;
+        //     // 如果搜索数据为空
+        //     if (searchResult.length == 0) {
+        //         this.isEmpty = true;
+        //         str = '<li class="empty">对不起，没有找到数据 "<em>' + value + '</em>"</li>';
+        //         searchResult.push(str);
+        //     }
+        //     // 如果slideul不存在则添加ul
+        //     if (!this.ul) {
+        //         var ul = this.ul = document.createElement('ul');
+        //         ul.className = 'cityslide';
+        //         this.rootDiv && this.rootDiv.appendChild(ul);
+        //         // 记录按键次数，方向键
+        //         this.count = 0;
+        //     } else if (this.ul && Vcity._m.hasClass('hide', this.ul)) {
+        //         this.count = 0;
+        //         Vcity._m.removeClass('hide', this.ul);
+        //     }
+        //     this.ul.innerHTML = searchResult.join('');
 
-            /* IE6 */
-            this.changeIframe();
+        //     /* IE6 */
+        //     this.changeIframe();
 
-            // 绑定Li事件
-            this.liEvent();
-        }else{
-            Vcity._m.addClass('hide',this.ul);
-            Vcity._m.removeClass('hide',this.cityBox);
+        //     // 绑定Li事件
+        //     this.liEvent();
+        // }else{
+        //     Vcity._m.addClass('hide',this.ul);
+        //     Vcity._m.removeClass('hide',this.cityBox);
 
-            Vcity._m.removeClass('hide',this.myIframe);
+        //     Vcity._m.removeClass('hide',this.myIframe);
 
-            this.changeIframe();
-        }
+        //     this.changeIframe();
+        // }
     },
 
     /* IE6的改变遮罩SELECT 的 IFRAME尺寸大小 */
@@ -462,35 +462,35 @@ Vcity.CitySelector.prototype = {
     //智能提示列表的事件
 
     KeyboardEvent:function(event,keycode){
-        var lis = Vcity._m.$('li',this.ul);
-        var len = lis.length;
-        switch(keycode){
-            case 40: //向下箭头↓
-                this.count++;
-                if(this.count > len-1) this.count = 0;
-                for(var i=0;i<len;i++){
-                    Vcity._m.removeClass('on',lis[i]);
-                }
-                Vcity._m.addClass('on',lis[this.count]);
-                break;
-            case 38: //向上箭头↑
-                this.count--;
-                if(this.count<0) this.count = len-1;
-                for(i=0;i<len;i++){
-                    Vcity._m.removeClass('on',lis[i]);
-                }
-                Vcity._m.addClass('on',lis[this.count]);
-                break;
-            case 13: // enter键
-                this.input.value = Vcity.regExChiese.exec(lis[this.count].innerHTML)[0];
-                Vcity._m.addClass('hide',this.ul);
-                Vcity._m.addClass('hide',this.ul);
-                /* IE6 */
-                Vcity._m.addClass('hide',this.myIframe);
-                break;
-            default:
-                break;
-        }
+        // var lis = Vcity._m.$('li',this.ul);
+        // var len = lis.length;
+        // switch(keycode){
+        //     case 40: //向下箭头↓
+        //         this.count++;
+        //         if(this.count > len-1) this.count = 0;
+        //         for(var i=0;i<len;i++){
+        //             Vcity._m.removeClass('on',lis[i]);
+        //         }
+        //         Vcity._m.addClass('on',lis[this.count]);
+        //         break;
+        //     case 38: //向上箭头↑
+        //         this.count--;
+        //         if(this.count<0) this.count = len-1;
+        //         for(i=0;i<len;i++){
+        //             Vcity._m.removeClass('on',lis[i]);
+        //         }
+        //         Vcity._m.addClass('on',lis[this.count]);
+        //         break;
+        //     case 13: // enter键
+        //         this.input.value = Vcity.regExChiese.exec(lis[this.count].innerHTML)[0];
+        //         Vcity._m.addClass('hide',this.ul);
+        //         Vcity._m.addClass('hide',this.ul);
+        //         /* IE6 */
+        //         Vcity._m.addClass('hide',this.myIframe);
+        //         break;
+        //     default:
+        //         break;
+        // }
     },
 
     /* *
@@ -500,27 +500,27 @@ Vcity.CitySelector.prototype = {
     //智能提示列表的事件
 
     liEvent:function(){
-        var that = this;
-        var lis = Vcity._m.$('li',this.ul);
-        for(var i = 0,n = lis.length;i < n;i++){
-            Vcity._m.on(lis[i],'click',function(event){
-                event = Vcity._m.getEvent(event);
-                var target = Vcity._m.getTarget(event);
-                that.input.value = Vcity.regExChiese.exec(target.innerHTML)[0];
-                Vcity._m.addClass('hide',that.ul);
-                /* IE6 下拉菜单点击事件 */
-                Vcity._m.addClass('hide',that.myIframe);
-            });
-            Vcity._m.on(lis[i],'mouseover',function(event){
-                event = Vcity._m.getEvent(event);
-                var target = Vcity._m.getTarget(event);
-                Vcity._m.addClass('on',target);
-            });
-            Vcity._m.on(lis[i],'mouseout',function(event){
-                event = Vcity._m.getEvent(event);
-                var target = Vcity._m.getTarget(event);
-                Vcity._m.removeClass('on',target);
-            })
-        }
+        // var that = this;
+        // var lis = Vcity._m.$('li',this.ul);
+        // for(var i = 0,n = lis.length;i < n;i++){
+        //     Vcity._m.on(lis[i],'click',function(event){
+        //         event = Vcity._m.getEvent(event);
+        //         var target = Vcity._m.getTarget(event);
+        //         that.input.value = Vcity.regExChiese.exec(target.innerHTML)[0];
+        //         Vcity._m.addClass('hide',that.ul);
+        //         /* IE6 下拉菜单点击事件 */
+        //         Vcity._m.addClass('hide',that.myIframe);
+        //     });
+        //     Vcity._m.on(lis[i],'mouseover',function(event){
+        //         event = Vcity._m.getEvent(event);
+        //         var target = Vcity._m.getTarget(event);
+        //         Vcity._m.addClass('on',target);
+        //     });
+        //     Vcity._m.on(lis[i],'mouseout',function(event){
+        //         event = Vcity._m.getEvent(event);
+        //         var target = Vcity._m.getTarget(event);
+        //         Vcity._m.removeClass('on',target);
+        //     })
+        // }
     }
 };

@@ -133,9 +133,7 @@ $(function(){
     //         });
     //     }
     // });
-    
-    
-    /*
+
     //文本输入框
         var searchInput = $('#search-input'),
             tips = $('.tips'),
@@ -153,7 +151,7 @@ $(function(){
         searchInput.on('blur', function (e) {
             tips.hide(200)
         })
-        */
+
 
     /*
      * 图片轮播
@@ -199,8 +197,6 @@ $(function(){
 /*
     getCookie for this page
 */
-
-
 function getCookie_(c_name) {
     if (document.cookie.length > 0) {
         var c_start = document.cookie.indexOf(c_name + "=");
@@ -224,7 +220,6 @@ $(function(){
     }else{
         document.getElementById('from').innerHTML = getCookie_('userInputFrom');
     }
-    $('#from').attr("poi_type","loc");
     setCookie('fromLoc',encodeURI(cityName), 1);
 })
 

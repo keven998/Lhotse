@@ -69,6 +69,7 @@ var setCookie = function(c_name,value,expiredays) {
 };
 /* ---- END: cookies ---- */
 
+
 /* ---- BEGIN : user setting ---- */
 // 鼠标悬停头像时弹出下拉菜单
 $(function (){
@@ -82,7 +83,7 @@ $(function (){
                 dropMenu.css({'display': 'block'}) : null//dropMenu.css({'display': 'none'})
         }).mouseout(
          function(e){
-            dropMenu.css('display') == 'block' && slug ? null :  dropMenu.css({'display': 'none'});
+            dropMenu.css('display') == 'block' && slug ? null : dropMenu.css({'display': 'none'});
             slug = false; 
         });
 
@@ -91,13 +92,13 @@ $(function (){
             slug = true;
     }).mouseout(
         function(e){
-            dropMenu.css({'display': 'none'});
+            dropMenu.css({
+                'display': 'none'
+            });
         });
     
 })
 /* ---- END : user setting ---- */
-
-
 
 /* ---- BEGIN: innerText ---- */
 function compatible_innerText(domElement) {
@@ -111,6 +112,14 @@ function compatible_innerText(domElement) {
 
 
 /* ---- BEGIN: suggestion ---- */
+// from location
+// function select_from(input, poi_type){
+//     $('#from').val(input);
+//     $('#from').attr('poi_type', poi_type);
+//     $("#suggestion_from").empty();
+//     $("#suggestion_from").hide();
+//     setCookie('userInputFrom', input, 1);//将用户填写的地址记录到cookies
+// }
 
 //  假如出发地已经存在，则记录到cookies
 (function(){
@@ -127,10 +136,12 @@ var arriveInput = $('#arrive'),
     fromInput = $('#from'),
     fromSuggestions = $('#suggestion_from');
 
-var arrInput = [[arriveInput, arriveSuggestions, "suggestion_to", "arrive"],
-                [fromInput, fromSuggestions, "suggestion_from", "from"]];
+// var arrInput = [[arriveInput, arriveSuggestions, "suggestion_to", "arrive"],
+//                 [fromInput, fromSuggestions, "suggestion_from", "from"]];
 
-//  arrive location
+var arrInput = [[arriveInput, arriveSuggestions, "suggestion_to", "arrive"]];
+
+//  arrive location (used in "function suggestion()" by "slug")
 function select_to(input, poi_type){
     $('#arrive').val(input);
     $('#arrive').attr('poi_type', poi_type);
@@ -142,14 +153,15 @@ function select_to(input, poi_type){
 function suggestion_to(input){
     var slug = 'to';
     var inputText = $('#arrive').val();
+    //tem is the register for the formar text
     if(inputText !== $('#arrive').attr('tem')){
         $('#arrive').attr('tem', inputText);
         if (myTrim(inputText)) {
             suggestion(slug, myTrim(inputText));                    
         }else {
             $('#suggestion_to').css({
-                'display' : 'none'
-            });        
+                'display': 'none'
+            });
         }
     }    
 }
@@ -173,31 +185,36 @@ function suggestion_to(input){
 
 function suggestion(slug, input){
     $.ajax({
-        url: "/suggestion?type=" + slug +"&input="+input,// type:['from','to'],input:
+        url: "/suggestion?type=" + slug + "&input=" + input,// type:['from','to'],input:
         cache: false,
         success: function(result){
             var html = '';
             var obj = result;
 
             if(obj.length == 0){
+                // $('#suggestion_' + slug).css({
+                //     'display': 'none'
+                // });
                 //html += '很遗憾，没有找到相关内容～<br>';
             }else{
-                for(var k=0;k<obj.length;k++){
-                    html += "<p onclick='select_" + slug + "(\"" + obj[k].name + "\", \""+obj[k].type+"\")'>" + obj[k].name + "</p>";
+                for(var k = 0;k < obj.length;k++){
+                    html += "<p onclick='select_" + slug + "(\"" + obj[k].name + "\", \"" + obj[k].type + "\")'>" + obj[k].name + "</p>";
                 }
+                console.log("0");
             }
-            $("#suggestion_"+slug).css("display","block");
-            $("#suggestion_"+slug).empty();
-            $("#suggestion_"+slug).append(html);
+            $("#suggestion_" + slug).css("display", "block");
+            $("#suggestion_" + slug).empty();
+            $("#suggestion_" + slug).append(html);
         }
     });    
 }
 
 
-/* ---- BEGIN: select suggestion ---- */
 function myTrim(x) {
-    return x.replace(/^\s+|\s+$/gm,'');
+    //delete the blank
+    return x.replace(/^\s+|\s+$/gm, '');
 }
+
 
 //input文本框的隐藏
 arrInput.forEach(function(t){
@@ -206,9 +223,11 @@ arrInput.forEach(function(t){
             'display' : 'none'
         });
     } 
+
     // 鼠标点击屏幕
     $(document).click(function(e) {
         var el = e.srcElement || e.target;
+        // 判断条件很奇怪???一定要有父节点？？
         if (
             el.parentNode
                 && el.parentNode.id !== t[2]
@@ -218,16 +237,17 @@ arrInput.forEach(function(t){
             t[1].css({
                 'display': 'none'
             });
-
         }
     });
-
 });
 
-var array = [[arriveSuggestions, arriveInput], [fromSuggestions, fromInput]];
+// var array = [[arriveSuggestions, arriveInput], [fromSuggestions, fromInput]];
+var array = [[arriveSuggestions, arriveInput]];
 array.forEach(function(t){
     //// 清除‘选中’
     function clearSelectedStyle() {
+        // var items = t[0].find('p'),
+        //     len = items.length;
         var items = t[0].find('p');
         var len = items.length;
         for (var i = 0; i < len; i++) {
@@ -236,16 +256,16 @@ array.forEach(function(t){
             }
         }
     }
-
     //// 上下方向键选择联想的输入
     $(document).keydown(function(e) {
-        var keyCode = e.keyCode ? e.keyCode : e.which;
-        var display = t[0].css('display');
+        var keyCode = e.keyCode ? e.keyCode : e.which,
+            display = t[0].css('display');
 
         if (display !== 'none') {
-            var items = t[0].find('p');
-            var len = items.length;
-            var curSelectedObj; // 当前选中的那一个，即上下键盘按下时选择的起始位置
+            var items = t[0].find('p'),
+                len = items.length,
+                curSelectedObj; // 当前选中的那一个，即上下键盘按下时选择的起始位置
+
             // 获取当前选中的提示
             for (var i = 0; i < len; i++) {
                 if ($(items[i]).hasClass('selected')) {
@@ -272,7 +292,6 @@ array.forEach(function(t){
                         clearSelectedStyle();
                         $(items[curSelectedObj.index + 1]).addClass('selected');
                         tempLocName = $(items[curSelectedObj.index + 1]).text();
-                        
                     }
                 }
                 // 当前没有选中的提示，将第一个选中
@@ -280,11 +299,11 @@ array.forEach(function(t){
                     curSelectedObj = {
                         elem: items[0],
                         index: 0
-                    }
+                    };
                     $(items[curSelectedObj.index]).addClass('selected');
                     tempLocName = $(items[curSelectedObj.index]).text();
                 }
-                t[1].attr('tem', tempLocName)
+                t[1].attr('tem', tempLocName);
                 t[1].val(tempLocName);
                 e.stopPropagation();
                 e.preventDefault();
@@ -316,7 +335,7 @@ array.forEach(function(t){
                 e.stopPropagation();
                 e.preventDefault();
             }
-            //加入display判别，以免别的页面中得enter被这里吃掉
+            //加入display判别，以免别的页面中的enter被这里吃掉
             else if(display && keyCode == 13) { // 回车
                 setTimeout(function(){
                     // window.location.href = curSelectedObj.elem.getAttribute('href');
@@ -337,7 +356,7 @@ array.forEach(function(t){
         if (targetTagName == 'p') {
             $(target).addClass('selected');
             var tempLocName = $(target).text();
-            t[1].attr('tem', tempLocName)
+            t[1].attr('tem', tempLocName);
             t[1].val(tempLocName);
         }
     }).mouseout(function(e) {
@@ -346,26 +365,21 @@ array.forEach(function(t){
         if (targetTagName == 'p') {
             clearSelectedStyle();
         }
-});
+    });
 })
 /* ----END: suggestion code ---- */
+
+
 
 
 // 点击GO时, 跳转
 function go_plan_list(){
     var arr_name = $('#arrive').val(),
-        arr_poi_type = $('#arrive').attr('poi_type'),
+        arr_poi_type = ($('#arrive').attr('poi_type')) ? $('#arrive').attr('poi_type') : zone.type.locality,
         from_name = $('#from').text(),
-        from_poi_type = $('#from').attr('poi_type'),
+        from_poi_type = ($('#from').attr('poi_type')) ? $('#from').attr('poi_type') : zone.type.locality,
         url = '/route';
-/*
-    if (! arr_poi_type){
-        arr_poi_type = zone.type.locality;
-    }
-    if (! from_poi_type){
-        from_poi_type = zone.type.locality;
-    }
-*/
+
     if (!from_name || !arr_name){
         alert('请输入出发地和目的地');
     } 
