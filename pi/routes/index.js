@@ -94,9 +94,9 @@ router.get('/route', function(req, res) {
         }
     },
     function(err, results) {
-        var fromId = results.from;
-        var arriveId = results.arrive;
-        var indexGoUrl;
+        var fromId = results.from,
+            arriveId = results.arrive,
+            indexGoUrl;
         if(poiType == zone.type.viewspot){
             indexGoUrl = urlApi.apiHost + urlApi.searchRouteIncludeViewspot + arriveId + "&tag=&minDays=0&maxDays=99";
         }else{
@@ -104,17 +104,21 @@ router.get('/route', function(req, res) {
         }
         model.setUrl(encodeURI(indexGoUrl));
         model.getdata(null, function(data){
-            data = JSON.parse(data);
-            res.render('route', {
-                plans: data.result || [],
-                fromName: fromLocName,
-                arriveId: arriveId,
-                fromId: fromId,  // 用于配置“复制路线”的url
-                arriveName: arrLocName,
-                user_info: utils.get_user_info(req, res),
-                config: config,
-                route_filters: route_filters
-            });
+            if(utils.checkApiRequestState(data)){
+                var data = JSON.parse(data);
+                res.render('route', {
+                    plans: data.result || [],
+                    fromName: fromLocName,
+                    arriveId: arriveId,
+                    fromId: fromId,  // 用于配置“复制路线”的url
+                    arriveName: arrLocName,
+                    user_info: utils.get_user_info(req, res),
+                    config: config,
+                    route_filters: route_filters
+                });
+            }else{
+                res.json(null);
+            }
         });
     });
 });
@@ -208,7 +212,6 @@ router.get('/suggestion', function(req, res){
     model.setUrl(encodeURI(requestUrl));
     model.getdata(null, function(data) {
         if(utils.checkApiRequestState(data)){
-            console.log(data);
             var result = JSON.parse(data).result;
             var suggestionArray = new Array();
             for (type in result) {
