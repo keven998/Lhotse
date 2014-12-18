@@ -210,6 +210,7 @@ Vcity.CitySelector.prototype = {
         div.className = 'citySelector';
         div.style.position = 'absolute';
         div.style.left = inputPos.left + 'px';
+        //the difference in route page. why?
         if ($('#from').attr('data-page') == 'route'){
             div.style.top = '50px';
         }else{
@@ -327,7 +328,8 @@ Vcity.CitySelector.prototype = {
                     that.input.value = this.innerHTML;
                 }
                 else{
-                    document.getElementById('from').innerHTML = this.innerHTML;
+                    // document.getElementById('from').innerHTML = this.innerHTML;
+                    $('#from').text(this.innerHTML);
                     setCookie('userInputFrom', this.innerHTML , 1);
                 }
 

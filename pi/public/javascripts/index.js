@@ -135,22 +135,22 @@ $(function(){
     // });
 
     //文本输入框
-        var searchInput = $('#search-input'),
-            tips = $('.tips'),
-            searchBtn = $('#search-btn');
-        searchBtn.on('click', function (e) {
-            var ipVal = searchInput.val();
-            if ( ipVal === '' ) {
-                tips.show(500);
-                searchInput.focus();
-            }
-        })
-        searchInput.on('keydown', function (e) {
-            tips.hide(200)
-        })
-        searchInput.on('blur', function (e) {
-            tips.hide(200)
-        })
+        // var searchInput = $('#search-input'),
+        //     tips = $('.tips'),
+        //     searchBtn = $('#search-btn');
+        // searchBtn.on('click', function (e) {
+        //     var ipVal = searchInput.val();
+        //     if ( ipVal === '' ) {
+        //         tips.show(500);
+        //         searchInput.focus();
+        //     }
+        // })
+        // searchInput.on('keydown', function (e) {
+        //     tips.hide(200)
+        // })
+        // searchInput.on('blur', function (e) {
+        //     tips.hide(200)
+        // })
 
 
     /*
@@ -278,17 +278,6 @@ var fromWrap = new Vcity.CitySelector({input:'fromWrap'});
 //     };
 // })(); 
 
-/* 回车后，直接跳转 */
-$(function(){
-    $(document).keydown(function(e) {
-        var f1 = arriveSuggestions = $('#suggestion_to').css('display'),
-            f2 = fromSuggestions = $('#suggestion_from').css('display'),
-            keyCode = e.keyCode ? e.keyCode : e.which;
-        if (f1 == 'none' && f2 == 'none' && keyCode === 13) {
-            go_plan_list();
-        }
-    });
-})
 /* ---end--- */
           
 

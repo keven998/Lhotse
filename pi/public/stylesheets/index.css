@@ -17,6 +17,7 @@
 .shade .s .s-btn{position: absolute;right: -160px;top: 0;width: 145px;height: 55px;background-size: cover;background:url("/images/index/btn-pa!-normal02.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/index/btn-pa!-normal02.png',sizingMethod='scale');}
 .shade .s .s-btn:hover{background:url("/images/index/btn-pa!-select02.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/index/btn-pa!-select02.png',sizingMethod='scale');}
 
+.sugg_selected {color: red; background-color: white;}/*for the input suggestion*/
 #from{color:#898989;}
 #fromWrap{display: inline-block;vertical-align: top;cursor: pointer;width:110px;height:30px;position: absolute;z-index: 100;}
 
@@ -68,5 +69,4 @@
 #slider{width: 100% !important;}
 #slider img{width: 100%;height: 100%;}
 
-.selected {color: red; background-color: white;}
 

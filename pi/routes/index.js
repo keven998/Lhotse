@@ -207,23 +207,26 @@ router.get('/suggestion', function(req, res){
     }
     model.setUrl(encodeURI(requestUrl));
     model.getdata(null, function(data) {
-        if (!data) {
+        if(utils.checkApiRequestState(data)){
+            console.log(data);
+            var result = JSON.parse(data).result;
+            var suggestionArray = new Array();
+            for (type in result) {
+                var arrData = result[type],
+                    len = arrData.length;
+                for (var i = 0; i < len; i++) {
+                    var tempName = {
+                        type: type,
+                        name: arrData[i].name
+                    };
+                    suggestionArray.push(tempName);
+                }
+            }
+            res.json(suggestionArray);
+        }else{
+            console.log("Suggestion return the error or there's no data!");
             res.json(null);
         }
-        var result = JSON.parse(data).result;
-        var suggestionArray = new Array();
-        for (type in result) {
-            var arrData = result[type],
-                len = arrData.length;
-            for (var i = 0; i < len; i++) {
-                var tempName = {
-                    type: type,
-                    name: arrData[i].name
-                };
-                suggestionArray.push(tempName);
-            }
-        }
-        res.json(suggestionArray);
     });
 });
 

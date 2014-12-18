@@ -19,10 +19,9 @@ block content
                 b#from(data-page = "route") #{fromName}
                 b.change [更换]
                 b.line
-                input(type="text" name="arriveName" placeholder='景点/城市/省份' id="arrive" onkeyup="suggestion_to(this.value)" autocomplete="off" value='#{arriveName}')
+                input#arrive(type="text" name="arriveName" placeholder='景点/城市/省份' onkeyup="suggestion_to(this.value)" autocomplete="off" value='#{arriveName}' data-page="route")
                 //
                     i.ico-addpos
-                #suggestion_to.suggestion(style="margin-left:130px;width:350px;z-index:100;")
         .route_container
             ul.filter-nav
                 - var index = 0;
@@ -88,3 +87,4 @@ block content
                     .no-data 很遗憾，没有为您找到相关路线，请尝试输入其他目的地。
         .map_container
             #map_inner
+    #suggestion_to.suggestion(style="width:350px;z-index:100;")

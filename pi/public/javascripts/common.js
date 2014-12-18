@@ -166,23 +166,6 @@ function suggestion_to(input){
     }    
 }
 
-// onclick event (used in html)
-// function suggestion_from(input){
-//     var slug = 'from';
-//     var inputText = $('#from').val();
-//     if(inputText !== $('#from').attr('tem')){
-//         $('#from').attr('tem', inputText);
-//         if (myTrim(inputText)) {
-//             suggestion(slug, myTrim(inputText));
-//         }else {
-//             $('#suggestion_from').css({
-//                 'display' : 'none'
-//             });
-//         }
-//     }
-// }
-
-
 function suggestion(slug, input){
     $.ajax({
         url: "/suggestion?type=" + slug + "&input=" + input,// type:['from','to'],input:
@@ -191,20 +174,33 @@ function suggestion(slug, input){
             var html = '';
             var obj = result;
 
+            //不需要这个判断，因为在路由中已经判断了！
             if(obj.length == 0){
-                // $('#suggestion_' + slug).css({
-                //     'display': 'none'
-                // });
+                $('#suggestion_' + slug).css({
+                    'display': 'none'
+                });
                 //html += '很遗憾，没有找到相关内容～<br>';
             }else{
                 for(var k = 0;k < obj.length;k++){
                     html += "<p onclick='select_" + slug + "(\"" + obj[k].name + "\", \"" + obj[k].type + "\")'>" + obj[k].name + "</p>";
                 }
-                console.log("0");
+                $("#suggestion_" + slug).css("display", "block");
+                if (slug == "to"){
+                    var obj = "#arrive";
+                }else if (slug == "from"){
+                    var obj = "#from";
+                }
+                $("#suggestion_" + slug).empty();
+                var padding = 5, border = 2;
+                $("#suggestion_" + slug).css("left",$(obj).offset().left - padding - border + "px");
+                //the difference in route page. why?
+                if ($('#arrive').attr('data-page') == 'route'){
+                    $("#suggestion_" + slug).css("top","50px");
+                }else{
+                    $("#suggestion_" + slug).css("top",$(obj).offset().top + $(obj).height() + "px");
+                }
+                $("#suggestion_" + slug).append(html);
             }
-            $("#suggestion_" + slug).css("display", "block");
-            $("#suggestion_" + slug).empty();
-            $("#suggestion_" + slug).append(html);
         }
     });    
 }
@@ -251,8 +247,8 @@ array.forEach(function(t){
         var items = t[0].find('p');
         var len = items.length;
         for (var i = 0; i < len; i++) {
-            if ($(items[i]).hasClass('selected')) {
-                $(items[i]).removeClass('selected');
+            if ($(items[i]).hasClass('sugg_selected')) {
+                $(items[i]).removeClass('sugg_selected');
             }
         }
     }
@@ -268,7 +264,7 @@ array.forEach(function(t){
 
             // 获取当前选中的提示
             for (var i = 0; i < len; i++) {
-                if ($(items[i]).hasClass('selected')) {
+                if ($(items[i]).hasClass('sugg_selected')) {
                     curSelectedObj = {
                         elem: items[i],
                         index: i
@@ -285,12 +281,12 @@ array.forEach(function(t){
                     if (curSelectedObj.index + 1 === len) {
                         // 先清除当前选中，然后跳到第一个
                         clearSelectedStyle();
-                        $(items[0]).addClass('selected');
+                        $(items[0]).addClass('sugg_selected');
                         tempLocName = $(items[0]).text();
                     }
                     else {
                         clearSelectedStyle();
-                        $(items[curSelectedObj.index + 1]).addClass('selected');
+                        $(items[curSelectedObj.index + 1]).addClass('sugg_selected');
                         tempLocName = $(items[curSelectedObj.index + 1]).text();
                     }
                 }
@@ -300,7 +296,7 @@ array.forEach(function(t){
                         elem: items[0],
                         index: 0
                     };
-                    $(items[curSelectedObj.index]).addClass('selected');
+                    $(items[curSelectedObj.index]).addClass('sugg_selected');
                     tempLocName = $(items[curSelectedObj.index]).text();
                 }
                 t[1].attr('tem', tempLocName);
@@ -313,12 +309,12 @@ array.forEach(function(t){
                 if (curSelectedObj) {
                     if (curSelectedObj.index === 0) {
                         clearSelectedStyle();
-                        $(items[len - 1]).addClass('selected');
+                        $(items[len - 1]).addClass('sugg_selected');
                         tempLocName = $(items[len - 1]).text();
                     }
                     else {
                         clearSelectedStyle();
-                        $(items[curSelectedObj.index - 1]).addClass('selected');
+                        $(items[curSelectedObj.index - 1]).addClass('sugg_selected');
                         tempLocName = $(items[curSelectedObj.index - 1]).text();
                     }
                 }
@@ -327,7 +323,7 @@ array.forEach(function(t){
                         elem: items[len - 1],
                         index: len - 1
                     }
-                    $(items[curSelectedObj.index]).addClass('selected');
+                    $(items[curSelectedObj.index]).addClass('sugg_selected');
                     tempLocName = $(items[curSelectedObj.index]).text();
                 }
                 t[1].attr('tem', tempLocName)
@@ -354,7 +350,7 @@ array.forEach(function(t){
         var target = e.target || e.srcElement;
         var targetTagName = target.tagName.toLowerCase();
         if (targetTagName == 'p') {
-            $(target).addClass('selected');
+            $(target).addClass('sugg_selected');
             var tempLocName = $(target).text();
             t[1].attr('tem', tempLocName);
             t[1].val(tempLocName);
@@ -399,3 +395,16 @@ function go_plan_list(){
         $('#from').val('');
     }
 }
+
+
+$(function(){
+    $(document).keydown(function(e) {
+        /* why "= arriveSuggestions" */
+        var f1 = arriveSuggestions = $('#suggestion_to').css('display'),
+            // f2 = fromSuggestions = $('#suggestion_from').css('display'),
+            keyCode = e.keyCode ? e.keyCode : e.which;
+        if (f1 == 'none' && keyCode === 13) {
+            go_plan_list();
+        }
+    });
+})

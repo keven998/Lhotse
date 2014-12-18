@@ -35,12 +35,13 @@ block content
                     b.line
                     i.ico02.ico02-where
                     b 想去:
-                    input.s-ip(type="text" name="arrivName" placeholder='景点/城市/省份' id="arrive" onkeyup="suggestion_to(this.value)" autocomplete="off")
+                    input.s-ip#arrive(type="text" name="arrivName" placeholder='景点/城市/省份'  onkeyup="suggestion_to(this.value)" autocomplete="off" data-page="index")
                     //
                         i.ico-addpos
                     a(href="#" onclick="go_plan_list()")
                         #search-btn.s-btn
-                    #suggestion_to.suggestion(style="margin-left:270px;width:373px;")
+
+    #suggestion_to.suggestion(style="width:380px;")
     .content.f-cb
         //- p.t
         //-     b.txt01 精彩的旅程，也需要你的发现

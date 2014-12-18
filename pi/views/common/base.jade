@@ -4,7 +4,6 @@ html
         meta(charset='utf-8')
         meta(http-equiv='X-UA-Compatible', content='IE=Edge')
         script(src='/javascripts/lib/jquery-1.11.1.min.js', rel='javascripts')
-        script(src='/javascripts/common.js', rel='javascripts')
         block page_var
         script.
             var page_url = location.search;
@@ -119,6 +118,7 @@ html
                     document.head.appendChild(script);
                 };
                 loadJS(page_path, page_id, use_require_js);
+            script(src='/javascripts/common.js', rel='javascripts')
             script(type="text/javascript").
                 var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
                 document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F642d04109c4306c85015d272c1938156' type='text/javascript'%3E%3C/script%3E"));
