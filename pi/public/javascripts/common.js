@@ -174,12 +174,11 @@ function suggestion(slug, input){
             var html = '';
             var obj = result;
 
-            //不需要这个判断，因为在路由中已经判断了！
+            //不需要这个判断，因为在路由中已经判断了！???
             if(obj.length == 0){
                 $('#suggestion_' + slug).css({
                     'display': 'none'
                 });
-                //html += '很遗憾，没有找到相关内容～<br>';
             }else{
                 for(var k = 0;k < obj.length;k++){
                     html += "<p onclick='select_" + slug + "(\"" + obj[k].name + "\", \"" + obj[k].type + "\")'>" + obj[k].name + "</p>";
@@ -221,9 +220,9 @@ arrInput.forEach(function(t){
     } 
 
     // 鼠标点击屏幕
+    // 这里的作用是去除点击到arrive的触发事件(该事件在别处有写，不过效果是一样的)...(另外,parentnode没有意义，因为任意一个匀速的parentnode至少是Body...)
     $(document).click(function(e) {
         var el = e.srcElement || e.target;
-        // 判断条件很奇怪???一定要有父节点？？
         if (
             el.parentNode
                 && el.parentNode.id !== t[2]
@@ -272,7 +271,6 @@ array.forEach(function(t){
                     break;
                 }
             }
-
             if (keyCode == 40) { // 下
                 var tempLocName;
                 // 当前有选中提示

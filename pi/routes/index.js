@@ -223,7 +223,7 @@ router.get('/suggestion', function(req, res){
                 for (var i = 0; i < len; i++) {
                     var tempName = {
                         type: type,
-                        name: arrData[i].name
+                        name: arrData[i].zhName
                     };
                     suggestionArray.push(tempName);
                 }
