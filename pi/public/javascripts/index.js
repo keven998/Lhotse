@@ -181,7 +181,7 @@ $(function(){
     if (!getCookie('userInputFrom')) {
         document.getElementById('from').innerHTML = cityName;
     }else{
-        document.getElementById('from').innerHTML = getCookie('userInputFrom');
+        document.getElementById('from').innerHTML = getCookie('userInputFrom');//function getcookie defined in common.js
     }
     setCookie('fromLoc',encodeURI(cityName), 1);
 })
