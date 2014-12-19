@@ -134,8 +134,11 @@ define(['async!http://ditu.google.cn/maps/api/js?v=3&sensor=false&libraries=geom
             markers[f] && markers[f].setMap(mapObj);
         };
         that.showMarkers = function(markers) {
-            for (var l = markers.length, m = 0; m < l; m++) that.showMarker(
-                markers[m]);
+            if(markers == null){
+                return;
+            }
+            for (var l = markers.length, m = 0; m < l; m++)
+                that.showMarker(markers[m]);
         };
         that.hideMarker = function(id) {
             markers[id] && markers[id].setMap(null);

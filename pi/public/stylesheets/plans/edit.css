@@ -20,6 +20,7 @@
     font-family: monospace;
     position: absolute;
     top: 10px;
+    height: 30px;
     /* z-index: 5; */
     left: 80px;
 }
@@ -176,8 +177,8 @@ ul.day_detail {
     background-color: rgb(249, 249, 168);
 }
 
-.icon_sight, .icon_restaurant, .icon_shop, .icon_tracffic_flight, .icon_hotel,
-.icon_sight_hover, .icon_restaurant_hover, .icon_shop_hover, .icon_tracffic_flight_hover, .icon_hotel_hover {
+.icon_viewspot, .icon_restaurant, .icon_shop, .icon_airport, .icon_hotel,
+.icon_trainstation, .icon_viewspot_hover, .icon_restaurant_hover, .icon_shop_hover, .icon_airport_hover, .icon_hotel_hover {
     background: url(/images/plans/edit/icon-group-poi.png) no-repeat;
     display: inline-block;
     height: 25px;
@@ -205,7 +206,29 @@ i.spot_name {
     margin-left: 10px;
 }
 
-.icon_sight {
+i.new_add_to_plan {
+    background: url(/images/plans/edit/icon-new.png) no-repeat;
+    width: 30px;
+    height: 20px;
+    position: absolute;
+    left: 60px;
+    top: -4px;
+}
+
+.J_add_day {
+    background: url(/images/plans/edit/btn-add-day.png) no-repeat;
+    width       : 25px;
+    height      : 25px;
+    margin-top  : 5px;
+    margin-left : 10px;
+    cursor      : pointer;
+}
+
+.J_add_day:hover {
+
+}
+
+.icon_viewspot {
     background-position: -210px 0px;
 }
 .icon_restaurant {
@@ -214,13 +237,13 @@ i.spot_name {
 .icon_shop {
     background-position: -264px 0px;
 }
-.icon_tracffic_flight {
-    background-position: -160px 0px;
+.icon_airport {
+    background-position: -315px 0px;
 }
 .icon_hotel {
-    background-position: 0px 0px;
+    background-position: -262px 0px;
 }
-.icon_sight_hover {
+.icon_viewspot_hover {
     background-position: -210px -30px;
 }
 .icon_restaurant_hover {
@@ -229,11 +252,11 @@ i.spot_name {
 .icon_shop_hover {
     background-position: -264px -30px;
 }
-.icon_tracffic_flight_hover {
-    background-position: -160px -30px;
+.icon_airport_hover {
+    background-position: -315px -30px;
 }
 .icon_hotel_hover {
-    background-position: 0px -30px;
+    background-position: -262px -30px;
 }
 
 i.marker_number {
@@ -350,13 +373,15 @@ input[type="text"] {
     position: absolute;
 }
 
-.list_spotview, .list_hotel {
+.list_viewspot, .list_hotel {
     width: 100%;
     height: 100%;
     overflow: auto;
 }
 
-.list_spotview_element, .list_hotel_element {
+
+
+.list_viewspot_element, .list_hotel_element {
     width: 100%;
     overflow: hidden;
     height: 60px;
@@ -365,13 +390,13 @@ input[type="text"] {
     position: relative;
 }
 
-.spotview_pic, .spotview_info, .hotel_pic, .hotel_info {
+.viewspot_pic, .viewspot_info, .hotel_pic, .hotel_info {
     display: inline-block;
     width: 150px;
     margin-left: 80px;
 }
 
-.spotview_pic, .hotel_pic {
+.viewspot_pic, .hotel_pic {
     height: 60px;
     width: 60px;
     /* float: left; */
@@ -381,7 +406,7 @@ input[type="text"] {
     margin-left: 1px;
 }
 
-.spotview_title, .hotel_title {
+.viewspot_title, .hotel_title {
     font-size: 16px;
     text-overflow: ellipsis;
     height: 25px;
@@ -395,7 +420,7 @@ input[type="text"] {
 }
 
 
-.spotview_star, .ticket_price, .suggestion_time, .hotel_star, .hotel_phone, .hotel_address {
+.ticket_price, .suggestion_time, .hotel_phone, .hotel_address {
     height: 20px;
     font-size: 13px;
     /* margin: 2px 2px 0px 10px; */
@@ -444,7 +469,7 @@ li.day.current {
     text-decoration: none
 }
 
-.map_marker i
+.map_marker i.marker_in_plan_num
 {
     background: url("/images/plans/edit/icon-map-pos.png") no-repeat;
     color: blue;
@@ -461,7 +486,7 @@ li.day.current {
     z-index: 1
 }
 
-.map_marker em
+.map_marker em.marker_in_plan_name
 {
     display: inline-block;
     background-color: #fff;
@@ -473,16 +498,92 @@ li.day.current {
     text-decoration: none;
     text-overflow: ellipsis;
     white-space: nowrap;
-    height: 28px;
+    height: 26px;
     line-height: 28px;
     max-width: 120px;
-    *width: 80px;
     color: #333;
-    left: -14px;
-    top: -15px;
-    *top: -14px;
+    left: -15px;
+    top: -18px;
     padding: 0 18px;
-    border-radius: 0 14px 14px 0
+    border-radius: 0 14px 14px 0;
+}
+
+.map_marker i.hotel{
+    background: url("/images/plans/edit/icon-group-poi.png") no-repeat;
+    color: blue;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    height: 48px;
+    width: 34px;
+    line-height: 36px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    z-index: 1;
+    background-position: -262px -30px;
+}
+
+/*.map_marker em.hotel
+{
+    display: inline-block;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 2px 0 #ccc;
+    color: #333;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 26px;
+    line-height: 28px;
+    max-width: 120px;
+    color: #333;
+    left: -15px;
+    top: -18px;
+    padding: 0 18px;
+    border-radius: 0 14px 14px 0;
+}*/
+
+.map_marker i.viewspot{
+    background: url("/images/plans/edit/icon-group-poi.png") no-repeat;
+    color: blue;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    height: 48px;
+    width: 34px;
+    line-height: 36px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    z-index: 1;
+    background-position: -210px -30px;
+}
+
+.map_marker em.viewspot, .map_marker em.hotel
+{
+    display: inline-block;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 2px 0 #ccc;
+    color: #333;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 20px;
+    line-height: 20px;
+    max-width: 120px;
+    color: #333;
+    left: -22px;
+    top: -25px;
+    padding: 0 18px;
+    border-radius: 0 14px 14px 0;
 }
 
 .map_marker:hover em,.map_marker.active em,.map_marker.current em,.map_marker_type:hover em,.map_marker_type.active em,.map_marker_type.current em
@@ -522,6 +623,10 @@ background-color: rgba(253, 253, 253, 1);
 
 .cf {
 zoom: 1;
+}
+
+i.delete{
+
 }
 
 .gs_poi_pop {
@@ -593,13 +698,41 @@ border-radius: 3px;
 padding: 0 10px;
 }
 
+.qui-icon {
+    display : inline-block
+}
+
+span.star {
+    background     : url(/images/plans/detail/face_a.png) 0 0 no-repeat;
+    width          : 14px;
+    height         : 14px;
+    vertical-align : middle
+}
+
+span.empty {
+    background     : url(/images/plans/detail/face_b.png) 0 0 no-repeat;
+    width          : 14px;
+    height         : 14px;
+    vertical-align : middle
+}
+
+
 /*----css for templates begin----*/
 .pop_window_viewspot {
     border: 1px solid #DDD;
     width: 300px;
     background-color: white;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
+    border: 3px solid #bab6b0\9;
+    border-radius: 1px;
     overflow: auto;
     font-size: 14px;
+}
+
+.spotview_title {
+    color: rgb(80, 167, 189);
+    margin-left: 45px;
+    font-size: 17px;
 }
 
 .basic_info_viewspot {
@@ -625,11 +758,10 @@ padding: 0 10px;
 
 
 
-.spotview_star {
+.viewspot_star a,  .hotel_star a {
     font-size: 14px;
     font-family: monospace;
-    /* padding-left: 15px; */
-    /* margin-top: 7px; */
+    color: black;
 }
 
 .ticket_price {
@@ -710,13 +842,42 @@ p.viewspot_desc_content {
 
 .btn_add_to_plan {
     display: inline-block;
-    border: 1px solid blueviolet;
+    background-color: #53A9BF;
     width: 50px;
     height: 50px;
     cursor: pointer;
-    color: black;
+    color: white;
     position: absolute;
     right: 2px;
-    bottom: 2px;
+    bottom: 15px;
+    border-radius: 5px;
+}
+
+.btn_add_to_plan:hover {
+    display: inline-block;
+    background-color: rgba(0, 164, 204, 1);
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    color: white;
+    position: absolute;
+    right: 2px;
+    bottom: 15px;
+    border-radius: 5px;
+}
+
+.btn_add_to_plan .text{
+    margin: 4px 10px;
 }
 /*----css for templates end----*/
+
+input.J_title {
+    border: none;
+    font-size: 18px;
+    height: 25px;
+    font-family: monospace;
+    cursor: pointer;
+}
+input.J_title:hover {
+    border: 1px solid #ccc;
+}

@@ -25,6 +25,14 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock', 'PopLayer'
         window.infoBlock = infoBlock;
 
         /*
+        * 复制行程
+        */
+        $('#J_copy_plan').on('click', function() {
+            var id  = $('.main_title').attr('data-id'),
+                url = '/plans/edit/' + id;
+            window.open(url);
+        })
+        /*
          * 取消顶部导航栏的fixed状态
          */
          $('.hd').css({
