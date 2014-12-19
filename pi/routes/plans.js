@@ -58,6 +58,7 @@ router.get('/detail/:TEMPLATEID', function(req, res) {
             return ;
         }
         console.log(model.getUrl());
+        // res.json(JSON.parse(data));
         var oriData         = JSON.parse(data),
             result          = oriData.result,
             ugcDetail       = result.details,
@@ -108,15 +109,17 @@ router.get('/edit/:UGCID', function(req, res) {
             ugcDetail       = result.details,
             detailInfo      = dataExtract.detailData(null, ugcDetail),
             basicInfo       = dataExtract.basicData(null, result),
-            spotData        = detailInfo.spotData;
+            spotData        = detailInfo.spotData,
+            trafficRoute     = detailInfo.trafficRoute;
 
-        //res.json(spotData);
+        // res.json(trafficRoute);
         res.render('plans/edit', {
             user_info       : utils.get_user_info(req, res),
             config          : config,
             already_saved   : false,
             basicInfo       : basicInfo,
             spotData        : spotData,
+            trafficRoute    : JSON.stringify(trafficRoute),
             spotDataStr     : JSON.stringify(spotData)
         });
     });
@@ -154,91 +157,6 @@ router.get('/edit/customized/:UGCID', function(req, res) {
                 startDate: dataObj.startDate,
             });
         })
-});
-
-
-/* edit post request */
-router.post('/edit/post', function(req, res) {
-    var webPostData = req.body;
-    var vsAndHotel = webPostData.spotArray;
-    //获得ugc信息
-    var requestUrl = apiList.apiHost + apiList.ugc.getUgcByIdNone + webPostData.ugcId;
-    model.setUrl(encodeURI(requestUrl));
-    model.getdata(req, function(data){
-        data = JSON.parse(data);
-        var ugcData = new Object();
-        ugcData.uid = webPostData.uid;
-        ugcData.fromLoc = webPostData.fromLocId;
-        ugcData.title = data.result.title;
-        ugcData.action = 'upsert';
-        ugcData.templateId = data.result.templateId;
-        ugcData._id = webPostData.ugcId;
-        ugcData.trafficBudget = data.result.trafficBudget;
-        ugcData.viewBudget = data.result.viewBudget;
-        ugcData.budget = data.result.budget;
-        ugcData.stayBudget = data.result.stayBudget;
-        ugcData.v = '1.1.0';
-        ugcData.webFlag = 1;
-        ugcData.seq = '';
-        ugcData.timestamp = '';
-
-        var details = new Array();
-        // 获得交通信息
-        var arr = data.result.details,
-            trafficData = [],
-            routeLength = arr.length;
-        for (var i = 0; i < arr.length; i++) {
-            var actv = arr[i].actv;
-            for (var j = 0; j < actv.length; j++) {
-                var elem = actv[j];
-                if (elem.type == 'traffic') {
-                    if(elem.subType == 'airport' || elem.subType == 'trainStation') {
-                        var temp = new Object();
-                        temp.type = elem.type;
-                        temp.subType = elem.subType;
-                        temp.ts = elem.ts;
-                        temp.st = elem.ts;
-                        temp.itemId = elem.itemId;
-                        trafficData.push(temp);
-                    } else {
-                        var temp = new Object();
-                        temp.type = elem.type;
-                        temp.subType = elem.subType;
-                        temp.arrStop = elem.arrStop;
-                        temp.depStop = elem.depStop;
-                        temp.st = elem.ts;
-                        temp.itemId = elem.itemId;
-                        trafficData.push(temp);
-                    }
-                }
-            }
-        }
-        var dateDiff = webPostData.dayDiff,
-            details = trafficDateUpdate(trafficData, vsAndHotel, dateDiff);
-
-        var vsTime = [];
-        for (var i = 0; i < details.length; i++) {
-            var vsData = details[i];
-            if (vsData.type === 'vs') {
-                vsTime.push(vsData.st);
-            }
-        }
-        ugcData.startDate = vsTime[0];
-        ugcData.endDate = vsTime[vsTime.length - 1];
-        // http post
-        ugcData.details = details;
-        var options = {
-            url : apiList.apiHost + apiList.ugc.editSave,
-            json: ugcData,
-            method: 'POST',
-        };
-        request(options, function(err, respond, result) {
-            if (err) {
-                throw err;
-            }
-            res.json(result);
-        });
-    });
 });
 
 
@@ -362,24 +280,68 @@ router.get('/timeline/:TEMPLATES', function(req, res) {
 
 /* user's plan detail */
 router.get('/timeline/customized/:UGCID', function(req, res) {
-    var ori_res = res;
-    model.setUrl(apiList.apiHost + apiList.ugc.detail);
-    model.getdata(req, function(data) {
-        var data = dataExtract.preProcess(req, data);
-        if (!data) {
-            res.redirect('/');
+    // {
+    //     var ori_res = res;
+    //     model.setUrl(apiList.apiHost + apiList.ugc.detail);
+    //     model.getdata(req, function(data) {
+    //         var data = dataExtract.preProcess(req, data);
+    //         if (!data) {
+    //             res.redirect('/');
+    //         }
+    //         var basicInfo = dataExtract.basicData(req, data);
+    //         var allRoutes = dataExtract.detailData(req, data);
+    //         var navigation = dataExtract.navigationData(allRoutes);
+    //         res.render('plans/timeline', {
+    //             allRoutes : allRoutes,
+    //             basicInfo : basicInfo,
+    //             navigation : navigation,
+    //             user_info: utils.get_user_info(req, res),
+    //             config: config,
+    //             already_saved: true,
+    //         });
+    //     });
+    // }
+    console.log('in...');
+    var ugcId = req.params.UGCID,
+        query      = req._parsedUrl.query;
+
+    model.setUrl('http://api.lvxingpai.cn/web/ugc-plans/' + ugcId);
+    model.getdata(null, function(data){
+        if(!utils.checkApiRequestState(data)) {
+            console.log("==== api request error ====");
+            console.log("request url: ");
+            console.log(model.getUrl());
+            /* render error page */
+            res.render('common/error', {
+                user_info       : utils.get_user_info(req, res),
+                config          : config,
+                already_saved   : false,
+            })
+            return ;
         }
-        var basicInfo = dataExtract.basicData(req, data);
-        var allRoutes = dataExtract.detailData(req, data);
-        var navigation = dataExtract.navigationData(allRoutes);
-        res.render('plans/timeline', {
-            allRoutes : allRoutes,
-            basicInfo : basicInfo,
-            navigation : navigation,
-            user_info: utils.get_user_info(req, res),
-            config: config,
-            already_saved: true,
-        });
+        console.log(model.getUrl());
+        // res.json(JSON.parse(data));
+        var oriData         = JSON.parse(data),
+            result          = oriData.result,
+            ugcDetail       = result.details,
+            detailInfo      = dataExtract.detailData(null, ugcDetail),
+            basicInfo       = dataExtract.basicData(null, result),
+            spotData        = detailInfo.spotData,
+            viewspotCnt     = detailInfo.viewspotCnt,
+            dates           = detailInfo.dates,
+            calendarData    = detailInfo.calendarData;
+
+            res.render('plans/detail', {
+                basicInfo       : basicInfo,
+                spotData        : spotData,
+                dates           : dates,
+                calendarData    : calendarData,
+                viewspotCnt     : viewspotCnt,
+                mapData         : JSON.stringify(spotData),
+                user_info       : utils.get_user_info(req, res),
+                config          : config,
+                already_saved   : true,
+            });
     });
 });
         /* old data to be delete BEGIN*/
@@ -598,6 +560,8 @@ var dataExtract = (function () {
             copyCnt     = result.forkedCnt,
             viewCnt     = result.vsCnt,
             days        = result.days,
+            locId       = result.target._id,
+            templateId  = result.templateId,
             picUrl      = (result.imageList && (_.isArray(result.imageList)) && result.imageList[0]) ? result.imageList[0] : "用来替换的pic图片",
             startDate   = result.startDate.substring(0, 10),
             endDate     = result.endDate.substring(0, 10),
@@ -605,6 +569,8 @@ var dataExtract = (function () {
             basicInfo   = {
                 title       : title,
                 id          : id,
+                templateId  : templateId,
+                locId       : locId,
                 copyCnt     : copyCnt,
                 viewCnt     : viewCnt,
                 picUrl      : picUrl,
@@ -612,7 +578,7 @@ var dataExtract = (function () {
                 startDate   : startDate,
                 endDate     : endDate,
             };
-
+        console.log(basicInfo);
         return basicInfo;
     };
 
@@ -652,7 +618,8 @@ var dataExtract = (function () {
         var spotInfo     = [],
             viewspotCnt  = [],
             dates        = [],
-            calendarData = [];
+            calendarData = [],
+            trafficRoute = [];
         for(var dayIndex in details){
             var oneDayPlan      = details[dayIndex].actv,
                 tempOneDay      = [],
@@ -671,13 +638,16 @@ var dataExtract = (function () {
             oneDayCalendar.date     = date;
             oneDayCalendar.weekFlay = weekFlay;
 
-            if(_.isArray(oneDayPlan)){
+            if(_.isArray(oneDayPlan)) {
                 for(var spotIndex in oneDayPlan){
                     var curSpot      = oneDayPlan[spotIndex],
                         tempSpot     = {},
                         type         = curSpot.type,
                         subType      = curSpot.subType;
 
+                    if(type == 'traffic') {
+                        trafficRoute.push(curSpot);
+                    }
                     if(subType == 'airRoute' || subType == 'trainRoute') {
                         continue;
                     }
@@ -750,7 +720,8 @@ var dataExtract = (function () {
             spotData    : spotInfo,
             viewspotCnt : viewspotCnt,
             dates       : dates,
-            calendarData: calendarData
+            calendarData: calendarData,
+            trafficRoute: trafficRoute
         };
     };
 

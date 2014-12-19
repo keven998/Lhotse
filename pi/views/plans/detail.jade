@@ -41,8 +41,11 @@ block content
             a 日程模式
         .seting
           .link
-            a.ui_buttonC(id="J_copy_plan") 复制行程
-            a.ui_buttonA 保存行程
+            if already_saved
+              a.ui_buttonC(id="J_copy_plan") 编辑行程
+            else
+              a.ui_buttonC(id="J_copy_plan") 复制行程
+              a.ui_buttonA 保存行程
 
 
     .pl_contents

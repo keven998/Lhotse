@@ -7,6 +7,7 @@ var zone = require('../conf/zone');
 var mu = require('mu2');
 var utils = require("../common/utils");
 var _ = require('underscore');
+var moment = require('moment');
 mu.root = 'public/htmltemplate/';
 
 /*
@@ -51,6 +52,7 @@ router.post('/tabContent', function(req, res) {
     getListContent(querys, type, function(data){
         var htmlTemplateRoute = 'editPage/tab_list_' + type + '.html',
             html = [];
+        console.log('123' + htmlTemplateRoute);
         mu.compileAndRender(htmlTemplateRoute, {data: data})
             .on('data', function(chunk) {
                 html.push(chunk);
@@ -58,8 +60,9 @@ router.post('/tabContent', function(req, res) {
             .on('end', function() {
                 html = html.join("");
                 res.json({
-                    html: html.toString(),
-                    detailData: data
+                    html        : html.toString(),
+                    detailData  : data,
+                    type        : type
                 });
             });
     });
@@ -167,9 +170,45 @@ router.post('/detail', function(req, res) {
 
 });
 
+/* edit post request */
+router.post('/submit', function(req, res) {
+    console.log('in......');
+    var submitData      = req.body,
+        spotsInfo       = submitData.spots,
+        ugcId           = submitData.id,
+        templateId      = submitData.templateId;
+    // console.log(submitData);
+    var data = processSubmitData(submitData);
+    console.log('-=-=-=-=-=-=-=输出结果-=-=-=-=-=-=-=-');
+    console.log(data);
+    var options = {
+        url : apiList.apiHost + apiList.ugc.editSave,
+        json: data,
+        method: 'POST',
+    };
+    console.log('-=-=-=-=-=-=-请求结果-=-=-=-=-=-=-=-');
+    request(options, function(err, respond, result) {
+        if (err) {
+            throw err;
+        }
+        console.log(result);
+        res.json(result);
+    });
+    //获得ugc信息
+    // var requestUrl = apiList.apiHost + apiList.ugc.getUgcByIdNone + ugcId;
+    // console.log(requestUrl);
+    // model.setUrl(encodeURI(requestUrl));
+    // model.getdata(null, function(data) {
+
+});
+
+
 
 function getListContent(querys, type, callback) {
     var requestUrl = selectUrlForSpotsInCity(type);
+    console.log("tabcontent_url:" + requestUrl);
+    console.log("tabcontent_querys:");
+    console.log(querys);
     var options = {
         url: requestUrl,
         qs: querys,
@@ -226,16 +265,16 @@ function selectUrlForSpotsInCity(type) {
     var requestUrl = '';
     switch(type) {
         case 'viewspot':
-            requestUrl = 'http://api.lvxingpai.com/web/poi/view-spots/search';
+            requestUrl = 'http://api.lvxingpai.cn/web/poi/view-spots/search';
             break;
         case 'vs':
-            requestUrl = 'http://api.lvxingpai.com/web/poi/view-spots/search';
+            requestUrl = 'http://api.lvxingpai.cn/web/poi/view-spots/search';
             break;
         case 'restaurant':
             requestUrl = '';
             break;
         case 'hotel':
-            requestUrl = '';
+            requestUrl = 'http://api.lvxingpai.cn/web/poi/hotels/search';
             break;
         case 'shopping':
             requestUrl = '';
@@ -254,22 +293,25 @@ function selectUrlForSpotsInCity(type) {
 function extractData(data, type) {
     var result = data.result,
         extractedData = [];
+        console.log(data);
     for(var key in result) {
         var tempObject = {},
             oneElement = result[key];
-        tempObject.id = oneElement._id,
-        tempObject.name = oneElement.name,
-        tempObject.image = oneElement.imageList ? (oneElement.imageList.length ? oneElement.imageList[0] : " ") : " ",
-        tempObject.ranking = oneElement.ratings ? oneElement.ratings.ranking : 0,
-        tempObject.timeCost = oneElement.timeCost,
-        tempObject.lng = oneElement.addr ? oneElement.addr.lng : '',
-        tempObject.lat = oneElement.addr ? oneElement.addr.lat : '',
+        tempObject.id = oneElement.id;
+        tempObject.name = oneElement.zhName;
+        tempObject.image = oneElement.images ? (oneElement.images.length ? oneElement.images[0].url : " ") : " ";
+        tempObject.ranking = oneElement.ratings;
+        tempObject.timeCost = oneElement.timeCost;
+        tempObject.lng = oneElement.location.coordinates ? oneElement.location.coordinates[0] : '';
+        tempObject.lat = oneElement.location.coordinates ? oneElement.location.coordinates[1] : '';
         tempObject.price = oneElement.price ? oneElement.price : "没有价格";
         tempObject.type = type;
         extractedData.push(tempObject);
     }
+    console.log(extractedData);
     return extractedData;
 }
+
 
 function extractDataForspotInfo(data, type) {
     if(!data) {
@@ -294,7 +336,6 @@ function extractDataForspotInfo(data, type) {
                 break;
         }
     }
-    console.log('-=-=-=');
     console.log(usefulData);
     return usefulData;
 }
@@ -340,7 +381,6 @@ function extractHotelInfo(data, type) {
 
     var phoneList = result.contact ? (result.contact.phoneList ? ( result.contact.phoneList) : "") : "";
     _.isArray(phoneList) ? (tempObject.phone = phoneList[0]) : (tempObject.phone = '暂无')
-    console.log(tempObject);
     return tempObject;
 }
 
@@ -353,6 +393,153 @@ function extractTrafficInfo(data, type) {
     return tempObject
 }
 
+function processSubmitData(submitData) {
+    if(submitData == null) {
+        return null;
+    }
+    var tempObj         = {};
+    tempObj.uid         = submitData.userId;
+    tempObj.title       = submitData.title;
+
+
+    tempObj.startDate   = moment(submitData.startTime).format('YYYY-MM-DD HH:mm:ssZZ');
+    tempObj.action      = 'upsert';
+    tempObj.templateId  = submitData.templateId;
+    tempObj._id         = submitData.id;
+    tempObj.viewBudget  = 250;
+    tempObj.timestamp   = '';
+    tempObj.seq         = '';
+    tempObj.trafficBudget = 250;
+
+    var len = 0;
+    _.isArray(submitData.spots) ? len = submitData.spots.length : 0
+    tempObj.endDate     = moment(submitData.startTime).add(len - 1, 'day').format('YYYY-MM-DD HH:mm:ssZZ');
+    tempObj.stayBudget  = 250;
+    details_row_1     = assembleSpotData(submitData.spots, submitData.startTime);
+    trafficProRes     = assembleTrafficData(submitData.trafficData, submitData.dayDiff, submitData.startTime);
+    details_row_2       = trafficProRes.traffic
+    tempObj.fromLoc     = trafficProRes.fromLoc;
+    tempObj.details   = details_row_1.concat(details_row_2);
+    tempObj.budget      = [250, 550];
+    tempObj.v           = '1.1.0';
+    return tempObj;
+}
+
+function assembleSpotData(spotData, startTime){
+    if(spotData == null) return [];
+    if(!(_.isArray(spotData))) return [];
+    var tempArr  = [],
+        time     = startTime,
+        tempTime = moment(startTime).format('YYYY-MM-DD HH:mm:ssZZ');
+    for(index in spotData){
+        var oneDay = spotData[index];
+        if(_.isArray(oneDay)){
+            var timeFlay = 1;
+            for(i in oneDay){
+                var curSpot = oneDay[i],
+                    type    = curSpot.type,
+                    tempObj = {};
+                switch(type) {
+                    case 'airport':
+                        tempObj.subType     = 'airport';
+                        tempObj.type        = 'traffic';
+                        tempObj.itemId      = curSpot.id;
+                        //tempObj.fromLoc     = curSpot.locId;
+                        tempObj.st          = tempTime;
+                        tempObj.ts          = tempTime;
+                        tempArr.push(tempObj);
+                        break;
+                    case 'trainRoute':
+                        tempObj.subType     = 'trainStation';
+                        tempObj.type        = 'traffic';
+                        tempObj.itemId      = curSpot.id;
+                        //tempObj.fromLoc     = curSpot.locId;
+                        tempObj.st          = tempTime;
+                        tempObj.ts          = tempTime;
+                        tempArr.push(tempObj);
+                        break;
+                    case 'hotel':
+                        tempObj.type        = 'hotel';
+                        tempObj.itemId      = curSpot.id;
+                        tempObj.st          = tempTime;
+                        tempArr.push(tempObj);
+                        break;
+                    case 'viewspot':
+                        tempObj.type        = 'vs';
+                        tempObj.itemId      = curSpot.id;
+                        tempTime = moment(tempTime).add(1, 'h').format('YYYY-MM-DD HH:mm:ssZZ');
+                        tempObj.st          = tempTime;
+                        tempArr.push(tempObj);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        tempTime = moment(startTime).add(parseInt(index) + 1, 'day').format('YYYY-MM-DD HH:mm:ssZZ');
+    }
+    // 删掉所有的交通数据,注意后项for循环
+    for(var index = tempArr.length - 1; index >= 0; index--){
+        var curEle = tempArr[index];
+
+        if(curEle.type == 'traffic') {
+            tempArr.splice(index, 1);
+        }
+    }
+    return tempArr;
+}
+
+function assembleTrafficData(trafficData, dayDiff, startTime) {
+    // if(_.isArray(trafficData) == false) return ;
+    // if(_.isString(startTime) == false) return ;
+
+    var tempArr = [],
+        sTime   = startTime,
+        dDiff   = parseInt(dayDiff);
+
+    var oldStartTime = moment(trafficData[0].ts),
+        fromLoc      = trafficData[0].locId,
+        newStartTime = moment(sTime),
+        dayGap       = newStartTime.diff(oldStartTime, 'day');
+
+    for(index in trafficData) {
+        var tempObj     = {},
+            curEle      = trafficData[index];
+        tempObj.type    = curEle.type;
+        tempObj.subType = curEle.subType;
+        tempObj.itemId  = curEle.itemId;
+
+
+        if(index < 3) {
+            tempObj.st  = moment(curEle.ts).add(dayGap, 'd').format('YYYY-MM-DD HH:mm:ssZZ');
+            // 标注是否转乘
+            tempObj.transfer = 'no.from';
+        } else {
+            tempObj.st  = moment(curEle.ts).add(dayGap + dDiff, 'd').format('YYYY-MM-DD HH:mm:ssZZ');
+            // 标注是否转乘
+            tempObj.transfer = 'no.back';
+        }
+        // if(tempObj.subType == 'airport' || tempObj.subType == 'trainStation'){
+            tempObj.ts = tempObj.st;
+        // }
+
+        switch(tempObj.subType) {
+            case 'airRoute':
+            case 'trainRoute':
+                tempObj.arrStop = curEle.arrStop;
+                tempObj.depStop = curEle.depStop;
+                break;
+            default:
+                break;
+        }
+
+        tempArr.push(tempObj);
+    }
+    return {
+        traffic: tempArr,
+        fromLoc: fromLoc
+    };
+}
 
 
 module.exports = router;

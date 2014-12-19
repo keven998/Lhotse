@@ -39,14 +39,6 @@ var DayMapControl = function(constructInput) {
             allDay = $(".J_all_day"),
             dayNaviUl = $("#day_list"), // 天数1，2，3，4，5......  [x]
             dayDetail = $(".J_day_detail_list"), // 景点列表     [y]
-            spotType = { // [p]
-                1: "hotel",
-                2: "restaurant",
-                3: "sight",
-                4: "default",
-                5: "shopping",
-                6: "amusement"
-            },
             inputLen = 0, // 缓存的长度，即输入的数据，物理意义是行程天数     [D]
             currDayNum = 0, // 被激活的日期，1，2，3，4.。。。   [q]
             mapConfig = [], //每天一天的地图配置, index为天元素是对象，包含center和zoom字段   [J]
@@ -88,13 +80,15 @@ var DayMapControl = function(constructInput) {
                 */
                 that.addAllPoi(), that.setView(-1), $.isFunction(
                     callback) && callback());
+                that.addOneDay();
+                that.submitData();
         };
         // 添加所有景点，并且设置“全程”、D1,D2...、POI详情栏的鼠标事件（enter，leave，click）
         that.addAllPoi = function() {
-            var length = inputBuff.length,
-                i = 0;
-            for (inputLen = length; i < length; i++) that.addDayPoi(
-                inputBuff[i], i);
+            inputLen = inputBuff.length;
+
+            for (var i = 0, length = inputLen; i < length; i++)
+                that.addDayPoi(inputBuff[i], i);
             //添加一天的行程
             // 当length大于20时，启动“向上点击”按钮
             // 20 < length && $(".day_tab .control").show();
@@ -118,11 +112,8 @@ var DayMapControl = function(constructInput) {
                     that.poiLeave($(this));
                 })
                 .on("click", function() {
-                    var id = $(this)
-                        .children('.spot_name')
-                        .attr("data-id");
-                    $("#" + id)
-                        .trigger("click.open-info"); // 激活，显示infoWindow
+                    var id = $(this).children('.spot_name').attr("data-id");
+                    $("#" + id).trigger("click.open-info"); // 激活，显示infoWindow
                 });
         };
         // dayData是一天的景点，dayNum是天数
@@ -156,8 +147,10 @@ var DayMapControl = function(constructInput) {
                 detailHtmlElements = [],
                 markerHtmlElements = [];
             // 向日程详情加入spot
-            detailHtmlElements.push('<li data-indexinall=' + indexInAllSpots + ' data-indexinday=' + indexInOneDay + ' data-type=' + type + ' class="spot_detail" draggable="true">');
-            detailHtmlElements.push('<i class="icon_sight"></i>');
+            detailHtmlElements.push('<li data-indexinall=' + indexInAllSpots + ' data-indexinday=' + indexInOneDay + ' data-type=' + type + ' class="spot_detail" draggable="false">');
+
+            detailHtmlElements.push(that.selectIcon(type));
+
             detailHtmlElements.push('<i class="marker_number">' + indexInAllSpots + '</i>');
             detailHtmlElements.push('<i data-id=' + id + ' title=' + name + ' class="spot_name"><nobr>' + name + '</nobr></i>');
             detailHtmlElements.push('<i href="javascript:;" class="delete"></i>');
@@ -166,12 +159,43 @@ var DayMapControl = function(constructInput) {
             dayDetail.find(".day_detail:last").append(detailHtmlElements.join(""));
             // 组合html，并添加到地图
             markerHtmlElements.push('<a class="map_marker" id="' + id + '" data-type="' + type + '" href="javascript:;" title="' + name + '">');
-            markerHtmlElements.push("\t<i>" + indexInAllSpots + "</i>");
-            markerHtmlElements.push("\t<em>" + name + "</em>");
+            markerHtmlElements.push("\t<i class='marker_in_plan_num'>" + indexInAllSpots + "</i>");
+            markerHtmlElements.push("\t<em class='marker_in_plan_name'>" + name + "</em>");
             markerHtmlElements.push("</a>");
             spot.markerHtml = markerHtmlElements.join("");
             that.addMarker(spot);
         };
+
+
+        // 根据type类型选择icon
+        that.selectIcon = function(type) {
+            var html = '';
+            switch(type) {
+                case "viewspot":
+                    html = '<i class="icon_viewspot"></i>';
+                    break;
+                case "hotel":
+                    html = '<i class="icon_hotel"></i>';
+                    break;
+                case "shopping":
+                    html = '<i class="icon_shop"></i>';
+                    break;
+                case "food":
+                    html = '<i class="icon_restaurant"></i>';
+                    break;
+                case "trainStation":
+                    html = '<i class="icon_trainstation"></i>';
+                    break;
+                case "airport":
+                    html = '<i class="icon_airport"></i>';
+                    break;
+                default:
+                    break;
+            }
+            return html;
+        };
+
+
         // 输入是上面的spot，包含name，type，id，num，markerHtml
         // 超级长的回调函数！而且有两个，回调再回调。。。
         that.addMarker = function(spot) {
@@ -209,8 +233,16 @@ var DayMapControl = function(constructInput) {
                                 // 添加动作
                                 h.find(".btn_add_to_plan").click(function(e) {
                                     // 填入参数
-                                    // to do:获取参数！
-                                    that.addToPlan();
+                                    // to do:获取参数!
+                                    var name = $(this).attr("data-name"),
+                                        id   = $(this).attr("data-id"),
+                                        type = $(this).attr("data-type");
+
+                                    that.addToPlan({
+                                        name    : name,
+                                        id      : id,
+                                        type    : type
+                                    });
                                     e.stopPropagation();
                                 });
                             });
@@ -226,18 +258,13 @@ var DayMapControl = function(constructInput) {
                     });
             });
         };
+
         // 点击“加入行程”的操作
         that.addToPlan = function(spot) {
-            var spot = {
-                name: "XXOOXXOO",
-                type: '3',
-                id: '12_34567_89',
-                num: 0,
-            };
             var name = spot.name,
                 type = spot.type,
                 id = spot.id,
-                num = spot.num, // 点在整个行程的次序号
+                //num = spot.num, // 点在整个行程的次序号
                 detailHtmlElements = [],
                 currentDay = $(".day_tab_box").find('.current').text();
             if ("全程" === currentDay) {
@@ -251,41 +278,60 @@ var DayMapControl = function(constructInput) {
                 spotId[curDay - 1].push(id);
                 console.log(spotId);
             }
-            var lastLi = curDetailDom.children('ul').find('li:last'),
+            var lastLi          = curDetailDom.children('ul').find('li:last'),
+                indexInAllSpots = '',
+                indexInOneDay   = '';
+            if(lastLi.length){
                 indexInAllSpots = parseInt(lastLi.attr('data-indexinall')) + 1,
-                indexInOneDay = parseInt(lastLi.attr('data-indexinday')) + 1;
+                indexInOneDay   = parseInt(lastLi.attr('data-indexinday')) + 1;
+            } else{
+                indexInAllSpots = spotCount + 1;
+                indexInOneDay   = 1;
+            }
+            spotCount = spotCount + 1;
+
             // 向日程详情加入spot
-            detailHtmlElements.push('<li data-indexinall=' + indexInAllSpots + ' data-indexinday=' + indexInOneDay + ' data-type=' + type + ' class="spot_detail" draggable="true">');
-            detailHtmlElements.push('<i class="icon_sight"></i>');
+            detailHtmlElements.push('<li data-indexinall=' + indexInAllSpots + ' data-indexinday=' + indexInOneDay + ' data-type=' + type + ' class="spot_detail" draggable="false">');
+            detailHtmlElements.push(that.selectIcon(type));
             detailHtmlElements.push('<i class="marker_number">' + indexInAllSpots + '</i>');
-            detailHtmlElements.push('<i data-id=' + id + ' class="spot_name">' + name + '</i>');
+            detailHtmlElements.push('<i data-id=' + id + ' class="spot_name"' +  'title=' + name + '><nobr>' + name + '</nobr></i>');
+            detailHtmlElements.push('<i class="new_add_to_plan"></i>');
             detailHtmlElements.push('<i href="javascript:;" class="delete"></i>');
             detailHtmlElements.push('</li>');
             curDetailDom.children('ul').append(detailHtmlElements.join(""));
-            console.log(curDetailDom.children('li'));
-            curDetailDom.children('li').last()
+
+            //向地图中加入点
+            var markerHtmlElements = [];
+            markerHtmlElements.push('<a class="map_marker" id="' + id + '" data-type="' + type + '" href="javascript:;" title="' + name + '">');
+            markerHtmlElements.push("\t<i class='marker_in_plan_num>" + indexInAllSpots + "</i>");
+            markerHtmlElements.push("\t<em class='marker_in_plan_name>" + name + "</em>");
+            markerHtmlElements.push("</a>");
+            spot.markerHtml = markerHtmlElements.join("");
+            that.addMarker(spot);
+
+            curDetailDom.children('ul').children('li').last()
                 .on("mouseenter", function() {
-                    console.log('mouseenter');
                     that.poiEnter($(this));
                 })
                 .on("mouseleave", function() {
                     that.poiLeave($(this));
                 })
-                // .on("hover", function() {
-                //     $(this).children('i').eq(0).addClass(type + '_hover');
-                //     $(this).children("i.delete").addClass("delete_icon")
-                // })
                 .on("click", function() {
                     console.log('新加入的点点击生效');
                     that.removeMarkerCurrent();
                     $(this).addClass('current');
-                    var id = $(this).attr("data-id");
+                    var id = $(this).find('.spot_name').attr("data-id");
                     $("#" + id).trigger("click.open-info"); // 激活，显示infoWindow
                 });
             // 监听删除操作
             that.listenDeletePoi();
-            console.log('添加成功');
+            console.log('inputBuff');
+            console.log(curDay);
+            inputBuff[curDay - 1].push(spot);
+            console.log(inputBuff);
         };
+
+
         // 点击一天的动作  很重要的一个函数
         that.changeDay = function(num) {
             that.resortIndex();
@@ -314,18 +360,20 @@ var DayMapControl = function(constructInput) {
             that.removeMarkerCurrent();
             that.setView(num);
         };
+
+
         /* 以下部分全部是上面函数的调用函数 */
         // 设置一天的连线地图
         that.setView = function(num) {
             currDayNum = num + 1;
             if (mapConfig[currDayNum]) {
-                map.setCenter(mapConfig[currDayNum].center),
+                map.setCenter(mapConfig[currDayNum].center);
                 map.setZoom(mapConfig[currDayNum].zoom);
             } else {
                 var h = null;
                 - 1 == num ?
                 1 == inputBuff.length && 1 == inputBuff[0].length && (h = inputBuff[0][0])
-                : 1 == inputBuff[num].length && (h = inputBuff[num][0]);
+                : inputBuff[num] && 1 == inputBuff[num].length && (h = inputBuff[num][0]);
 
                 h ? (h.lat && h.lng && map.setCenterByLatLng(h.lat, h.lng), "4" == h.type
                         ? map.setZoom(12) : map.setZoom(15))
@@ -344,7 +392,7 @@ var DayMapControl = function(constructInput) {
             } else {
                 currDayData = inputBuff[num];
             }
-            1 !== currDayData.length && map.drawDriveRoute(currDayData, null,function() {});
+            currDayData && 0 !== currDayData.length && 1 !== currDayData.length && map.drawDriveRoute(currDayData, null,function() {});
         };
         // 隐藏一天的点
         that.hideDayMarkers = function(num) {
@@ -364,7 +412,9 @@ var DayMapControl = function(constructInput) {
         that.poiEnter = function(f) {
             var id = f.children('.spot_name').attr("data-id"),
                 type = f.attr('data-type');
-            f.children('i').eq(0).addClass(type + '_hover');
+            console.log(type);
+            var hoverClass  = 'icon_' + type + '_hover';
+            f.children('i').eq(0).removeClass().addClass(hoverClass);
             f.children("i.delete").addClass("delete_icon");
             // 查找地图上对应的点
             f = $("#" + id);
@@ -378,7 +428,8 @@ var DayMapControl = function(constructInput) {
         that.poiLeave = function(f) {
             var id = f.children('.spot_name').attr("data-id"),
                 type = f.attr('data-type');
-            f.children('i').eq(0).removeClass(type + '_hover');
+            console.log(type);
+            f.children('i').eq(0).removeClass().addClass('icon_' + type);
             f.children("i.delete").removeClass("delete_icon");
             f = $("#" + id);
             f.removeClass("active");
@@ -398,6 +449,7 @@ var DayMapControl = function(constructInput) {
                 dayDetail.find("i[data-id='" + h + "']").parent().addClass("active");
             }
         };
+
         that.markerLeave = function(f) {
             if (!f.hasClass("current")) {
                 var h = f.attr("id");
@@ -408,6 +460,7 @@ var DayMapControl = function(constructInput) {
                 dayDetail.find("i[data-id='" + h + "']").parent().removeClass("active");
             }
         };
+
         // active和current的区别，h和l都是dom
         that.addMarkerCurrnt = function(h, l) {
             var m = h ? h.attr("id") : l.attr("data-id");
@@ -431,7 +484,10 @@ var DayMapControl = function(constructInput) {
             // 取消之前的监听，否则会响应多次
             $('.delete').unbind("click");
             $('.delete').on("click", function(e) {
-                var parentDom = $(this).parent();
+                var parentDom = $(this).parent(),
+                    index     = $(parentDom).attr('data-indexinday'),
+                    day       = $(this).parent().parent().attr('data-num');
+                inputBuff[day - 1].splice(index, 1);
                 $(parentDom).remove();
                 e.stopPropagation();
                 console.log('删除');
@@ -440,19 +496,103 @@ var DayMapControl = function(constructInput) {
         };
         // 重排整体spot的index
         that.resortIndex = function() {
-            var index = 1;
+            var index       = 1,
+                indexinday  = 0;
             $('.spot_detail').each(function() {
                 $(this).attr('data-indexinall', index);
                 $(this).children('.marker_number').text(index);
                 index++;
             });
+
+            $('.day_detail').each(function() {
+                indexinday = 0;
+                $(this).find('li').each(function() {
+                    console.log($(this).attr('data-indexinday'));
+                    $(this).attr('data-indexinday', indexinday);
+                    indexinday++;
+                });
+            });
         };
+
+
         that.addNearbyCurrent = function(h) {
             that.removeNearbyCurrent();
             h.addClass("current");
         };
+
+
         that.removeNearbyCurrent = function() {
             mapDiv.find(".map_marker_type").removeClass("current");
+        };
+
+        that.submitData = function() {
+            $('.save').on("click", function(){
+                var userId      = $('#J-user-icon').attr('data-id');
+                if(!userId) {
+                    alert('请登录');
+                    $('.login').trigger('click');
+                    return;
+                }
+                var trafficDataTemp = $('.nodeTrafficData').val(),
+                    trafficData     = JSON.parse(trafficDataTemp);
+
+                var templateId  = $('.title').attr('data-template'),
+                    ugcId       = $('.title').attr('data-id'),
+                    title       = $('.J_title').val(),
+                    startTime   = $('.J_calendar').val(),
+                    postData    = {};
+
+                    postData.spots       = inputBuff;
+                    postData.id          = ugcId;
+                    postData.startTime   = startTime;
+                    postData.title       = title;
+                    postData.templateId  = templateId;
+                    postData.userId      = userId;
+                    postData.trafficData = trafficData;
+                    postData.dayDiff     = parseInt(inputBuff.length - inputLen);
+
+                console.log(postData);
+                $.ajax({
+                    url       : "/edit/submit",
+                    type      : "post",
+                    dataType  : "json",
+                    data      : postData,
+                    success: function(respondData) {
+                        console.log(respondData);
+                        respondData.code == 0 ? alert("保存成功") : alert("保存失败");
+                        window.location.href = '/plans/mine/'
+                    }
+                });
+            });
+        };
+
+        that.addOneDay = function() {
+            $(".J_add_day").on('click', function() {
+                var num    = $('.J_day_list').find('li:last').attr('data-num'),
+                    dayNum = parseInt(num) + 1,
+                    htmlNaviList   = '<li class="day" data-num="' + dayNum + '">D' + dayNum + '</li>',
+
+                    detailList     = ''
+                + '<li data-num="' + dayNum + '" class="day_item " style="display: list-item;">'
+                + '<div class="day_detail_title">'
+                + '<span class="day_num">第' + dayNum +'天</span>'
+                + '<span class="day_abstract">(需要被替代)</span></div>'
+                + '<ul data-num="' + dayNum + '" class="day_detail"></ul></li>';
+                $('.J_day_list').append(htmlNaviList);
+                $('.J_day_detail_list').append(detailList);
+
+
+                // 设置监听
+                dayNaviUl.find("li.day").unbind('click');
+                dayNaviUl.find("li.day").on("click", function() {
+                    that.changeDay($(this).index()); // index()可以获得数组的维度
+                });
+
+                // 添加空数组到spotId
+                spotId.push([]);
+                inputBuff.push([]);
+                console.log(spotId);
+            })
         };
     };
 /*------DayMapControl END-----*/
@@ -482,21 +622,23 @@ $(function() {
 
 /*---- 五个tab的切换 BEGIN ----*/
 var TabMapControl = function() {
-    var that = this,
-        activedTabName = '',
-        activedTabDom = null,
-        activedClassName = '',
-        spotArray = {}, // itemId : htmlContent 缓存点击过的点
-        map = null,
-        tabUlDom = $('.select_tab'),
-        map_box = $('.map_box'),
+    var that                = this,
+        activedTabName      = '',
+        activedTabDom       = null,
+        activedClassName    = '',
+        spotArray           = {}, // itemId : htmlContent 缓存点击过的点
+        map                 = null,
+        tabUlDom            = $('.select_tab'),
+        map_box             = $('.map_box'),
         tabListContent_viewspot = $('.list_spotview');
+
 
     that.init = function(mapObj) {
         map = mapObj;
         that.tabSwitch();
         that.search();
     };
+
     // tab切换功能
     that.tabSwitch = function() {
         $(tabUlDom).children('li')
@@ -516,6 +658,7 @@ var TabMapControl = function() {
             $(this).siblings().removeClass('active');
         });
     };
+
     that.actived = function() {
         $(activedTabDom).removeClass('active');
         $('.content_' + activedClassName).slideUp(400);
@@ -528,7 +671,7 @@ var TabMapControl = function() {
     };
     that.clearSpots = function() {
         var idArray = Object.keys(spotArray);
-        map.hideMarkers(idArray);//只是影藏了
+        map.hideMarkers(idArray); //只是影藏了
     };
     that.notActived = function() {
         $(activedTabDom).addClass('active');
@@ -555,14 +698,14 @@ var TabMapControl = function() {
             },
         };
         $.ajax({
-            url: "/edit/tabContent",
-            type: "post",
-            dataType: "json",
-            data: postData,
+            url       : "/edit/tabContent",
+            type      : "post",
+            dataType  : "json",
+            data      : postData,
             success: function(respondData) {
                 console.log(respondData);
                 that.mapBoxSilderToLeft();
-                that.addElement(respondData.html);
+                that.addElement(respondData.html, respondData.type);
                 // 功能实现后要加上下面这句话
                 $('.content_' + activedClassName).slideDown(400).siblings().slideUp(400);
                 that.addOneGroupPoiToMap(respondData.detailData);
@@ -570,6 +713,7 @@ var TabMapControl = function() {
             }
         });
     };
+
     // 搜索功能
     that.search = function() {
         $('input')
@@ -586,6 +730,7 @@ var TabMapControl = function() {
             });
         });
     };
+
     that.listenEnterKey = function(that) {
         $(document).unbind('keydown'); //取消上一次的监听
         $(document).keydown(function(event) {
@@ -597,6 +742,7 @@ var TabMapControl = function() {
             }
         });
     };
+
     that.searchAjax = function(searchText, callback) {
         var postData = {
             "searchText": searchText,
@@ -615,16 +761,18 @@ var TabMapControl = function() {
             }
         });
     };
-    that.addElement = function(data) {
-        tabListContent_viewspot.empty(); //删除子元素
-        tabListContent_viewspot.append(data);
-        tabListContent_viewspot.children()
+
+    that.addElement = function(data, type) {
+        var listDom = $('.list_' + type);
+        listDom.empty(); //删除子元素
+        listDom.append(data);
+        listDom.children()
             .on('click', function() {
-                var id = $(this).children('.spotview_info').attr("data-id");
+                var id = $(this).children('.' + type + '_info').attr("data-id");
                 $("#" + id).trigger("click.open-info"); // 激活，显示infoWindow
             })
             .on('mouseenter', function() {
-                var id = $(this).children('.spotview_info').attr('data-id'),
+                var id = $(this).children('.' + type + '_info').attr('data-id'),
                     marker = $("#" + id),
                     lat = spotArray[id].lat,
                     lng = spotArray[id].lng;
@@ -633,11 +781,11 @@ var TabMapControl = function() {
                 marker.parent().css({
                     "z-index": 2
                 });
-                map.hideInfoWindows();
+                //map.hideInfoWindows();
                 new MarkerAnimate(marker);
             })
             .on('mouseleave', function() {
-                var id = $(this).children('.spotview_info').attr('data-id'),
+                var id = $(this).children('.' + type + '_info').attr('data-id'),
                     marker = $("#" + id);
                 marker.removeClass("active");
                 marker.parent().css({
@@ -645,14 +793,17 @@ var TabMapControl = function() {
                 });
             });
     };
+
     that.addMarker = function(spot) {
         dayMapControl.addMarker(spot);
     };
+
     that.addOneGroupPoiToMap = function(Array) {
         for (var key in Array) {
             that.addOnePoi(Array[key]);
         }
     };
+
     that.addOnePoi = function(spot) {
         var name = spot.name,
             type = spot.type,
@@ -662,12 +813,13 @@ var TabMapControl = function() {
         markerHtmlElements.push('<a class="map_marker" id="' + id +
             '" data-type="' + type +
             '" href="javascript:;" title="' + name + '">');
-        markerHtmlElements.push("\t<i>" + "+_+" + "</i>");
-        markerHtmlElements.push("\t<em>" + name + "</em>");
+        markerHtmlElements.push("\t<i class=" + type + ">" + "</i>");
+        markerHtmlElements.push("\t<em class=" + type + ">" + name + "</em>");
         markerHtmlElements.push("</a>");
         spot.markerHtml = markerHtmlElements.join("");
         that.addMarker(spot);
     };
+
     that.savePois = function(pois) {
         for(var key in pois){
             if('traffic' !== pois[key].type) {
@@ -680,7 +832,8 @@ var TabMapControl = function() {
 
 /*----function for map initial BEGIN----*/
 var dayMapControl = null,
-    tabMapControl = null;
+    tabMapControl = null,
+    trafficData   = null;
 
 
 /*----function for creating google map BEGIN----*/
@@ -725,9 +878,14 @@ function initMaper() {
     dayMapControl.listenDeletePoi();
     $('.day_detail').sortable({
         //items: ':not(.disabled)',
+        stop     : function(event, ui) {alert('123'); },
         connectWith: '.day_detail',
-        placeholder: "ui-state-highlight",
+        //placeholder: "ui-state-highlight",
     });
+
+    $( ".day_detail" ).on( "sortstop", function( event, ui ) {
+        console.log('world__________');
+    } );
     console.log('初始化结束');
 }
 /*----function for map initial END----*/
