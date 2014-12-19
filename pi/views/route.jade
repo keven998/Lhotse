@@ -1,6 +1,7 @@
 extends common/base
 
 block page_var
+    link(href='/stylesheets/lib/cityselector.css', rel='stylesheet')
     script.
         var page_var = {
             id: 'route',
@@ -14,19 +15,13 @@ block content
         .bg-blue
             .search-bg
                 i.ico-position
-                #from
-                    b#fromText #{fromName}
-                    //
-                        input.w40(type="text" name="fromName" placeholder='城市' id="from" onkeyup="suggestion_from(this.value)" autocomplete="off" value='#{fromName}')
-                    b.change [更换]
+                #fromWrap
+                b#from(data-page = "route" data-id='#{fromId}') #{fromName}
+                b.change [更换]
                 b.line
-                input(type="text" name="arriveName" placeholder='景点/城市/省份' id="arrive" onkeyup="suggestion_to(this.value)" autocomplete="off" value='#{arriveName}')
-                i.ico-addpos
-                #suggestion_to.suggestion(style="margin-left:130px;width:350px;z-index:100;")
+                input#arrive(type="text" name="arriveName" placeholder='景点/城市/省份' onkeyup="suggestion_to(this.value)" autocomplete="off" value='#{arriveName}' data-page="route")
                 //
-                    a(href="#" onclick="go_plan_list()")
-                        #search-btn.s-btn()
-                    #suggestion_from.suggestion(style="width:250px;")
+                    i.ico-addpos
         .route_container
             ul.filter-nav
                 - var index = 0;
@@ -59,8 +54,9 @@ block content
                                     img(src='#{plan.imageList}' + '?imageView2/1/w/165/h/150' width=165 height=150)
                                 else
                                     img(src="/images/route/index/285-215.png" width="165" height="150")
-                                img.most_tag(src='/images/route/index/triangle.png')
-                                h2.most_tag #{plan.lxpTag}
+                                if (plan.lxpTag[0] != undefined)
+                                    img.most_tag(src='/images/route/index/triangle.png')
+                                    h2.most_tag #{plan.lxpTag[0]}
                             .right
                                 h2.r-title  #{plan.title}
                                 h3.usetimes  (#{plan.forkedCnt}人使用)
@@ -91,3 +87,4 @@ block content
                     .no-data 很遗憾，没有为您找到相关路线，请尝试输入其他目的地。
         .map_container
             #map_inner
+    #suggestion_to.suggestion(style="width:350px;z-index:100;")

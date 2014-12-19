@@ -105,8 +105,8 @@ $('.dMapName h2').click(function(event){
 });
 
 function target_go_plan_list(arr_name, arr_poi_type){
-    from_name = $('#from').val(),
-    from_poi_type = $('#from').attr('poi_type') || 'loc',
+    var from_name = $('#from').val(),
+        from_poi_type = $('#from').attr('poi_type') || 'loc';
     href_plan_list(from_name, from_poi_type, arr_name, arr_poi_type);
 }
 
@@ -116,17 +116,15 @@ function target_go_plan_list(arr_name, arr_poi_type){
     province : 省份
 */
 function href_plan_list(from_name, from_poi_type, arr_name, arr_poi_type){
-    url = '/route';
+    var url = '/route';
 
     if(from_name == ""){
         alert('请先填写起点。');
-    }else if (from_poi_type == zone.type.city){
-        if (arr_poi_type == zone.type.city){
-            url += '?city=' + arr_name + '&fromName=' + from_name;
+    }else if (from_poi_type == zone.type.locality){
+        if (arr_poi_type == zone.type.locality){
+            url += "?" + zone.type.locality + "=" + arr_name + '&fromName=' + from_name;
         }else if(arr_poi_type == zone.type.viewspot){
-            url += '?vs=' + arr_name + '&fromName=' + from_name;
-        }else if(arr_poi_type == zone.type.province){
-            url += '?pro=' + arr_name + '&fromName=' + from_name;
+            url += "?" + zone.type.viewspot + "=" + arr_name + '&fromName=' + from_name;
         }
         window.location.href = url;
     }else{
