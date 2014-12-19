@@ -134,25 +134,6 @@ $(function(){
     //     }
     // });
 
-    //文本输入框
-        // var searchInput = $('#search-input'),
-        //     tips = $('.tips'),
-        //     searchBtn = $('#search-btn');
-        // searchBtn.on('click', function (e) {
-        //     var ipVal = searchInput.val();
-        //     if ( ipVal === '' ) {
-        //         tips.show(500);
-        //         searchInput.focus();
-        //     }
-        // })
-        // searchInput.on('keydown', function (e) {
-        //     tips.hide(200)
-        // })
-        // searchInput.on('blur', function (e) {
-        //     tips.hide(200)
-        // })
-
-
     /*
      * 图片轮播
      * */
@@ -194,31 +175,13 @@ $(function(){
 
 
 // 通过IP获取地理地址-城市名字
-/*
-    getCookie for this page
-*/
-function getCookie_(c_name) {
-    if (document.cookie.length > 0) {
-        var c_start = document.cookie.indexOf(c_name + "=");
-        if (c_start != -1) {
-            var c_start = c_start + c_name.length + 1,
-                c_end = document.cookie.indexOf(";", c_start);
-
-            if (c_end == -1) {
-                c_end = document.cookie.length;
-            }
-            return unescape(document.cookie.substring(c_start, c_end));
-        }
-    }
-    return "";
-}
 
 $(function(){
     var cityName = remote_ip_info["city"];// + remote_ip_info["city"];
-    if (!getCookie_('userInputFrom')) {
+    if (!getCookie('userInputFrom')) {
         document.getElementById('from').innerHTML = cityName;
     }else{
-        document.getElementById('from').innerHTML = getCookie_('userInputFrom');
+        document.getElementById('from').innerHTML = getCookie('userInputFrom');
     }
     setCookie('fromLoc',encodeURI(cityName), 1);
 })
@@ -228,55 +191,6 @@ $(function(){
 var fromWrap = new Vcity.CitySelector({input:'fromWrap'});
 // var arrive = new Vcity.CitySelector({input:'arrive'});
 /*********** City End ************/
-
-// // 联想功能
-// var suggestionData = (function() {
-//     var popupDiv = document.getElementById("popup");//获得对应的div对象
-//     var popupBody = document.getElementById("popupBody");//获得对应的tbody对象
-        
-//     //利用ajax获取后台的模糊查询的数据，并且封装成下拉列表的形式展现出来
-//     var ajaxSuggestion = function (domElement, type) {
-//         $.ajax({
-//             type : "GET",   //提交的方法为post
-//             contentType: 'application/json', 
-//             url : "/suggestion?type=" + type,   //对应的Action提交的路径
-//             data  : {input : domElement.value},   //从前台传递到后台的查询语句的参数
-//             dataType : "json",  //从Action中返回的数据的类型为json类型的
-            
-//             error : function() {
-//                 //alert("没有对应的数据，请查看输入的查询条件！");
-//             },
-
-//             success : function(data) {//当Ajax提交成功时调用的方法
-//                     //返回的是json对象！键值对 alert(data.key);   
-//                     data = data.suggestion;
-//                     console.log(data);                          
-//                     if(data.length==0){return;}
-//                     // todo
-//                     // $( "#" + type ).autocomplete({
-//                     //     source: data,
-//                     // });
-//             } 
-//         });
-//     };
-
-//     var from = function() {
-//         var type = "from";
-//         var fromDom = document.getElementById("from");
-//         ajaxSuggestion(fromDom, type);
-//     };
-
-//     var arrive = function(arrive) {
-//         var type = "arrive";
-//         var arriveDom = document.getElementById("arrive");
-//         ajaxSuggestion(arriveDom, type);
-//     };
-
-//     return {
-//         from : from,
-//         arrive : arrive,
-//     };
-// })(); 
 
 /* ---end--- */
           

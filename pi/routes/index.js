@@ -14,8 +14,9 @@ var route_filters = require('../conf/route_filters');
 var _    = require('underscore');
 
 var Error = [
-    'Error fromLoc!',
-    'Error arriveLoc!'
+    'Error in getting fromId by name !',
+    'Error in getting arriveId by name !',
+    'Error in getting routelist !'
 ];
 
 
@@ -102,9 +103,10 @@ router.get('/route', function(req, res) {
         }else{
             indexGoUrl = urlApi.apiHost + urlApi.getRouteList + "?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
         }
+        console.log(indexGoUrl);
         model.setUrl(encodeURI(indexGoUrl));
         model.getdata(null, function(data){
-            if(utils.checkApiRequestState(data)){
+            if((data != undefined) && (data.indexOf('<html>') < 0)){
                 var data = JSON.parse(data);
                 res.render('route', {
                     plans: data.result || [],
@@ -118,6 +120,7 @@ router.get('/route', function(req, res) {
                 });
             }else{
                 res.json(null);
+                console.log(Error[2]);
             }
         });
     });
@@ -271,7 +274,7 @@ var getIdFromName = function(data , errorCode){
         return id;
     }else{
         console.log(Error[errorCode]);
-        return false;
+        return -1;
     }
 }
 
