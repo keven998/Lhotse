@@ -22,12 +22,12 @@ router.get('/layer/:ROUTEID', function(req, res){
     model.getdata(req, function(data) {
         if (data != null){
             if (data.indexOf("!DOCTYPE") != -1){
-                console.log("The system is occured!");
+                console.log("The error occurred while getting the route-detail data!");
             }else{
                 var route_data = JSON.parse(data).result;
             }
         }else{
-            console.log("The data is NULL!");
+            console.log("The route-detail data is null!");
         }
 
 
@@ -36,12 +36,12 @@ router.get('/layer/:ROUTEID', function(req, res){
         model.getdata(req,function(data){
             if (data != null){
                 if (data.indexOf("!DOCTYPE") != -1){
-                    console.log("The system is occured!");
+                    console.log("The error occurred while getting the misc data!");
                 }else{
                     var misc_data = JSON.parse(data).result;
                 }
             }else{
-                console.log("The data is NULL!");
+                console.log("The misc data is null!");
             }
 
 
@@ -86,7 +86,7 @@ router.get('/detail/:ROUTEID', function(req, res){
                 details: details.result,
                 notes: notes.result,
                 user_info: utils.get_user_info(req, res),
-                config: config,
+                config: config
             });
         });
     });

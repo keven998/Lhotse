@@ -2,7 +2,7 @@ var page_id = page_var.id;
 var page_path = page_var.path;
 
 /* load css */
-//loadCss(page_path, page_id);
+// loadCss(page_path, page_id);
 
 function loadCss(page_path, page_id) {
     var link = document.createElement("link");

@@ -6,8 +6,8 @@ require.config({
         "googlemapApi": "lib/googlemap.api",
         "citySelector": "lib/cityselector",
         "idTabs": "lib/jquery.idTabs.min",
-        "iCheck": "lib/icheck.min",
-    },
+        "iCheck": "lib/icheck.min"
+    }
 });
 
 require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
@@ -408,6 +408,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
             }
             return "";
         }
+
         function getId(id){
             return typeof id === "string" ? document.getElementById(id) : id;
         }
@@ -535,16 +536,17 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                 var _this = this;
                 for(i = 0;i < this.oButton.length;i++){
                     this.oButton[i].onclick = function(){
+                        var fromId = $('#from').attr('data-id'),
+                            params = "?fromLoc=" + fromId;
                         if ($(this).hasClass('mkplan')){
-                            var params = "?",
-                                flags = ["trafficFlag", "hotelFlag", "restaurantFlag"],
+                            var flags = ["trafficFlag", "hotelFlag", "restaurantFlag"],
                                 names = ["traffic", "hotel", "restaurant"];
                             for (var index in flags){
-                                params += getParamsFromRadio(flags[index], names[index]);
+                                params += "&" + getParamsFromRadio(flags[index], names[index]);
                             }
                             window.location.assign("/plans/detail/" + _this.route_id + params);
                         }else if ($(this).hasClass('skip')){
-                            window.location.assign("/plans/detail/" + _this.route_id);
+                            window.location.assign("/plans/detail/" + _this.route_id + params);
                         }
                         _this.em.onclick();
                     };
@@ -692,9 +694,9 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                         '<form>'+
                             '<div>'+
                                 '<b>交通方式</b>'+
-                                '<input type="radio" name="traffic" value="air" id="air" checked/><label for="air">飞机</label>'+
-                                '<input type="radio" name="traffic" value="train" id="train"/><label for="train">火车</label>'+
-                                // '<input type="radio" name="traffic" value="car" id="car"/><label for="car">汽车</label>'+
+                                '<input type="radio" name="traffic" value="airRoute" id="air" checked/><label for="air">飞机</label>'+
+                                '<input type="radio" name="traffic" value="trainRoute" id="train"/><label for="train">火车</label>'+
+                                // '<input type="radio" name="traffic" value="carRoute" id="car"/><label for="car">汽车</label>'+
                                 '<input type="radio" name="traffic" value="none" id="tnone"/><label for="tnone">无</label>'+
                             '</div>'+
                             '<div>'+
@@ -740,9 +742,10 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
         /*********** Fork End ************/
 
         /********* City Selector *********/
-        var from = new Vcity.CitySelector({input:'from'});
+        var fromWrap = new Vcity.CitySelector({input:'fromWrap'});
         // var arrive = new Vcity.CitySelector({input:'arrive'});
         /*********** City End ************/
+
     })
 
 

@@ -1,6 +1,6 @@
 #map_container { margin-top:70px;width:100%; max-width:800px; background-color:#FFF;}
 .title{font-size:24px;}
-i.line{color:#08DCA9;}
+i.line{color:#4fa7bd;}
 .list-01{overflow:hidden;height:350px;}
 .mt-50{margin-top: 50px;}
 .rel{position:relative;}
@@ -35,7 +35,7 @@ i.line{color:#08DCA9;}
 .search_in{display:inline-block;}
 .text_input{margin-bottom:10px;width:220px;height:25px;background:#fff;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;}
 .text_input i{display:inline-block;margin:7px 10px;width:30px;height:30px;}
-.text_input h4{display:inline-block;vertical-align:top;font-size:16px;color:#08DCA9;line-height:25px;width:40px;margin-left: 8px;}
+.text_input h4{display:inline-block;vertical-align:top;font-size:16px;color:#4fa7bd;line-height:25px;width:40px;margin-left: 8px;}
 .s-ip{width:160px;height:20px;line-height: 15px;display:inline-block;vertical-align:top;border: 0 none;font-size: 16px;background:#fff; padding-top: 3px;}
 
 .selected {color: red; background-color: white;}

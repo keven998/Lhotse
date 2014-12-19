@@ -11,6 +11,14 @@ var config = require('../conf/system');
 var zone = require('../conf/zone');
 var utils = require( "../common/utils");
 var route_filters = require('../conf/route_filters');
+var _    = require('underscore');
+
+var Error = [
+    'Error in getting fromId by name !',
+    'Error in getting arriveId by name !',
+    'Error in getting routelist !'
+];
+
 
 router.get('/', function(req, res) {
     async.parallel({
@@ -50,75 +58,24 @@ router.get('/', function(req, res) {
             mustgoRoute: results.mustgoRoute.result,
             popRoute: results.popRoute.result,
             user_info: utils.get_user_info(req, res),
-            config: config,
+            config: config
         });
     });
 });
 
-
-/*
-router.get('/route', function(req, res) {
-    var fromLocName = "北京";
-    var arrLocName = "上海";
-    var queryFromName = urlApi.apiHost + urlApi.searchCityIdByName + fromLocName;
-    var queryArrName = urlApi.apiHost + urlApi.searchCityIdByName + arrLocName;
-    async.parallel({
-        from: function(callback) {
-            model.setUrl(encodeURI(queryFromName));
-            model.getdata(req, function(data){
-                data = JSON.parse(data);
-                var id = selectCityId(data.result, zone.type.city);
-                callback(null, id);
-            });
-        },
-        arrive: function(callback) {
-            model.setUrl(encodeURI(queryArrName));
-            model.getdata(req, function(data){
-                data = JSON.parse(data);
-                var id = selectCityId(data.result);
-                callback(null, id);
-            });
-        },
-    },
-    function(err, results) {
-        var fromId = results.from;
-        var arriveId = results.arrive;
-        var indexGoUrl = urlApi.apiHost + urlApi.getRouteList + "?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
-        model.setUrl(encodeURI(indexGoUrl));
-        model.getdata(null, function(data){
-            data = JSON.parse(data);
-            res.render('route', {
-                plans : data.result || [],
-                fromName : fromLocName,
-                arriveId : arriveId,
-                fromId : fromId,  // 用于配置“复制路线”的url
-                arriveName : arrLocName,
-                user_info: utils.get_user_info(req, res),
-                config: config,
-            });
-        });
-    });
-});
-*/
 
 router.get('/route', function(req, res) {
     var fromLocName = req.query.fromName;
-
     /*get locId*/
     var queryFromName = urlApi.apiHost + urlApi.searchCityIdByName + decodeURIComponent(fromLocName);
-    var arrLocName , queryArrName , poiType;
-    if (req.query.vs){
-        poiType = zone.type.viewspot;
-        arrLocName = req.query.vs;
-        queryArrName = urlApi.apiHost + urlApi.searchViewspotIdByName + decodeURIComponent(arrLocName) + "&sort=desc";
-    }else if (req.query.city){
-        poiType = zone.type.city;
-        arrLocName = req.query.city;
-        queryArrName = urlApi.apiHost + urlApi.searchCityIdByName + arrLocName;
-    }else if (req.query.pro){
-        poiType = zone.type.province;
-        arrLocName = req.query.pro;
-        queryArrName = urlApi.apiHost + urlApi.searchCityIdByName + arrLocName;
+    if (req.query[zone.type.viewspot] != undefined){
+        var poiType = zone.type.viewspot,
+            arrLocName = req.query[zone.type.viewspot],
+            queryArrName = urlApi.apiHost + urlApi.searchViewspotIdByName + decodeURIComponent(arrLocName) + "&sort=desc";
+    }else if (req.query[zone.type.locality] != undefined){
+        var poiType = zone.type.locality,
+            arrLocName = req.query[zone.type.locality],
+            queryArrName = urlApi.apiHost + urlApi.searchCityIdByName + arrLocName;
     }else{
         console.log("No destination!");
     }
@@ -126,192 +83,48 @@ router.get('/route', function(req, res) {
     async.parallel({
         from: function(callback) {
             model.setUrl(encodeURI(queryFromName));
-            model.getdata(req, function(data){
-                data = JSON.parse(data);
-                var id = selectCityId(data.result, zone.type.city);
-                callback(null, id);
+            model.getdata(null, function(data){
+               callback(null, getIdFromName(data,0));
             });
         },
         arrive: function(callback) {
             model.setUrl(encodeURI(queryArrName));
-            model.getdata(req, function(data){                data = JSON.parse(data);
-                var id;
-                if (poiType == zone.type.viewspot){
-                    id = data.result[0]['_id'];
-                }else{
-                    id = selectCityId(data.result);
-                }
-                callback(null, id);
+            model.getdata(null, function(data){
+               callback(null, getIdFromName(data,1));
             });
         }
     },
     function(err, results) {
-        var fromId = results.from;
-        var arriveId = results.arrive;
-        var indexGoUrl;
+        var fromId = results.from,
+            arriveId = results.arrive,
+            indexGoUrl;
         if(poiType == zone.type.viewspot){
             indexGoUrl = urlApi.apiHost + urlApi.searchRouteIncludeViewspot + arriveId + "&tag=&minDays=0&maxDays=99";
         }else{
             indexGoUrl = urlApi.apiHost + urlApi.getRouteList + "?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
         }
+        console.log(indexGoUrl);
         model.setUrl(encodeURI(indexGoUrl));
         model.getdata(null, function(data){
-            data = JSON.parse(data);
-            res.render('route', {
-                plans : data.result || [],
-                fromName : fromLocName,
-                arriveId : arriveId,
-                fromId : fromId,  // 用于配置“复制路线”的url
-                arriveName : arrLocName,
-                user_info: utils.get_user_info(req, res),
-                config: config,
-                route_filters: route_filters
-            });
+            if((data != undefined) && (data.indexOf('<html>') < 0)){
+                var data = JSON.parse(data);
+                res.render('route', {
+                    plans: data.result || [],
+                    fromName: fromLocName,
+                    arriveId: arriveId,
+                    fromId: fromId,  // 用于配置“复制路线”的url
+                    arriveName: arrLocName,
+                    user_info: utils.get_user_info(req, res),
+                    config: config,
+                    route_filters: route_filters
+                });
+            }else{
+                res.json(null);
+                console.log(Error[2]);
+            }
         });
     });
 });
-
-/*
-    router for viewspot
-    logic : first, use viewspot name to get viewspot id,
-            then, use the id to get the routelist.
-    tips : fromLoc should be captured for copying route
-
-*/
-/*
-router.get('/route/include/', function(req, res) {
-    var fromLocName = req.query.fromName;
-    var arrLocName = req.query.arrName;
-    var queryFromName = urlApi.apiHost + urlApi.searchCityIdByName + decodeURIComponent(fromLocName);
-    var queryArrName = urlApi.apiHost + urlApi.searchViewspotIdByName + decodeURIComponent(arrLocName) + "&sort=desc";
-    async.parallel({
-        from: function(callback) {
-            model.setUrl(encodeURI(queryFromName));
-            model.getdata(req, function(data){
-                data = JSON.parse(data);
-                var id = selectCityId(data.result, zone.type.city);
-                callback(null, id);
-            });
-        },
-        spotId: function(callback) {
-            model.setUrl(encodeURI(queryArrName));
-            model.getdata(req, function(data){
-                data = JSON.parse(data);
-                var id = data.result[0]['_id'];
-                callback(null, id);
-            });
-        },
-    },
-    function(err, results) {
-        var fromId = results.from;
-        var spotId = results.spotId;
-        var indexGoUrl = urlApi.apiHost + urlApi.searchRouteIncludeViewspot + spotId + "&tag=&minDays=0&maxDays=99";
-        model.setUrl(encodeURI(indexGoUrl));
-        model.getdata(null, function(data){
-            data = JSON.parse(data);
-            res.render('route', {
-                plans : data.result || [],
-                fromName : fromLocName,
-                arriveId : spotId,
-                fromId : fromId,  // 用于配置“复制路线”的url
-                arriveName : arrLocName,
-                user_info: utils.get_user_info(req, res),
-                config: config,
-            });
-        });
-    });
-});
-
-
-//router for city
-router.get('/route/city/', function(req, res) {
-    var fromLocName = req.query.fromName;
-    var arrLocName = req.query.arrName;
-    var queryFromName = urlApi.apiHost + urlApi.searchCityIdByName + fromLocName;
-    var queryArrName = urlApi.apiHost + urlApi.searchCityIdByName + arrLocName;
-    async.parallel({
-        from: function(callback) {
-            model.setUrl(encodeURI(queryFromName));
-            model.getdata(req, function(data){
-                data = JSON.parse(data);
-                var id = selectCityId(data.result, zone.type.city);
-                callback(null, id);
-            });
-        },
-        arrive: function(callback) {
-            model.setUrl(encodeURI(queryArrName));
-            model.getdata(req, function(data){
-                data = JSON.parse(data);
-                var id = selectCityId(data.result);
-                callback(null, id);
-            });
-        },
-    },
-    function(err, results) {
-        var fromId = results.from;
-        var arriveId = results.arrive;
-        var indexGoUrl = urlApi.apiHost + urlApi.getRouteList + "?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
-        model.setUrl(encodeURI(indexGoUrl));
-        model.getdata(null, function(data){
-            data = JSON.parse(data);
-            res.render('route', {
-                plans : data.result || [],
-                fromName : fromLocName,
-                arriveId : arriveId,
-                fromId : fromId,  // 用于配置“复制路线”的url
-                arriveName : arrLocName,
-                user_info: utils.get_user_info(req, res),
-                config: config,
-            });
-        });
-    });
-});
-
-
-//router for province
-router.get('/route/province/', function(req, res) {
-    var fromLocName = req.query.fromName;
-    var arrLocName = req.query.arrName;
-    var queryFromName = urlApi.apiHost + urlApi.searchCityIdByName + fromLocName;
-    var queryArrName = urlApi.apiHost + urlApi.searchCityIdByName + arrLocName;
-    async.parallel({
-        from: function(callback) {
-            model.setUrl(encodeURI(queryFromName));
-            model.getdata(req, function(data){
-                data = JSON.parse(data);
-                var id = selectCityId(data.result, zone.type.city);
-                callback(null, id);
-            });
-        },
-        arrive: function(callback) {
-            model.setUrl(encodeURI(queryArrName));
-            model.getdata(req, function(data){
-                data = JSON.parse(data);
-                var id = selectCityId(data.result);
-                callback(null, id);
-            });
-        },
-    },
-    function(err, results) {
-        var fromId = results.from;
-        var arriveId = results.arrive;
-        var indexGoUrl = urlApi.apiHost + urlApi.getRouteList + "?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
-        model.setUrl(encodeURI(indexGoUrl));
-        model.getdata(null, function(data){
-            data = JSON.parse(data);
-            res.render('plans', {
-                plans : data.result || [],
-                fromName : fromLocName,
-                arriveId : arriveId,
-                fromId : fromId,  // 用于配置“复制路线”的url
-                arriveName : arrLocName,
-                user_info: utils.get_user_info(req, res),
-                config: config,
-            });
-        });
-    });
-});
-*/
 
 router.get('/download/', function(req, res) {
     res.render('download', {user_info: utils.get_user_info(req, res), config: config});
@@ -401,30 +214,25 @@ router.get('/suggestion', function(req, res){
     }
     model.setUrl(encodeURI(requestUrl));
     model.getdata(null, function(data) {
-      if (!data) {
-        res.json(null);
-      }
-      var result = JSON.parse(data).result;
-      var suggestionArray = new Array();
-      for (type in result) {
-        var arrData = result[type],
-            len = arrData.length;
-            for (var i = 0; i < len; i++) {
-                var tempName = {};
-                // 分离城市和省份
-                if (type === zone.suggestionType.locality) {
-                    if (arrData[i].level === zone.level.province) {
-                        tempName = {type: zone.type.province, name: arrData[i].name};
-                    } else if(arrData[i].level > zone.level.province) {
-                        tempName = {type: zone.type.city, name: arrData[i].name};
-                    }
-                } else {
-                    tempName = {type: type, name: arrData[i].name};
-                };
-                suggestionArray.push(tempName);
+        if(utils.checkApiRequestState(data)){
+            var result = JSON.parse(data).result;
+            var suggestionArray = new Array();
+            for (type in result) {
+                var arrData = result[type],
+                    len = arrData.length;
+                for (var i = 0; i < len; i++) {
+                    var tempName = {
+                        type: type,
+                        name: arrData[i].zhName
+                    };
+                    suggestionArray.push(tempName);
+                }
             }
-      }
-      res.json(suggestionArray);
+            res.json(suggestionArray);
+        }else{
+            console.log("Suggestion return the error or there's no data!");
+            res.json(null);
+        }
     });
 });
 
@@ -436,11 +244,11 @@ router.get('/suggestion', function(req, res){
 */
 var suggestionUrl = function (input, restaurant, hotel, loc, vs) {
     // set default value, don't give suggestion
-    restaurant = restaurant || 0;
-    hotel = hotel || 0;
-    loc = loc || 0;
-    vs = vs || 0;
-    input = input || 0;
+    var restaurant = restaurant || 0,
+        hotel = hotel || 0,
+        loc = loc || 0,
+        vs = vs || 0,
+        input = input || 0;
 
     var requestUrl = urlApi.apiHost + urlApi.inputSuggestion;
     var querys = {
@@ -448,7 +256,7 @@ var suggestionUrl = function (input, restaurant, hotel, loc, vs) {
         hotel : hotel,
         loc : loc,
         vs : vs,
-        word : input,
+        word : input
     };
 
     var queryStr = '';
@@ -459,27 +267,15 @@ var suggestionUrl = function (input, restaurant, hotel, loc, vs) {
     return requestUrl + '?' + queryStr;
 };
 
-
-// 输入一个城市名字后，会得到一个列表，level = 1 是省会和level = 2是市
-// 通常选取【市】作为出发地
-// update ： 最新需求，省份也可以作为目的地
-var selectCityId = function(result, str) {
-  var cityId = "",
-      level = 0;
-  if (str == zone.type.city) {
-    level = zone.level.city;
-  } else if (str == zone.type.province) {
-    level = zone.level.province;
-  }
-  for (var i = 0; i < result.length; i++) {
-    var tempCity = result[i];
-    if (tempCity.level >= level) {
-      cityId = tempCity._id;
-
-      break;
+var getIdFromName = function(data , errorCode){
+    var data = JSON.parse(data);
+    if (data.result && (_.isArray(data.result)) && data.result[0]){
+        var id = data.result[0].id;
+        return id;
+    }else{
+        console.log(Error[errorCode]);
+        return -1;
     }
-  }
-  return cityId;
 }
 
 module.exports = router;

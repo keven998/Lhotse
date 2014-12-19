@@ -14,10 +14,10 @@ var urlApi = {
 
     //景点详情的落地页面
     routeDetail:  '/web/plans/ROUTEID',
-    routeNotes:    '/misc/notes/search?planId=ROUTEID',
+    routeNotes:    '/web/misc/notes/search?planId=ROUTEID',
 
-    // 根据现有城市名字查询城市ID
-    searchCityIdByName : "/geo/localities/search?keyword=",
+    // 根据现有城市名字查询城市ID   =>  新定义中包含但不限于城市，只有"目的地"概念
+    searchCityIdByName : "/web/geo/localities/search?keyword=",
 
     // 根据城市ID查询城市名字
     searchCityNameById : "/web/geo/localities/fromLocId",   //:fromLocId
