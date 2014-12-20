@@ -8,6 +8,8 @@ var utils = require( "../common/utils");
 var mu = require('mu2');
 var _dirname = 'public/htmltemplate/routePage';
 
+var moment = require('moment');
+moment.locale('zh-cn');
 
 /*get data for route.jade's ajax request*/
 router.get('/layer/:ROUTEID', function(req, res){
@@ -244,7 +246,7 @@ function regroupData(route_data, misc_data){
         dropMiscList.push({
             title: misc_data[i].title,
             authorName: misc_data[i].authorName,
-            publishDate: misc_data[i].publishDate,
+            publishDate: moment(misc_data[i].publishDate).format('YYYY-M-D'),
             sourceUrl: misc_data[i].sourceUrl
         });
     }
@@ -271,7 +273,7 @@ function regroupData(route_data, misc_data){
             source: tempSource,
             sourceUrl: misc_data[note].sourceUrl,
             summary: misc_data[note].summary,
-            publishDate: misc_data[note].publishDate,
+            publishDate: moment(misc_data[i].publishDate).format('YYYY-M-D'),
             viewCnt: misc_data[note].viewCnt,
             commentCnt: misc_data[note].commentCnt,
             favorCnt: misc_data[note].favorCnt

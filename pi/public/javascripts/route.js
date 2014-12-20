@@ -372,7 +372,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                     })
                                     locked = false;
                                 },
-                                error : function () {
+                                error : function (XMLHttpRequest, textStatus, errorThrown) {
                                     console.log('error!!!');
                                     locked = false;
                                 }
