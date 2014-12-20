@@ -78,7 +78,7 @@
 
 /*路线预览*/
 ul.preview{padding:20px 20px 0;font-size:14px;line-height:1.5;}
-.tab_item .more{display:inline-block;width:100%;text-align:center;color:#898989;font-size: 20px;line-height: 30px;}
+.tab_item .more{display:inline-block;width:100%;text-align:center;color:#898989;font-size: 16px;line-height: 30px;}
 .tab_item .more:hover{color:#4fa7bd;}
 .preview li{padding-bottom:10px;}
 .date{border-radius:20px;background:#62b9b0;color:#fff;padding:3px 2px 2px;margin-right:15px;font-size:15px;}
@@ -161,8 +161,8 @@ li p.ico-g{display:inline-block;color:#4fa7bd;}
 .alert_frame .bot_r {width:5px;height:5px;float:left;overflow:hidden;background:url(/images/route/index/poplayer/corner.png) no-repeat -5px -5px;}
 .alert_frame .alert_tit {width:328px;height:70px;float:left;color:#fff;line-height:27px;border:1px solid #fff;background-color:#2b708c;}
 .alert_frame .alert_tit h2 {float:left;margin:24px 50px;font-size:26px;font-weight:normal;font-family:"\u5FAE\u8F6F\u96C5\u9ED1";}
-.alert_frame .alert_tit em {width:8px;height:7px;overflow:hidden;float:right;cursor:pointer;background:url(/images/route/index/poplayer/gnbimgs.gif) no-repeat;display:inline;margin:10px 10px 0 0;}
-.alert_frame .alert_tit em.hove {background:url(/images/route/index/poplayer/gnbimgs.gif) no-repeat -8px 0;}
+.alert_frame .alert_tit em {width:64px;height:64px;overflow:hidden;float:right;cursor:pointer;background:url(/images/route/index/poplayer/cancel.gif) no-repeat;display:inline;margin:10px 10px 0 0;}
+/*.alert_frame .alert_tit em.hove {background:url(/images/route/index/poplayer/gnbimgs.gif) no-repeat -8px 0;}*/
 .alert_frame .alert_con {width:330px;height:81px;float:left;border-top:1px solid #e5e5e5;}
 .plan_option{width:100%;margin:20px 0 20px 50px;text-align:left;line-height:30px;color:#000;font-size:14px}
 .plan_option form div{margin-bottom:20px;}
