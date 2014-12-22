@@ -401,7 +401,7 @@ $(function(){
         var f1 = arriveSuggestions = $('#suggestion_to').css('display'),
             // f2 = fromSuggestions = $('#suggestion_from').css('display'),
             keyCode = e.keyCode ? e.keyCode : e.which;
-        if (f1 == 'none' && keyCode === 13) {
+        if (keyCode === 13) {
             go_plan_list();
         }
     });
