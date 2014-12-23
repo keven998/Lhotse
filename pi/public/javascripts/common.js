@@ -329,7 +329,7 @@ array.forEach(function(t){
                 e.stopPropagation();
                 e.preventDefault();
             }
-            //加入display判别，以免别的页面中的enter被这里吃掉
+            //加入display判别，以免别的页面中的enter被这里吃掉    ???
             else if(display && keyCode == 13) { // 回车
                 setTimeout(function(){
                     // window.location.href = curSelectedObj.elem.getAttribute('href');

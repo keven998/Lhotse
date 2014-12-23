@@ -19,14 +19,10 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
         container_initial();
         /*导航筛选器————点击空白处收起导航下拉项*/
         //效果不好，点击其它的"a"元素也不能收起
-        var navLayers = $('.filter-nav>li .layer'),  //筛选器   筛选条件列表
-            sortLayer = $('#sort + .layer'),    //排序    条件列表
-            moreLayer = $('.ico-more-list + .layer');   //登录注册列表
-        //$(document).on('click', '.g-bd,.g-hd,.filter-nav', function (e) {
+        var navLayers = $('.filter-nav>li .layer');  //筛选条件列表
         $(document).on('click', '.full-screen', function (e) {
-            var target = e.target;
-            if ( target.nodeName !== 'A' && target.nodeName !== 'I' && target.nodeName !== 'B' && target.nodeName !== 'LI' ) {
-                //判定方式是触发的元素是否与列表中的元素类型一样...太泛了(除非其它地方都不用这些元素！)
+            var target = e.srcElement || e.target;//firefox 下的 event.target = IE 下的 event.srcElement
+            if (!((target.nodeName == "B" || target.nodeName == "I" || target.nodeName == "A") && (target.parentNode && target.parentNode.id == "filter" || target.id== "filter"))){
                 navLayers.each(function () {
                     if ( $(this).css('display') === 'block' ) {
                         $(this).hide('fast');
@@ -35,16 +31,6 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                         // tabSelect.children('b').css('border-bottom','none');
                     }
                 });
-
-
-                //有很多个筛选器，只有一个排序列表和一个登录列表
-                if ( sortLayer.css('display') === 'block' ) {
-                    sortLayer.hide('fast');
-                    sortLayer.parents('.t1').find('.ico').removeClass('ico-08').addClass('ico-07');
-                }
-                if ( moreLayer.css('display') === 'block' ) {
-                    moreLayer.hide();
-                }
             }
         })
 
