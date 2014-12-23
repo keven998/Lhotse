@@ -133,11 +133,11 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
         };
 
 
-        $('input.cb').iCheck({
-            checkboxClass: 'icheckbox_square-blue'
-            // radioClass   : 'iradio_square-blue'
+        $('input.rd').iCheck({
+            //checkboxClass: 'icheckbox_square-blue'
+            radioClass   : 'iradio_square-blue'
         });
-        $('input.cb').on('ifChecked', function (e) {
+        $('input.rd').on('ifChecked', function (e) {
             var selectItemId = $(this).attr('id');
             travelPi.selectListUpdate(selectItemId, $(this).attr('data-item'));
         }).on('ifUnchecked', function (e) {
@@ -235,7 +235,8 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                     dropClassName = "drop_layer",
                     layerClass = "." + dropClassName,
                     tabUl = layerClass + ' ul';
-                var requestUrl = "/route/layer/" + $(this).attr('data-id');
+                var fromId = $('#from').attr('data-id'),
+                    requestUrl = "/route/layer/" + $(this).attr('data-id') + "?fromLoc=" + fromId;
                 if ( target.className !== 'fork ico-fork' ) {//排除‘复制路线’按钮事件，未改
                     //judge the next class and his data-id
                     if (! locked){

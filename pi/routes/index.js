@@ -133,14 +133,14 @@ router.get('/download/', function(req, res) {
 router.get('/target/', function(req, res){
     async.parallel({
         hotCities: function(callback) {
-            model.setUrl(urlApi.apiHost+urlApi.hotCities);
+            model.setUrl(urlApi.apiHost + urlApi.hotCities);
             model.getdata(req, function(data){
                 data = JSON.parse(data);
                 callback(null, data);
             });
         },
         hotViews: function(callback) {
-            model.setUrl(urlApi.apiHost+urlApi.hotViews);
+            model.setUrl(urlApi.apiHost + urlApi.hotViews);
             model.getdata(req, function(data){
                 data = JSON.parse(data);
                 callback(null, data);
@@ -255,7 +255,7 @@ var suggestionUrl = function (input, restaurant, hotel, loc, vs) {
         hotel : hotel,
         loc : loc,
         vs : vs,
-        word : input
+        keyword : input
     };
 
     var queryStr = '';

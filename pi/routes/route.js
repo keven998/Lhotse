@@ -17,11 +17,12 @@ router.get('/layer/:ROUTEID', function(req, res){
     var dropLayerTemplate = 'droplayer.html',
         dropLayerHtml = [],
         sliderLayerTemplate = 'sliderlayer.html',
-        sliderLayerHtml = [];
+        sliderLayerHtml = [],
+        fromLoc = req.query.fromLoc;
 
     /*get the details of the route*/
-    model.setUrl(apiList.apiHost + apiList.routeDetail);
-    model.getdata(req, function(data) {
+    model.setUrl(apiList.apiHost + "/web/plans/" + req.params.ROUTEID + '?fromLoc=' + fromLoc);
+    model.getdata(null, function(data) {
         if (data != null){
             if (data.indexOf("!DOCTYPE") != -1){
                 console.log("The error occurred while getting the route-detail data!");
@@ -289,8 +290,8 @@ function regroupData(route_data, misc_data){
         days: route_data.days,
         tags: route_data.tags.slice(0,3),
         budget: {
-            sup: route_data.budget[0],
-            inf: route_data.budget[1]
+            inf: route_data.budget[0],
+            sup: route_data.budget[1]
         },
         moreDesc: route_data.moreDesc
     }

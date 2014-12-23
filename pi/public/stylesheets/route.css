@@ -187,18 +187,18 @@ li p.ico-g{display:inline-block;color:#4fa7bd;}
     vertical-align: middle;
     margin: 0;
     padding: 0;
-    width: 22px;
-    height: 22px;
+    width: 23px;
+    height: 23px;
     background: url(../images/route/index/blue.png) no-repeat;
     border: none;
     cursor: pointer;
 }
 
-.icheckbox_square-blue {background-position: 0 0;}
-.icheckbox_square-blue.hover {background-position: -24px 0;}
-.icheckbox_square-blue.checked {background-position: -48px 0;}
-.icheckbox_square-blue.disabled {background-position: -72px 0;cursor: default;}
-.icheckbox_square-blue.checked.disabled {background-position: -96px 0;}
+.iradio_square-blue {background-position: 0 0;}
+.iradio_square-blue.hover {background-position: -24px 0;}
+.iradio_square-blue.checked {background-position: -48px 0;}
+.iradio_square-blue.disabled {background-position: -72px 0;cursor: default;}
+.iradio_square-blue.checked.disabled {background-position: -96px 0;}
 
 /*
 .icheckbox_square-blue {
