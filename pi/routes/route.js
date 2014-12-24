@@ -4,9 +4,12 @@ var model = require('../model/sup_model.js');
 var apiList = require('../url_api');
 var config = require('../conf/system');
 var utils = require( "../common/utils");
-
+var zone = require('../conf/zone');
 var mu = require('mu2');
 var _dirname = 'public/htmltemplate/routePage';
+
+var moment = require('moment');
+moment.locale('zh-cn');
 
 
 /*get data for route.jade's ajax request*/
@@ -15,11 +18,12 @@ router.get('/layer/:ROUTEID', function(req, res){
     var dropLayerTemplate = 'droplayer.html',
         dropLayerHtml = [],
         sliderLayerTemplate = 'sliderlayer.html',
-        sliderLayerHtml = [];
+        sliderLayerHtml = [],
+        fromLoc = req.query.fromLoc;
 
     /*get the details of the route*/
-    model.setUrl(apiList.apiHost + apiList.routeDetail);
-    model.getdata(req, function(data) {
+    model.setUrl(apiList.apiHost + "/web/plans/" + req.params.ROUTEID + '?fromLoc=' + fromLoc);
+    model.getdata(null, function(data) {
         if (data != null){
             if (data.indexOf("!DOCTYPE") != -1){
                 console.log("The error occurred while getting the route-detail data!");
@@ -89,6 +93,53 @@ router.get('/detail/:ROUTEID', function(req, res){
                 config: config
             });
         });
+    });
+});
+
+router.post('/sort', function(req, res){
+    var fromId = req.body.fromId,
+        arriveId = req.body.arriveId,
+        fromLocName = req.query.fromName,
+        arrLocName, poiType,
+        indexGoUrl = apiList.apiHost + apiList.getRouteList + "?fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
+
+    //add params
+    for(var param in req.body.params){
+        indexGoUrl += "&" + param + "=" + req.body.params[param];
+    }
+    if(req.query[zone.type.viewspot] != undefined){
+        poiType = zone.type.viewspot;
+    }else if(req.query[zone.type.locality] != undefined){
+        poiType = zone.type.locality;
+    }
+    indexGoUrl += "&" + poiType + "=" + arriveId;
+    arrLocName = req.query[poiType];
+
+    model.setUrl(encodeURI(indexGoUrl));
+    model.getdata(null, function(data){
+        if((data != undefined) && (data.indexOf('<html>') < 0)){
+            var data = JSON.parse(data),
+                routeListTemplate = 'routelist.html',
+                routeListHtml = [];
+            mu.root = _dirname;
+            data = regroupRouteList(data.result);
+            mu.compileAndRender(routeListTemplate, {
+                routeData: data
+            })
+            .on('data', function(chunk) {
+                routeListHtml.push(chunk);
+            })
+            .on('end', function() {
+                routeListHtml = routeListHtml.join("");
+                // console.log(routeListHtml);
+                res.json('route', {
+                    routeListHtml: routeListHtml
+                });
+            });
+        }else{
+            res.json(null);
+            console.log("Error in getting routelist !");
+        }
     });
 });
 
@@ -244,7 +295,7 @@ function regroupData(route_data, misc_data){
         dropMiscList.push({
             title: misc_data[i].title,
             authorName: misc_data[i].authorName,
-            publishDate: misc_data[i].publishDate,
+            publishDate: moment(misc_data[i].publishDate).format('YYYY-M-D'),
             sourceUrl: misc_data[i].sourceUrl
         });
     }
@@ -271,7 +322,7 @@ function regroupData(route_data, misc_data){
             source: tempSource,
             sourceUrl: misc_data[note].sourceUrl,
             summary: misc_data[note].summary,
-            publishDate: misc_data[note].publishDate,
+            publishDate: moment(misc_data[i].publishDate).format('YYYY-M-D'),
             viewCnt: misc_data[note].viewCnt,
             commentCnt: misc_data[note].commentCnt,
             favorCnt: misc_data[note].favorCnt
@@ -287,8 +338,8 @@ function regroupData(route_data, misc_data){
         days: route_data.days,
         tags: route_data.tags.slice(0,3),
         budget: {
-            sup: route_data.budget[0],
-            inf: route_data.budget[1]
+            inf: route_data.budget[0],
+            sup: route_data.budget[1]
         },
         moreDesc: route_data.moreDesc
     }
@@ -312,5 +363,36 @@ function regroupData(route_data, misc_data){
     }
 }
 
+function regroupRouteList(data){
+    var routeListView = [],
+        routeData;
+    for(route in data){
+        routeData = {
+            id: data[route]._id,
+            imgUrl: data[route].imageList ? (data[route].imageList[0] + '?imageView2/1/w/165/h/150') : null,
+            // please add the default image to qiniu.com and adapt here
+            title: data[route].title,
+            forkedCnt: data[route].forkedCnt,
+            shortDesc: null,
+            tags: data[route].tags.slice(0,3),
+            vsCnt: data[route].vsCnt,
+            days: data[route].days,
+            budget: {
+                inf: data[route].budget[0],
+                sup: data[route].budget[1]
+            }
+        }
+        if (data[route].lxpTag && data[route].lxpTag[0]){
+            routeData.mostTag = {
+                tagName: data[route].lxpTag[0]
+            }
+        }
+        if (data[route].desc && data[route].desc.length > 45){
+            routeData.shortDesc = data[route].desc.substring(0, 45) + "...";
+        }
+        routeListView.push(routeData);
+    }
+    return routeListView;
+}
 
 module.exports = router;

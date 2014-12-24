@@ -12,7 +12,7 @@ var urlApi = {
     hotCities : '/explore?showDetails=1&pageSize=8&loc=1',
     hotViews  : '/web/poi/view-spots/explore?page=0&pageSize=8',
 
-    //景点详情的落地页面
+    //路线详情的落地页面
     routeDetail:  '/web/plans/ROUTEID',
     routeNotes:    '/web/misc/notes/search?planId=ROUTEID',
 
@@ -25,10 +25,7 @@ var urlApi = {
     // 通过景点名字获取景点ID
     searchViewspotIdByName : "/web/poi/view-spots/search?keyword=",
 
-    // 获取包含XX景点的路线列表
-    searchRouteIncludeViewspot : "/web/plans/explore?poi=",
-
-    // 获得相关城市的路线列表
+    // 获得相关目的地的路线列表 "&loc=xx" or "&vs=xx"
     getRouteList : '/web/plans/explore',
 
     // 根据名字搜索酒店

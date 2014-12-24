@@ -329,7 +329,7 @@ array.forEach(function(t){
                 e.stopPropagation();
                 e.preventDefault();
             }
-            //加入display判别，以免别的页面中的enter被这里吃掉
+            //加入display判别，以免别的页面中的enter被这里吃掉    ???
             else if(display && keyCode == 13) { // 回车
                 setTimeout(function(){
                     // window.location.href = curSelectedObj.elem.getAttribute('href');
@@ -401,7 +401,7 @@ $(function(){
         var f1 = arriveSuggestions = $('#suggestion_to').css('display'),
             // f2 = fromSuggestions = $('#suggestion_from').css('display'),
             keyCode = e.keyCode ? e.keyCode : e.which;
-        if (f1 == 'none' && keyCode === 13) {
+        if (keyCode === 13) {
             go_plan_list();
         }
     });
