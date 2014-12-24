@@ -75,6 +75,7 @@ router.post('/spotInfo', function(req, res) {
         type = postData.type,
         id = postData.id,
         requestUrl = selectUrlForSpotInfo(type);
+    console.log(requestUrl + id);
     if (requestUrl) {
         var options = {
             url: requestUrl + id,
@@ -345,7 +346,7 @@ function extractViewSpotInfo(data, type) {
     var result = data.result,
         tempObject = {};
     tempObject.id           = result._id;
-    tempObject.name         = result.name;
+    tempObject.name         = result.name || result.zhName;
     tempObject.image        = result.imageList ? (result.imageList.length ? result.imageList[0] : " ") : " ";
     tempObject.imageList    = result.imageList;
     tempObject.imageList    = arrayToKVArray('image', tempObject.imageList);
@@ -371,6 +372,9 @@ function extractHotelInfo(data, type) {
         tempObject = {};
     tempObject.id           = result._id;
     tempObject.name         = result.name;
+    tempObject.type         = type;
+    tempObject.lng          = result.addr ? result.addr.lng : '';
+    tempObject.lat          = result.addr ? result.addr.lat : '';
     tempObject.image        = result.imageList ? (result.imageList.length ? result.imageList[0] : " ") : " ";
     tempObject.imageList    = result.imageList;
     tempObject.imageList    = arrayToKVArray('image', tempObject.imageList);

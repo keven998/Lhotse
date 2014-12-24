@@ -178,7 +178,7 @@ ul.day_detail {
 }
 
 .icon_viewspot, .icon_restaurant, .icon_shop, .icon_airport, .icon_hotel,
-.icon_trainstation, .icon_viewspot_hover, .icon_restaurant_hover, .icon_shop_hover, .icon_airport_hover, .icon_hotel_hover {
+.icon_trainStation, .icon_viewspot_hover, .icon_restaurant_hover, .icon_shop_hover, .icon_airport_hover, .icon_hotel_hover, .icon_trainStation_hover {
     background: url(/images/plans/edit/icon-group-poi.png) no-repeat;
     display: inline-block;
     height: 25px;
@@ -243,6 +243,12 @@ i.new_add_to_plan {
 .icon_hotel {
     background-position: -262px 0px;
 }
+.icon_trainStation{
+    background-position: -105px 0px;
+}
+.icon_trainStation_hover{
+    background-position: -105px -30px;
+}
 .icon_viewspot_hover {
     background-position: -210px -30px;
 }
@@ -257,6 +263,19 @@ i.new_add_to_plan {
 }
 .icon_hotel_hover {
     background-position: -262px -30px;
+}
+
+.loading-bar-container{
+    width: 100%;
+    height: 50px;
+    background-color: white;
+    display: none;
+}
+.loading_bar{
+    background: url(/images/plans/edit/loading.gif) no-repeat;
+    width: 50px;
+    height: 100%;
+    margin: 0px auto;
 }
 
 i.marker_number {
@@ -423,7 +442,9 @@ input[type="text"] {
 .ticket_price, .suggestion_time, .hotel_phone, .hotel_address {
     height: 20px;
     font-size: 13px;
-    /* margin: 2px 2px 0px 10px; */
+    overflow: hidden;
+    width: 200px;
+    text-overflow: ellipsis;
     line-height: 20px;
     color: #494949;
 }
@@ -436,6 +457,7 @@ input[type="text"] {
 
 .ui-state-highlight {
     height: 1.5em;
+    border: 1px solid #ccc;
     line-height: 1.2em;
 }
 
@@ -718,9 +740,9 @@ span.empty {
 
 
 /*----css for templates begin----*/
-.pop_window_viewspot {
+.pop_window_viewspot, .pop_window_hotel {
     border: 1px solid #DDD;
-    width: 300px;
+    width: 330px;
     background-color: white;
     box-shadow: 0 0 0 3px rgba(0,0,0,0.2);
     border: 3px solid #bab6b0\9;
@@ -729,13 +751,13 @@ span.empty {
     font-size: 14px;
 }
 
-.spotview_title {
+.viewspot_title, .hotel_title {
     color: rgb(80, 167, 189);
     margin-left: 45px;
     font-size: 17px;
 }
 
-.basic_info_viewspot {
+.basic_info_viewspot, .basic_info_hotel {
 
     width: 100%;
     overflow: auto;
@@ -744,14 +766,14 @@ span.empty {
 
 .pop_window_pic {
     display: inline-block;
-    /* border: 3px solid green; */
     margin: 1px 1px 0px 1px;
+    width: 120px;
+    height: 120px;
 }
 
 .pop_window_info {
     display: inline-block;
-    /* border: 1px solid blueviolet; */
-    margin: 1px 13px;
+    margin: 1px 1px;
     vertical-align: top;
     color: black;
 }
@@ -775,7 +797,7 @@ span.empty {
     /* margin: 2px 5px; */
 }
 
-.more_info_viewspot {
+.more_info_viewspot, .more_info_hotel {
     border-top: 1px solid #DDD;
     overflow: auto;
     font-size: 13px;
@@ -783,7 +805,8 @@ span.empty {
     /* font-weight: bold; */
 }
 
-.more_info_viewspot .viewspot_desc_content p {
+.more_info_viewspot .viewspot_desc_content p,
+.more_info_hotel .hotel_desc_content p {
     font-size: 12px;
     font-weight: normal;
     font-family: monospace;
@@ -792,24 +815,25 @@ span.empty {
     height: 100px;
 }
 
-.viewspot_desc {
+.viewspot_desc, .hotel_desc {
     /* border-bottom: 1px solid rgba(223, 223, 223, 0.9); */
     height: 60px;
     margin: 5px 2px 2px 2px;
     display: inline-table;
 }
 
-.viewspot_traffic {
+.viewspot_traffic, .hotel_traffic {
     display: inline-table;
     height: 50px;
     border-bottom: 1px solid rgba(223, 223, 223, 0.9);
 }
 
-.viewspot_tips {
+.viewspot_tips, .hotel_tips {
     display: inline-table;
 }
 
-.viewspot_desc, .viewspot_traffic, .viewspot_tips {
+.viewspot_desc, .viewspot_traffic, .viewspot_tips,
+.hotel_desc, .hotel_traffic, .hotel_tips {
     display: none;
 }
 
@@ -833,7 +857,7 @@ p.desc {
     font-weight: bold;
 }
 
-p.viewspot_desc_content {
+p.viewspot_desc_content, p.hotel_desc_content {
     height: 40px;
     font-size: 10px;
     font-family: monospace;
@@ -843,41 +867,94 @@ p.viewspot_desc_content {
 .btn_add_to_plan {
     display: inline-block;
     background-color: #53A9BF;
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 25px;
     cursor: pointer;
     color: white;
     position: absolute;
-    right: 2px;
-    bottom: 15px;
-    border-radius: 5px;
+    right: 50px;
+    bottom: 1px;
+    border-radius: 3px;
 }
 
 .btn_add_to_plan:hover {
     display: inline-block;
-    background-color: rgba(0, 164, 204, 1);
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 25px;
     cursor: pointer;
     color: white;
     position: absolute;
-    right: 2px;
-    bottom: 15px;
-    border-radius: 5px;
+    right: 50px;
+    bottom: 1px;
+    border-radius: 3px;
+    background-color: rgba(0, 164, 204, 1);
 }
 
 .btn_add_to_plan .text{
-    margin: 4px 10px;
+    text-align: center;
+    line-height: 25px;
 }
 /*----css for templates end----*/
 
-input.J_title {
+.J_title {
     border: none;
     font-size: 18px;
     height: 25px;
     font-family: monospace;
     cursor: pointer;
 }
-input.J_title:hover {
+.J_title:hover {
     border: 1px solid #ccc;
+}
+
+
+/* -----弹层------*/
+.delete_spot_tips {
+    width: 140px;
+    height: 20px;
+}
+
+.delete_cancel {
+    padding: 1px 6px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+.delete_cancel:hover {
+    background-color: #fff;
+}
+.delete_yes{
+    padding: 1px 6px;
+    margin-left: 20px;
+    margin-right: 10px;
+    color: white;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: green;
+    cursor: pointer;
+}
+.delete_yes:hover {
+    background-color: green;
+}
+
+.window-title h2 {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.addSpot_tips {
+    text-align: center;
+}
+
+span.timer {
+    margin-right: 20px;
+    float: right;
+
+}
+
+.addSpot_tips {
+    text-align: center;
+    width: 80%;
+    display: inline-block;
 }

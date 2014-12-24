@@ -92,9 +92,19 @@ define(['async!http://ditu.google.cn/maps/api/js?v=3&sensor=false&libraries=geom
         that.setFitView = function() {
             var bound = new google.maps.LatLngBounds(),
                 h;
-            for (h in markers)
+            for (h in markers) {
                 // filter markers show on the map
                 markers[h].getMap() && bound.extend(markers[h].latLng);
+            }
+            mapObj.fitBounds(bound);
+        };
+        that.fitViewWithSpots = function(spots) {
+            var bound = new google.maps.LatLngBounds();
+            for(var i in spots){
+                var curSpot = spots[i],
+                    tempLatLng = new google.maps.LatLng(curSpot.lat, curSpot.lng);
+                bound.extend(tempLatLng);
+            }
             mapObj.fitBounds(bound);
         };
         that.addMarkers = function(markers) {
@@ -133,12 +143,17 @@ define(['async!http://ditu.google.cn/maps/api/js?v=3&sensor=false&libraries=geom
         that.showMarker = function(f) {
             markers[f] && markers[f].setMap(mapObj);
         };
-        that.showMarkers = function(markers) {
-            if(markers == null){
+        that.showMarkers = function(markerIds) {
+            if(markerIds == null) {
                 return;
             }
-            for (var l = markers.length, m = 0; m < l; m++)
-                that.showMarker(markers[m]);
+            for (var l = markerIds.length, m = 0; m < l; m++)
+                that.showMarker(markerIds[m]);
+        };
+        that.hideAllMarkers = function() {
+            for(var id in markers){
+                markers[id].setMap(null);
+            }
         };
         that.hideMarker = function(id) {
             markers[id] && markers[id].setMap(null);
@@ -206,7 +221,8 @@ define(['async!http://ditu.google.cn/maps/api/js?v=3&sensor=false&libraries=geom
                 x = 1,
                 waypoints = [],
                 start = new google.maps.LatLng(f[0].lat, f[0].lng),
-                end = new google.maps.LatLng(f[s].lat, f[s].lng); x < s; x++) {
+                end = new google.maps.LatLng(f[s].lat, f[s].lng);
+                x < s; x++) {
                 var C = new google.maps.LatLng(f[x].lat, f[x].lng);
                 waypoints.push({
                     location: C,
