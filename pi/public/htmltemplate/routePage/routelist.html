@@ -1,0 +1,33 @@
+{{#routeData}}
+    <li data-id="{{{id}}}" class="route">
+        <div class="left">
+            <img src="{{{imgUrl}}}" width="165" height="150">
+            {{#mostTag}}
+            <img src="/images/route/index/triangle.png" class="most_tag">
+            <h2 class="most_tag">{{tagName}}</h2>
+            {{/mostTag}}
+        </div>
+        <div class="right">
+            <h2 class="r-title"> {{{title}}}</h2>
+            <h3 class="usetimes"> ({{{forkedCnt}}}人使用)</h3>
+            <p class="txt">
+                {{{shortDesc}}}
+            </p>
+            <p>
+                <i class="ico01 ico01-route"></i>
+                <b>线路特色-{{{tags}}}</b>
+            </p>
+            <p>
+                <i class="ico01 ico01-spot"></i>
+                <b>全程{{{vsCnt}}}个景点，共{{{days}}}天</b>
+            </p>
+            <p>
+            {{#budget}}
+                <i class="ico01 ico01-cost"></i>
+                <b>预算 ￥{{{inf}}}-￥{{{sup}}}</b>
+            {{/budget}}
+            </p>
+            <a href="javascript:;" data-id="{{{id}}}" class="fork ico-fork"></a>
+        </div>
+    </li>
+{{/routeData}}

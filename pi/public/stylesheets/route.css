@@ -44,7 +44,7 @@
 .left{position:relative;margin:10px;display:inline-block;}
 .most_tag{width: 71px;height: 71px;position:absolute;top:0;left:0;}
 .left h2{padding:7px 0 0 10px;font-size:16px;color:#fff;transform:rotate(-45deg);-ms-transform:rotate(-45deg);-moz-transform:rotate(-45deg);-webkit-transform:rotate(-45deg);-o-transform:rotate(-45deg);}
-.right{position:relative;display:inline-block;height:160px;margin:10px 20px 0px 10px;width:370px;vertical-align:top;}
+.right{position:relative;display:inline-block;height:160px;margin:10px 20px 0px 10px;width:360px;vertical-align:top;}
 .r-title{display:inline-block;font-size:16px;}
 .usetimes{display:inline-block;font-size:14px;color:#898989;}
 .right p{color:#4fa7bd;}

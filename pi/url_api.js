@@ -25,10 +25,7 @@ var urlApi = {
     // 通过景点名字获取景点ID
     searchViewspotIdByName : "/web/poi/view-spots/search?keyword=",
 
-    // 获取包含XX景点的路线列表
-    searchRouteIncludeViewspot : "/web/plans/explore?poi=",
-
-    // 获得相关城市的路线列表
+    // 获得相关目的地的路线列表 "&loc=xx" or "&vs=xx"
     getRouteList : '/web/plans/explore',
 
     // 根据名字搜索酒店

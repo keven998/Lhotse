@@ -112,20 +112,30 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                             dataFromID = '#' + dataFrom;
                             $(dataFromID).iCheck('uncheck');
                             $(this).remove();
-                        })
-                    }
-                })
+                        });
+                    };
+                });
             }
         };
 
 
         $('input.rd').iCheck({
             //checkboxClass: 'icheckbox_square-blue'
-            radioClass   : 'iradio_square-blue'
+            radioClass: 'iradio_square-blue'
         });
         $('input.rd').on('ifChecked', function (e) {
             var selectItemId = $(this).attr('id');
             travelPi.selectListUpdate(selectItemId, $(this).attr('data-item'));
+            $('.filter-nav').find('.list-last').trigger('click');
+
+            // bind the click event for cancel a selection
+            // console.log("0");
+            // console.log($(this));
+            // $(this).on('click',function(){
+            //     console.log("1");
+            //     console.log($(this));
+            //     $(this).iCheck('uncheck');
+            // });
         }).on('ifUnchecked', function (e) {
             travelPi.selectListRemove($(this).attr('data-item'));
         });
@@ -375,12 +385,47 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
 
 
         //排序事件
+        function reloadRouteList(sortKey){
+            var path = window.location.pathname,
+                functional = "/sort",
+                params = window.location.search,
+                requestUrl = path + functional + params,
+                fromId = $("#from").attr("data-id"),
+                arriveId = $("#arrive").attr("data-id");
+            $.ajax({
+                url: requestUrl,
+                async: true,
+                type: "POST",
+                data: {
+                    params: {
+                        sortField: "forkedCnt",
+                        sort: sortKey
+                    },
+                    fromId: fromId,
+                    arriveId: arriveId
+                },
+                success : function (msg) {
+                    console.log(msg);
+                    $('ul.routelist').empty();
+                    $('ul.routelist').append(msg.routeListHtml);
+                },
+                error : function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log('error!!!');
+                }
+            });
+        }
+
         $('.sort').on('click',function(){
-            if($(this).children('i').hasClass('ico-arr03')){
-                $(this).children('i').removeClass('ico-arr03').addClass('ico-arr04');
-            }
-            else{
-                $(this).children('i').removeClass('ico-arr04').addClass('ico-arr03');
+            var ascIconClass = 'ico-arr04',
+                descIconClass = 'ico-arr03';
+            if($(this).children('i').hasClass(descIconClass)){
+                $(this).children('i').removeClass(descIconClass).addClass(ascIconClass);
+                console.log("asc");
+                reloadRouteList("asc");
+            }else{
+                $(this).children('i').removeClass(ascIconClass).addClass(descIconClass);
+                console.log("desc");
+                reloadRouteList("desc");
             }
         })
 

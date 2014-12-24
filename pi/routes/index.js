@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var async = require('async');
-var urlApi = require('../url_api');
+var apiList = require('../url_api');
 var plans = require('../model/plans');
 var request = require('request')
 var model = require('../model/sup_model.js');
@@ -23,29 +23,29 @@ var Error = [
 router.get('/', function(req, res) {
     async.parallel({
         newRoute: function(callback) {
-            model.setUrl(urlApi.apiHost+urlApi.newRoute);
+            model.setUrl(apiList.apiHost + apiList.newRoute);
             model.getdata(req, function(data){
                 callback(null, data);
             });
         },
         editorRoute: function(callback) {
-            model.setUrl(urlApi.apiHost+urlApi.editorRoute);
+            model.setUrl(apiList.apiHost + apiList.editorRoute);
             model.getdata(req, function(data){
                 callback(null, data);
             });
         },
         mustgoRoute: function(callback) {
-            model.setUrl(urlApi.apiHost+urlApi.mustgoRoute);
+            model.setUrl(apiList.apiHost + apiList.mustgoRoute);
             model.getdata(req, function(data){
                 callback(null, data);
             });
         },
         popRoute: function(callback) {
-            model.setUrl(urlApi.apiHost+urlApi.popRoute);
+            model.setUrl(apiList.apiHost + apiList.popRoute);
             model.getdata(req, function(data){
                 callback(null, data);
             });
-        },
+        }
     },
     function(err, results) {
         results.newRoute = JSON.parse(results.newRoute);
@@ -67,15 +67,15 @@ router.get('/', function(req, res) {
 router.get('/route', function(req, res) {
     var fromLocName = req.query.fromName;
     /*get locId*/
-    var queryFromName = urlApi.apiHost + urlApi.searchCityIdByName + decodeURIComponent(fromLocName);
+    var queryFromName = apiList.apiHost + apiList.searchCityIdByName + decodeURIComponent(fromLocName);
     if (req.query[zone.type.viewspot] != undefined){
         var poiType = zone.type.viewspot,
             arrLocName = req.query[zone.type.viewspot],
-            queryArrName = urlApi.apiHost + urlApi.searchViewspotIdByName + decodeURIComponent(arrLocName) + "&sort=desc";
+            queryArrName = apiList.apiHost + apiList.searchViewspotIdByName + decodeURIComponent(arrLocName) + "&sort=desc";
     }else if (req.query[zone.type.locality] != undefined){
         var poiType = zone.type.locality,
             arrLocName = req.query[zone.type.locality],
-            queryArrName = urlApi.apiHost + urlApi.searchCityIdByName + arrLocName;
+            queryArrName = apiList.apiHost + apiList.searchCityIdByName + arrLocName;
     }else{
         console.log("No destination!");
     }
@@ -97,12 +97,7 @@ router.get('/route', function(req, res) {
     function(err, results) {
         var fromId = results.from,
             arriveId = results.arrive,
-            indexGoUrl;
-        if(poiType == zone.type.viewspot){
-            indexGoUrl = urlApi.apiHost + urlApi.searchRouteIncludeViewspot + arriveId + "&tag=&minDays=0&maxDays=99";
-        }else{
-            indexGoUrl = urlApi.apiHost + urlApi.getRouteList + "?loc=" + arriveId + "&fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
-        }
+            indexGoUrl = apiList.apiHost + apiList.getRouteList + "?tag=&minDays=0&maxDays=99" + "&fromLoc=" + fromId + "&" + poiType + "=" + arriveId;
         model.setUrl(encodeURI(indexGoUrl));
         model.getdata(null, function(data){
             if((data != undefined) && (data.indexOf('<html>') < 0)){
@@ -133,19 +128,19 @@ router.get('/download/', function(req, res) {
 router.get('/target/', function(req, res){
     async.parallel({
         hotCities: function(callback) {
-            model.setUrl(urlApi.apiHost + urlApi.hotCities);
+            model.setUrl(apiList.apiHost + apiList.hotCities);
             model.getdata(req, function(data){
                 data = JSON.parse(data);
                 callback(null, data);
             });
         },
         hotViews: function(callback) {
-            model.setUrl(urlApi.apiHost + urlApi.hotViews);
+            model.setUrl(apiList.apiHost + apiList.hotViews);
             model.getdata(req, function(data){
                 data = JSON.parse(data);
                 callback(null, data);
             });
-        },
+        }
     },
     function(err, results) {
         var cityList = new Array(),
@@ -162,7 +157,7 @@ router.get('/target/', function(req, res){
                 id: city._id,
                 abbr: cityAbbr,
                 name: cityName,
-                img: city.imageList[0],
+                img: city.imageList[0]
             });
         }
         for (var i = 0; i < page_size; i++){
@@ -175,7 +170,7 @@ router.get('/target/', function(req, res){
                 id: view._id,
                 abbr: viewAbbr,
                 name: viewName,
-                img: view.imageList[0],
+                img: view.imageList[0]
             });
         }
         // get fromLoc from cookies
@@ -188,7 +183,7 @@ router.get('/target/', function(req, res){
             map_data: map_data,
             user_info: utils.get_user_info(req, res),
             config: config,
-            zone : zone,
+            zone : zone
         });
     });
 });
@@ -249,7 +244,7 @@ var suggestionUrl = function (input, restaurant, hotel, loc, vs) {
         vs = vs || 0,
         input = input || 0;
 
-    var requestUrl = urlApi.apiHost + urlApi.inputSuggestion;
+    var requestUrl = apiList.apiHost + apiList.inputSuggestion;
     var querys = {
         restaurant : restaurant,
         hotel : hotel,

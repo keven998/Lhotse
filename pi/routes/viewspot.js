@@ -2,7 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var async = require('async');
-var urlApi = require('../url_api');
+var apiList = require('../url_api');
 var request = require('request')
 var model = require('../model/sup_model.js');
 var config = require('../conf/system');
@@ -11,7 +11,7 @@ var utils = require( "../common/utils");
 
 //  时间轴的景点详情弹层
 router.get('/detail/:SPOTID', function(req, res) {
-    model.setUrl(urlApi.apiHost + urlApi.viewspot.detail);
+    model.setUrl(apiList.apiHost + apiList.viewspot.detail);
     model.getdata(req, function(data){
         res.json(JSON.parse(data));
     });
@@ -21,7 +21,7 @@ router.get('/detail/:SPOTID', function(req, res) {
 // 路线编辑的搜索景点
 router.post('/search', function(req, res) {
     var text = req.body.searchText;
-    var requestUrl = urlApi.apiHost + urlApi.searchViewspotByName + encodeURI(text);
+    var requestUrl = apiList.apiHost + apiList.searchViewspotByName + encodeURI(text);
     model.setUrl(requestUrl);
     model.getdata(null, function(data){
         res.json(JSON.parse(data));
@@ -34,7 +34,7 @@ router.post('/ajax/more', function(req, res) {
     var text = req.body.searchText,
         page = req.body.page;
 
-    var requestUrl = urlApi.apiHost + urlApi.searchViewspot + "keyword=" + encodeURI(text) + "&page=" + encodeURI(page);
+    var requestUrl = apiList.apiHost + apiList.searchViewspot + "keyword=" + encodeURI(text) + "&page=" + encodeURI(page);
 
     model.setUrl(requestUrl);
     model.getdata(null, function(data){

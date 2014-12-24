@@ -2,7 +2,7 @@ var express = require('express');
 var request = require('request');
 var router = express.Router();
 var config = require('../conf/system');
-var urlApi = require('../url_api');
+var apiList = require('../url_api');
 var utils = require( "../common/utils");
 
 /*
@@ -48,7 +48,7 @@ router.get('/callback/weibo/', function(req, ori_res) {
                 udid: "",
             };
             var options = {
-                url: urlApi.apiHost + '/users/oauth-login',
+                url: apiList.apiHost + '/users/oauth-login',
                 json: post_info,
                 method: 'POST',
             };
@@ -104,7 +104,7 @@ router.get('/callback/qq/', function(req, ori_res) {
                     udid: "",
                 };
                 var options = {
-                    url : urlApi.apiHost + '/web/users/oauth-login',
+                    url : apiList.apiHost + '/web/users/oauth-login',
                     json: post_info,
                     method: 'POST',
                 };
