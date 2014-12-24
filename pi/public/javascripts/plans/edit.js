@@ -2,10 +2,11 @@
 require.config({
     baseUrl: '/javascripts/',
     paths: {
-        "googlemapApi": "lib/googlemap.api",
+        "googlemapApi"  : "lib/googlemap.api",
+        "PopLayer"      : "lib/popLayer"
     },
 });
-require(['googlemapApi'], function(GMaper) {
+require(['googlemapApi', 'PopLayer'], function(GMaper, PopLayer) {
 
 /*----marker animate BEGIN----*/
 function MarkerAnimate(h) {
@@ -82,6 +83,7 @@ var DayMapControl = function(constructInput) {
                     callback) && callback());
                 that.addOneDay();
                 that.submitData();
+
         };
         // 添加所有景点，并且设置“全程”、D1,D2...、POI详情栏的鼠标事件（enter，leave，click）
         that.addAllPoi = function() {
@@ -125,7 +127,7 @@ var DayMapControl = function(constructInput) {
             var m = '<li data-num=' + (dayNum + 1) + ' class="day_item"></li>';
             dayDetail.append(m);
 
-            var dayTitle = '<div class="day_detail_title"><span class="day_num">第' + (dayNum + 1) + '天</span><span class="day_abstract">(需要被替代)</span></div>';
+            var dayTitle = '<div class="day_detail_title"><span class="day_num">第' + (dayNum + 1) + '天</span><span class="day_abstract"></span></div>';
             $('.day_item:last').append(dayTitle);
 
             var dayListUl = '<ul data-num=' + (dayNum + 1) + ' class="day_detail"></ul>';
@@ -184,7 +186,7 @@ var DayMapControl = function(constructInput) {
                     html = '<i class="icon_restaurant"></i>';
                     break;
                 case "trainStation":
-                    html = '<i class="icon_trainstation"></i>';
+                    html = '<i class="icon_trainStation"></i>';
                     break;
                 case "airport":
                     html = '<i class="icon_airport"></i>';
@@ -236,12 +238,16 @@ var DayMapControl = function(constructInput) {
                                     // to do:获取参数!
                                     var name = $(this).attr("data-name"),
                                         id   = $(this).attr("data-id"),
-                                        type = $(this).attr("data-type");
+                                        type = $(this).attr("data-type"),
+                                        lat  = $(this).attr("data-lat"),
+                                        lng  = $(this).attr("data-lng");
 
                                     that.addToPlan({
                                         name    : name,
                                         id      : id,
-                                        type    : type
+                                        type    : type,
+                                        lat     : lat,
+                                        lng     : lng
                                     });
                                     e.stopPropagation();
                                 });
@@ -259,6 +265,82 @@ var DayMapControl = function(constructInput) {
             });
         };
 
+        // 添加景点或者酒店的弹层
+        that.popLayerForAddSpot = function(type, args) {
+            var timer = 5;
+            var poplayer  = new PopLayer.PopLayer({
+                    targetCls : "",
+                    width     : "300px",
+                    height    : "40px",
+                    theight   : '0px',
+                    title     : '提示',
+                    showBg    : false,
+                    time      : timer * 1000
+                });
+            var content = '';
+            switch(type) {
+                case 'no_target_day':
+                    content = "<div class='container'><div class='addSpot_tips'><p>请在左侧选中天次，景点将加入其中</p></div>";
+                    break;
+                case 'with_same_spots':
+                    content = "<div class='container'><div class='addSpot_tips'><p> <b>" + args + "</b> 已经在您的行程中</p></div>";
+                    break;
+                case 'has_empty_day':
+                    content = "<div class='container'><div class='addSpot_tips'><p>第" + args + "天为空</p></div>";
+                    break;
+                case 'already_have_hotel':
+                    content = "<div class='container'><div class='addSpot_tips'><p>已经选有酒店:<b>" + args + "</b>,请删除再添加</p></div>";
+                    break;
+                default :
+                    break;
+            }
+            // 设置及时提示
+            if (timer) {
+                content = content + '<span class="timer">' + timer + 's</span></div>';
+                poplayer.pop(content, 'text');
+                var cnt = timer;
+                var tt = setInterval(function(){
+                    $('.timer').text((--cnt) + 's');
+                    if(cnt < 0) {
+                        tt && clearTimeout(tt);
+                    }
+                }, 1000)
+            }else{
+                poplayer.pop(content, 'text');
+            }
+
+        };
+
+
+        // 判断是否重复添加景点
+        that.spotAlreadyInPlan = function(id){
+            var curDetailDom = $('.J_day_detail_list').find('li.day_item.current'),
+                curDay = curDetailDom.attr('data-num');
+
+            var curDaySpots = inputBuff[curDay - 1];
+            for(var index = 0, len = curDaySpots.length; index < len; index++){
+                if(curDaySpots[index].id == id){
+                    return curDaySpots[index].name;
+                }
+            }
+            return false;
+        };
+
+
+        // 判断是否一天包含多个酒店
+        that.alreadyHaveHotelAtCurDay = function(){
+            var curDetailDom = $('.J_day_detail_list').find('li.day_item.current'),
+                curDay = curDetailDom.attr('data-num');
+
+            var curDaySpots = inputBuff[curDay - 1];
+            for(var index = 0, len = curDaySpots.length; index < len; index++){
+                if(curDaySpots[index].type == 'hotel'){
+                    return curDaySpots[index].name;
+                }
+            }
+            return false;
+        };
+
         // 点击“加入行程”的操作
         that.addToPlan = function(spot) {
             var name = spot.name,
@@ -268,16 +350,33 @@ var DayMapControl = function(constructInput) {
                 detailHtmlElements = [],
                 currentDay = $(".day_tab_box").find('.current').text();
             if ("全程" === currentDay) {
-                alert("请在左侧日期列表中选中一天");
+                // 提示弹窗
+                that.popLayerForAddSpot('no_target_day');
                 return;
-            } else {
-                // 选择当前天的dom
-                var curDetailDom = $('.J_day_detail_list').find('li.day_item.current'),
-                    curDay = curDetailDom.attr('data-num');
-                console.log(curDay);
-                spotId[curDay - 1].push(id);
-                console.log(spotId);
             }
+
+            // spot is already in plan?
+            var spotIsInPlan = that.spotAlreadyInPlan(id);
+            if(spotIsInPlan) {
+                that.popLayerForAddSpot('with_same_spots', spotIsInPlan);
+                return;
+            }
+            // already have hotel?
+            if(type === 'hotel'){
+                var alreadyHasHotel = that.alreadyHaveHotelAtCurDay(id);
+                if(alreadyHasHotel) {
+                    that.popLayerForAddSpot('already_have_hotel', alreadyHasHotel);
+                    return;
+                }
+            }
+
+            // 选择当前天的dom
+            var curDetailDom = $('.J_day_detail_list').find('li.day_item.current'),
+                curDay = curDetailDom.attr('data-num');
+            console.log(curDay);
+            spotId[curDay - 1].push(id);
+            console.log(spotId);
+
             var lastLi          = curDetailDom.children('ul').find('li:last'),
                 indexInAllSpots = '',
                 indexInOneDay   = '';
@@ -334,7 +433,10 @@ var DayMapControl = function(constructInput) {
 
         // 点击一天的动作  很重要的一个函数
         that.changeDay = function(num) {
+            // 重排序
             that.resortIndex();
+            console.log('当前天为:' + num);
+            console.log(inputBuff[num]);
             - 1 === num ?
             (
                 // “全程”的操作
@@ -342,8 +444,6 @@ var DayMapControl = function(constructInput) {
                 dayNaviUl.find("li.day").removeClass("current"),
                 dayDetail.find(".day_item").slideDown(400),
                 dayDetail.find(".day_item").removeClass('current'),
-                //dayDetail.find(".divider").show(),
-                console.log('123'),
                 that.showDayMarkers(-1)
             ) : (
                 dayNaviUl.find("li.day").eq(num).addClass("current").siblings(".day")
@@ -351,8 +451,7 @@ var DayMapControl = function(constructInput) {
                 allDay.removeClass("current"),
                 dayDetail.find(".day_item").eq(num).addClass('current').slideDown(400)
                 .siblings(".day_item").removeClass('current').slideUp(400),
-                console.log(num),
-                that.hideDayMarkers(currDayNum - 1), //影藏上一次的点
+                that.hideAllMarkers(), //影藏上一次的点
                 that.showDayMarkers(num)
             );
             that.drawRoute(num);
@@ -377,7 +476,7 @@ var DayMapControl = function(constructInput) {
 
                 h ? (h.lat && h.lng && map.setCenterByLatLng(h.lat, h.lng), "4" == h.type
                         ? map.setZoom(12) : map.setZoom(15))
-                : map.setFitView();
+                : map.setFitView(inputBuff[num]);
                 map.setZoom(map.getZoom() - 1);
             }
         };
@@ -401,21 +500,30 @@ var DayMapControl = function(constructInput) {
                 for (var h = 0; h < num; h++) map.hideMarkers(spotId[h]);
             } else map.hideMarkers(spotId[num]);
         };
+        that.hideAllMarkers = function() {
+            console.log('开始影藏点');
+            map.hideAllMarkers();
+        };
         // 显示一天的点
         that.showDayMarkers = function(num) {
             if (-1 === num) {
                 num = spotId.length;
                 for (var h = 0; h < num; h++) map.showMarkers(spotId[h]);
-            } else map.showMarkers(spotId[num]);
+            } else {
+                map.showMarkers(spotId[num]);
+            }
         };
         // 鼠标hover左侧点时，对应地图的效果
         that.poiEnter = function(f) {
             var id = f.children('.spot_name').attr("data-id"),
                 type = f.attr('data-type');
-            console.log(type);
+
+            console.log("当前spot的类型是:" + type);
             var hoverClass  = 'icon_' + type + '_hover';
             f.children('i').eq(0).removeClass().addClass(hoverClass);
-            f.children("i.delete").addClass("delete_icon");
+            if(!(type === 'trainStation' || type === 'airport')) {
+                f.children("i.delete").addClass("delete_icon");
+            }
             // 查找地图上对应的点
             f = $("#" + id);
             f.addClass("active");
@@ -445,7 +553,6 @@ var DayMapControl = function(constructInput) {
                         "z-index": 2
                     });
                 f.addClass("active");
-                //<i data-id="1234567890" class="spot_name">卡塔海滩-1</i>
                 dayDetail.find("i[data-id='" + h + "']").parent().addClass("active");
             }
         };
@@ -479,21 +586,57 @@ var DayMapControl = function(constructInput) {
             //dayDetail.find("li.day").removeClass("current")
             dayDetail.find(".spot_detail").removeClass("current");
         };
+
+
+        // delete 提示弹窗
+        that.popLayerForDelete = function(xPostion, yPosition) {
+            var poplayer  = new PopLayer.PopLayer({
+                    targetCls : ".delete",
+                    width     : "100px",
+                    height    : "40px",
+                    theight   : '0px',
+                    title     : '确认删除',
+                    showBg    :  false,
+                    position  : {
+                        x : xPostion,
+                        y : yPosition
+                    }
+                });
+            var content = "<div class='delete_spot_tips'><span class='delete_yes'>确认</span><span class='delete_cancel'>取消</span></div>";
+            poplayer.pop(content, 'text');
+        };
+
+
         // 监听删除;
         that.listenDeletePoi = function() {
             // 取消之前的监听，否则会响应多次
             $('.delete').unbind("click");
             $('.delete').on("click", function(e) {
-                var parentDom = $(this).parent(),
-                    index     = $(parentDom).attr('data-indexinday'),
-                    day       = $(this).parent().parent().attr('data-num');
-                inputBuff[day - 1].splice(index, 1);
-                $(parentDom).remove();
-                e.stopPropagation();
-                console.log('删除');
-                that.resortIndex();
+                var _this = this;
+                that.popLayerForDelete($(this).offset().left + 25, $(this).offset().top);
+                $('.delete_yes').unbind('click');
+                $('.delete_cancel').unbind('click');
+
+                $('.delete_cancel').on('click', function(){
+                    $('#window-box').hide();
+                });
+                $('.delete_yes').on('click', function(){
+                    var parentDom = $(_this).parent(),
+                        index     = $(parentDom).attr('data-indexinday'),
+                        day       = $(_this).parent().parent().attr('data-num');
+                    inputBuff[day - 1].splice(index, 1);
+                    spotId[day - 1].splice(index, 1);
+                    console.log(spotId[day - 1]);
+                    $(parentDom).remove();
+                    e.stopPropagation();
+                    that.resortIndex();
+                    $('#window-box').hide();
+                    console.log('删除');
+                })
             });
         };
+
+
         // 重排整体spot的index
         that.resortIndex = function() {
             var index       = 1,
@@ -559,8 +702,9 @@ var DayMapControl = function(constructInput) {
                     data      : postData,
                     success: function(respondData) {
                         console.log(respondData);
-                        respondData.code == 0 ? alert("保存成功") : alert("保存失败");
-                        window.location.href = '/plans/mine/'
+                        respondData.code == 0 ? (alert("保存成功"), window.location.href = '/plans/mine/')
+                        : alert("保存失败");
+
                     }
                 });
             });
@@ -576,7 +720,7 @@ var DayMapControl = function(constructInput) {
                 + '<li data-num="' + dayNum + '" class="day_item " style="display: list-item;">'
                 + '<div class="day_detail_title">'
                 + '<span class="day_num">第' + dayNum +'天</span>'
-                + '<span class="day_abstract">(需要被替代)</span></div>'
+                + '<span class="day_abstract"></span></div>'
                 + '<ul data-num="' + dayNum + '" class="day_detail"></ul></li>';
                 $('.J_day_list').append(htmlNaviList);
                 $('.J_day_detail_list').append(detailList);
@@ -677,6 +821,7 @@ var TabMapControl = function() {
         $(activedTabDom).addClass('active');
         that.getListAjax();
     };
+
     that.mapBoxSilderToLeft = function() {
         var width = $(window).width() - 280 - const_mapMarginLeft + 'px';
         map_box.css({
@@ -684,6 +829,7 @@ var TabMapControl = function() {
             'width': width,
         });
     };
+
     // searchAjax 可以复用这个函数，加入keyword
     that.getListAjax = function() {
         // TODO get data
@@ -697,6 +843,7 @@ var TabMapControl = function() {
                 'page'      : 1,
             },
         };
+        $('.loading-bar-container').slideDown(400);
         $.ajax({
             url       : "/edit/tabContent",
             type      : "post",
@@ -705,6 +852,7 @@ var TabMapControl = function() {
             success: function(respondData) {
                 console.log(respondData);
                 that.mapBoxSilderToLeft();
+                $('.loading-bar-container').slideUp(400);
                 that.addElement(respondData.html, respondData.type);
                 // 功能实现后要加上下面这句话
                 $('.content_' + activedClassName).slideDown(400).siblings().slideUp(400);
@@ -876,16 +1024,15 @@ function initMaper() {
     tabMapControl.init(dayMapControl.getMaper());
 
     dayMapControl.listenDeletePoi();
+
     $('.day_detail').sortable({
-        //items: ':not(.disabled)',
-        stop     : function(event, ui) {alert('123'); },
         connectWith: '.day_detail',
-        //placeholder: "ui-state-highlight",
+        placeholder: "ui-state-highlight",
+        stop: function(event, ui){
+            dayMapControl.resortIndex();
+        }
     });
 
-    $( ".day_detail" ).on( "sortstop", function( event, ui ) {
-        console.log('world__________');
-    } );
     console.log('初始化结束');
 }
 /*----function for map initial END----*/

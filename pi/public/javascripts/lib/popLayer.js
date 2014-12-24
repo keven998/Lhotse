@@ -9,14 +9,14 @@ define(function() {
         this.config = {
             targetCls    :  '.click_dom',
             closable     :  '#window-close',
-            title        :  '弹窗',
+            title        :  '',
             content      :  'text:',
             width        :  800,
             height       :  450,
             theight      :  30,
             drag         :  true,
             time         :  undefined,      // undefined means always open
-            showBg       :  true,
+            showBg       :  true,           // background
             bgColor      :  '#000',
             opacity      :  0.5,
             position     :  {x: 0, y: 0},   // default zero, location at center
