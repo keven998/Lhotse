@@ -750,11 +750,6 @@ var DayMapControl = function(constructInput) {
         that.submitData = function() {
             $('.save').on("click", function(){
                 var userId      = $('#J-user-icon').attr('data-id');
-                if(!userId) {
-                    alert('请登录');
-                    $('.login').trigger('click');
-                    return;
-                }
                 var trafficDataTemp = $('.nodeTrafficData').val(),
                     trafficData     = JSON.parse(trafficDataTemp);
 

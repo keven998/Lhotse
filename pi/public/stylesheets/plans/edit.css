@@ -4,12 +4,8 @@
 
 .top_bar {
     height: 40px;
-    /* z-index: 5; */
     width: 100%;
-    margin-top: 60px;
     position: relative;
-    /* top: 60px; */
-    /* left: 0px; */
     border-bottom: 2px solid #08dca9;
 }
 
