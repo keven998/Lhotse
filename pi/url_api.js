@@ -9,8 +9,11 @@ var urlApi = {
 
 
     //热门城市，热门景点
-    hotCities : '/explore?showDetails=1&pageSize=8&loc=1',
-    hotViews  : '/web/poi/view-spots/explore?page=0&pageSize=8',
+    // hotCities : '/explore?showDetails=1&pageSize=8&loc=1',
+    // hotViews  : '/web/poi/view-spots/explore?page=0&pageSize=8',
+    hotCities : '/web/recommend/hotcity?page=0&pageSize=8',
+    hotViews  : '/web/recommend/hotvs?page=0&pageSize=8',
+
 
     //路线详情的落地页面
     routeDetail:  '/web/plans/ROUTEID',

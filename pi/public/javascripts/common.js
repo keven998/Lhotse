@@ -11,28 +11,31 @@ $(function () {
     /* ---- BEGIN: login layer ---- */
     var topHd = $('#top'),
         lgLayer = $('.lg-layer'),
-        layer = $('.shadow_layer');
-        navHeight = 100,
-        wHeight = $(window).height()
-        lgHeight = wHeight - navHeight;
+        layer = $('.shadow_layer'),
+        navHeight = 100;
+        // wHeight = $(window).height(),
+        // lgHeight = wHeight - navHeight;
+        wHeight = $(window).height(),
+        wWidth = $(window).width(),
+        lgHeight = lgLayer.height(),
+        lgWidth = lgLayer.width(),
+        lgTop = (wHeight - lgHeight)/2,
+        lgRight = (wWidth - lgWidth)/2;
 
+    lgLayer.offset({top:lgTop , right: -400});
     topHd.on('click','a.login',function(e){
         //qq登录时的当前页面的记录
         var qq_call_back = $(".qq").attr("href") + "&referer=" + window.location.href;
         $(".qq").attr("href",qq_call_back);
-        lgLayer.css('height', lgHeight);
         layer.fadeIn("fast");
         lgLayer.show();
         lgLayer.animate({
-            right: 0
+            right: lgRight
         }, 300, "swing", function(){
-            $.ajax({
-              
-            })
             layer.on('click',function(e){
 //                lgLayer.hide(500);
                 lgLayer.animate({
-                    right: -600
+                    right: -400
                 }, 300, 'swing');
 //                $(this).hide();有两个layer...
                 layer.fadeOut("fast");

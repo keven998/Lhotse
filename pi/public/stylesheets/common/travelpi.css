@@ -38,10 +38,12 @@ html body{height: 100%;position: relative;}
 .btn02-c3{background: #fff;border: 1px solid #4fa7bd;}
 .btn02-c4{background: #F30D0D;color: #fff;padding: 10px 20px;font-size: 16px;position: absolute;left: 0;bottom: 10px;*bottom: 0}
 /*travepi------top*/
-.hd{position: fixed;left: 0;top: 0;width: 100%;height: 60px;line-height: 40px;background-color: rgba(0,0,0,.25);filter: .25;progid: DXImageTransform.Microsoft.Gradient(startColorStr=#40000000,endColorStr=#40000000);z-index: 111111111111;transition: height ease 300ms;overflow: none;}
-.logo{float:left;width: 100px;height: 100%;line-height: 80px;*line-height:50px;margin-left: 50px;text-align: center;}
+/*.hd{position: fixed;left: 0;top: 0;width: 100%;height: 60px;line-height: 40px;background-color: rgba(0,0,0,.25);filter: .25;progid: DXImageTransform.Microsoft.Gradient(startColorStr=#40000000,endColorStr=#40000000);z-index: 111111111111;transition: height ease 300ms;overflow: none;}*/
+.hd{width: 100%;height: 60px;line-height: 40px;background-color: rgba(0,0,0,.25);filter: .25;progid: DXImageTransform.Microsoft.Gradient(startColorStr=#40000000,endColorStr=#40000000);overflow: none;}
+.logo{float:left;width: 100px;height:50px;padding-top:10px;line-height: 50px;*line-height:50px;margin-left: 50px;text-align: center;}
 .logo img{width: 100px;height: auto}
-.nav{width: 650px;height: auto;overflow: hidden;float: right;text-align: center;}
+/*.nav{width: 650px;height: auto;overflow: hidden;float: right;text-align: center;}*/
+.nav{margin-right:50px;height: auto;overflow: hidden;float: right;text-align: center;}
 .nav li{display: inline-block;_zoom:1;*display:inline;width: 70px;height: 40px;*height: 50px;line-height: 40px;*line-height:70px;padding: 10px;margin-right: 3px;}
 .nav li a{display: inline-block;_zoom:1;*display:inline;color: #fff;font-size: 14px;width: 100%;height: 30px;text-align: center;padding-bottom:10px;}
 .nav li a:hover{color: #4fa7bd;}
@@ -73,9 +75,8 @@ html body{height: 100%;position: relative;}
 .backToTop{bottom: 0px!important;bottom: auto;position:fixed;_position:absolute;width:43px;height:43px;background: url(/images/common/gotop.png) no-repeat 0 0;cursor: pointer;z-index:1990;bottom:0;display:none;}
 .backToTop:hover{background-position: 0 -43px;-webkit-transition:background 0.2s ease 0s;-moz-transition:background 0.2s ease 0s;-o-transition:background 0.2s ease 0s;-ms-transition:background 0.2s ease 0s;transition:background 0.2s ease 0s;}
 /*登录*/
-.lg-layer{position: fixed;top: 60px;right: -600px;width: 400px;height: 600px;padding: 80px 0 40px;z-index: 9999999999;background:url(/images/common/login/bg-webLogin.png) center;font-family: '黑体';/* display: none; */}
-h1.logo{height:70px;padding-top:5px;}/*原先的高度阻碍其它点击事件*/
-.lg-contain{width:250px;margin:180px auto;text-align:center;}
+.lg-layer{position: fixed;top: 60px;right: -400px;width: 400px;height: 300px;z-index: 9999999999;background:url(/images/common/login/bg-webLogin.png) no-repeat;font-family: '黑体';/* display: none; */}
+.lg-contain{width:250px;margin:100px auto;text-align:center;}
 .lg-contain h2{font-size:20px;color:#fff;}
 .lg-contain a{display:block;width:174px;height:31px;margin:20px auto;}
 .lg-contain .weibo{background:url(/images/common/login/weibo_login.png) no-repeat;}

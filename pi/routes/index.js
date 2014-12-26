@@ -100,6 +100,7 @@ router.get('/route', function(req, res) {
             indexGoUrl = apiList.apiHost + apiList.getRouteList + "?tag=&minDays=0&maxDays=99" + "&fromLoc=" + fromId + "&" + poiType + "=" + arriveId;
         model.setUrl(encodeURI(indexGoUrl));
         model.getdata(null, function(data){
+            // model.consoleUrl();
             if((data != undefined) && (data.indexOf('<html>') < 0)){
                 var data = JSON.parse(data);
                 res.render('route', {
@@ -121,9 +122,11 @@ router.get('/route', function(req, res) {
 });
 
 router.get('/download/', function(req, res) {
-    res.render('download', {user_info: utils.get_user_info(req, res), config: config});
+    res.render('download', {
+        user_info: utils.get_user_info(req, res),
+        config: config
+    });
 });
-
 
 router.get('/target/', function(req, res){
     async.parallel({
@@ -146,9 +149,8 @@ router.get('/target/', function(req, res){
         var cityList = new Array(),
             viewList = new Array(),
             page_size = 8;
-
         for (var i = 0; i < page_size; i++){
-            var city = results.hotCities.result.loc[i],
+            var city = results.hotCities.result[i],
                 cityName = city.name,
                 cityAbbr = cityName;
             if (cityName.substr(6,1) != "")
