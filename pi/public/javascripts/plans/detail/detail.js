@@ -28,6 +28,11 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock', 'PopLayer'
         * 复制行程
         */
         $('#J_copy_plan').on('click', function() {
+            var userId      = $('#J-user-icon').attr('data-id');
+            if(!userId) {
+                $('.login').trigger('click');
+                return;
+            }
             var id  = $('.main_title').attr('data-id'),
                 url = '/plans/edit/' + id;
             window.open(url);

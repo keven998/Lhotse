@@ -361,9 +361,6 @@ define(['async!http://ditu.google.cn/maps/api/js?v=3&sensor=false&libraries=geom
                     //获取屏幕像素坐标和经纬度对之间的转换
                     var coordinate_pixel = this.getProjection(),
                         mapBound = mapObj.getBounds();
-                        console.log('--1--');
-                        console.log($(this));
-                        console.log($(this.div.firstChild));
                         var divPixel = coordinate_pixel.fromLatLngToDivPixel(this.latLng),
                         // s = mapBound.getNorthEast(),
                         // u = mapBound.getSouthWest(),
@@ -374,7 +371,6 @@ define(['async!http://ditu.google.cn/maps/api/js?v=3&sensor=false&libraries=geom
                         v = v / 2,
                         left = divPixel.x - v + this.offset[0] + 80 ,
                         bottom = - divPixel.y + (h + this.offset[1]) - 150;
-                    console.log(left + '--' + bottom);
                     this.div.style.left = left + "px";
                     this.div.style.bottom = bottom + "px";
                     // console.log('bound......');
