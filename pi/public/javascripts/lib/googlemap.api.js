@@ -170,17 +170,13 @@ define(['async!http://ditu.google.cn/maps/api/js?v=3&sensor=false&libraries=geom
         };
         //------------------------------------
         that.createInfo = function(data, callback) {//h:data
-            console.log('data is:');
             var id = data.id,
                 infoWindow = infoWindows[id];
             if (infoWindow) {
                 if (infoWindow.getMap()) return;
             } else {
-                console.log('console out createInfoWindow\'s first input arguement');
-                console.log(data.infoHtml);
                 infoWindow = new createInfoWindow(data.infoHtml, data.latLng, data.gOffset || [
                 0, -103], function() {
-                    console.dir($(this.div.firstChild));
                     callback($(this.div.firstChild));
                 }),
                 infoWindows[id] = infoWindow;
@@ -348,11 +344,7 @@ define(['async!http://ditu.google.cn/maps/api/js?v=3&sensor=false&libraries=geom
                 this.div = null;
                 this.offset = offset;
             };
-            //map.setCenter(latLng);
-            //map.setZoom(10);
-            // console.log(mapObj);
-            // console.log(mapObj.getCenter());
-            // console.log(mapObj.getZoom());
+
             createInfoWindow.prototype = new google.maps.OverlayView();
             $.extend(createInfoWindow.prototype, {
                 onAdd: function() {
@@ -367,9 +359,11 @@ define(['async!http://ditu.google.cn/maps/api/js?v=3&sensor=false&libraries=geom
                 draw: function() {
                     // "this" is global function
                     //获取屏幕像素坐标和经纬度对之间的转换
-                    console.log('bound......');
                     var coordinate_pixel = this.getProjection(),
                         mapBound = mapObj.getBounds();
+                        console.log('--1--');
+                        console.log($(this));
+                        console.log($(this.div.firstChild));
                         var divPixel = coordinate_pixel.fromLatLngToDivPixel(this.latLng),
                         // s = mapBound.getNorthEast(),
                         // u = mapBound.getSouthWest(),
@@ -378,8 +372,9 @@ define(['async!http://ditu.google.cn/maps/api/js?v=3&sensor=false&libraries=geom
                         v = $(this.div.firstChild).outerWidth(),
                         h = $(this.div.firstChild).outerHeight(),
                         v = v / 2,
-                        left = divPixel.x - v + this.offset[0] + 50 ,
-                        bottom = -divPixel.y + (h + this.offset[1]) - 200;
+                        left = divPixel.x - v + this.offset[0] + 80 ,
+                        bottom = - divPixel.y + (h + this.offset[1]) - 150;
+                    console.log(left + '--' + bottom);
                     this.div.style.left = left + "px";
                     this.div.style.bottom = bottom + "px";
                     // console.log('bound......');

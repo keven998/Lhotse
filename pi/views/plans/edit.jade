@@ -51,25 +51,28 @@ block content
 
             div.tab_content
                 div.content_viewspot(style="display:none")
-                    //- div.search
-                    //-     input(name="spotview" type="text")
-                    div.sort_tab
-                        div.score(href='javascript:;') 评分
-                            b.score_select_arr
-                        span.divider
-                        div.popular(href='javascript:;') 热门
-                            b.popular_select_arr
+                    div.search
+                        input(name="spotview" type="text")
+                    //- div.sort_tab
+                    //-     div.score(href='javascript:;') 评分
+                    //-         b.score_select_arr
+                    //-     span.divider
+                    //-     div.popular(href='javascript:;') 热门
+                    //-         b.popular_select_arr
                     div.list_viewspot
+                    div.pageCtr
+                        div.page_pre  上一页
+                        div.page_next 下一页
 
                 div.content_hotel
-                    //- div.search
-                    //-     input(name="hotel" type="text")
-                    div.sort_tab
-                        div.price(href='javascript:;') 价格
-                            b.price_select_arr
-                        span.divider
-                        div.score(href='javascript:;') 评分
-                            b.score_select_arr
+                    div.search
+                        input(name="hotel" type="text")
+                    //- div.sort_tab
+                    //-     div.price(href='javascript:;') 价格
+                    //-         b.price_select_arr
+                    //-     span.divider
+                    //-     div.score(href='javascript:;') 评分
+                    //-         b.score_select_arr
                         //- span.divider
                         //- div.popular(href='javascript:;') 热门
                         //-     b.popular_select_arr
@@ -77,6 +80,9 @@ block content
                         //- div.entirety(href='javascript:;') 综合
                         //-     b.entirety_select_arr
                     div.list_hotel
+                    div.pageCtr
+                        div.page_pre  上一页
+                        div.page_next 下一页
 
                 div.content_restaurant 酒店
                     //- div.search
