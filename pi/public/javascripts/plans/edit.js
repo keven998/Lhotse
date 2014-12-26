@@ -161,7 +161,7 @@ var DayMapControl = function(constructInput) {
             dayDetail.find(".day_detail:last").append(detailHtmlElements.join(""));
             // 组合html，并添加到地图
             markerHtmlElements.push('<a class="map_marker" id="' + id + '" data-type="' + type + '" href="javascript:;" title="' + name + '">');
-            markerHtmlElements.push("\t<i class='marker_in_plan_num'>" + indexInAllSpots + "</i>");
+            markerHtmlElements.push(that.selectIconForMapMarker(type));
             markerHtmlElements.push("\t<em class='marker_in_plan_name'>" + name + "</em>");
             markerHtmlElements.push("</a>");
             spot.markerHtml = markerHtmlElements.join("");
@@ -190,6 +190,33 @@ var DayMapControl = function(constructInput) {
                     break;
                 case "airport":
                     html = '<i class="icon_airport"></i>';
+                    break;
+                default:
+                    break;
+            }
+            return html;
+        };
+
+        that.selectIconForMapMarker = function(type) {
+            var html = '';
+            switch(type) {
+                case "viewspot":
+                    html = '<i class="icon_viewspot_hover"></i>';
+                    break;
+                case "hotel":
+                    html = '<i class="icon_hotel_hover"></i>';
+                    break;
+                case "shopping":
+                    html = '<i class="icon_shop_hover"></i>';
+                    break;
+                case "food":
+                    html = '<i class="icon_restaurant_hover"></i>';
+                    break;
+                case "trainStation":
+                    html = '<i class="icon_trainStation_hover"></i>';
+                    break;
+                case "airport":
+                    html = '<i class="icon_airport_hover"></i>';
                     break;
                 default:
                     break;
@@ -402,7 +429,7 @@ var DayMapControl = function(constructInput) {
             //向地图中加入点
             var markerHtmlElements = [];
             markerHtmlElements.push('<a class="map_marker" id="' + id + '" data-type="' + type + '" href="javascript:;" title="' + name + '">');
-            markerHtmlElements.push("\t<i class='marker_in_plan_num>" + indexInAllSpots + "</i>");
+            markerHtmlElements.push(that.selectIconForMapMarker(type));
             markerHtmlElements.push("\t<em class='marker_in_plan_name>" + name + "</em>");
             markerHtmlElements.push("</a>");
             spot.markerHtml = markerHtmlElements.join("");
@@ -510,6 +537,7 @@ var DayMapControl = function(constructInput) {
                 num = spotId.length;
                 for (var h = 0; h < num; h++) map.showMarkers(spotId[h]);
             } else {
+                console.log(spotId[num]);
                 map.showMarkers(spotId[num]);
             }
         };
@@ -597,6 +625,7 @@ var DayMapControl = function(constructInput) {
                     theight   : '0px',
                     title     : '确认删除',
                     showBg    :  false,
+                    time      :  3000,
                     position  : {
                         x : xPostion,
                         y : yPosition
@@ -640,8 +669,10 @@ var DayMapControl = function(constructInput) {
         // 重排整体spot的index
         that.resortIndex = function() {
             var index       = 1,
-                indexinday  = 0;
+                indexinday  = 0,
+                changeArr   = {};
             $('.spot_detail').each(function() {
+                var fromIndex = $(this).attr('data-indexinall');
                 $(this).attr('data-indexinall', index);
                 $(this).children('.marker_number').text(index);
                 index++;
@@ -650,11 +681,43 @@ var DayMapControl = function(constructInput) {
             $('.day_detail').each(function() {
                 indexinday = 0;
                 $(this).find('li').each(function() {
-                    console.log($(this).attr('data-indexinday'));
                     $(this).attr('data-indexinday', indexinday);
                     indexinday++;
                 });
             });
+
+            spotId = that.updateSpotIds();
+        };
+
+        that.updateSpotIds = function(){
+            var spotsArr = [];
+            $('.day_detail').each(function(){
+                var temp = [];
+                $(this).find('li').each(function() {
+                    var _this = this,
+                        id    = '';
+                    id   = $(this).find('i.spot_name').attr('data-id');
+                    temp.push(id);
+                });
+                spotsArr.push(temp);
+            });
+            return spotsArr;
+        };
+
+        that.isArray = function(o) {
+            return Object.prototype.toString.call(o) === '[object Array]';
+        };
+
+        that.calNestArrLen = function (Arr) {
+            var lenArr = [];
+            for (var i in Arr) {
+                if (that.isArray(Arr[i])) {
+                    lenArr.push(Arr[i].length);
+                } else {
+                    lenArr.push(1);
+                }
+            }
+            return lenArr;
         };
 
 
@@ -666,6 +729,22 @@ var DayMapControl = function(constructInput) {
 
         that.removeNearbyCurrent = function() {
             mapDiv.find(".map_marker_type").removeClass("current");
+        };
+
+        that.getSubmitData = function(){
+            var spotsArr = [];
+            $('.day_detail').each(function(){
+                var temp = [];
+                $(this).find('li').each(function() {
+                    var _this = this,
+                        obj   = {};
+                    obj.type = $(this).attr('data-type');
+                    obj.id   = $(this).find('i.spot_name').attr('data-id');
+                    temp.push(obj);
+                });
+                spotsArr.push(temp);
+            });
+            return spotsArr;
         };
 
         that.submitData = function() {
@@ -685,14 +764,14 @@ var DayMapControl = function(constructInput) {
                     startTime   = $('.J_calendar').val(),
                     postData    = {};
 
-                    postData.spots       = inputBuff;
+                    postData.spots       = that.getSubmitData();
                     postData.id          = ugcId;
                     postData.startTime   = startTime;
                     postData.title       = title;
                     postData.templateId  = templateId;
                     postData.userId      = userId;
                     postData.trafficData = trafficData;
-                    postData.dayDiff     = parseInt(inputBuff.length - inputLen);
+                    postData.dayDiff     = parseInt(postData.spots.length - inputLen);
 
                 console.log(postData);
                 $.ajax({
@@ -774,13 +853,17 @@ var TabMapControl = function() {
         map                 = null,
         tabUlDom            = $('.select_tab'),
         map_box             = $('.map_box'),
-        tabListContent_viewspot = $('.list_spotview');
+        tabListContent_viewspot = $('.list_spotview'),
+        pageFlag            = 1;
+
 
 
     that.init = function(mapObj) {
         map = mapObj;
         that.tabSwitch();
         that.search();
+        that.prePage();
+        that.nextPage();
     };
 
     // tab切换功能
@@ -797,10 +880,43 @@ var TabMapControl = function() {
             activedClassName = classString.split(' ')[0],
             activedTabName = $(this).text(),
             activedTabDom = $(this);
+            if(activedClassName == 'restaurant' || activedClassName == 'shopping' || activedClassName == 'traffic'){
+                that.popLayerTips();
+                return;
+            }
             // 多次点击同一个tab的动作：缩回<-->展开
             $(this).hasClass('active') ? that.actived() : that.notActived();
             $(this).siblings().removeClass('active');
+            pageFlag = 1; // set to default
         });
+    };
+    that.popLayerTips = function(){
+        var timer = 3;
+        var poplayer  = new PopLayer.PopLayer({
+                    targetCls : ".delete",
+                    width     : "200px",
+                    height    : "40px",
+                    theight   : '0px',
+                    title     : '提示',
+                    time      : timer * 1000,
+                    showBg    :  false
+                });
+
+        var content = "<div class='TODO_Funtion' style='padding-left: 20px'>正在开发中......";
+
+        if (timer) {
+                content = content + '<span class="timer">' + timer + 's</span></div>';
+                poplayer.pop(content, 'text');
+                var cnt = timer;
+                var tt = setInterval(function(){
+                    $('.timer').text((--cnt) + 's');
+                    if(cnt < 0) {
+                        tt && clearTimeout(tt);
+                    }
+                }, 1000)
+            }else{
+                poplayer.pop(content, 'text');
+            }
     };
 
     that.actived = function() {
@@ -815,6 +931,8 @@ var TabMapControl = function() {
     };
     that.clearSpots = function() {
         var idArray = Object.keys(spotArray);
+        console.log('清除点');
+        console.log(idArray);
         map.hideMarkers(idArray); //只是影藏了
     };
     that.notActived = function() {
@@ -831,7 +949,9 @@ var TabMapControl = function() {
     };
 
     // searchAjax 可以复用这个函数，加入keyword
-    that.getListAjax = function() {
+    that.getListAjax = function(page, searchText) {
+        var pageIndex = page || 0,
+            keyword   = searchText || '';
         // TODO get data
         console.log("get " + activedClassName + ' data');
         var locId = $('.title').attr('data-locId');
@@ -839,8 +959,9 @@ var TabMapControl = function() {
             'type': activedClassName,
             'option': {
                 'locId'     : locId,
-                'pageSize'  : 10,
-                'page'      : 1,
+                'pageSize'  : 8,
+                'page'      : pageIndex,
+                'keyword'   : keyword
             },
         };
         $('.loading-bar-container').slideDown(400);
@@ -862,52 +983,54 @@ var TabMapControl = function() {
         });
     };
 
+    that.nextPage = function(){
+        $('.page_next').on('click', function(){
+            that.clearSpots();
+            console.log('next');
+            pageFlag++;
+            that.getListAjax(pageFlag, '');
+        });
+    };
+
+    that.prePage = function(){
+        $('.page_pre').on('click', function(){
+            that.clearSpots();
+            pageFlag > 0 && pageFlag-- && that.getListAjax(pageFlag, '');
+        });
+    };
+
     // 搜索功能
     that.search = function() {
-        $('input')
-        .on('focus', function() {
+        $('input').on('focus', function() {
             $(this).css({
                 'background': 'none',
             });
             that.listenEnterKey(this);
-        })
-        .on('blur', function() {
+        }).on('blur', function() {
             $(this).val() ? '' :
             $(this).css({
                 'background': 'url("/images/plans/edit/icon-magnifier.png") no-repeat scroll 4px 6px',
             });
+            $(document).unbind('keydown');
         });
     };
 
-    that.listenEnterKey = function(that) {
+    that.listenEnterKey = function(_this) {
         $(document).unbind('keydown'); //取消上一次的监听
         $(document).keydown(function(event) {
             var e = event || window.event;
             var k = e.keyCode || e.which;
             if (13 === k) {
-                var searchText = $(that).val();
-                that.searchAjax(searchText, that.addElement);
+                var searchText = $(_this).val();
+                console.log(searchText);
+                that.searchAjax(searchText);
             }
         });
     };
 
-    that.searchAjax = function(searchText, callback) {
-        var postData = {
-            "searchText": searchText,
-            "type": activedClassName,
-            "pageSize": 8,
-            "pageNum": 0,
-        };
-        $.ajax({
-            url: "/ajax/request/url",
-            type: "post",
-            async: true,
-            data: postData,
-            success: function(result) {
-                // to add html dom and markers in the map
-                callback(result);
-            }
-        });
+    that.searchAjax = function(searchText) {
+        that.clearSpots();
+        that.getListAjax(0, searchText);
     };
 
     that.addElement = function(data, type) {

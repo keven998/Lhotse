@@ -355,7 +355,6 @@ span.divider {
 .search {
     height: 30px;
     border-bottom: 1px solid #ddd;
-    margin: 0px 0px 2px 0px;
 }
 
 input[type="text"] {
@@ -405,7 +404,6 @@ input[type="text"] {
     overflow: hidden;
     height: 60px;
     border-bottom: 1px solid #DDD;
-    margin-top: 1px;
     position: relative;
 }
 
@@ -418,9 +416,8 @@ input[type="text"] {
 .viewspot_pic, .hotel_pic {
     height: 60px;
     width: 60px;
-    /* float: left; */
     position: absolute;
-    top: 1px;
+    top: 0px;
     left: 1px;
     margin-left: 1px;
 }
@@ -493,7 +490,7 @@ li.day.current {
 
 .map_marker i.marker_in_plan_num
 {
-    background: url("/images/plans/edit/icon-map-pos.png") no-repeat;
+    /*background: url("/images/plans/edit/icon-map-pos.png") no-repeat;*/
     color: blue;
     display: inline-block;
     font-size: 16px;
@@ -520,12 +517,12 @@ li.day.current {
     text-decoration: none;
     text-overflow: ellipsis;
     white-space: nowrap;
-    height: 26px;
-    line-height: 28px;
+    height: 22px;
+    line-height: 22px;
+    z-index: -222;
     max-width: 120px;
-    color: #333;
-    left: -15px;
-    top: -18px;
+    left: 12px;
+    top: 3px;
     padding: 0 18px;
     border-radius: 0 14px 14px 0;
 }
@@ -739,6 +736,19 @@ span.empty {
 }
 
 
+.map_window_viewspot_title, .map_window_hotel_title{
+    font-size: 16px;
+    text-overflow: ellipsis;
+    height: 25px;
+    font-weight: bold;
+    margin: 5px 0px 2px 20px;
+    line-height: 25px;
+    text-align: center;
+    overflow: hidden;
+    width: 150px;
+    color: #494949;
+}
+
 /*----css for templates begin----*/
 .pop_window_viewspot, .pop_window_hotel {
     border: 1px solid #DDD;
@@ -749,12 +759,6 @@ span.empty {
     border-radius: 1px;
     overflow: auto;
     font-size: 14px;
-}
-
-.viewspot_title, .hotel_title {
-    color: rgb(80, 167, 189);
-    margin-left: 45px;
-    font-size: 17px;
 }
 
 .basic_info_viewspot, .basic_info_hotel {
@@ -872,7 +876,7 @@ p.viewspot_desc_content, p.hotel_desc_content {
     cursor: pointer;
     color: white;
     position: absolute;
-    right: 50px;
+    right: 60px;
     bottom: 1px;
     border-radius: 3px;
 }
@@ -884,10 +888,15 @@ p.viewspot_desc_content, p.hotel_desc_content {
     cursor: pointer;
     color: white;
     position: absolute;
-    right: 50px;
+    right: 60px;
     bottom: 1px;
     border-radius: 3px;
     background-color: rgba(0, 164, 204, 1);
+}
+
+.detail_info_container {
+    width: 180px;
+    margin-left: 10px;
 }
 
 .btn_add_to_plan .text{
@@ -957,4 +966,43 @@ span.timer {
     text-align: center;
     width: 80%;
     display: inline-block;
+}
+
+.pageCtr {
+    width: 100%;
+    height: 30px;
+}
+
+.page_pre {
+    float: left;
+    margin: 5px 0px 0px 30px;
+    width: 25%;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    color: #b4c3c0;
+    font-weight: bold;
+    background-color: #e0f7f1;
+    font-family: monospace;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.page_next {
+    float: right;
+    margin: 5px 30px 0px 0px;
+    width: 25%; height: 20px; line-height: 20px; text-align: center;
+    font-weight: bold;
+    color: #b4c3c0;
+    background-color: #e0f7f1; font-family: monospace; font-size: 16px; border-radius: 5px;
+    cursor: pointer;
+}
+
+.page_next:hover {
+    color: #4fa7bd;
+}
+
+.page_pre:hover {
+    color: #4fa7bd;
 }

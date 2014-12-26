@@ -1,8 +1,27 @@
-{{#data}}<div class="pop_window_hotel"><div class="basic_info_hotel"><div class="pop_window_pic"><img width="120" height="120" src="{{image}}?imageView2/2/w/120/h/120"></div><div data-id="{{id}}" data-type="{{type}}" class="pop_window_info">	<div class="hotel_title" title="{{name}}">		<nobr>{{name}}</nobr>	</div><div class="hotel_star">星级:
-{{#starLevel}}
-	<span class="qui-icon star"></span>
-{{/starLevel}}
-{{#reverse_starLevel}}
-   <span class="qui-icon empty"></span>
-{{/reverse_starLevel}}
-</div>	<div class="ticket_price">价格: {{price}}</div></div><div class="btn_add_to_plan" data-id="{{id}}" data-lng="{{lng}}" data-lat="{{lat}}" data-type="{{type}}" data-name="{{name}}"><div class="text">加入行程</div></div></div></div>{{/data}}
+{{#data}}<div class="pop_window_hotel">
+<div class="basic_info_hotel">
+		<div class="pop_window_pic">
+			<img width="120" height="120" src="{{image}}?imageView2/2/w/120/h/120">
+		</div>
+		<div data-id="{{id}}" data-type="{{type}}" class="pop_window_info">
+			<div class="map_window_hotel_title" title="{{name}}">
+				<nobr>{{name}}</nobr>
+			</div>
+			<div class="detail_info_container">
+				<div class="hotel_star">星级:
+					{{#starLevel}}
+						<span class="qui-icon star"></span>
+					{{/starLevel}}
+					{{#reverse_starLevel}}
+					   <span class="qui-icon empty"></span>
+					{{/reverse_starLevel}}
+				</div>
+				<div class="ticket_price">价格: {{price}}</div>
+			</div>
+		</div>
+		<div class="btn_add_to_plan" data-id="{{id}}" data-lng="{{lng}}" data-lat="{{lat}}" data-type="{{type}}" data-name="{{name}}">
+			<div class="text">加入行程</div>
+		</div>
+	</div>
+</div>
+{{/data}}

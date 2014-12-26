@@ -1,8 +1,30 @@
-{{#data}}<div class="pop_window_viewspot"><div class="basic_info_viewspot"><div class="pop_window_pic"><img width="120" height="120" src="{{image}}?imageView2/2/w/120/h/120"></div><div data-id="{{id}}" data-type="{{type}}" class="pop_window_info">	<div class="viewspot_title" title="{{name}}">		<nobr>{{name}}</nobr>	</div><div class="viewspot_star">评分:
-{{#ranking}}
-	<span class="qui-icon star"></span>
-{{/ranking}}
-{{#reverse_ranking}}
-   <span class="qui-icon empty"></span>
-{{/reverse_ranking}}
-</div>	<div class="ticket_price">门票: {{price}}</div>	<div class="suggestion_time">建议游玩: {{timeCost}}小时</div></div><div class="btn_add_to_plan" data-id="{{id}}" data-lng="{{lng}}" data-lat="{{lat}}" data-type="{{type}}" data-name="{{name}}"><div class="text">加入行程</div></div></div></div>{{/data}}
+{{#data}}<div class="pop_window_viewspot">
+	<div class="basic_info_viewspot">
+		<div class="pop_window_pic">
+			<img width="120" height="120" src="{{image}}?imageView2/2/w/120/h/120">
+		</div>
+		<div data-id="{{id}}" data-type="{{type}}" class="pop_window_info">
+			<div class="map_window_viewspot_title" title="{{name}}">
+				<nobr>{{name}}</nobr>
+			</div>
+			<div class="detail_info_container">
+				<div class="viewspot_star">评分:
+				{{#ranking}}
+					<span class="qui-icon star"></span>
+				{{/ranking}}
+				{{#reverse_ranking}}
+				   <span class="qui-icon empty"></span>
+				{{/reverse_ranking}}
+				</div>
+				<div class="ticket_price">门票: {{price}}</div>
+				<div class="suggestion_time">建议游玩: {{timeCost}}小时</div>
+			</div>
+		</div>
+		<div class="btn_add_to_plan" data-id="{{id}}" data-lng="{{lng}}" data-lat="{{lat}}" data-type="{{type}}" data-name="{{name}}">
+			<div class="text">
+				加入行程
+			</div>
+		</div>
+	</div>
+</div>
+{{/data}}

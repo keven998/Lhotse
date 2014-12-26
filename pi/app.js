@@ -98,7 +98,8 @@ if (app.get('env') === 'development') {
         res.status(err.status || 500);
         res.render('common/error', {
             message: err.message,
-            error: err
+            error: err,
+            config: config
         });
     });
 }
@@ -108,6 +109,7 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('common/error', {
         message: err.message,
+        config: config,
         error: {}
     });
 });

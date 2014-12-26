@@ -48,11 +48,11 @@ router.post('/tabContent', function(req, res) {
     var postData = req.body,
         type = postData.type,
         querys = postData.option;
-    console.log(querys);
+
+
     getListContent(querys, type, function(data){
         var htmlTemplateRoute = 'editPage/tab_list_' + type + '.html',
             html = [];
-        console.log('123' + htmlTemplateRoute);
         mu.compileAndRender(htmlTemplateRoute, {data: data})
             .on('data', function(chunk) {
                 html.push(chunk);
@@ -207,9 +207,6 @@ router.post('/submit', function(req, res) {
 
 function getListContent(querys, type, callback) {
     var requestUrl = selectUrlForSpotsInCity(type);
-    console.log("tabcontent_url:" + requestUrl);
-    console.log("tabcontent_querys:");
-    console.log(querys);
     var options = {
         url: requestUrl,
         qs: querys,
@@ -220,8 +217,6 @@ function getListContent(querys, type, callback) {
         if (err) {
             throw err;
         }
-        console.log('edit page tab list data:');
-        console.log(data);
 
         callback(extractData(JSON.parse(data), type));
     });
@@ -294,7 +289,6 @@ function selectUrlForSpotsInCity(type) {
 function extractData(data, type) {
     var result = data.result,
         extractedData = [];
-        console.log(data);
     for(var key in result) {
         var tempObject = {},
             oneElement = result[key];
