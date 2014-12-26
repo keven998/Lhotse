@@ -195,12 +195,7 @@ function suggestion(slug, input){
                 $("#suggestion_" + slug).empty();
                 var padding = 5, border = 2;
                 $("#suggestion_" + slug).css("left",$(obj).offset().left - padding - border + "px");
-                //the difference in route page. why?
-                if ($('#arrive').attr('data-page') == 'route'){
-                    $("#suggestion_" + slug).css("top","50px");
-                }else{
-                    $("#suggestion_" + slug).css("top",$(obj).offset().top + $(obj).height() + "px");
-                }
+                $("#suggestion_" + slug).css("top",$(obj).offset().top + $(obj).height() + "px");
                 $("#suggestion_" + slug).append(html);
             }
         }

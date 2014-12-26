@@ -210,13 +210,7 @@ Vcity.CitySelector.prototype = {
         div.className = 'citySelector';
         div.style.position = 'absolute';
         div.style.left = inputPos.left + 'px';
-        //the difference in route page. why?
-        if ($('#from').attr('data-page') == 'route'){
-            div.style.top = '50px';
-        }else{
-            div.style.top = inputPos.bottom + 'px';
-        }
-
+        div.style.top = inputPos.bottom + 'px';
         div.style.zIndex = 999999;
 
         // 判断是否IE6，如果是IE6需要添加iframe才能遮住SELECT框

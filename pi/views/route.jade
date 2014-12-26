@@ -19,7 +19,7 @@ block content
                 b#from(data-page = "route" data-id='#{fromId}') #{fromName}
                 b.change [更换]
                 b.line
-                input#arrive(type="text" name="arriveName" placeholder='景点/城市/省份' onkeyup="suggestion_to(this.value)" autocomplete="off" value='#{arriveName}' data-page="route" data-id='#{arriveId}')
+                input#arrive(type="text" name="arriveName" placeholder='景点/城市/省份' onkeyup="suggestion_to(this.value)" autocomplete="off" value='#{arriveName}' data-id='#{arriveId}')
                 //
                     i.ico-addpos
         .route_container
