@@ -24,6 +24,8 @@ router.get('/layer/:ROUTEID', function(req, res){
     /*get the details of the route*/
     model.setUrl(apiList.apiHost + "/web/plans/" + req.params.ROUTEID + '?fromLoc=' + fromLoc);
     model.getdata(null, function(data) {
+        model.consoleUrl();
+        console.log(data);
         if (data != null){
             if (data.indexOf("!DOCTYPE") != -1){
                 console.log("The error occurred while getting the route-detail data!");
@@ -225,18 +227,25 @@ function selectUrl(tag, minDay, maxDay, arrId, fromId, page, pageSize) {
 function regroupData(route_data, misc_data){
     /*for the scroll images*/
     var imgView = [];
-    for(var key in route_data.imageList){
-        imgView.push({
-            img: route_data.imageList[key] + "?imageView2/1/w/300/h/150"
-        });
+    if (route_data.imageList){
+        for(var key in route_data.imageList){
+            imgView.push({
+                img: route_data.imageList[key] + "?imageView2/1/w/300/h/150"
+            });
+        }
     }
     //the images is too much.
+    var routeDetail, routeActv, routeActvImages;
     for(var day in route_data.details){
-        for(var item in route_data.details[day].actv){
-            for(var image in route_data.details[day].actv[item].details.imageList){
-                imgView.push({
-                    img: route_data.details[day].actv[item].details.imageList[image]
-                });
+        routeDetail = route_data.details[day];
+        for(var item in routeDetail.actv){
+            routeActv = route_data.details[day].actv[item];
+            if (routeActv.details){
+                for(var image in routeActv.details.imageList){
+                    imgView.push({
+                        img: route_data.details[day].actv[item].details.imageList[image]
+                    });
+                }
             }
         }
     }
@@ -247,6 +256,7 @@ function regroupData(route_data, misc_data){
     for(var day in route_data.details){
         var tempMap = [];
         for(var item in route_data.details[day].actv){
+            console.log(route_data.details[day].actv[item]);
             tempMap.push({
                 name: route_data.details[day].actv[item].itemName,
                 id: route_data.details[day].actv[item].itemId,

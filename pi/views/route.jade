@@ -62,9 +62,9 @@ block content
                                 h3.usetimes  (#{plan.forkedCnt}人使用)
                                 p.txt
                                     if plan.desc
-                                        - var short_desc = plan.desc.substring(0, 50)
+                                        - var short_desc = plan.desc.substring(0, 45)
                                         | #{short_desc}
-                                        if (plan.desc.length > 50)
+                                        if (plan.desc.length > 45)
                                             | ...
                                 p
                                     i.ico01.ico01-route

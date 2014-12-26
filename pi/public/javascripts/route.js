@@ -249,6 +249,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                             $(layerClass).remove();
                             $('.slider_layer').remove();
                             addTabNav($this);
+                            console.log(requestUrl);
                             $.ajax({
                                 url: requestUrl,
                                 async: true,

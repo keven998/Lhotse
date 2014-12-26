@@ -3,11 +3,27 @@ extends ../common/base
 block page_var
     script.
         var page_var = {
+            id: 'error',
+            path: '',
+            use_require_js: false
 
         };
+    title 您访问的页面不存在
+    link(href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+header^alc^1419307957.css" rel="stylesheet" type="text/css")
+    link(href="http://css.mafengwo.net/css/err/err404.css?1415696228" rel="stylesheet" type="text/css")
+    script(language="javascript" src="http://js.mafengwo.net/js/cv/js+jquery-1.8.1.min:js+global+json2:js+M+Module:js+M+M:js+M+Log^ZVY^1417573907.js" type="text/javascript")
 
 block content
-    div.error_tips
-        | 错误,&nbsp&nbsp
-        a(href='/')
-            | 返回主页
+    .wrap(style="background-image:url(http://images.mafengwo.net/images/err/bg2.jpg);")
+        .inner
+            ul.circle
+                li.tips
+                li.ctext
+                    p 很抱歉，
+                    p 你要访问的
+                        b 页面
+                    p
+                        strong 正在旅行途中...
+                li 返回
+                    a(href="/") 首页&gt;
+                    a(href="javascript:history.go(-1);" class="back") 上一页&gt;
