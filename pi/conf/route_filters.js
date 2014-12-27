@@ -16,7 +16,6 @@ var route_filters = [
         options: [
             "摄影",
             "骑行",
-            "情侣",
             "自驾",
             "购物",
             "美食",
