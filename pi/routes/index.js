@@ -159,7 +159,7 @@ router.get('/target/', function(req, res){
                 id: city._id,
                 abbr: cityAbbr,
                 name: cityName,
-                img: city.imageList[0]
+                img: (city.images && city.images[0]) ? city.images[0].url : null
             });
         }
         for (var i = 0; i < page_size; i++){
@@ -172,7 +172,7 @@ router.get('/target/', function(req, res){
                 id: view._id,
                 abbr: viewAbbr,
                 name: viewName,
-                img: view.imageList[0]
+                img: (view.images && view.images[0]) ? view.images[0].url : null
             });
         }
         // get fromLoc from cookies

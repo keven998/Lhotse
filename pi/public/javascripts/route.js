@@ -95,7 +95,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                 var value = value,
                     selectListContent = $('.select-list');
                 selectListContent.find('a').each(function (index) {
-                    if ( $(this).text() === value ) {
+                    if ($(this).text() === value) {
                         $(this).remove();
                     }
                 })
@@ -127,7 +127,36 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
             var selectItemId = $(this).attr('id');
             travelPi.selectListUpdate(selectItemId, $(this).attr('data-item'));
             $('.filter-nav').find('.list-last').trigger('click');
-
+            
+            // function reloadRouteList(sortKey){
+            //     var path = window.location.pathname,
+            //         functional = "/sort",
+            //         params = window.location.search,
+            //         requestUrl = path + functional + params,
+            //         fromId = $("#from").attr("data-id"),
+            //         arriveId = $("#arrive").attr("data-id");
+            //     $.ajax({
+            //         url: requestUrl,
+            //         async: true,
+            //         type: "POST",
+            //         data: {
+            //             params: {
+            //                 sortField: "forkedCnt",
+            //                 sort: sortKey
+            //             },
+            //             fromId: fromId,
+            //             arriveId: arriveId
+            //         },
+            //         success : function (msg) {
+            //             console.log(msg);
+            //             $('ul.routelist').empty();
+            //             $('ul.routelist').append(msg.routeListHtml);
+            //         },
+            //         error : function (XMLHttpRequest, textStatus, errorThrown) {
+            //             console.log('error!!!');
+            //         }
+            //     });
+            // }
             // bind the click event for cancel a selection
             // console.log("0");
             // console.log($(this));

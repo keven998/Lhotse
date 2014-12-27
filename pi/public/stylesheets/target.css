@@ -1,3 +1,5 @@
+.main_container{margin:0 auto;width:1002px;}
+
 #map_container { margin-top:70px;width:100%; max-width:800px; background-color:#FFF;}
 .title{font-size:24px;}
 i.line{color:#4fa7bd;}
