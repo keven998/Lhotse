@@ -182,7 +182,7 @@ var DayMapControl = function(constructInput) {
                 case "shopping":
                     html = '<i class="icon_shop"></i>';
                     break;
-                case "food":
+                case "restaurant":
                     html = '<i class="icon_restaurant"></i>';
                     break;
                 case "trainStation":
@@ -209,7 +209,7 @@ var DayMapControl = function(constructInput) {
                 case "shopping":
                     html = '<i class="icon_shop_hover"></i>';
                     break;
-                case "food":
+                case "restaurant":
                     html = '<i class="icon_restaurant_hover"></i>';
                     break;
                 case "trainStation":
@@ -776,8 +776,8 @@ var DayMapControl = function(constructInput) {
                     data      : postData,
                     success: function(respondData) {
                         console.log(respondData);
-                        respondData.code == 0 ? (alert("保存成功"), window.location.href = '/plans/mine/')
-                        : alert("保存失败");
+                        // respondData.code == 0 ? (alert("保存成功"), window.location.href = '/plans/mine/')
+                        // : alert("保存失败");
 
                     }
                 });

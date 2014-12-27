@@ -63,7 +63,7 @@ if (config.env !== 'local_debug') {
 } else {
     app.use(logger('dev'));
 }
-
+app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser('travelpi'));

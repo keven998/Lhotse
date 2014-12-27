@@ -183,7 +183,7 @@ router.post('/submit', function(req, res) {
     console.log('-=-=-=-=-=-=-=输出结果-=-=-=-=-=-=-=-');
     console.log(data);
     var options = {
-        url : apiList.apiHost + apiList.ugc.editSave,
+        url : apiList.apiHost + apiList.ugc.saveUgc,
         json: data,
         method: 'POST',
     };
@@ -458,6 +458,12 @@ function assembleSpotData(spotData, startTime){
                         break;
                     case 'hotel':
                         tempObj.type        = 'hotel';
+                        tempObj.itemId      = curSpot.id;
+                        tempObj.st          = tempTime;
+                        tempArr.push(tempObj);
+                        break;
+                    case 'restaurant':
+                        tempObj.type        = 'restaurant';
                         tempObj.itemId      = curSpot.id;
                         tempObj.st          = tempTime;
                         tempArr.push(tempObj);

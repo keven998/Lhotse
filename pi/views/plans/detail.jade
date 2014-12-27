@@ -121,7 +121,7 @@ block content
 
                   when "viewspot"
                     - viewspotCount = viewspotCount + 1
-                    li(data-mode='viewspot', data-id=spot.id, data-pid='106674')
+                    li(data-mode='viewspot', data-id=spot.id)
                       .number_row
                         .day_mark
                           .number #{viewspotCount}
@@ -139,7 +139,7 @@ block content
                                 while rk < 5
                                   span.qui-icon.empty
                                   - rk = rk + 1
-                                em 门票：20元
+                                em 门票：#{spot.price}
                                 em 建议游玩：#{spot.timeCost}小时
                         .day_local
                           span.local(data-day=dayCnt)
@@ -148,13 +148,13 @@ block content
                       span.line_01 查看交通
 
                   when "hotel"
-                    li(data-mode='hotel', data-id=spot.id, data-pid='71369')
+                    li(data-mode='hotel', data-id=spot.id)
                       .sleep_row.last_row
                         .day_mark
                           span.icons.sleep_icon
                         .fly_desc
                           .row_info
-                            img(src='/images/plans/detail/80.jpg', onerror='this.src="/images/plans/detail/poi_80_80.png";')
+                            img(src=spot.img + "?imageView2/1/w/100/h/100", onerror='this.src="/images/plans/detail/poi_80_80.png";')
                             .row_title
                               h2.mainTitle #{spot.name}
                               h2.subTitle
@@ -166,8 +166,36 @@ block content
                                 while star < 5
                                   span.qui-icon.empty
                                   - star = star + 1
-                                em 门票：20元
-                                em 建议游玩：2小时
+                                em 价格：#{spot.price}元
+                                //- em 建议游玩：2小时
+                        .day_local
+                          span.local(data-day=dayCnt)
+                    .line(data-index=elementIndex)
+                      span.js_showPoiTrafficPopup 两地距离：计算中......
+                      span.line_01 查看交通
+
+
+                  when "restaurant"
+                    li(data-mode='restaurant', data-id=spot.id)
+                      .sleep_row.last_row
+                        .day_mark
+                          span.icons.sleep_icon
+                        .fly_desc
+                          .row_info
+                            img(src=spot.img + "?imageView2/1/w/100/h/100", onerror='this.src="/images/plans/detail/poi_80_80.png";')
+                            .row_title
+                              h2.mainTitle #{spot.name}
+                              h2.subTitle
+                                | 评分：
+                                - star = 0
+                                while star < spot.ranking
+                                  span.qui-icon.star
+                                  - star = star + 1
+                                while star < 5
+                                  span.qui-icon.empty
+                                  - star = star + 1
+                                //- em 门票：20元
+                                //- em 建议游玩：2小时
                         .day_local
                           span.local(data-day=dayCnt)
                     .line(data-index=elementIndex)
