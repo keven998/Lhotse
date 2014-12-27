@@ -3,12 +3,11 @@ var route_filters = [
         type: "和谁出行",
         name: "companions",
         options: [
-            "独自出行",
+            "独自",
             "亲子",
             "情侣",
-            "和父母",
-            "夫妻",
-            "和朋友"
+            "父母",
+            "朋友"
         ]
     },
     {
