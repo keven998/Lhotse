@@ -515,9 +515,9 @@ var dataExtract = (function () {
             templateId  = result.templateId,
             picUrl      = (result.imageList && (_.isArray(result.imageList)) && result.imageList[0]) ? result.imageList[0] : "用来替换的pic图片",
             startDate   = result.startDate.substring(0, 10),
-            endDate     = result.endDate.substring(0, 10),
+            endDate     = result.endDate ? result.endDate.substring(0, 10) : '';
 
-            basicInfo   = {
+        var basicInfo   = {
                 title       : title,
                 id          : id,
                 templateId  : templateId,
