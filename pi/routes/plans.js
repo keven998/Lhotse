@@ -252,61 +252,15 @@ router.get('/create/', function(req, res){
     });
 });
 
-        /* old data to be delete BEGIN*/
-/* route timeline */
-router.get('/timeline/:TEMPLATES', function(req, res) {
-    var ori_res = res;
-    model.setUrl(apiList.apiHost + apiList.ugc.timeline);
-    model.getdata(req, function(data) {
-        var data = dataExtract.preProcess(req, data);
-        if (!data) {
-            res.redirect('/');
-        }
-        var basicInfo = dataExtract.basicData(req, data);
-        var allRoutes = dataExtract.detailData(req, data);
-        var navigation = dataExtract.navigationData(allRoutes);
-
-        res.render('plans/timeline', {
-            allRoutes : allRoutes,
-            basicInfo : basicInfo,
-            navigation : navigation,
-            user_info: utils.get_user_info(req, res),
-            config: config,
-            already_saved: false,
-        });
-    });
-});
-
 
 /* user's plan detail */
 router.get('/timeline/customized/:UGCID', function(req, res) {
-    // {
-    //     var ori_res = res;
-    //     model.setUrl(apiList.apiHost + apiList.ugc.detail);
-    //     model.getdata(req, function(data) {
-    //         var data = dataExtract.preProcess(req, data);
-    //         if (!data) {
-    //             res.redirect('/');
-    //         }
-    //         var basicInfo = dataExtract.basicData(req, data);
-    //         var allRoutes = dataExtract.detailData(req, data);
-    //         var navigation = dataExtract.navigationData(allRoutes);
-    //         res.render('plans/timeline', {
-    //             allRoutes : allRoutes,
-    //             basicInfo : basicInfo,
-    //             navigation : navigation,
-    //             user_info: utils.get_user_info(req, res),
-    //             config: config,
-    //             already_saved: true,
-    //         });
-    //     });
-    // }
     console.log('in...');
     var ugcId = req.params.UGCID,
-        query      = req._parsedUrl.query;
+        query = req._parsedUrl.query;
 
     model.setUrl('http://api.lvxingpai.cn/web/ugc-plans/' + ugcId);
-    model.getdata(null, function(data){
+    model.getdata(null, function(data) {
         if(!utils.checkApiRequestState(data)) {
             console.log("==== api request error ====");
             console.log("request url: ");
@@ -319,7 +273,8 @@ router.get('/timeline/customized/:UGCID', function(req, res) {
             })
             return ;
         }
-        console.log(model.getUrl());
+
+        console.log('URL:::' + model.getUrl());
         // res.json(JSON.parse(data));
         var oriData         = JSON.parse(data),
             result          = oriData.result,
@@ -330,7 +285,8 @@ router.get('/timeline/customized/:UGCID', function(req, res) {
             viewspotCnt     = detailInfo.viewspotCnt,
             dates           = detailInfo.dates,
             calendarData    = detailInfo.calendarData;
-
+        res.json(oriData);
+        console.log(spotData);
             res.render('plans/detail', {
                 basicInfo       : basicInfo,
                 spotData        : spotData,
@@ -685,8 +641,14 @@ var dataExtract = (function () {
                             tempSpot.lng        = curSpot.lng;
                             tempSpot.lat        = curSpot.lat;
                             break;
-                        case 'food':
-                            tempSpot.type       = "food";
+                        case 'restaurant':
+                            tempSpot.img        = curSpot.details.imageList[0];
+                            tempSpot.type       = "restaurant";
+                            tempSpot.ranking    = Math.ceil(curSpot.details.ratings.ranking * 5);
+                            tempSpot.lng        = curSpot.details.addr.lng;
+                            tempSpot.lat        = curSpot.details.addr.lat;
+                            break;
+
                         default:
                             break;
                     }
