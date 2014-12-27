@@ -39,7 +39,6 @@ router.post('/timeline/save', function(req, res) {
 
 /* plan detail */
 router.get('/detail/:TEMPLATEID', function(req, res) {
-    console.log('in...');
     var templateId = req.params.TEMPLATEID,
         query      = req._parsedUrl.query;
 
@@ -85,7 +84,6 @@ router.get('/detail/:TEMPLATEID', function(req, res) {
 
 /* edit route */
 router.get('/edit/:UGCID', function(req, res) {
-    console.log('－－－－－－－－－');
     var ugcId = req.params.UGCID;
     console.log(apiList.apiHost + apiList.ugc.edit + ugcId);
     model.setUrl(apiList.ugc.edit + ugcId);
@@ -255,7 +253,6 @@ router.get('/create/', function(req, res){
 
 /* user's plan detail */
 router.get('/timeline/customized/:UGCID', function(req, res) {
-    console.log('in...');
     var ugcId = req.params.UGCID,
         query = req._parsedUrl.query;
 
@@ -276,17 +273,17 @@ router.get('/timeline/customized/:UGCID', function(req, res) {
 
         console.log('URL:::' + model.getUrl());
         // res.json(JSON.parse(data));
-        var oriData         = JSON.parse(data),
-            result          = oriData.result,
-            ugcDetail       = result.details,
-            detailInfo      = dataExtract.detailData(null, ugcDetail),
-            basicInfo       = dataExtract.basicData(null, result),
-            spotData        = detailInfo.spotData,
-            viewspotCnt     = detailInfo.viewspotCnt,
-            dates           = detailInfo.dates,
-            calendarData    = detailInfo.calendarData;
-        res.json(oriData);
-        console.log(spotData);
+        var oriData         = JSON.parse(data);
+        var result          = oriData.result;
+        var ugcDetail       = result.details;
+        var detailInfo      = dataExtract.detailData(null, ugcDetail);
+        var basicInfo       = dataExtract.basicData(null, result);
+        var spotData        = detailInfo.spotData;
+        var viewspotCnt     = detailInfo.viewspotCnt;
+        var dates           = detailInfo.dates;
+        var calendarData    = detailInfo.calendarData;
+        // res.json(oriData);
+        console.log(utils.get_user_info(req, res))
             res.render('plans/detail', {
                 basicInfo       : basicInfo,
                 spotData        : spotData,
@@ -300,8 +297,6 @@ router.get('/timeline/customized/:UGCID', function(req, res) {
             });
     });
 });
-        /* old data to be delete BEGIN*/
-
 
 
                 /* ---- 以下代码为调用函数 ---- */
@@ -467,7 +462,7 @@ var trafficDateUpdate = function (traffic_data, vsAndHotel_data, dateDiff) {
         };
 
     return trafficData.concat(tempVsAndHotel);
-}
+};
 
 
 /*
@@ -534,7 +529,6 @@ var dataExtract = (function () {
                 startDate   : startDate,
                 endDate     : endDate,
             };
-        console.log(basicInfo);
         return basicInfo;
     };
 

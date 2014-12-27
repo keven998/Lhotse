@@ -178,7 +178,7 @@ router.post('/submit', function(req, res) {
         spotsInfo       = submitData.spots,
         ugcId           = submitData.id,
         templateId      = submitData.templateId;
-    // console.log(submitData);
+    console.log('-=-=-=-=-=-=-=输出结果-=-=-=-=-=-=-=-');
     var data = processSubmitData(submitData);
     console.log('-=-=-=-=-=-=-=输出结果-=-=-=-=-=-=-=-');
     console.log(data);
@@ -415,6 +415,7 @@ function processSubmitData(submitData) {
     tempObj.stayBudget  = 250;
     details_row_1     = assembleSpotData(submitData.spots, submitData.startTime);
     trafficProRes     = assembleTrafficData(submitData.trafficData, submitData.dayDiff, submitData.startTime);
+    console.log('---====---');
     details_row_2       = trafficProRes.traffic
     tempObj.fromLoc     = trafficProRes.fromLoc;
     tempObj.details   = details_row_1.concat(details_row_2);
@@ -496,16 +497,27 @@ function assembleSpotData(spotData, startTime){
 function assembleTrafficData(trafficData, dayDiff, startTime) {
     // if(_.isArray(trafficData) == false) return ;
     // if(_.isString(startTime) == false) return ;
-
+    console.log('---==1==---');
     var tempArr = [],
         sTime   = startTime,
         dDiff   = parseInt(dayDiff);
+    console.log('---==2==---');
 
-    var oldStartTime = moment(trafficData[0].ts),
-        fromLoc      = trafficData[0].locId,
-        newStartTime = moment(sTime),
-        dayGap       = newStartTime.diff(oldStartTime, 'day');
+    if(!_.isArray(trafficData) || trafficData.length === 0) {
+        console.log('in++++');
+        return {
+            traffic: [],
+            fromLoc: ''
+        };
+    }
 
+    var oldStartTime = moment(trafficData[0].ts);
+    console.log('---==3==---');
+    var fromLoc      = trafficData[0].locId;
+    console.log('---==4==---');
+    var newStartTime = moment(sTime);
+    var dayGap       = newStartTime.diff(oldStartTime, 'day');
+    console.log('---==5==---');
     for(index in trafficData) {
         var tempObj     = {},
             curEle      = trafficData[index];

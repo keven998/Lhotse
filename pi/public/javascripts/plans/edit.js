@@ -954,7 +954,7 @@ var TabMapControl = function() {
             'type': activedClassName,
             'option': {
                 'locId'     : locId,
-                'pageSize'  : 8,
+                'pageSize'  : 7,
                 'page'      : pageIndex,
                 'keyword'   : keyword
             },
@@ -1036,28 +1036,28 @@ var TabMapControl = function() {
             .on('click', function() {
                 var id = $(this).children('.' + type + '_info').attr("data-id");
                 $("#" + id).trigger("click.open-info"); // 激活，显示infoWindow
-            })
-            .on('mouseenter', function() {
-                var id = $(this).children('.' + type + '_info').attr('data-id'),
-                    marker = $("#" + id),
-                    lat = spotArray[id].lat,
-                    lng = spotArray[id].lng;
-                map.setCenterByLatLng(lat, lng);
-                marker.addClass("active");
-                marker.parent().css({
-                    "z-index": 2
-                });
-                //map.hideInfoWindows();
-                new MarkerAnimate(marker);
-            })
-            .on('mouseleave', function() {
-                var id = $(this).children('.' + type + '_info').attr('data-id'),
-                    marker = $("#" + id);
-                marker.removeClass("active");
-                marker.parent().css({
-                    "z-index": 1
-                });
             });
+            // .on('mouseenter', function() {
+            //     var id = $(this).children('.' + type + '_info').attr('data-id'),
+            //         marker = $("#" + id),
+            //         lat = spotArray[id].lat,
+            //         lng = spotArray[id].lng;
+            //     map.setCenterByLatLng(lat, lng);
+            //     marker.addClass("active");
+            //     marker.parent().css({
+            //         "z-index": 2
+            //     });
+            //     //map.hideInfoWindows();
+            //     new MarkerAnimate(marker);
+            // })
+            // .on('mouseleave', function() {
+            //     var id = $(this).children('.' + type + '_info').attr('data-id'),
+            //         marker = $("#" + id);
+            //     marker.removeClass("active");
+            //     marker.parent().css({
+            //         "z-index": 1
+            //     });
+            // });
     };
 
     that.addMarker = function(spot) {
