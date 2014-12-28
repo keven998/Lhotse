@@ -2,37 +2,12 @@ var checkLogin = function() {
 	var isLogin = $('.user');
 	if (isLogin == null || isLogin.length == 0) {
 		// 弹出登录界面
-		showLoginPage();
+		$('a.login').trigger('click');
 
 		return "unlogin";
 	} else {
 		
 		return "logined";
-	}
-
-	function showLoginPage() {
-		var topHd=$('#top'),
-	        lgLayer=$('.lg-layer'),
-	        layer=$('.layer'),
-            navHeight = 100,
-            wHeight = $(window).height()
-            lgHeight = wHeight - navHeight,
-	        qq_call_back = $(".qq").attr("href") + "&referer=" + window.location.href;
-        $(".qq").attr("href",qq_call_back);
-        lgLayer.css('height', lgHeight);
-        layer.fadeIn("fast");
-        lgLayer.show();
-        lgLayer.animate({
-            right: 0
-        }, 300, "swing", function(){
-            layer.on('click',function(e){
-                lgLayer.animate({
-                    right: -600
-                }, 300, 'swing');
-                layer.fadeOut("fast");
-            })
-        });
-		
 	}
 }
 
