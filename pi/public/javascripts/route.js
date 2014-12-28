@@ -81,12 +81,13 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
 
         /*条件筛选按钮列表操作函数*/
         var travelPi = {
-            selectListUpdate: function (selectItemId, value) {
+            selectListUpdate: function (selectItemId, value, dataName) {
                 var value = value,
                     dataFrom = selectItemId,
+                    dataName = dataName,
                     selectListHtml,
                     selectListContent = $('.select-list');
-                selectListHtml = '<a data-from="' + dataFrom + '" class="bluebg option">' + value + '<i class="btn-close2"></i></a>';
+                selectListHtml = '<a data-from="' + dataFrom + '" data-name="' + dataName + '" data-item="' + value + '" class="bluebg option">' + value + '<i class="btn-close2"></i></a>';
                 selectListContent.append(selectListHtml);
                 travelPi.selectListClose(dataFrom);
             },
@@ -118,45 +119,74 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
             }
         };
 
+        var selectionParams = "",
+            dateParams = {
+                "三天之内": "&minDays=0&maxDays=3",
+                "一周之内": "&minDays=4&maxDays=7",
+                "一周以上": "&minDays=7"
+            },
+            filtField = {
+                companions: "company",
+                purpose: "tag"
+            };
+
+        function addParams(){
+            var selectList = $('.select-list>a'),
+                selectionParams = "";
+            selectList.each(function () {
+                var selectItem = $(this),
+                    dataName = selectItem.attr("data-name"),
+                    dataItem = selectItem.attr("data-item");
+                if (dataName == "date"){
+                    selectionParams += dateParams[dataItem];
+                }else{
+                    selectionParams += "&" + filtField[dataName] + "=" + dataItem;
+                }
+            })
+            return selectionParams;
+        }
+
+        function reloadRouteListByFilter(selectionParams){
+            var path = window.location.pathname,
+                functional = "/filt",
+                params = window.location.search,
+                requestUrl = path + functional + params,
+                fromId = $("#from").attr("data-id"),
+                arriveId = $("#arrive").attr("data-id");
+            // console.log(requestUrl);
+            // console.log(selectionParams);
+            $.ajax({
+                url: requestUrl,
+                async: true,
+                type: "POST",
+                data: {
+                    params: selectionParams,
+                    fromId: fromId,
+                    arriveId: arriveId
+                },
+                success : function (msg) {
+                    console.log(msg);
+                    $('ul.routelist').empty();
+                    $('ul.routelist').append(msg.routeListHtml);
+                },
+                error : function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log('error!!!');
+                }
+            });
+        }
 
         $('input.rd').iCheck({
             //checkboxClass: 'icheckbox_square-blue'
             radioClass: 'iradio_square-blue'
         });
         $('input.rd').on('ifChecked', function (e) {
-            var selectItemId = $(this).attr('id');
-            travelPi.selectListUpdate(selectItemId, $(this).attr('data-item'));
+            var selectItem = $(this);
+            travelPi.selectListUpdate(selectItem.attr('id'), selectItem.attr('data-item'), selectItem.attr('name'));
+            var selectionParams = addParams();
+            reloadRouteListByFilter(selectionParams);
+
             $('.filter-nav').find('.list-last').trigger('click');
-            
-            // function reloadRouteList(sortKey){
-            //     var path = window.location.pathname,
-            //         functional = "/sort",
-            //         params = window.location.search,
-            //         requestUrl = path + functional + params,
-            //         fromId = $("#from").attr("data-id"),
-            //         arriveId = $("#arrive").attr("data-id");
-            //     $.ajax({
-            //         url: requestUrl,
-            //         async: true,
-            //         type: "POST",
-            //         data: {
-            //             params: {
-            //                 sortField: "forkedCnt",
-            //                 sort: sortKey
-            //             },
-            //             fromId: fromId,
-            //             arriveId: arriveId
-            //         },
-            //         success : function (msg) {
-            //             console.log(msg);
-            //             $('ul.routelist').empty();
-            //             $('ul.routelist').append(msg.routeListHtml);
-            //         },
-            //         error : function (XMLHttpRequest, textStatus, errorThrown) {
-            //             console.log('error!!!');
-            //         }
-            //     });
-            // }
+
             // bind the click event for cancel a selection
             // console.log("0");
             // console.log($(this));
@@ -167,6 +197,8 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
             // });
         }).on('ifUnchecked', function (e) {
             travelPi.selectListRemove($(this).attr('data-item'));
+            var selectionParams = addParams();
+            reloadRouteListByFilter(selectionParams);
         });
 
         /*滑竿*/

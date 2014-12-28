@@ -1,21 +1,18 @@
 var urlApi = {
     // 域名地址
     apiHost : 'http://api.lvxingpai.cn',
-    //首页推荐
+
+    //推荐路线
     newRoute : "/web/recommend/newitem",
     editorRoute : "/web/recommend/editor",
     mustgoRoute : "/web/recommend/mustgo",
     popRoute : "/web/recommend/popularity",
 
-
-    //热门城市，热门景点
-    // hotCities : '/explore?showDetails=1&pageSize=8&loc=1',
-    // hotViews  : '/web/poi/view-spots/explore?page=0&pageSize=8',
+    //推荐地点(城市/景点)
     hotCities : '/web/recommend/hotcity?page=0&pageSize=8',
     hotViews  : '/web/recommend/hotvs?page=0&pageSize=8',
 
-
-    //路线详情的落地页面
+    //路线相关(详情/游记)
     routeDetail:  '/web/plans/ROUTEID',
     routeNotes:    '/web/misc/notes/search?planId=ROUTEID',
 

@@ -146,6 +146,57 @@ router.post('/sort', function(req, res){
 });
 
 
+
+router.post('/filt', function(req, res){
+    var fromId = req.body.fromId,
+        arriveId = req.body.arriveId,
+        fromLocName = req.query.fromName,
+        arrLocName, poiType,
+        indexGoUrl = apiList.apiHost + apiList.getRouteList + "?fromLoc=" + fromId;
+
+    //add params
+    // for(var param in req.body.params){
+    //     indexGoUrl += "&" + param + "=" + req.body.params[param];
+    // }
+    indexGoUrl += req.body.params;
+    console.log(req.body.params);
+    if(req.query[zone.type.viewspot] != undefined){
+        poiType = zone.type.viewspot;
+    }else if(req.query[zone.type.locality] != undefined){
+        poiType = zone.type.locality;
+    }
+    indexGoUrl += "&" + poiType + "=" + arriveId;
+    arrLocName = req.query[poiType];
+
+    model.setUrl(encodeURI(indexGoUrl));
+    model.getdata(null, function(data){
+        model.consoleUrl();
+        if((data != undefined) && (data.indexOf('<html>') < 0)){
+            var data = JSON.parse(data),
+                routeListTemplate = 'routelist.html',
+                routeListHtml = [];
+            mu.root = _dirname;
+            data = regroupRouteList(data.result);
+            mu.compileAndRender(routeListTemplate, {
+                routeData: data
+            })
+            .on('data', function(chunk) {
+                routeListHtml.push(chunk);
+            })
+            .on('end', function() {
+                routeListHtml = routeListHtml.join("");
+                // console.log(routeListHtml);
+                res.json('route', {
+                    routeListHtml: routeListHtml
+                });
+            });
+        }else{
+            res.json(null);
+            console.log("Error in getting routelist !");
+        }
+    });
+});
+
 /*
     接收路线列表中的用户筛选信息
 */
