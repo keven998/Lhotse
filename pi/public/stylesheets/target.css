@@ -6,12 +6,29 @@ i.line{color:#4fa7bd;}
 .list-01{overflow:hidden;height:350px;}
 .mt-50{margin-top: 50px;}
 .rel{position:relative;}
-.text_layer{position:absolute;bottom:5px;left:10px;width:70px;height:40px;padding:10px 10px;background-color:rgba(0,0,0,.25);filter:0.25;progid:DXImageTransform.Microsoft.Gradient(startColorStr=#40000000,endColorStr=#40000000);}
+.text_layer{position:absolute;bottom:7px;left:10px;width:70px;height:40px;padding:10px 10px;background-color:rgba(0,0,0,.25);filter:0.25;progid:DXImageTransform.Microsoft.Gradient(startColorStr=#40000000,endColorStr=#40000000);}
 .text_layer h2{font-size:20px;color:#fff;}
-.col-thin{float:left;width:190px;height:325px;}
-.col-thick{float:left;overflow:hidden;width:295px;height:325px;}
-.row-long{float:left;width:295px;height:175px;}
-.row-short{float:left;overflow:hidden;width:295px;height:145px;}
+
+.col-thin{float:left;width:190px;height:325px;overflow: hidden;}
+.col-thick{float:left;width:295px;height:325px;overflow: hidden;}
+.row-long{float:left;width:295px;height:175px;overflow: hidden;}
+.row-short{float:left;width:295px;height:145px;overflow: hidden;}
+.row-short .rel{overflow: hidden;}
+.type01 img:hover, .type02 img:hover, .type03 img:hover, .type04 img:hover{
+    -moz-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+}
+.type01 img:hover, .type02 img:hover, .type03 img:hover, .type04 img:hover{
+    -moz-transition: all 1.2s;
+    -webkit-transition: all 1.2s;
+    -o-transition: all 1.2s;
+    -ms-transition: all 1.2s;
+    transition: all 1.2s;
+}
+
 .bot{margin-bottom:5px;}
 .rig{margin-right:5px;}
 .type01{width:190px;height:325px;}
