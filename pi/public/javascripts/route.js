@@ -112,15 +112,15 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                         $(this).on('click', function () {
                             dataFromID = '#' + dataFrom;
                             $(dataFromID).iCheck('uncheck');
-                            $(this).remove();
+                            var params = selectParams() + sortParams();
+                            reloadRouteList(params);
                         });
                     };
                 });
             }
         };
 
-        var selectionParams = "",
-            dateParams = {
+        var dateParams = {
                 "三天之内": "&minDays=0&maxDays=3",
                 "一周之内": "&minDays=4&maxDays=7",
                 "一周以上": "&minDays=7"
@@ -130,43 +130,51 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                 purpose: "tag"
             };
 
-        function addParams(){
+        function selectParams(){
             var selectList = $('.select-list>a'),
-                selectionParams = "";
+                selectParams = "";
             selectList.each(function () {
                 var selectItem = $(this),
                     dataName = selectItem.attr("data-name"),
                     dataItem = selectItem.attr("data-item");
                 if (dataName == "date"){
-                    selectionParams += dateParams[dataItem];
+                    selectParams += dateParams[dataItem];
                 }else{
-                    selectionParams += "&" + filtField[dataName] + "=" + dataItem;
+                    selectParams += "&" + filtField[dataName] + "=" + dataItem;
                 }
             })
-            return selectionParams;
+            return selectParams;
         }
 
-        function reloadRouteListByFilter(selectionParams){
+        function sortParams (){
+            var sortIcon = $('.sort').children('i'),
+                sortKey = sortIcon.attr('data-key'),
+                sortParams = "&sortField=forkedCnt&sort=" + sortKey;
+            return sortParams;
+        }
+
+        function reloadRouteList(params){
             var path = window.location.pathname,
-                functional = "/filt",
-                params = window.location.search,
-                requestUrl = path + functional + params,
+                functional = "/reload",
+                originParams = window.location.search,
+                requestUrl = path + functional + originParams,
                 fromId = $("#from").attr("data-id"),
                 arriveId = $("#arrive").attr("data-id");
+            $('ul.routelist').empty();
             // console.log(requestUrl);
-            // console.log(selectionParams);
+            // console.log(params);
             $.ajax({
                 url: requestUrl,
-                async: true,
                 type: "POST",
                 data: {
-                    params: selectionParams,
+                    params: params,
                     fromId: fromId,
                     arriveId: arriveId
                 },
+                dataType: "json",
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
                 success : function (msg) {
                     console.log(msg);
-                    $('ul.routelist').empty();
                     $('ul.routelist').append(msg.routeListHtml);
                 },
                 error : function (XMLHttpRequest, textStatus, errorThrown) {
@@ -175,6 +183,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
             });
         }
 
+        //uncheck first , then check
         $('input.rd').iCheck({
             //checkboxClass: 'icheckbox_square-blue'
             radioClass: 'iradio_square-blue'
@@ -182,9 +191,8 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
         $('input.rd').on('ifChecked', function (e) {
             var selectItem = $(this);
             travelPi.selectListUpdate(selectItem.attr('id'), selectItem.attr('data-item'), selectItem.attr('name'));
-            var selectionParams = addParams();
-            reloadRouteListByFilter(selectionParams);
-
+            var params = selectParams() + sortParams();
+            reloadRouteList(params);
             $('.filter-nav').find('.list-last').trigger('click');
 
             // bind the click event for cancel a selection
@@ -197,8 +205,6 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
             // });
         }).on('ifUnchecked', function (e) {
             travelPi.selectListRemove($(this).attr('data-item'));
-            var selectionParams = addParams();
-            reloadRouteListByFilter(selectionParams);
         });
 
         /*滑竿*/
@@ -310,7 +316,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                             $(layerClass).remove();
                             $('.slider_layer').remove();
                             addTabNav($this);
-                            console.log(requestUrl);
+                            // console.log(requestUrl);
                             $.ajax({
                                 url: requestUrl,
                                 async: true,
@@ -401,7 +407,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                         if(c) {
                                             var marquee = function() {
                                                 c.scrollLeft += 2;
-                                                console.log(c.scrollLeft);
+                                                // console.log(c.scrollLeft);
                                                 if(c.scrollLeft % marginLeft <= 1){
                                                     //ul.append(ul.children('li')[0]);
                                                     ul.appendChild(ul.getElementsByTagName('li')[0]);
@@ -445,50 +451,26 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
         });
         /************ Drop End *************/
 
-
-        //排序事件
-        function reloadRouteList(sortKey){
-            var path = window.location.pathname,
-                functional = "/sort",
-                params = window.location.search,
-                requestUrl = path + functional + params,
-                fromId = $("#from").attr("data-id"),
-                arriveId = $("#arrive").attr("data-id");
-            $.ajax({
-                url: requestUrl,
-                async: true,
-                type: "POST",
-                data: {
-                    params: {
-                        sortField: "forkedCnt",
-                        sort: sortKey
-                    },
-                    fromId: fromId,
-                    arriveId: arriveId
-                },
-                success : function (msg) {
-                    console.log(msg);
-                    $('ul.routelist').empty();
-                    $('ul.routelist').append(msg.routeListHtml);
-                },
-                error : function (XMLHttpRequest, textStatus, errorThrown) {
-                    console.log('error!!!');
-                }
-            });
+        //sort event
+        function changeIcon(){
+            var ascIconClass = 'ico-arr04',
+                descIconClass = 'ico-arr03',
+                sortIcon = $('.sort').children('i');
+            if(sortIcon.hasClass(descIconClass)){
+                sortIcon.removeClass(descIconClass).addClass(ascIconClass);
+                sortIcon.attr('data-key', 'asc');
+                // console.log("asc");
+            }else{
+                sortIcon.removeClass(ascIconClass).addClass(descIconClass);
+                sortIcon.attr('data-key', 'desc');
+                // console.log("desc");
+            }
         }
 
         $('.sort').on('click',function(){
-            var ascIconClass = 'ico-arr04',
-                descIconClass = 'ico-arr03';
-            if($(this).children('i').hasClass(descIconClass)){
-                $(this).children('i').removeClass(descIconClass).addClass(ascIconClass);
-                console.log("asc");
-                reloadRouteList("asc");
-            }else{
-                $(this).children('i').removeClass(ascIconClass).addClass(descIconClass);
-                console.log("desc");
-                reloadRouteList("desc");
-            }
+            changeIcon();
+            var params = selectParams() + sortParams();
+            reloadRouteList(params);
         })
 
 

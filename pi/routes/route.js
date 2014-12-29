@@ -24,8 +24,8 @@ router.get('/layer/:ROUTEID', function(req, res){
     /*get the details of the route*/
     model.setUrl(apiList.apiHost + "/web/plans/" + req.params.ROUTEID + '?fromLoc=' + fromLoc);
     model.getdata(null, function(data) {
-        model.consoleUrl();
-        console.log(data);
+        // model.consoleUrl();
+        // console.log(data);
         if (data != null){
             if (data.indexOf("!DOCTYPE") != -1){
                 console.log("The error occurred while getting the route-detail data!");
@@ -98,56 +98,8 @@ router.get('/detail/:ROUTEID', function(req, res){
     });
 });
 
-router.post('/sort', function(req, res){
-    var fromId = req.body.fromId,
-        arriveId = req.body.arriveId,
-        fromLocName = req.query.fromName,
-        arrLocName, poiType,
-        indexGoUrl = apiList.apiHost + apiList.getRouteList + "?fromLoc=" + fromId + "&tag=&minDays=0&maxDays=99";
 
-    //add params
-    for(var param in req.body.params){
-        indexGoUrl += "&" + param + "=" + req.body.params[param];
-    }
-    if(req.query[zone.type.viewspot] != undefined){
-        poiType = zone.type.viewspot;
-    }else if(req.query[zone.type.locality] != undefined){
-        poiType = zone.type.locality;
-    }
-    indexGoUrl += "&" + poiType + "=" + arriveId;
-    arrLocName = req.query[poiType];
-
-    model.setUrl(encodeURI(indexGoUrl));
-    model.getdata(null, function(data){
-        if((data != undefined) && (data.indexOf('<html>') < 0)){
-            var data = JSON.parse(data),
-                routeListTemplate = 'routelist.html',
-                routeListHtml = [];
-            mu.root = _dirname;
-            data = regroupRouteList(data.result);
-            mu.compileAndRender(routeListTemplate, {
-                routeData: data
-            })
-            .on('data', function(chunk) {
-                routeListHtml.push(chunk);
-            })
-            .on('end', function() {
-                routeListHtml = routeListHtml.join("");
-                // console.log(routeListHtml);
-                res.json('route', {
-                    routeListHtml: routeListHtml
-                });
-            });
-        }else{
-            res.json(null);
-            console.log("Error in getting routelist !");
-        }
-    });
-});
-
-
-
-router.post('/filt', function(req, res){
+router.post('/reload', function(req, res){
     var fromId = req.body.fromId,
         arriveId = req.body.arriveId,
         fromLocName = req.query.fromName,
@@ -159,7 +111,7 @@ router.post('/filt', function(req, res){
     //     indexGoUrl += "&" + param + "=" + req.body.params[param];
     // }
     indexGoUrl += req.body.params;
-    console.log(req.body.params);
+    // console.log(req.body.params);
     if(req.query[zone.type.viewspot] != undefined){
         poiType = zone.type.viewspot;
     }else if(req.query[zone.type.locality] != undefined){
@@ -169,13 +121,15 @@ router.post('/filt', function(req, res){
     arrLocName = req.query[poiType];
 
     model.setUrl(encodeURI(indexGoUrl));
+    // console.log("0");
     model.getdata(null, function(data){
-        model.consoleUrl();
+        // model.consoleUrl();
         if((data != undefined) && (data.indexOf('<html>') < 0)){
             var data = JSON.parse(data),
                 routeListTemplate = 'routelist.html',
                 routeListHtml = [];
             mu.root = _dirname;
+            console.log(data);
             data = regroupRouteList(data.result);
             mu.compileAndRender(routeListTemplate, {
                 routeData: data
