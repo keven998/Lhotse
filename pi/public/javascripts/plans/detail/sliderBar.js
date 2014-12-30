@@ -12,13 +12,17 @@ define(function () {
             this.scrollDom = this.dom.find(".pl_fixed_sidebar");
             this.fixHeight = $(".pl_fixed_menu_box").height();
             this.bindEvent();
-        }, bindEvent   : function () {
-            var me = this, top, disTop;
-            me.fireScroll();
+        },
+
+        bindEvent   : function () {
+            var me = this;
+            //me.fireScroll();
             $(window).on("scroll", function (evt) {
                 me.fireScroll();
-            })
-        }, fireScroll  : function () {
+            });
+        },
+
+        fireScroll  : function () {
             var me = this, top, disTop;
             top = me.dom.offset().top;
             disTop = me.fixHeight + me.getScrollTop() - top;
@@ -32,22 +36,29 @@ define(function () {
             } else {
                 me.scrollDom.css("top", 0)
             }
-            me.scrollDom.css("min-height",$(window).height() - 104);
-        }, getScrollTop: function () {
+            me.scrollDom.css("min-height", $(window).height() - 104);
+        },
+
+        getScrollTop: function () {
             return $(window).scrollTop();
-        }, getHeight   : function () {
-            var infos = this.dom.find(".info"), maxH = 0;
+        },
+
+        getHeight   : function () {
+            var infos = this.dom.find(".info"),
+                maxH = 0;
             for ( var i = 0; i < infos.length; i++ ) {
                 if ( $(infos[i]).css("display") != "none" ) {
                     maxH = Math.max($(infos[i]).height(), maxH);
                 }
             }
             return maxH + 2;
-        }, reset       : function () {
+        },
+
+        reset       : function () {
             this.fireScroll();
         }
     };
-    //window.sliderBar = sliderBar;
+
     return {
         sliderBar: sliderBar,
     };

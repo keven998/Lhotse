@@ -11,7 +11,7 @@
 
         htmlTpl    : '<div class="%%" id="##">' +
         '<div class="%%-btn %%-up">' +
-        '<span class="navi_btn"  id="##-up" style="display: inline;" data-dir="up">总程</span>' +
+        '<span class="navi_btn"  id="##-up" style="display: inline;" data-dir="up">行程</span>' +
         '</div>' +
         '<div class="%%-content-wrap">' +
         '<div class="%%-content" id="##-plist">' +
@@ -41,7 +41,7 @@
                     "day"   : 'D' + (i+1),
                     "anchor": 'day' + (i+1),
                     "name"  : name
-                }
+                };
                 tempData.push(tempObj);
             }
             this.data = tempData;
@@ -53,7 +53,7 @@
                 $(me.curLi).removeClass("current");
                 $(this).addClass("current");
                 me.curLi = this;
-                $(window).trigger('click');
+                //$(window).trigger('click');
             });
             $(window).on("scroll", function (evt) {
                  me.reset();
@@ -93,20 +93,22 @@
             var st = $(window).scrollTop() - 0;
             var docw = $(document).width();
             var left = (docw - $(".pl_wrapper").width()) / 2;
-            if(st >= 490) {
+            if(st > 510) {
+                console.log('_+_+_+_+_+_+_+_+_');
                 this.dom.css({
                     position: 'fixed',
                     left: left,
-                    top: '110px'
+                    top: '91px'
                 });
-            } else {
+            }
+            else {
                 this.dom.css({
                     position: 'absolute',
                     left: '-65px',
                     top: '30px'
                 });
             }
-        }
+        },
     };
 
     var timeList = new timeList(); // 导航栏

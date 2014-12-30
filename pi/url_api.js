@@ -46,7 +46,7 @@ var urlApi = {
     ugc : {
         getUgcById : '/web/ugc-plans/UGCID',
         getUgcByIdNone : '/web/ugc-plans/',
-        saveUgc : '/web/ugc-plans',
+        saveUgc : '/web/ugc-plans',    // detail page, save ugc directly
         display : '/web/ugc-plans/UGCID',
         editSave : '/web/plans/optimizers',
         detail : '/web/ugc-plans/UGCID',
