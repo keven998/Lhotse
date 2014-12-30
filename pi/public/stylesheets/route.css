@@ -9,7 +9,6 @@
 .search-bg .line{height:25px;margin:3px 20px 3px;border-right:1px solid #4fa7bd;}
 .search-bg input{border:0 none;vertical-align:top;height:30px;line-height:20px;font-size:14px;width:350px;}
 
-.sugg_selected {color: red; background-color: white;}/*for the input suggestion*/
 #fromWrap{display: inline-block;vertical-align: top;cursor: pointer;width:80px;height:30px;position: absolute;z-index: 100;}
 /****fileter-nav****/
 .filter-nav{height:44px;line-height:44px;padding-left:10px;background-color:#f7f7f7;border-bottom:2px solid #E5E4E2;border-right:1px solid #ccc;}
