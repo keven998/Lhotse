@@ -249,7 +249,7 @@ function regroupLayer(route_data, misc_data){
             if (routeActv.details){
                 for(var image in routeActv.details.imageList){
                     imgView.push({
-                        img: route_data.details[day].actv[item].details.imageList[image]
+                        img: route_data.details[day].actv[item].details.imageList[image] + "?imageView2/1/w/300/h/150"
                     });
                 }
             }
