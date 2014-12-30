@@ -52,7 +52,7 @@ router.get('/layer/:ROUTEID', function(req, res){
 
 
             /*render the html*/
-            var data = regroupData(route_data, misc_data);
+            var data = regroupLayer(route_data, misc_data);
 
             mu.compileAndRender(dropLayerTemplate , data)
             .on('data', function(chunk) {
@@ -104,7 +104,7 @@ router.post('/reload', function(req, res){
         arriveId = req.body.arriveId,
         fromLocName = req.query.fromName,
         arrLocName, poiType,
-        indexGoUrl = apiList.apiHost + apiList.getRouteList + "?fromLoc=" + fromId;
+        indexGoUrl = apiList.apiHost + apiList.getRouteList + "fromLoc=" + fromId;
 
     //add params
     // for(var param in req.body.params){
@@ -123,16 +123,16 @@ router.post('/reload', function(req, res){
     model.setUrl(encodeURI(indexGoUrl));
     // console.log("0");
     model.getdata(null, function(data){
-        // model.consoleUrl();
+        model.consoleUrl();
         if((data != undefined) && (data.indexOf('<html>') < 0)){
             var data = JSON.parse(data),
                 routeListTemplate = 'routelist.html',
                 routeListHtml = [];
             mu.root = _dirname;
-            console.log(data);
+            // console.log(data);
             data = regroupRouteList(data.result);
             mu.compileAndRender(routeListTemplate, {
-                routeData: data
+                routeData: data.routeListView
             })
             .on('data', function(chunk) {
                 routeListHtml.push(chunk);
@@ -141,7 +141,8 @@ router.post('/reload', function(req, res){
                 routeListHtml = routeListHtml.join("");
                 // console.log(routeListHtml);
                 res.json('route', {
-                    routeListHtml: routeListHtml
+                    routeListHtml: routeListHtml,
+                    routeCnt: data.routeCnt
                 });
             });
         }else{
@@ -228,8 +229,8 @@ function selectUrl(tag, minDay, maxDay, arrId, fromId, page, pageSize) {
 }
 
   
-/*regroup the data-struct*/
-function regroupData(route_data, misc_data){
+/*regroup the data-struct for layer*/
+function regroupLayer(route_data, misc_data){
     /*for the scroll images*/
     var imgView = [];
     if (route_data.imageList){
@@ -261,7 +262,7 @@ function regroupData(route_data, misc_data){
     for(var day in route_data.details){
         var tempMap = [];
         for(var item in route_data.details[day].actv){
-            console.log(route_data.details[day].actv[item]);
+            // console.log(route_data.details[day].actv[item]);
             tempMap.push({
                 name: route_data.details[day].actv[item].itemName,
                 id: route_data.details[day].actv[item].itemId,
@@ -407,7 +408,10 @@ function regroupRouteList(data){
         }
         routeListView.push(routeData);
     }
-    return routeListView;
+    return {
+        routeListView: routeListView,
+        routeCnt: (data && data != null) ? data.length : 0
+    };
 }
 
 module.exports = router;
