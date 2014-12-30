@@ -12,9 +12,6 @@ $(function () {
     var topHd = $('#top'),
         lgLayer = $('.lg-layer'),
         layer = $('.shadow_layer'),
-        navHeight = 100;
-        // wHeight = $(window).height(),
-        // lgHeight = wHeight - navHeight;
         wHeight = $(window).height(),
         wWidth = $(window).width(),
         lgHeight = lgLayer.height(),
@@ -33,11 +30,9 @@ $(function () {
             right: lgRight
         }, 300, "swing", function(){
             layer.on('click',function(e){
-//                lgLayer.hide(500);
                 lgLayer.animate({
                     right: -400
                 }, 300, 'swing');
-//                $(this).hide();有两个layer...
                 layer.fadeOut("fast");
             })
         });
