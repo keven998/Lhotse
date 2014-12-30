@@ -44,8 +44,8 @@ block content
             if already_saved
               a.ui_buttonC(id="J_copy_plan") 编辑行程
             else
-              a.ui_buttonC(id="J_copy_plan") 复制行程
-              a.ui_buttonA 保存行程
+              a.ui_buttonC(id="J_copy_plan") 编辑行程
+              a.ui_buttonA(id="J_save_plan") 保存行程
 
 
     .pl_contents
@@ -210,8 +210,6 @@ block content
           // 侧栏容器
           .info.map
             #mapContainer.container
-              //
-                img(src='/images/plans/detail/map.png')
 
 
 
@@ -244,14 +242,8 @@ block content
             td
               .tt2
                 .time #{oneDayData.date}
-                span.xq #{oneDayData.weekFlay}
+                .xq #{oneDayData.weekFlay}
                 ul.adlist
-                  li
-                    i.circle
-                    b #
-                  li
-                    i.circle
-                    b #
 
             td(valign='top')
               .tt3

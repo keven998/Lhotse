@@ -9,11 +9,11 @@
         var boxLeft = $(".pl_fixed_menu").offset().left;
         var width = $(".pl_fixed_menu").width();
         if ( btop > boxTop ) {
-            $(".pl_fixed_menu .pl_fixed_menu_box").css({"position": "fixed", "left": boxLeft, "top": 0, width: width})
-            $(".pl_fixed_menu .pl_fixed_menu_box .link .mapbtn").show();
+            $(".pl_fixed_menu .pl_fixed_menu_box").css({"position": "fixed", "left": boxLeft, "top": 0, width: width});
+            // $(".pl_fixed_menu .pl_fixed_menu_box .link .mapbtn").show();
         } else {
             $(".pl_fixed_menu .pl_fixed_menu_box").css({"position": "", "left": "", "top": ""})
-            $(".pl_fixed_menu .pl_fixed_menu_box .link .mapbtn").hide();
+            // $(".pl_fixed_menu .pl_fixed_menu_box .link .mapbtn").hide();
         }
     });
     return null;

@@ -117,7 +117,8 @@ router.post('/spotInfo', function(req, res) {
 
 
 /*
-    detail页面的ajax请求
+  detail页面的ajax请求
+  TODO: move to detail page
 */
 router.post('/detail', function(req, res) {
     var postData = req.body,
@@ -204,7 +205,9 @@ router.post('/submit', function(req, res) {
 });
 
 
-
+/*
+ * get tab list : viewspot | hotel | resturant | traffic
+ */
 function getListContent(querys, type, callback) {
     var requestUrl = selectUrlForSpotsInCity(type);
     var options = {
@@ -222,10 +225,13 @@ function getListContent(querys, type, callback) {
     });
 }
 
-/* for detail page */
+/*
+ * for detail page
+ * TODO : move to detail
+ */
 function selectUrlForSpotInfo(type) {
     var requestUrl = '';
-    console.log('type is: ' + type);
+    console.log('spot type is: ' + type);
     switch(type) {
         case 'viewspot':
             requestUrl = 'http://api.lvxingpai.cn/web/poi/view-spots/';
@@ -307,7 +313,7 @@ function extractData(data, type) {
     return extractedData;
 }
 
-
+/* for edit page, map marker pop window info */
 function extractDataForspotInfo(data, type) {
     if(!data) {
         return;
@@ -391,6 +397,7 @@ function extractTrafficInfo(data, type) {
     return tempObject
 }
 
+/* process edit page data to save the ugc */
 function processSubmitData(submitData) {
     if(submitData == null) {
         return null;
@@ -424,6 +431,8 @@ function processSubmitData(submitData) {
     return tempObj;
 }
 
+
+/* process edit page data to save the ugc: process spot data */
 function assembleSpotData(spotData, startTime){
     if(spotData == null) return [];
     if(!(_.isArray(spotData))) return [];
@@ -494,17 +503,14 @@ function assembleSpotData(spotData, startTime){
     return tempArr;
 }
 
+
+/* process edit page data to save the ugc: process traffic data */
 function assembleTrafficData(trafficData, dayDiff, startTime) {
-    // if(_.isArray(trafficData) == false) return ;
-    // if(_.isString(startTime) == false) return ;
-    console.log('---==1==---');
     var tempArr = [],
         sTime   = startTime,
         dDiff   = parseInt(dayDiff);
-    console.log('---==2==---');
 
     if(!_.isArray(trafficData) || trafficData.length === 0) {
-        console.log('in++++');
         return {
             traffic: [],
             fromLoc: ''
@@ -512,12 +518,9 @@ function assembleTrafficData(trafficData, dayDiff, startTime) {
     }
 
     var oldStartTime = moment(trafficData[0].ts);
-    console.log('---==3==---');
     var fromLoc      = trafficData[0].locId;
-    console.log('---==4==---');
     var newStartTime = moment(sTime);
     var dayGap       = newStartTime.diff(oldStartTime, 'day');
-    console.log('---==5==---');
     for(index in trafficData) {
         var tempObj     = {},
             curEle      = trafficData[index];
@@ -535,9 +538,7 @@ function assembleTrafficData(trafficData, dayDiff, startTime) {
             // 标注是否转乘
             tempObj.transfer = 'no.back';
         }
-        // if(tempObj.subType == 'airport' || tempObj.subType == 'trainStation'){
             tempObj.ts = tempObj.st;
-        // }
 
         switch(tempObj.subType) {
             case 'airRoute':

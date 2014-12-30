@@ -37,14 +37,44 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock', 'PopLayer'
                 url = '/plans/edit/' + id;
             window.open(url);
         })
+
+
         /*
-         * 取消顶部导航栏的fixed状态
+         * 收藏行程
          */
-         $('.hd').css({
-            "position": "absolute",
-            //"margin-bottom": "60px"
+        $('#J_save_plan').on('click', function(argument) {
+            var userId      = $('#J-user-icon').attr('data-id');
+            if(!userId) {
+                $('.login').trigger('click');
+                return;
+            }
+            var ugcId  = $('.main_title').attr('data-id');
+            var postData = {
+                uid : userId,
+                _id : ugcId,
+                action : 'updateUid'
+            };
+            $.ajax({
+                url       : "/plans/detail/save",
+                type      : "post",
+                dataType  : "json",
+                data      : postData,
+                success: function(respondData) {
+                    console.log(respondData);
+                    respondData.code == 0 ? (alert("保存成功"), window.location.href = '/plans/mine/')
+                    : alert("保存失败");
+
+                }
+            });
          });
-         $('.line.line_traffic:last').empty();
+
+
+        /*
+         * 删除最后一个多余的两地间具体
+         */
+        $('.line:last').empty();
+
+
         /*
          * 左侧列表和地图的交互：动态效果还没有出来，问题不明
          */
@@ -53,6 +83,7 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock', 'PopLayer'
                 dayIndex = $(this).find('.local').attr('data-day');
             mapControl.showMarker(id, dayIndex);
         });
+
 
         /*
          *导航栏和详情列表的互动--获取scroll参数
@@ -64,7 +95,7 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock', 'PopLayer'
 
         for(var i = 0; i < daylistLen; i++) {
             var height = $('.pl_day_list').children().eq(i).height(),
-                count = parseInt($('.pl_day_list').children().eq(i).position().top + 450),
+                count = parseInt($('.pl_day_list').children().eq(i).position().top + 420),//450
                 item = {};
             timelistitem.eq(i).attr('id', count);
             item = {
@@ -75,23 +106,23 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock', 'PopLayer'
         }
 
         /*
-         * 详情列表滚动对导航栏的互动
+         * 详情列表滚动 对 导航栏的互动
          */
-        $(window).on('scroll', scrollAction);
-        function scrollAction(){
+        $(window).on('scroll', function(){
             var scrollTop = $(this).scrollTop(),
                 timelistId ='#' + trigVal(scrollTop, itemArr);
             $(timelistId).addClass('current');
             $(timelistId).siblings().removeClass('current');
-        }
+        });
 
 
         /*
-         * 导航栏对详情列表的互动
+         * 导航栏 对 详情列表的互动
          */
         $(timelistitem).on('click', function() {
-            $(window).scrollTop($(this).attr('id'));
-        })
+            console.log($(this).attr('id'));
+            $(window).scrollTop(parseInt($(this).attr('id')) + 40);
+        });
 
 
         /*
@@ -100,7 +131,7 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock', 'PopLayer'
         var googleMap = new googlemapApi.GMaper({});
         var poplayer  = new PopLayer.PopLayer({
             targetCls : ".day_list .line",
-            title     : "ck",
+            title     : "map_distance"
         });
         var latlngs   = mapControl.getLatLngs(),
             spotsName = mapControl.getSpotsName();
