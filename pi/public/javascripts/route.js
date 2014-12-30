@@ -175,7 +175,13 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                 contentType: "application/x-www-form-urlencoded; charset=utf-8",
                 success : function (msg) {
                     console.log(msg);
-                    $('ul.routelist').append(msg.routeListHtml);
+                    if (msg.routeCnt > 0){
+                        $('ul.routelist').append(msg.routeListHtml);
+                    }else{
+                        var explainHtml = '<div class="tip">抱歉，没有找到相关的结果。<br>您可以换个条件继续查询。</div>';
+                        $('ul.routeList').append(explainHtml);
+                    }
+                    $('.route-sum').text("共有" + msg.routeCnt + "条线路");
                 },
                 error : function (XMLHttpRequest, textStatus, errorThrown) {
                     console.log('error!!!');
