@@ -98,7 +98,7 @@ router.get('/route', function(req, res) {
         var fromId = results.from,
             arriveId = results.arrive,
             // indexGoUrl = apiList.apiHost + apiList.getRouteList + "?tag=&minDays=0&maxDays=99" + "&fromLoc=" + fromId + "&" + poiType + "=" + arriveId;
-            indexGoUrl = apiList.apiHost + apiList.getRouteList + "?fromLoc=" + fromId + "&" + poiType + "=" + arriveId;
+            indexGoUrl = apiList.apiHost + apiList.getRouteList + "fromLoc=" + fromId + "&" + poiType + "=" + arriveId;
         model.setUrl(encodeURI(indexGoUrl));
         model.getdata(null, function(data){
             // model.consoleUrl();

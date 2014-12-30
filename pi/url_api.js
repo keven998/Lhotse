@@ -26,7 +26,7 @@ var urlApi = {
     searchViewspotIdByName : "/web/poi/view-spots/search?keyword=",
 
     // 获得相关目的地的路线列表 "&loc=xx" or "&vs=xx"
-    getRouteList : '/web/plans/explore',
+    getRouteList : '/web/plans/explore?pageSize=99&',
 
     // 根据名字搜索酒店
     searchHotelByName : '/web/poi/hotels/search?page=0&pageSize=9&keyword=',

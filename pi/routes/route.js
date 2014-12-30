@@ -104,7 +104,7 @@ router.post('/reload', function(req, res){
         arriveId = req.body.arriveId,
         fromLocName = req.query.fromName,
         arrLocName, poiType,
-        indexGoUrl = apiList.apiHost + apiList.getRouteList + "?fromLoc=" + fromId;
+        indexGoUrl = apiList.apiHost + apiList.getRouteList + "fromLoc=" + fromId;
 
     //add params
     // for(var param in req.body.params){
@@ -123,7 +123,7 @@ router.post('/reload', function(req, res){
     model.setUrl(encodeURI(indexGoUrl));
     // console.log("0");
     model.getdata(null, function(data){
-        // model.consoleUrl();
+        model.consoleUrl();
         if((data != undefined) && (data.indexOf('<html>') < 0)){
             var data = JSON.parse(data),
                 routeListTemplate = 'routelist.html',
