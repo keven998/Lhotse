@@ -233,6 +233,21 @@ router.get('/suggestion', function(req, res){
     });
 });
 
+
+router.get('/getid', function(req, res){
+    var name = req.query.locName;
+    model.setUrl(encodeURI(apiList.apiHost + apiList.searchCityIdByName + name));
+    model.getdata(req, function(data){
+        model.consoleUrl();
+        var locId = getIdFromName(data,0);
+        console.log("0");
+        console.log(locId);
+        res.json({
+            locId: locId
+        });
+    });
+})
+
 /*
     suggestion switch
     e.x.    suggestionUrl("北", 0, 0, 1, 0)    loc suggsetion ON

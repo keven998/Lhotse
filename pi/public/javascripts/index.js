@@ -55,6 +55,31 @@ $(function(){
         $('.layer').stop(false,true);
         $(this).find('.layer').fadeOut(200);
     })
+
+    //jump detail page
+    var mList = $('.main a');
+    $(mList).each(function(){
+        $(this).on('click', function(){
+            var fromName = $('#from').text(),
+                requestUrl = '/getid?locName=' + fromName,
+                dataUrl = $(this).attr('data-url'),
+                fromId;
+            $.ajax({
+                url: requestUrl,
+                async: true,
+                type: "GET",
+                success : function (msg) {
+                    fromId = msg.locId;
+                    window.location.href = dataUrl + "?fromLoc=" + fromId + "&trafficFlag=airRoute&hotelFlag=star&restaurantFlag=reputation";
+                },
+                error : function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log('Error in getting fromId');
+                    fromId = "5473ccd7b8ce043a64108c46";//the defalut value is beijing's ID
+                    window.location.href = dataUrl + "?fromLoc=" + fromId + "&trafficFlag=airRoute&hotelFlag=star&restaurantFlag=reputation";
+                }
+            });
+        });
+    });
 });
 
 // JavaScript DIVCSS5 Document
