@@ -12,79 +12,80 @@ block page_var
 
 block content
     .full-screen
-        .bg-blue
-            .search-bg
-                i.ico-position
-                #fromWrap
-                b#from(data-page = "route" data-id='#{fromId}') #{fromName}
-                b.change [更换]
-                b.line
-                input#arrive(type="text" name="arriveName" placeholder='景点/城市/省份' onkeyup="suggestion_to(this.value)" autocomplete="off" value='#{arriveName}' data-id='#{arriveId}')
-                //
-                    i.ico-addpos
-        .route_container
-            ul.filter-nav
-                - var index = 0;
-                each filter in route_filters
-                    li
-                        a#filter
-                            b   #{filter.type}
-                            i.ico-arr01
-                        .layer
-                            ul
-                                each option in filter.options
-                                    - index = index + 1;
-                                    li
-                                        input.rd(id='rd-#{index}' name='#{filter.name}' data-item='#{option}' type="radio")
-                                        label(for='rd-#{index}') #{option}
-                                .list-last
-            .select-list
-            .gap
-                .route-sum
-                    |   共有#{plans.length}条线路
-                .sort.bluebg
-                    |   按使用人数
-                    i.ico-arr03(data-key="desc")
-            ul.routelist
-                if plans.length > 0
-                    each plan in plans
-                        li.route(data-id='#{plan._id}')
-                            .left
-                                if (plan.imageList[0])
-                                    img(src='#{plan.imageList}' + '?imageView2/1/w/165/h/150' width=165 height=150)
-                                else
-                                    img(src="/images/route/index/285-215.png" width="165" height="150")
-                                if (plan.lxpTag[0] != undefined)
-                                    img.most_tag(src='/images/route/index/triangle.png')
-                                    h2.most_tag #{plan.lxpTag[0]}
-                            .right
-                                h2.r-title  #{plan.title}
-                                h3.usetimes  (#{plan.forkedCnt}人使用)
-                                p.txt
-                                    if plan.desc
-                                        - var short_desc = plan.desc.substring(0, 45)
-                                        | #{short_desc}
-                                        if (plan.desc.length > 45)
-                                            | ...
-                                p
-                                    i.ico01.ico01-route
-                                    b 线路特色-
-                                        -   var j = 0;
-                                        each tag in plan.tags
-                                            if (j<3)
-                                                if (j>0)
-                                                    | ,
-                                                | #{tag}
-                                            -   j++;
-                                p
-                                    i.ico01.ico01-spot
-                                    b 全程#{plan.vsCnt}个景点，共#{plan.days}天
-                                p
-                                    i.ico01.ico01-cost
-                                    b 预算 ￥#{plan.budget[0]}-￥#{plan.budget[1]}
-                                a.fork.ico-fork(href="javascript:;" data-id='#{plan._id}')
-                else
-                    .no-data 很遗憾，没有为您找到相关路线，请尝试输入其他目的地。
+        .wrap_left
+            .bg-blue
+                .search-bg
+                    i.ico-position
+                    #fromWrap
+                    b#from(data-page = "route" data-id='#{fromId}') #{fromName}
+                    b.change [更换]
+                    b.line
+                    input#arrive(type="text" name="arriveName" placeholder='景点/城市/省份' onkeyup="suggestion_to(this.value)" autocomplete="off" value='#{arriveName}' data-id='#{arriveId}')
+                    //
+                        i.ico-addpos
+            .route_container
+                ul.filter-nav
+                    - var index = 0;
+                    each filter in route_filters
+                        li
+                            a#filter
+                                b   #{filter.type}
+                                i.ico-arr01
+                            .layer
+                                ul
+                                    each option in filter.options
+                                        - index = index + 1;
+                                        li
+                                            input.rd(id='rd-#{index}' name='#{filter.name}' data-item='#{option}' type="radio")
+                                            label(for='rd-#{index}') #{option}
+                                    .list-last
+                .select-list
+                .gap
+                    .route-sum
+                        |   共有#{plans.length}条线路
+                    .sort.bluebg
+                        |   按使用人数
+                        i.ico-arr03(data-key="desc")
+                ul.routelist
+                    if plans.length > 0
+                        each plan in plans
+                            li.route(data-id='#{plan._id}')
+                                .left
+                                    if (plan.imageList[0])
+                                        img(src='#{plan.imageList}' + '?imageView2/1/w/165/h/150' width=165 height=150)
+                                    else
+                                        img(src="/images/route/index/285-215.png" width="165" height="150")
+                                    if (plan.lxpTag[0] != undefined)
+                                        img.most_tag(src='/images/route/index/triangle.png')
+                                        h2.most_tag #{plan.lxpTag[0]}
+                                .right
+                                    h2.r-title  #{plan.title}
+                                    h3.usetimes  (#{plan.forkedCnt}人使用)
+                                    p.txt
+                                        if plan.desc
+                                            - var short_desc = plan.desc.substring(0, 45)
+                                            | #{short_desc}
+                                            if (plan.desc.length > 45)
+                                                | ...
+                                    p
+                                        i.ico01.ico01-route
+                                        b 线路特色-
+                                            -   var j = 0;
+                                            each tag in plan.tags
+                                                if (j<3)
+                                                    if (j>0)
+                                                        | ,
+                                                    | #{tag}
+                                                -   j++;
+                                    p
+                                        i.ico01.ico01-spot
+                                        b 全程#{plan.vsCnt}个景点，共#{plan.days}天
+                                    p
+                                        i.ico01.ico01-cost
+                                        b 预算 ￥#{plan.budget[0]}-￥#{plan.budget[1]}
+                                    a.fork.ico-fork(href="javascript:;" data-id='#{plan._id}')
+                    else
+                        .no-data 很遗憾，没有为您找到相关路线，请尝试输入其他目的地。
         .map_container
             #map_inner
     #suggestion_to.suggestion(style="width:350px;z-index:100;")

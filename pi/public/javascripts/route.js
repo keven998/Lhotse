@@ -176,6 +176,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                 contentType: "application/x-www-form-urlencoded; charset=utf-8",
                 success : function (msg) {
                     // console.log(msg);
+                    $('.route-sum').text("共有" + msg.routeCnt + "条线路");
                     if (msg.routeCnt > 0){
                         $('ul.routelist').append(msg.routeListHtml);
                         bindLayerEvent();
@@ -183,7 +184,6 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                         var explainHtml = '<div class="tip">抱歉，没有找到相关的结果。<br>您可以换个条件继续查询。</div>';
                         $('ul.routeList').append(explainHtml);
                     }
-                    $('.route-sum').text("共有" + msg.routeCnt + "条线路");
                 },
                 error : function (XMLHttpRequest, textStatus, errorThrown) {
                     console.log('error!!!');
@@ -194,11 +194,12 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
         function responseRouteListHeight(){
             var wHeight = $(window).height(),
                 hdHeight = $('.hd').height(),
-                searchHeight = 70,
+                searchHeight = 55,
+                bordertop = 10,
                 filternavHeight = 46,
                 selectListHeight = $('.select-list').height(),
                 gapHeight = 51;
-            $('.routelist').css('height',wHeight - hdHeight - searchHeight - filternavHeight - selectListHeight - gapHeight);
+            $('.routelist').css('height',wHeight - hdHeight - searchHeight - filternavHeight - selectListHeight - gapHeight - bordertop);
         }
 
         //uncheck first , then check
@@ -335,7 +336,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                 $(layerClass).remove();
                                 $('.slider_layer').remove();
                                 addTabNav($this);
-                                console.log(requestUrl);
+                                // console.log(requestUrl);
                                 $.ajax({
                                     url: requestUrl,
                                     async: true,
@@ -501,7 +502,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
             var elems = document.getElementsByName(name);
             for(var i in elems){
                 if (elems[i].checked && elems[i].value!="none")
-                    return (flag + "=" + elems[i].value + "&");
+                    return (flag + "=" + elems[i].value);
             }
             return "";
         }
@@ -1040,15 +1041,17 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
         var wHeight = $(window).height(),
             wWidth = $(window).width(),
             hdHeight = $('.hd').height(),
-            searchHeight = 70,
+            searchHeight = 55,
+            bordertop = 10,
             //searchHeight = $('.bg-blue').height(),    the 'search' div has the padding that's not in .height()
             filternavHeight = 46,
             selectListHeight = $('.select-list').height(),
             gapHeight = 51,
-            routeListWidth = $('.routelist').width();
-        $('#map_inner').css('width',wWidth - routeListWidth);
-        $('#map_inner').css('height',wHeight - hdHeight - searchHeight);
-        $('.routelist').css('height',wHeight - hdHeight - searchHeight - filternavHeight - selectListHeight - gapHeight);
+            routeListWidth = $('.routelist').width(),
+            borderleft = 10;
+        $('#map_inner').css('width',wWidth - routeListWidth - borderleft);
+        $('#map_inner').css('height',wHeight - hdHeight - bordertop);
+        $('.routelist').css('height',wHeight - hdHeight - searchHeight - filternavHeight - selectListHeight - gapHeight - bordertop);
 
         $(window).resize(function(){
             var wWidth = $(window).width();

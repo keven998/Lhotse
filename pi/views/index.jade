@@ -38,7 +38,7 @@ block content
                     input.s-ip#arrive(type="text" name="arrivName" placeholder='景点/城市/省份'  onkeyup="suggestion_to(this.value)" autocomplete="off")
                     //
                         i.ico-addpos
-                    a(href="#" onclick="go_plan_list()")
+                    a(href="javascript:;" onclick="go_plan_list()")
                         #search-btn.s-btn
 
     #suggestion_to.suggestion(style="width:380px;")
@@ -66,7 +66,7 @@ block content
                 #m-list.main
                     each route in newRoute
                         .m-list.fl.w50
-                            a(href='/route/detail/#{route.id}')
+                            a(href='javascript:;' data-url='/plans/detail/#{route.id}')
                                 .layer
                                 if route.images
                                     if route.images.length
@@ -81,7 +81,7 @@ block content
                             .right
                                 .m
                                     h2
-                                        a(href='/route/detail/#{route.id}') #{route.name}
+                                        a(href='javascript:;' data-url='/plans/detail/#{route.id}') #{route.name}
                                     p
                                         if route.description.desc
                                           - var short_desc = route.description.desc.toString().substring(0, 40)
@@ -95,7 +95,7 @@ block content
                 #m-list.main
                     each route in editorRoute
                         .m-list.fl.w50
-                            a(href='/route/detail/#{route.id}')
+                            a(href='javascript:;' data-url='/plans/detail/#{route.id}')
                                 .layer
                                 if route.images
                                     if route.images.length
@@ -115,7 +115,7 @@ block content
                             .right
                                 .m
                                     h2
-                                        a(href='/route/detail/#{route.id}') #{route.name}
+                                        a(href='javascript:;' data-url='/plans/detail/#{route.id}') #{route.name}
                                     p
                                         if route.description.desc
                                             - var short_desc = route.description.desc.toString().substring(0, 40)
@@ -129,7 +129,7 @@ block content
                 #m-list.main
                     each route in mustgoRoute
                         .m-list.fl.w50
-                            a(href='/route/detail/#{route.id}')
+                            a(href='javascript:;' data-url='/plans/detail/#{route.id}')
                                 .layer
                                 if route.images
                                     if route.images.length
@@ -146,7 +146,7 @@ block content
                             .right
                                 .m
                                     h2
-                                        a(href='/route/detail/#{route.id}') #{route.name}
+                                        a(href='javascript:;' data-url='/plans/detail/#{route.id}') #{route.name}
                                     p
                                         if route.description.desc
                                             - var short_desc = route.description.desc.toString().substring(0, 40)
@@ -160,7 +160,7 @@ block content
                 #m-list.main
                     each route in popRoute
                         .m-list.fl.w50
-                            a(href='/route/detail/#{route.id}')
+                            a(href='javascript:;' data-url='/plans/detail/#{route.id}')
                                 .layer
                                 if route.images
                                     if route.images.length
@@ -175,7 +175,7 @@ block content
                             .right
                                 .m
                                     h2
-                                        a(href='/route/detail/#{route.id}') #{route.name}
+                                        a(href='javascript:;' data-url='/plans/detail/#{route.id}') #{route.name}
                                     p
                                         if route.description.desc
                                             - var short_desc = route.description.desc.toString().substring(0, 40)
