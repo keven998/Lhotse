@@ -1073,7 +1073,7 @@ span.sleep_icon {
     height              : 30px;
 }
 
-span.resturant_icon{
+span.restaurant_icon{
     background-position : 0 0;
     width               : 30px;
     height              : 30px;
@@ -1567,7 +1567,7 @@ span {
 
 .pl_day_list .number_row .day_mark,
 .pl_day_list .sleep_row .day_mark,
-.pl_day_list .resturant_row .day_mark {
+.pl_day_list .restaurant_row .day_mark {
     padding : 53px 33px;
 }
 
@@ -1615,8 +1615,8 @@ span {
     background-image : url("/images/plans/detail/hotel_normal.png");
 }
 
-.pl_day_list .resturant_row span.resturant_icon {
-    background-image : url("/images/plans/detail/resturant_normal.png");
+.pl_day_list .restaurant_row span.restaurant_icon {
+    background-image : url("/images/plans/detail/restaurant_normal.png");
 }
 
 .pl_day_list .fly_row:hover
@@ -1665,7 +1665,7 @@ span.other_icon {
     height      : 100%;
 }
 
-.pl_day_list .resturant_row:hover
+.pl_day_list .restaurant_row:hover
 .day_mark {
     border-left : 4px solid #4FA7BD;
     height      : 100%;
@@ -1677,9 +1677,9 @@ span.sleep_icon {
     background-image : url("/images/plans/detail/hotel_hover.png");
 }
 
-.pl_day_list .resturant_row:hover
-span.resturant_icon {
-    background-image : url("/images/plans/detail/resturant_hover.png");
+.pl_day_list .restaurant_row:hover
+span.restaurant_icon {
+    background-image : url("/images/plans/detail/restaurant_hover.png");
 }
 
 .pl_day_list .fly_desc
@@ -1751,7 +1751,7 @@ a {
 
 .pl_day_list .number_row:hover,
 .pl_day_list .sleep_row:hover,
-.pl_day_list .resturant_row:hover,
+.pl_day_list .restaurant_row:hover,
 .pl_day_list .fly_row:hover {
     border-top    : 1px solid #ebebeb;
     border-bottom : 1px solid #ebebeb
@@ -1790,12 +1790,12 @@ a {
 
 .pl_day_list .number_row:hover .mainTitle,
 .pl_day_list .sleep_row:hover .mainTitle,
-.pl_day_list .resturant_row:hover .mainTitle {
+.pl_day_list .restaurant_row:hover .mainTitle {
     color     : #000;
     font-size : 24px;
 }
 
-.number_row, .sleep_row, .resturant_row ,.fly_row {
+.number_row, .sleep_row, .restaurant_row ,.fly_row {
     overflow      : hidden;
     border-top    : 1px solid transparent;
     border-bottom : 1px solid transparent;
