@@ -1,13 +1,13 @@
 .main_container{margin:0 auto;width:1002px;padding-bottom:280px;}
-.content h1{margin:150px auto 200px;height:100px;width:500px;font-size:40px;text-align:center;line-height:1.3;}
-a .newplan_btn{border:none;background:url("/images/plans/mine/newplan_btn.png") no-repeat;height:55px;width:170px;margin:100px 0 20px;}
-.plan_list{margin-bottom:100px;overflow:hidden;}
+.main_container h1{margin:100px auto;height:100px;width:500px;font-size:40px;text-align:center;line-height:1.3;}
+/*a .newplan_btn{border:none;background:url("/images/plans/mine/newplan_btn.png") no-repeat;height:55px;width:170px;margin:100px 0 20px;}*/
+.plan_list{margin:100px 0;overflow:hidden;}
 .plan_item{float:left;width:480px;height:170px;background:#f7f8f8;margin:0 20px 20px 0;}
 .img_contain{position:relative;display:inline-block;}
 .plan_item img{margin:10px 20px 0 20px;border-radius:73px;-moz-border-radius:73px;-webkit-border-radius:73px;}
 .white{color:#fff;}
 .black{color:#000;}
-.days{position:absolute;left:55px;top:65px;font-size:30px;}
+.days{position:absolute;left:55px;top:70px;font-size:30px;}
 .plan_desc{display:inline-block;height:140px;width:280px;vertical-align:top;}
 .plan_title{display:inline-block;height:28px;width:180px;margin-top:25px;cursor:text;}
 .plan_title:hover{background:#e3e4e4;}
@@ -20,5 +20,5 @@ a .newplan_btn{border:none;background:url("/images/plans/mine/newplan_btn.png") 
 p.date{margin:5px 0 15px 5px;font-size:16px;}
 /*.viewdetail{background-image:url("/images/plans/mine/viewdetail_btn.png");height:23px;width:65px;margin:0 0 30px 15px;}*/
 .viewdetail{background-color:#4fa7bd;height:23px;width:65px;margin:0 0 30px 5px;padding:5px 10px;border-radius:73px;-moz-border-radius:73px;-webkit-border-radius:3px;color:#fff;font-size:14px;}
-.plan_ft{margin:35px 0 0 115px;color:#888;font-size:13px;}
-i.delete{margin-left:15px;margin-top:5px;display:inline-block;background:url("/images/plans/mine/delete_btn.png") no-repeat;width:15px;height:15px;cursor:pointer;}
+.plan_ft{margin:30px 0 0 115px;color:#888;font-size:13px;}
+i.delete{margin-left:15px;vertical-align: text-top;display:inline-block;background:url("/images/plans/mine/delete_btn.png") no-repeat;width:15px;height:15px;cursor:pointer;}
