@@ -196,17 +196,11 @@ router.post('/submit', function(req, res) {
         console.log(result);
         res.json(result);
     });
-    //获得ugc信息
-    // var requestUrl = apiList.apiHost + apiList.ugc.getUgcByIdNone + ugcId;
-    // console.log(requestUrl);
-    // model.setUrl(encodeURI(requestUrl));
-    // model.getdata(null, function(data) {
-
 });
 
 
 /*
- * get tab list : viewspot | hotel | resturant | traffic
+ * get tab list : viewspot | hotel | restaurant | traffic
  */
 function getListContent(querys, type, callback) {
     var requestUrl = selectUrlForSpotsInCity(type);
@@ -240,7 +234,7 @@ function selectUrlForSpotInfo(type) {
             requestUrl = 'http://api.lvxingpai.cn/web/poi/view-spots/';
             break;
         case 'restaurant':
-            requestUrl = '';
+            requestUrl = 'http://api.lvxingpai.cn/web/poi/restaurants/';
             break;
         case 'hotel':
             requestUrl = 'http://api.lvxingpai.cn/web/poi/hotels/';
@@ -273,7 +267,7 @@ function selectUrlForSpotsInCity(type) {
             requestUrl = 'http://api.lvxingpai.cn/web/poi/view-spots/search';
             break;
         case 'restaurant':
-            requestUrl = '';
+            requestUrl = 'http://api.lvxingpai.cn/web/poi/restaurants/search';
             break;
         case 'hotel':
             requestUrl = 'http://api.lvxingpai.cn/web/poi/hotels/search';
@@ -330,6 +324,9 @@ function extractDataForspotInfo(data, type) {
             case 'trainStation':
                 usefulData = extractTrafficInfo(data, type);
                 break;
+            case 'restaurant':
+                usefulData = extractResturantInfo(data, type);
+                break;
             case 'airport':
                 usefulData = extractTrafficInfo(data, type);
                 break;
@@ -385,6 +382,29 @@ function extractHotelInfo(data, type) {
 
     var phoneList = result.contact ? (result.contact.phoneList ? ( result.contact.phoneList) : "") : "";
     _.isArray(phoneList) ? (tempObject.phone = phoneList[0]) : (tempObject.phone = '暂无')
+    return tempObject;
+}
+
+/* restaurant info */
+function extractResturantInfo(data, type) {
+    var result = data.result,
+        tempObject = {};
+    tempObject.id           = result._id;
+    tempObject.name         = result.name || result.zhName;
+    tempObject.image        = result.imageList ? (result.imageList.length ? result.imageList[0] : " ") : " ";
+    tempObject.imageList    = result.imageList;
+    tempObject.imageList    = arrayToKVArray('image', tempObject.imageList);
+    tempObject.ranking      = getStrArray(Math.ceil(result.ratings.ranking * 5));
+    tempObject.reverse_ranking = getStrArray(5 - Math.ceil(result.ratings.ranking * 5));
+    tempObject.timeCost     = result.timeCost;
+    tempObject.lng          = result.addr ? result.addr.lng : '';
+    tempObject.lat          = result.addr ? result.addr.lat : '';
+    tempObject.price        = result.priceDesc ? result.priceDesc : "没有价格";
+    tempObject.type         = type;
+    tempObject.openTime     = result.openTime;
+    tempObject.desc         = result.desc ? result.desc : "抱歉，还没有相关介绍";
+    tempObject.tips         = result.description ? (result.description.tips ? result.description.tips : "抱歉，还没有tips") : "抱歉，还没有tips";
+    tempObject.traffic      = result.trafficInfo ? result.trafficInfo : "抱歉，还没有交通提示";
     return tempObject;
 }
 

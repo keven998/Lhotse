@@ -172,8 +172,10 @@ ul.day_detail {
     background-color: rgb(249, 249, 168);
 }
 
-.icon_viewspot, .icon_restaurant, .icon_shop, .icon_airport, .icon_hotel,
-.icon_trainStation, .icon_viewspot_hover, .icon_restaurant_hover, .icon_shop_hover, .icon_airport_hover, .icon_hotel_hover, .icon_trainStation_hover {
+.icon_viewspot, .icon_restaurant, .icon_shop,
+.icon_airport, .icon_hotel, .icon_trainStation,
+.icon_viewspot_hover, .icon_restaurant_hover, .icon_shop_hover,
+.icon_airport_hover, .icon_hotel_hover, .icon_trainStation_hover {
     background: url(/images/plans/edit/icon-group-poi.png) no-repeat;
     display: inline-block;
     height: 25px;
@@ -389,7 +391,7 @@ input[type="text"] {
     position: absolute;
 }
 
-.list_viewspot, .list_hotel {
+.list_viewspot, .list_restaurant,.list_hotel {
     width: 100%;
     height: 100%;
     overflow: auto;
@@ -397,7 +399,7 @@ input[type="text"] {
 
 
 
-.list_viewspot_element, .list_hotel_element {
+.list_viewspot_element, .list_restaurant_element, .list_hotel_element {
     width: 100%;
     overflow: hidden;
     height: 65px;
@@ -406,13 +408,15 @@ input[type="text"] {
     cursor: pointer;
 }
 
-.viewspot_pic, .viewspot_info, .hotel_pic, .hotel_info {
+.viewspot_pic, .viewspot_info,
+.restaurant_pic, .restaurant_info,
+.hotel_pic, .hotel_info {
     display: inline-block;
     width: 150px;
     margin-left: 80px;
 }
 
-.viewspot_pic, .hotel_pic {
+.viewspot_pic, .hotel_pic, .restaurant_pic {
     height: 65px;
     width: 65px;
     position: absolute;
@@ -421,7 +425,7 @@ input[type="text"] {
     margin-left: 1px;
 }
 
-.viewspot_title, .hotel_title {
+.viewspot_title, .hotel_title, .restaurant_title {
     font-size: 16px;
     text-overflow: ellipsis;
     height: 25px;
@@ -550,28 +554,6 @@ li.day.current {
     background-position: -262px -30px;
 }
 
-/*.map_marker em.hotel
-{
-    display: inline-block;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    box-shadow: 2px 2px 2px 0 #ccc;
-    color: #333;
-    overflow: hidden;
-    position: relative;
-    text-decoration: none;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    height: 26px;
-    line-height: 28px;
-    max-width: 120px;
-    color: #333;
-    left: -15px;
-    top: -18px;
-    padding: 0 18px;
-    border-radius: 0 14px 14px 0;
-}*/
-
 .map_marker i.viewspot{
     background: url("/images/plans/edit/icon-group-poi.png") no-repeat;
     color: blue;
@@ -589,7 +571,24 @@ li.day.current {
     background-position: -210px -30px;
 }
 
-.map_marker em.viewspot, .map_marker em.hotel
+.map_marker i.restaurant{
+    background: url("/images/plans/edit/icon-group-poi.png") no-repeat;
+    color: blue;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    height: 48px;
+    width: 34px;
+    line-height: 36px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    z-index: 1;
+    background-position: -210px -30px;
+}
+
+.map_marker em.viewspot, .map_marker em.hotel, .map_marker em.restaurant
 {
     display: inline-block;
     background-color: #fff;
@@ -624,7 +623,8 @@ li.day.current {
     background-color: rgba(79, 167, 189, 0.7);
 }
 
-.content_viewspot, .content_hotel, .content_shopping, .content_traffic, .content_restaurant {
+.content_viewspot, .content_hotel, .content_shopping, .content_traffic,
+.content_restaurant {
     display: none;
 }
 
@@ -742,7 +742,9 @@ span.empty {
 }
 
 
-.map_window_viewspot_title, .map_window_hotel_title{
+.map_window_viewspot_title,
+.map_window_restaurant_title,
+.map_window_hotel_title{
     font-size: 16px;
     text-overflow: ellipsis;
     height: 25px;
@@ -756,7 +758,9 @@ span.empty {
 }
 
 /*----css for templates begin----*/
-.pop_window_viewspot, .pop_window_hotel {
+.pop_window_viewspot,
+.pop_window_hotel,
+.pop_window_restaurant {
     border: 1px solid #DDD;
     width: 330px;
     background-color: white;
@@ -767,7 +771,9 @@ span.empty {
     font-size: 14px;
 }
 
-.basic_info_viewspot, .basic_info_hotel {
+.basic_info_viewspot,
+.basic_info_hotel
+.basic_info_restaurant {
 
     width: 100%;
     overflow: auto;
@@ -790,7 +796,9 @@ span.empty {
 
 
 
-.viewspot_star a,  .hotel_star a {
+.viewspot_star a,
+.restaurant_star a,
+.hotel_star a {
     font-size: 14px;
     font-family: monospace;
     color: black;
@@ -807,7 +815,9 @@ span.empty {
     /* margin: 2px 5px; */
 }
 
-.more_info_viewspot, .more_info_hotel {
+.more_info_viewspot,
+.more_info_restaurant,
+.more_info_hotel {
     border-top: 1px solid #DDD;
     overflow: auto;
     font-size: 13px;
@@ -816,6 +826,7 @@ span.empty {
 }
 
 .more_info_viewspot .viewspot_desc_content p,
+.more_info_restaurant .restaurant_desc_content p,
 .more_info_hotel .hotel_desc_content p {
     font-size: 12px;
     font-weight: normal;
@@ -825,25 +836,30 @@ span.empty {
     height: 100px;
 }
 
-.viewspot_desc, .hotel_desc {
+.restaurant_desc, .viewspot_desc, .hotel_desc {
     /* border-bottom: 1px solid rgba(223, 223, 223, 0.9); */
     height: 60px;
     margin: 5px 2px 2px 2px;
     display: inline-table;
 }
 
-.viewspot_traffic, .hotel_traffic {
+.viewspot_traffic,
+.restaurant_traffic,
+.hotel_traffic {
     display: inline-table;
     height: 50px;
     border-bottom: 1px solid rgba(223, 223, 223, 0.9);
 }
 
-.viewspot_tips, .hotel_tips {
+.viewspot_tips,
+.restaurant_tips,
+.hotel_tips {
     display: inline-table;
 }
 
 .viewspot_desc, .viewspot_traffic, .viewspot_tips,
-.hotel_desc, .hotel_traffic, .hotel_tips {
+.hotel_desc, .hotel_traffic, .hotel_tips,
+.restaurant_desc, .restaurant_traffic, .restaurant_tips, {
     display: none;
 }
 
@@ -867,7 +883,7 @@ p.desc {
     font-weight: bold;
 }
 
-p.viewspot_desc_content, p.hotel_desc_content {
+p.restaurant_desc_content, p.viewspot_desc_content, p.hotel_desc_content {
     height: 40px;
     font-size: 10px;
     font-family: monospace;
