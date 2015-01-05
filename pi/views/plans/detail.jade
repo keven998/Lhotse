@@ -251,9 +251,9 @@ block content
                   .list
                     strong.title #{traffic.depTime} - #{traffic.arrTime}
                     p.city
-                      a.cLightgray(href='', target='_blank') 出发地
+                      a.cLightgray(href='javascript:void(0)', target='_blank') 出发地
                       span.traffic_plane
-                      a.cLightgray(href='#') 目的地
+                      a.cLightgray(href='javascript:void(0)') 目的地
                     .no --
 
             td(valign='top')
@@ -265,9 +265,9 @@ block content
                   li
                     | #{cal_vsCnt}.
                     span.cn
-                      a.cGray(href='#') #{viewspot}
+                      a.cGray(href='javascript:void(0)') #{viewspot}
                     span.en
-                      a.cLightgray(href='#')
+                      a.cLightgray(href='javascript:void(0)')
 
             td(valign='top')
               .tt5
@@ -275,9 +275,9 @@ block content
                 each hotel in oneDayData.hotels
                   li
                     span.cn
-                      a.cGray(href='#') #{hotel}
+                      a.cGray(href='javascript:void(0)') #{hotel}
                     span.en
-                      a.cLightgray(href='#')
+                      a.cLightgray(href='javascript:void(0)')
 
             td(valign='top')
               .tt6
