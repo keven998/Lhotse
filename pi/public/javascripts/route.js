@@ -57,7 +57,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                 //绑定下拉的收回事件,此处需要off ?         绑定了最后的last类(可点击的小三角)
                 $thisParent.children('.layer').find('.list-last').on('click', function () {
                     $(this).parents('.layer').hide('fast');
-                    icoClass.removeClass('ico-arr01').addClass('ico-arr02');
+                    icoClass.removeClass('ico-arr02').addClass('ico-arr01');
                     // $this.children('b').css('border-bottom', 'none');
                 })
 
