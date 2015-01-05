@@ -2,11 +2,13 @@
 @timeList css
 */
 
+
 .top_bar {
     height: 40px;
     width: 100%;
     position: relative;
-    border-bottom: 2px solid #08dca9;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #ccc;
 }
 
 .title {
@@ -281,6 +283,7 @@ i.marker_number {
     text-align: center;
     position: absolute;
     left: 40px;
+    cursor: move;
     top: 3px;
     background: url(/images/plans/edit/icon-spot-index.png) no-repeat 3px 1px;
 }
@@ -455,12 +458,19 @@ input[type="text"] {
 }
 
 .sortable-dragging {
-    border: 2px solid #a22
+    border: 2px solid red;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.08);
+    background-color: red;
 }
 
 .sortable-placeholder {
-    border: 1px solid #08DCA9;
-    background-color: none
+    border: dashed 1px gray;
+    height: 1.5em;
+    line-height: 1.2em;
+    /*background-color: red;*/
+}
+.ui-sortable-helper{
+    opacity: 0.8;
 }
 
 .J_all_day.current {

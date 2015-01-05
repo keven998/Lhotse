@@ -1145,7 +1145,7 @@ function initMaper() {
 
     $('.day_detail').sortable({
         connectWith: '.day_detail',
-        placeholder: "ui-state-highlight",
+        placeholder: "sortable-placeholder",
         stop: function(event, ui){
             dayMapControl.resortIndex();
         }
