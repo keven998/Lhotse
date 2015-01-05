@@ -179,7 +179,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                     $('.route-sum').text("共有" + msg.routeCnt + "条线路");
                     if (msg.routeCnt > 0){
                         $('ul.routelist').append(msg.routeListHtml);
-                        bindLayerEvent();
+                        bindListEvent();
                     }else{
                         var explainHtml = '<div class="tip">抱歉，没有找到相关的结果。<br>您可以换个条件继续查询。</div>';
                         $('ul.routeList').append(explainHtml);
@@ -194,12 +194,12 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
         function responseRouteListHeight(){
             var wHeight = $(window).height(),
                 hdHeight = $('.hd').height(),
-                searchHeight = 55,
-                bordertop = 10,
-                filternavHeight = 46,
+                searchHeight = 40,
+                margintop = 5,
+                filternavHeight = 24,
                 selectListHeight = $('.select-list').height(),
-                gapHeight = 51;
-            $('.routelist').css('height',wHeight - hdHeight - searchHeight - filternavHeight - selectListHeight - gapHeight - bordertop);
+                gapHeight = 36;
+            $('.routelist').css('height',wHeight - hdHeight - searchHeight - filternavHeight - selectListHeight - gapHeight - margintop);
         }
 
         //uncheck first , then check
@@ -308,9 +308,26 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
             return ;
         }
 
-        function bindLayerEvent(){
+
+        function responseRouteLayerHeight(){
+            var sliderHdPadding = 30,
+                sliderHdHeight = $('.slider_hd').height() + sliderHdPadding,
+                sliderTabHeight = 31,
+                searchHeight = 55,
+                map_height = $('#map_inner').height();
+            $('.slider_layer').css('height', map_height - searchHeight);
+            $('.tab-c').css('height', map_height - searchHeight - sliderHdHeight - sliderTabHeight);
+        }
+
+        function bindListEvent(){
             var routeList = $('.routelist>li'),
                 locked = false;
+
+            //bind fork event
+            $('.fork').each(function(){
+                $(this).on('click', popLayer)
+            });
+            //bind layer event
             routeList.each(function () {
                 var $this = $(this);
                 $this.on('click', function (e) {
@@ -357,17 +374,10 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                         $('#route').on('click',function(){
                                             var sliderLayer = $('.slider_layer');
                                             sliderLayer.show();
-
-                                            //adjust the slider height
-                                            $('.slider_layer').css('height',$('#map_inner').height());
-                                            var sliderHdPadding = 30,
-                                                sliderHdHeight = $('.slider_hd').height() + sliderHdPadding,
-                                                sliderTabHeight = 31;
-                                            $('.tab-c').css('height',$('#map_inner').height()-sliderHdHeight-sliderTabHeight);
-
+                                            responseRouteLayerHeight();
                                             sliderLayer.animate({
                                                 left: 0
-                                            },500,"swing")
+                                            },500,"swing");
 
                                             //tab
                                             var tab01 = $('#tab01'),
@@ -470,7 +480,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                 })
             });
         }
-        window.onload = bindLayerEvent();
+        window.onload = bindListEvent();
         /************ Drop End *************/
 
         //sort event
@@ -834,9 +844,6 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                 route_id : $(this).attr('data-id')
             });
         }
-        $('.fork').each(function(){
-            $(this).on('click', popLayer)
-        })
         /*********** Fork End ************/
 
         /********* City Selector *********/
@@ -1041,17 +1048,17 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
         var wHeight = $(window).height(),
             wWidth = $(window).width(),
             hdHeight = $('.hd').height(),
-            searchHeight = 55,
-            bordertop = 10,
+            searchHeight = 40,
+            margintop = 5,
             //searchHeight = $('.bg-blue').height(),    the 'search' div has the padding that's not in .height()
-            filternavHeight = 46,
+            filternavHeight = 24,
             selectListHeight = $('.select-list').height(),
-            gapHeight = 51,
+            gapHeight = 36,
             routeListWidth = $('.routelist').width(),
-            borderleft = 10;
-        $('#map_inner').css('width',wWidth - routeListWidth - borderleft);
-        $('#map_inner').css('height',wHeight - hdHeight - bordertop);
-        $('.routelist').css('height',wHeight - hdHeight - searchHeight - filternavHeight - selectListHeight - gapHeight - bordertop);
+            marginleft = 10;
+        $('#map_inner').css('width',wWidth - routeListWidth - marginleft);
+        $('#map_inner').css('height',wHeight - hdHeight - margintop);
+        $('.routelist').css('height',wHeight - hdHeight - searchHeight - filternavHeight - selectListHeight - gapHeight - margintop);
 
         $(window).resize(function(){
             var wWidth = $(window).width();
