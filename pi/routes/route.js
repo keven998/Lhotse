@@ -155,27 +155,27 @@ router.post('/reload', function(req, res){
 /*
     接收路线列表中的用户筛选信息
 */
-router.post('/selection', function(req, res) { 
+router.post('/selection', function(req, res) {
     var selection = req.body;
     var days = selection.days,
          tag = selection.tag,
          arrId = selection.arrId,
          fromId = selection.fromId,
          page = selection.page;
-    
+
     if (tag === '不限')
         tag = '';
-    
-    // arr不需要做'不限'判断，因为它在jade中取的数据是调整过的    
+
+    // arr不需要做'不限'判断，因为它在jade中取的数据是调整过的
     var arr = days.split('-');
     var minDay = arr[0],
         maxDay = arr[1];
-    
-    var requestUrl = selectUrl(tag, minDay, maxDay, arrId, fromId, page); 
+
+    var requestUrl = selectUrl(tag, minDay, maxDay, arrId, fromId, page);
     model.setUrl(requestUrl);
     model.getdata(null, function(data) {
         res.json(JSON.parse(data));
-    }); 
+    });
 });
 
 /* get city id by city name */
@@ -203,32 +203,32 @@ var selectCityId = function(result) {
     if (tempCity.level == 2) {
       cityId = tempCity._id;
       break;
-    } 
+    }
   }
   return cityId;
 }
 
 
-/* 
+/*
     配置路线列表筛选url
     一页10个路线
 */
 function selectUrl(tag, minDay, maxDay, arrId, fromId, page, pageSize) {
     page = page || 0;
     pageSize = pageSize || 10;
-    
-    var requestUrl = apiList.apiHost + "/web/plans/explore?" + 
-            "loc=" + arrId + 
-            "&fromLoc=" + fromId + 
-            "&minDays=" + minDay + 
-            "&maxDays=" + maxDay + 
+
+    var requestUrl = apiList.apiHost + "/web/plans/explore?" +
+            "loc=" + arrId +
+            "&fromLoc=" + fromId +
+            "&minDays=" + minDay +
+            "&maxDays=" + maxDay +
             "&tag=" + tag +
             "&page=" + page +
             "&pageSize=" + pageSize;
     return requestUrl;
 }
 
-  
+
 /*regroup the data-struct for layer*/
 function regroupLayer(route_data, misc_data){
     /*for the scroll images*/

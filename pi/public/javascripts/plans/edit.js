@@ -1115,6 +1115,7 @@ function initMaper() {
 
     function getSpotData(spotInfo, callback) {
         console.log("－－弹层数据请求－－");
+        console.log(spotInfo);
          $.ajax({
              url: "/edit/spotInfo",
              type: "post",
