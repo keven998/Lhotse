@@ -31,7 +31,7 @@
 .gap{background:#fff;height:35px;width:582px;border-bottom:1px solid #ccc;font-size:14px;}
 .route-sum{display:inline-block;background-color:#f7f7f7;height:25px;line-height:25px;padding-left:15px;color:#898989;width:445px;margin-top:5px;margin-right:5px;}
 .bluebg{display:inline-block;background:#2b708c;margin-top:5px;padding:0 10px;text-align:center;height:25px;line-height:25px;color:#fff;cursor:pointer;}
-.select-list{width:585px;border-right:1px solid #ccc;}
+.select-list{width:585px;border-right:1px solid #ccc;margin: 5px 10px;}
 .option{font-size:12px;margin:5px 5px 0;}
 .option i{vertical-align:middle;margin-left:10px;}
 
@@ -80,7 +80,6 @@ ul.preview{padding:20px 20px 0;font-size:14px;line-height:1.5;}
 .tab_item .more{display:inline-block;width:100%;text-align:center;color:#898989;font-size: 16px;line-height: 30px;}
 .tab_item .more:hover{color:#4fa7bd;}
 .preview li{padding-bottom:10px;}
-.date{border-radius:20px;background:#62b9b0;color:#fff;padding:3px 2px 2px;margin-right:15px;font-size:15px;}
 
 /*misc-view*/
 .tab_item .about-list{margin:0;}
@@ -97,36 +96,35 @@ ul.preview{padding:20px 20px 0;font-size:14px;line-height:1.5;}
 #scroll img{width: 300px;height: 150px;}
 
 /*the layer slide from the side*/
-.slider_layer{display:none;width:584px;height:594px;position:absolute;left:-580px;top:65px;overflow:hidden;background-color:#fff;}
+.slider_layer{display:none;width:584px;height:594px;position:absolute;left:-580px;top:53px;overflow:hidden;background-color:#fff;}
 .tab_nav{width:580px;height:30px;background-color:#e0f6f1;position:relative;}
 .slider_layer .tab_nav{border-bottom: 1px solid rgba(0,0,0,0.2)}
-.slider_hd{padding:20px 20px 10px 20px;position:relative;}
-.slider_hd .desc{text-indent: 2;line-height: 1.5;margin-top:10px;font-size: 14px;color:#898989;}
+.slider_hd{padding:10px 20px;position:relative;}
+.slider_hd .desc{text-indent: 2;line-height: 1.5;font-size: 14px;color:#898989;}
 .slider_hd b{color:#4fa7bd;}
 .slider_hd span{margin-right: 30px;}
 .slider_hd .fork{position: absolute;bottom: 15px;right:30px;}
 .slider_layer .tab_nav{padding-left: 10px;}
 .tab-c{height:420px;overflow-y:scroll;}
-.date{border-radius:20px;background:#4fa7bd;color:#fff;padding:3px 2px 2px;margin-right:15px;font-size:15px;}
+.date{border-radius:20px;background:#4fa7bd;color:#fff;padding:3px 2px 2px;margin-right:15px;font-size:12px;}
 
 .tab-c .ifNull{font-size: 20px;}
 .tab-c .ifNull b{font-weight: bold;}
 .tab-c .ifNull a{font-style: italic;color:#4fa7bd;}
 /*sider css 侧栏隐藏域*/
 
-.c .t1{height: auto;line-height: 30px;width: 100%;font-size: 20px;}
-.c p{height: auto;border-left: 5px solid #4fa7bd !important;border:1px solid #aaa;padding: 15px 0 10px;}
+.c .t1{height: auto;line-height: 30px;font-size: 16px;padding-left: 15px;}
 .c .t2{color: #4fa7bd;}
-.c .l{overflow: hidden;margin:10px 30px 0;}
-.c .l li{line-height: 30px;color: #898989;font-size: 16px;}
+.c .l{overflow: hidden;margin:0 45px;}
+.c .l li{line-height: 25px;color: #898989;font-size: 14px;}
 .c p .txt{color: #898989;font-size: 16px;}
 
 .c h1{border-left:5px solid #4fa7bd;height: 25px;line-height:25px;font-size:25px;margin-bottom:20px;padding-left:10px;}
-.routename{margin-bottom:15px;}
+/*.routename{margin-bottom:15px;}*/
 .c p span{display:inline-block;height:30px;line-height: 30px;vertical-align:top;font-size:18px;color:#898989;}
 .c p h4{margin-left:15px;}
 .dot{color: #4fa7bd;font-size: 30px;line-height: 30px;padding-left:20px;padding-right:5px;}
-.moredesc{font-size:16px;color:#000;margin-left:30px;width:500px;height:auto;overflow:hidden;}
+.moredesc{font-size:14px;color:#898989;margin-left:30px;width:500px;height:auto;overflow:hidden;}
 
 .about-list{margin:20px 0 40px 25px;}
 .tab-c{padding-right:10px;}
@@ -264,7 +262,7 @@ li p.ico-g{display:inline-block;color:#4fa7bd;}
 .btn-arr-right:hover{display:inline-block;width:32px;height:32px;background:url(/images/route/index/btn-arr-right-hover.png) no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/route/index/btn-arr-right-hover.png',sizingMethod='scale');}
 
 /*map*/
-.map_container{position: absolute;right: 0;top: 0;margin-top:5px;border: 1px solid #DDD;}
+.map_container{position: absolute;right: 0;top: 0;margin-top:10px;border: 1px solid #DDD;}
 .map_container select{font-size: 16px;}
 #map_inner{width:1px;height:596px;}
 .map_marker {
