@@ -54,7 +54,8 @@ block content
             div.tab_content
                 div.content_viewspot(style="display:none")
                     div.search
-                        input(name="spotview" type="text")
+                        input(placeholder="搜索景点" name="spotview" type="text")
+                        div.search_icon
                     //- div.sort_tab
                     //-     div.score(href='javascript:;') 评分
                     //-         b.score_select_arr
@@ -68,7 +69,8 @@ block content
 
                 div.content_hotel
                     div.search
-                        input(name="hotel" type="text")
+                        input(placeholder="搜索酒店" name="hotel" type="text")
+                        div.search_icon
                     //- div.sort_tab
                     //-     div.price(href='javascript:;') 价格
                     //-         b.price_select_arr

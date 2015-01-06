@@ -889,6 +889,7 @@ var TabMapControl = function() {
         that.search();
         that.prePage();
         that.nextPage();
+        that.listenSearchClick();
     };
 
     // tab切换功能
@@ -1026,16 +1027,10 @@ var TabMapControl = function() {
 
     // 搜索功能
     that.search = function() {
-        $('input').on('focus', function() {
-            $(this).css({
-                'background': 'none',
-            });
+        $('.search input').on('focus', function() {
             that.listenEnterKey(this);
         }).on('blur', function() {
             $(this).val() ? '' :
-            $(this).css({
-                'background': 'url("/images/plans/edit/icon-magnifier.png") no-repeat scroll 4px 6px',
-            });
             $(document).unbind('keydown');
         });
     };
@@ -1050,6 +1045,15 @@ var TabMapControl = function() {
                 console.log(searchText);
                 that.searchAjax(searchText);
             }
+        });
+    };
+
+    that.listenSearchClick = function() {
+        $('.search_icon').unbind('click');
+        $('.search_icon').on('click', function() {
+            var searchText = $('.search input').val();
+            console.log(searchText);
+            that.searchAjax(searchText);
         });
     };
 
