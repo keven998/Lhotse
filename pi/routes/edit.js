@@ -37,7 +37,7 @@ var getStrArray = function(length) {
         tempArr.push('o');
     }
     return tempArr;
-}
+};
 
 // 新方法
 var model = require('../model/sup_model.js');
@@ -111,7 +111,7 @@ router.post('/spotInfo', function(req, res) {
                 });
             //res.json(spotInfo);
         });
-    };
+    }
 
 });
 
@@ -153,7 +153,7 @@ router.post('/detail', function(req, res) {
             if (!spotInfo) {
                 console.log('没有数据');
                 return ;
-            };
+            }
             mu.compileAndRender(htmlTemplateRoute, {data: spotInfo})
                 .on('data', function(chunk) {
                     html.push(chunk);
@@ -168,7 +168,7 @@ router.post('/detail', function(req, res) {
                     });
                 });
         });
-    };
+    }
 
 });
 
@@ -381,7 +381,7 @@ function extractHotelInfo(data, type) {
     tempObject.desc         = result.desc ? result.desc : "抱歉，还没有相关介绍";
 
     var phoneList = result.contact ? (result.contact.phoneList ? ( result.contact.phoneList) : "") : "";
-    _.isArray(phoneList) ? (tempObject.phone = phoneList[0]) : (tempObject.phone = '暂无')
+    _.isArray(phoneList) ? (tempObject.phone = phoneList[0]) : (tempObject.phone = '暂无');
     return tempObject;
 }
 
@@ -414,12 +414,12 @@ function extractTrafficInfo(data, type) {
         tempObject  = {};
     tempObject.name = result.zhName;
     tempObject.desc = result.desc;
-    return tempObject
+    return tempObject;
 }
 
 /* process edit page data to save the ugc */
 function processSubmitData(submitData) {
-    if(submitData == null) {
+    if(submitData === null) {
         return null;
     }
     var tempObj         = {};
@@ -437,13 +437,13 @@ function processSubmitData(submitData) {
     tempObj.trafficBudget = 250;
 
     var len = 0;
-    _.isArray(submitData.spots) ? len = submitData.spots.length : 0
+    _.isArray(submitData.spots) ? len = submitData.spots.length : 0;
     tempObj.endDate     = moment(submitData.startTime).add(len - 1, 'day').format('YYYY-MM-DD HH:mm:ssZZ');
     tempObj.stayBudget  = 250;
     details_row_1     = assembleSpotData(submitData.spots, submitData.startTime);
     trafficProRes     = assembleTrafficData(submitData.trafficData, submitData.dayDiff, submitData.startTime);
     console.log('---====---');
-    details_row_2       = trafficProRes.traffic
+    details_row_2       = trafficProRes.traffic;
     tempObj.fromLoc     = trafficProRes.fromLoc;
     tempObj.details   = details_row_1.concat(details_row_2);
     tempObj.budget      = [250, 550];
@@ -454,16 +454,16 @@ function processSubmitData(submitData) {
 
 /* process edit page data to save the ugc: process spot data */
 function assembleSpotData(spotData, startTime){
-    if(spotData == null) return [];
+    if(spotData === null) return [];
     if(!(_.isArray(spotData))) return [];
     var tempArr  = [],
         time     = startTime,
         tempTime = moment(startTime).format('YYYY-MM-DD HH:mm:ssZZ');
-    for(index in spotData){
+    for(var index in spotData){
         var oneDay = spotData[index];
         if(_.isArray(oneDay)){
             var timeFlay = 1;
-            for(i in oneDay){
+            for(var i in oneDay){
                 var curSpot = oneDay[i],
                     type    = curSpot.type,
                     tempObj = {};
@@ -541,7 +541,7 @@ function assembleTrafficData(trafficData, dayDiff, startTime) {
     var fromLoc      = trafficData[0].locId;
     var newStartTime = moment(sTime);
     var dayGap       = newStartTime.diff(oldStartTime, 'day');
-    for(index in trafficData) {
+    for(var index in trafficData) {
         var tempObj     = {},
             curEle      = trafficData[index];
         tempObj.type    = curEle.type;

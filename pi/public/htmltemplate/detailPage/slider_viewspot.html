@@ -9,12 +9,12 @@
 	<div class="scrollImg">
 	    <div class="qui-slide">
 	            <div class="qui-slide-img-wrap">
-	                <img class="qui-slide-img" src="{{image}}" onerror="this.src='images/poi_80_80.png'">
+	                <img class="qui-slide-img" onerror='this.src="/images/plans/detail/poi_80_80.png";' src="{{image}}" onerror="this.src='images/poi_80_80.png'">
 	            </div>
                 <ul class="qui-slide-ul">
                 	{{#imageList}}
                 	<li>
-                		<img src="{{image}}" data-src="{{image}}" onerror="this.src='/images/plans/detail/80.png'" class="qui-slide-li_active">
+                		<img src="{{image}}" onerror='this.src="/images/plans/detail/poi_80_80.png";' data-src="{{image}}" class="qui-slide-li_active">
                 	</li>
                 	{{/imageList}}
                 </ul>

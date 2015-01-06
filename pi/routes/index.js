@@ -3,7 +3,7 @@ var router = express.Router();
 var async = require('async');
 var apiList = require('../url_api');
 var plans = require('../model/plans');
-var request = require('request')
+var request = require('request');
 var model = require('../model/sup_model.js');
 var left_nav_data = require('../conf/country_nav');
 var map_data = require('../conf/map_data');
@@ -13,7 +13,7 @@ var utils = require( "../common/utils");
 var route_filters = require('../conf/route_filters');
 var _    = require('underscore');
 
-var Error = [
+var error = [
     'Error in getting fromId by name !',
     'Error in getting arriveId by name !',
     'Error in getting routelist !'
@@ -68,11 +68,11 @@ router.get('/route', function(req, res) {
     var fromLocName = req.query.fromName;
     /*get locId*/
     var queryFromName = apiList.apiHost + apiList.searchCityIdByName + decodeURIComponent(fromLocName);
-    if (req.query[zone.type.viewspot] != undefined){
+    if (req.query[zone.type.viewspot] !== undefined){
         var poiType = zone.type.viewspot,
             arrLocName = req.query[zone.type.viewspot],
             queryArrName = apiList.apiHost + apiList.searchViewspotIdByName + decodeURIComponent(arrLocName) + "&sort=desc";
-    }else if (req.query[zone.type.locality] != undefined){
+    }else if (req.query[zone.type.locality] !== undefined){
         var poiType = zone.type.locality,
             arrLocName = req.query[zone.type.locality],
             queryArrName = apiList.apiHost + apiList.searchCityIdByName + arrLocName;
@@ -102,7 +102,7 @@ router.get('/route', function(req, res) {
         model.setUrl(encodeURI(indexGoUrl));
         model.getdata(null, function(data){
             // model.consoleUrl();
-            if((data != undefined) && (data.indexOf('<html>') < 0)){
+            if((data !== undefined) && (data.indexOf('<html>') < 0)){
                 var data = JSON.parse(data);
                 res.render('route', {
                     plans: data.result || [],
@@ -116,7 +116,7 @@ router.get('/route', function(req, res) {
                 });
             }else{
                 res.json(null);
-                console.log(Error[2]);
+                console.log(error[2]);
             }
         });
     });
@@ -147,14 +147,14 @@ router.get('/target/', function(req, res){
         }
     },
     function(err, results) {
-        var cityList = new Array(),
-            viewList = new Array(),
+        var cityList = [],
+            viewList = [],
             page_size = 8;
         for (var i = 0; i < page_size; i++){
             var city = results.hotCities.result[i],
                 cityName = city.name,
                 cityAbbr = cityName;
-            if (cityName.substr(6,1) != "")
+            if (cityName.substr(6,1) !== "")
                 cityAbbr = cityName.substr(4)+'...';
             cityList.push({
                 id: city._id,
@@ -167,7 +167,7 @@ router.get('/target/', function(req, res){
             var view = results.hotViews.result[i],
                 viewName = view.name,
                 viewAbbr = viewName;
-            if (viewName.substr(6,1) != "")
+            if (viewName.substr(6,1) !== "")
                 viewAbbr = viewName.substr(0,5)+'...';
             viewList.push({
                 id: view._id,
@@ -197,7 +197,7 @@ router.get('/suggestion', function(req, res){
     var type = req.query.type;
     var requestUrl = '';
     // 如果未有输入则推送空
-    if (tempInput == "") {
+    if (tempInput === "") {
         res.json();
     }
     else {
@@ -213,8 +213,8 @@ router.get('/suggestion', function(req, res){
     model.getdata(null, function(data) {
         if(utils.checkApiRequestState(data)){
             var result = JSON.parse(data).result;
-            var suggestionArray = new Array();
-            for (type in result) {
+            var suggestionArray = [];
+            for (var type in result) {
                 var arrData = result[type],
                     len = arrData.length;
                 for (var i = 0; i < len; i++) {
@@ -285,9 +285,9 @@ var getIdFromName = function(data , errorCode){
         var id = data.result[0].id;
         return id;
     }else{
-        console.log(Error[errorCode]);
+        console.log(error[errorCode]);
         return -1;
     }
-}
+};
 
 module.exports = router;

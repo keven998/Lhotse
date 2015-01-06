@@ -1,4 +1,4 @@
- 'use strict';
+ "use strict";
 require.config({
     baseUrl: '/javascripts/',
     paths: {
@@ -331,7 +331,7 @@ var DayMapControl = function(constructInput) {
                     if(cnt < 0) {
                         tt && clearTimeout(tt);
                     }
-                }, 1000)
+                }, 1000);
             }else{
                 poplayer.pop(content, 'text');
             }
@@ -742,7 +742,7 @@ var DayMapControl = function(constructInput) {
                     obj.type = $(this).attr('data-type');
                     obj.id   = $(this).find('i.spot_name').attr('data-id');
                     if(emptyFlag) {
-                        if(obj.type != null || obj.type != undefined) {
+                        if(obj.type !== null || obj.type !== undefined) {
                             emptyFlag = !emptyFlag;
                         }
                     }
@@ -806,7 +806,7 @@ var DayMapControl = function(constructInput) {
                     data      : postData,
                     success: function(respondData) {
                         console.log(respondData);
-                        respondData.code == 0 ? (alert("保存成功"), window.location.href = '/plans/mine/')
+                        respondData.code === 0 ? (alert("保存成功"), window.location.href = '/plans/mine/')
                         : alert("保存失败");
 
                     }
@@ -840,7 +840,7 @@ var DayMapControl = function(constructInput) {
                 spotId.push([]);
                 inputBuff.push([]);
                 console.log(spotId);
-            })
+            });
         };
     };
 /*------DayMapControl END-----*/
@@ -939,7 +939,7 @@ var TabMapControl = function() {
                     if(cnt < 0) {
                         tt && clearTimeout(tt);
                     }
-                }, 1000)
+                }, 1000);
             }else{
                 poplayer.pop(content, 'text');
             }
@@ -1126,7 +1126,7 @@ var TabMapControl = function() {
                 spotArray[pois[key].id] = pois[key];
             }
         }
-    }
+    };
 };
 /* ---- 五个tab的切换 END ---- */
 
@@ -1161,7 +1161,7 @@ function initMaper() {
                  callback(data);
             }
          });
-     };
+     }
 
     dayMapControl = new DayMapControl({
         getInfoData: function(spotInfo, callback) {
@@ -1231,4 +1231,4 @@ $('.J_calendar').val(currentTime());
 
 
 /* ---- 修改title, 日历, 保存路线 END----- */
-})
+});

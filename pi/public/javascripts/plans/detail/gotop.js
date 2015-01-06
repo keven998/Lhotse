@@ -30,7 +30,7 @@ jQuery(function($){
         }
         //console.log(doc_w);
 
-        if(doc.scrollTop() == 0) {
+        if(doc.scrollTop() === 0) {
             icon.fadeOut(300);
         }
         else if(doc_w > 1200) {

@@ -12,7 +12,7 @@
             $(".pl_fixed_menu .pl_fixed_menu_box").css({"position": "fixed", "left": boxLeft, "top": 0, width: width});
             // $(".pl_fixed_menu .pl_fixed_menu_box .link .mapbtn").show();
         } else {
-            $(".pl_fixed_menu .pl_fixed_menu_box").css({"position": "", "left": "", "top": ""})
+            $(".pl_fixed_menu .pl_fixed_menu_box").css({"position": "", "left": "", "top": ""});
             // $(".pl_fixed_menu .pl_fixed_menu_box .link .mapbtn").hide();
         }
     });

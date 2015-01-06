@@ -95,7 +95,7 @@ define(['googlemapApi'], function(GMaper){
                 }
                 option.value = i;
                 selectDom.appendChild(option);
-            };
+            }
             selectPanelDiv.appendChild(selectDom);
             mapObject.controls[google.maps.ControlPosition.TOP_LEFT].push(selectPanelDiv);
             if (routeData) {
@@ -131,7 +131,7 @@ define(['googlemapApi'], function(GMaper){
 
         cthis.drawRoute = function(index) {
             mapControl.clearRoute();
-            if (0 == index) {
+            if (0 === index) {
                 cthis.showAllMarker();
             }else {
                 cthis.showOneDay(index);
@@ -142,7 +142,7 @@ define(['googlemapApi'], function(GMaper){
 
         cthis.setFitView = function(index) {
             var bound = new google.maps.LatLngBounds();
-            if (0 == index ) {
+            if (0 === index ) {
                 for(var dayIndex in latLngArray) {
                     var oneDayData = latLngArray[dayIndex];
                     for (var j in oneDayData) {
@@ -238,7 +238,7 @@ define(['googlemapApi'], function(GMaper){
         cthis.calcuDistance = function(index) {
             if(index < 0 || (index >= latLngs.length)) {
             return '两地相距: ' + 0 + ' Km';
-                return
+                return;
             }
 
             var LatLng_1 = latLngs[index -1],
@@ -253,7 +253,7 @@ define(['googlemapApi'], function(GMaper){
 
         cthis.getSpotsName = function() {
             return spotNames;
-        }
+        };
     };
 
     return {

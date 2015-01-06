@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var async = require('async');
 var apiList = require('../url_api');
-var request = require('request')
+var request = require('request');
 var model = require('../model/sup_model.js');
 
 
@@ -21,7 +21,7 @@ router.post('/search', function(req, res) {
 router.post('/ajax/more', function(req, res) {
     var text = req.body.searchText,
         page = req.body.page;
-        
+
     var requestUrl = apiList.apiHost + apiList.searchHotel + "keyword=" + encodeURI(text) + "&page=" + encodeURI(page);
     console.log(requestUrl);
     model.setUrl(requestUrl);

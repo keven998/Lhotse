@@ -6,7 +6,7 @@
 define(function(gmapControl) {
     function InfoBlock() {
 
-    };
+    }
 
     InfoBlock.prototype = {
         currentBlock : null,
@@ -35,7 +35,7 @@ define(function(gmapControl) {
                 error  : function (msg) {
                     callback && callback('ajaxData');//Debug
                 }
-            })
+            });
         },
 
         render    : function (data) {//侧栏渲染入口函数
@@ -58,7 +58,7 @@ define(function(gmapControl) {
                 me.getAjaxData(me.url, postData, function (data) {  //发起请求
                     me.sliderHtmls[id] = data.html;
                     me.html(data.html);  //ajax回调函数
-                })
+                });
             }
         },
 
@@ -73,7 +73,7 @@ define(function(gmapControl) {
             var me = this;
             this.map.animate({opacity: 0}, 300, function () {
                 me.map.hide();
-            })
+            });
         },
 
         showMap      : function () {//显示地图块
@@ -85,23 +85,23 @@ define(function(gmapControl) {
             var me = this;
             this.w = this.container.width();
             me.currentBlock && me.hide();
-            $("." + me.mode).css({left: me.w + "px", width: me.w - 3 + "px"})
+            $("." + me.mode).css({left: me.w + "px", width: me.w - 3 + "px"});
             $("." + me.mode).animate({opacity: 1, left: 0}, 300, function () {
                 me.currentBlock = this;
                 if ( me.mode == "viewspot" || me.mode == "hotel" ) {
                     me.bindScrollImg();
                 }
                 fun && fun();
-            })
+            });
             $("." + me.mode).find(".info_content").css({
                 width       : "100%",
                 overflowY   : "auto",
                 "max-height": $(window).height() - 104 - 37
-            })
+            });
             me.container.on("click", ".info_close", function () {
                 me.showMap();
                 me.hide();
-            })
+            });
         },
 
         bindScrollImg: function () { //渲染完侧栏DOM后 实例化qyerSlidImg
@@ -123,7 +123,7 @@ define(function(gmapControl) {
             this.w = this.container.width();
             $(me.currentBlock).animate({opacity: 0, left: me.w + "px"}, 300, function () {
                 $(this).remove();
-            })
+            });
         }
     };
 

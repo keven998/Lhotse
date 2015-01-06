@@ -38,7 +38,7 @@ define(function() {
 
         // 初始化
         this.init(options);
-    }
+    };
 
 
     /*
@@ -219,7 +219,7 @@ define(function() {
                 _cache  = self.cache;
             $("#window-box") && $("#window-box").fadeIn(100);
             _cache.isshow = true;
-            if(_config.time == '' || typeof _config.time == 'undefined') {
+            if(_config.time === '' || typeof _config.time == 'undefined') {
                 return;
             }else {
                 t && clearTimeout(t);
@@ -430,11 +430,11 @@ define(function() {
          * @return {Boolean}
          */
         _isIE6: function(){
-            return navigator.userAgent.match(/MSIE 6.0/) != null;
+            return navigator.userAgent.match(/MSIE 6.0/) !== null;
         }
     };
 
     return {
         PopLayer : Overlay
-    }
+    };
 });

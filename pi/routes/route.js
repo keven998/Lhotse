@@ -26,7 +26,7 @@ router.get('/layer/:ROUTEID', function(req, res){
     model.getdata(null, function(data) {
         // model.consoleUrl();
         // console.log(data);
-        if (data != null){
+        if (data !== null){
             if (data.indexOf("!DOCTYPE") != -1){
                 console.log("The error occurred while getting the route-detail data!");
             }else{
@@ -40,7 +40,7 @@ router.get('/layer/:ROUTEID', function(req, res){
         /*get the relatived notes of the route*/
         model.setUrl(apiList.apiHost + apiList.routeNotes);
         model.getdata(req,function(data){
-            if (data != null){
+            if (data !== null){
                 if (data.indexOf("!DOCTYPE") != -1){
                     console.log("The error occurred while getting the misc data!");
                 }else{
@@ -112,9 +112,9 @@ router.post('/reload', function(req, res){
     // }
     indexGoUrl += req.body.params;
     // console.log(req.body.params);
-    if(req.query[zone.type.viewspot] != undefined){
+    if(req.query[zone.type.viewspot] !== undefined){
         poiType = zone.type.viewspot;
-    }else if(req.query[zone.type.locality] != undefined){
+    }else if(req.query[zone.type.locality] !== undefined){
         poiType = zone.type.locality;
     }
     indexGoUrl += "&" + poiType + "=" + arriveId;
@@ -124,7 +124,7 @@ router.post('/reload', function(req, res){
     // console.log("0");
     model.getdata(null, function(data){
         model.consoleUrl();
-        if((data != undefined) && (data.indexOf('<html>') < 0)){
+        if((data !== undefined) && (data.indexOf('<html>') < 0)){
             var data = JSON.parse(data),
                 routeListTemplate = 'routelist.html',
                 routeListHtml = [];
@@ -206,7 +206,7 @@ var selectCityId = function(result) {
     }
   }
   return cityId;
-}
+};
 
 
 /*
@@ -376,13 +376,13 @@ function regroupLayer(route_data, misc_data){
         },
         miscView: miscView,
         routeId: route_data._id
-    }
+    };
 }
 
 function regroupRouteList(data){
     var routeListView = [],
         routeData;
-    for(route in data){
+    for(var route in data){
         routeData = {
             id: data[route]._id,
             imgUrl: data[route].imageList ? (data[route].imageList[0] + '?imageView2/1/w/165/h/150') : null,
@@ -397,11 +397,11 @@ function regroupRouteList(data){
                 inf: data[route].budget[0],
                 sup: data[route].budget[1]
             }
-        }
+        };
         if (data[route].lxpTag && data[route].lxpTag[0]){
             routeData.mostTag = {
                 tagName: data[route].lxpTag[0]
-            }
+            };
         }
         if (data[route].desc && data[route].desc.length > 45){
             routeData.shortDesc = data[route].desc.substring(0, 45) + "...";
@@ -410,7 +410,7 @@ function regroupRouteList(data){
     }
     return {
         routeListView: routeListView,
-        routeCnt: (data && data != null) ? data.length : 0
+        routeCnt: (data && data !== null) ? data.length : 0
     };
 }
 

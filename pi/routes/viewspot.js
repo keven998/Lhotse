@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 var async = require('async');
 var apiList = require('../url_api');
-var request = require('request')
+var request = require('request');
 var model = require('../model/sup_model.js');
 var config = require('../conf/system');
 var utils = require( "../common/utils");
@@ -54,5 +54,5 @@ var selectCityId = function(result) {
     }
   }
   return cityId;
-}
+};
 module.exports = router;

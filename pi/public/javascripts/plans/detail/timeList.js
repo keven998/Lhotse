@@ -57,16 +57,16 @@
             });
             $(window).on("scroll", function (evt) {
                  me.reset();
-            })
+            });
             $(window).on("resize", function () {
                 me.reset();
-            })
+            });
         },
         getDataList: function () {
             var outstr = [], tmp;
             for ( var i = 0; i < this.data.length; i++ ) {
                 tmp = this.data[i];   //+ tmp.anchor
-                outstr.push('<li><a href="javascript:void(0)' + '" title="' + tmp.name + '"><span class="day">' + tmp.day + '</span><span class="name">' + tmp.name + '</span></a></li>')
+                outstr.push('<li><a href="javascript:void(0)' + '" title="' + tmp.name + '"><span class="day">' + tmp.day + '</span><span class="name">' + tmp.name + '</span></a></li>');
             }
             return outstr.join("");
         },
@@ -111,5 +111,5 @@
         },
     };
 
-    var timeList = new timeList(); // 导航栏
+    var __timeList = new timeList(); // 导航栏
 })();

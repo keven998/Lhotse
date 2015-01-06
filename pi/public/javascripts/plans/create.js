@@ -12,7 +12,7 @@ $('.city_nav').children('a').click(function(){
     } else if ($(this).attr('data-type') === zone.type.province) {
         $(this).attr('href','/route?fromName=' + fromLocName + '&pro=' + arrLocName);
     }
-})
+});
 
 
 /* 回车后，直接跳转 */
@@ -25,5 +25,5 @@ $(function(){
             go_plan_list();
         }
     });
-}())
+}());
 /* ---end--- */

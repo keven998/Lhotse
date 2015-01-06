@@ -9,15 +9,15 @@
                 var b = $(this);
                 c.find(".qui-slide-li_active").removeClass("qui-slide-li_active");
                 c.find(".qui-slide-img").attr("src", b.attr("data-src"));
-                b.addClass("qui-slide-li_active")
+                b.addClass("qui-slide-li_active");
             });
             var d = this.find(".qui-slide-ul > li:eq(0) > img");
             if ( d.length ) {
                 this.find(".qui-slide-img").attr("src", d.attr("data-src"));
-                d.addClass("qui-slide-li_active")
+                d.addClass("qui-slide-li_active");
             } else {
                 return;
             }
         }
-    })
+    });
 })(jQuery);
