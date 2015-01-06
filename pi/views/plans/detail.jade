@@ -16,14 +16,14 @@ block content
     // 头部
     .headers
       .banners
-        img.bimg(src=basicInfo.picUrl+"?imageView2/1/w/1002/h/450")
+        img.bimg(id='J_banner_pic' src=basicInfo.picUrl+"?imageView2/1/w/1002/h/450")
         // info
         .infos
           // title
           .title
             span.in
             p
-              span.main_title(data-id=basicInfo.id) #{basicInfo.title}
+              span.main_title#J_title(data-id=basicInfo.id) #{basicInfo.title}
           // other
           .other
             p
@@ -46,6 +46,11 @@ block content
             else
               a.ui_buttonC(id="J_copy_plan") 编辑行程
               a.ui_buttonA(id="J_save_plan") 保存行程
+              //- .bdsharebuttonbox(data-tag="share_1" id="J_share_plan")
+              //-   <a class="bds_tsina" data-cmd="tsina"></a>
+              //-   <a class="bds_weixin" data-cmd="weixin" href="#"></a>
+              //-   <a class="bds_more" data-cmd="more"></a>
+              //-   <a class="bds_count" data-cmd="count"></a>
 
 
     .pl_contents
@@ -374,6 +379,37 @@ block content
     //
       主题tab切换（总览模式｜日历模式）
     script(src='/javascripts/plans/detail/tabSwitch.js')
+
     // 百度分享
     script.
-        window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"想旅行就派一下!","bdMini":"1","bdMiniList":["mshare","qzone","tsina","weixin","renren","tqq","tieba"],"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"right","bdTop":"180"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+      window._bd_share_config = {
+      //此处添加分享具体设置
+        common : {
+          bdText : '旅行派的行程攻略太棒了!' + '<br>' + document.getElementById('J_title').innerHTML,
+          bdDesc : '旅行派的行程攻略太棒了',
+          bdUrl : window.location.href,
+          bdPic : document.getElementById('J_banner_pic').src
+        },
+        share : [{
+          "bdSize" : 14
+        }],
+        slide : [{
+          bdImg : 0,
+          bdPos : "right",
+          bdTop : 100
+        }],
+        image : [{
+          viewType : 'list',
+          viewPos : 'top',
+          viewColor : 'black',
+          viewSize : '16',
+          viewList : ['qzone','tsina','weixin','tqq','renren']
+        }],
+        selectShare : [{
+          "bdselectMiniList" : ['qzone','tsina','weixin','tqq','renren']
+        }]
+      };
+
+      //以下为js加载部分
+      with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+

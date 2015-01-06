@@ -47,7 +47,7 @@ html body{height: 100%;position: relative;}
 /*.nav{width: 650px;height: auto;overflow: hidden;float: right;text-align: center;}*/
 .nav{margin-right:50px;height: auto;overflow: hidden;float: right;text-align: center;}
 .nav li{display: inline-block;_zoom:1;*display:inline;width: 70px;height: 40px;*height: 50px;line-height: 40px;*line-height:70px;padding: 10px;margin-right: 3px;}
-.nav li a{display: inline-block;_zoom:1;*display:inline;color: #fff;font-size: 14px;width: 100%;height: 30px;text-align: center;padding-bottom:10px;}
+.nav li a{display: inline-block;_zoom:1;*display:inline;color: #fff;font-size: 15px;width: 100%;height: 30px;text-align: center;padding-bottom:10px;}
 .nav li a:hover{color: #4fa7bd;}
 .bd{width: 100%;height: auto;}
 .user{display:inline-block;_zoom:1;*display:inline;height: 40px;*height: 70px;width:100px;line-height: 40px;*line-height:70px;color: #fff;padding-top: 10px;vertical-align: top;padding-bottom: 10px;}
@@ -92,7 +92,7 @@ html body{height: 100%;position: relative;}
 
 .sugg_selected{color: #4fa7bd; background-color: white;}/*for the input suggestion*/
 /* uesr menu panel*/
-.user a{display: inline-block;_zoom:1;*display:inline;color: #fff;font-size: 12px;height: 30px;padding-left:3px;vertical-align:top;}
+.user a{display: inline-block;_zoom:1;*display:inline;color: #fff;font-size: 13px;height: 30px;padding-left:3px;vertical-align:top;}
 .user a:hover{color: #4fa7bd;}
 
 /*.drop-menu {display: none; width: 65px; right: 57px; top: 46px; position:absolute; z-index: 200; text-align: center;}*/
