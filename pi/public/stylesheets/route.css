@@ -3,8 +3,7 @@
 .route_container{width:582px;border: 1px solid #DDD;}
 .wrap_left{margin:5px 2px;;width:584px;overflow: hidden;display: inline-block;}
 /****head****/
-.bg-blue{height:30px;padding-bottom:10px;}
-.search-bg{background:#fff;color:#898989;height:30px;width:582px;font-size:14px;border:1px solid #ddd;box-shadow: 1px 1px 1px #ccc;}
+.search-bg{background:#fff;color:#898989;height:30px;width:544px;font-size:14px;border:1px solid #ddd;box-shadow: 5px 2px 6px #ccc;margin:5px 15px 10px;}
 .search-bg b{display:inline-block;vertical-align:top;line-height:30px;}
 .search-bg .change{margin-left:8px;color:#ccc;font-size:12px;}
 .search-bg .line{height:25px;margin:3px 20px 3px;border-right:1px solid #4fa7bd;}
@@ -12,7 +11,7 @@
 
 #fromWrap{display: inline-block;vertical-align: top;cursor: pointer;width:80px;height:30px;position: absolute;z-index: 100;}
 /****fileter-nav****/
-.filter-nav{height:24px;line-height:24px;padding-left:10px;}
+.filter-nav{height:24px;line-height:24px;padding-left:10px;padding-top:5px;}
 .filter-nav li{display:inline-block;position:relative;}
 .filter-nav>li > a{display:inline-block;color:#898989;padding-left:10px;letter-spacing:1px;font-size:1.1em;}
 .filter-nav>li > a:hover{border-bottom:2px solid #4fa7bd;color:#4fa7bd;}

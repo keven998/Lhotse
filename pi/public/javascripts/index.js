@@ -5,10 +5,10 @@ $(function(){
         $(".editor_routes").hide();
         $(".mustgo_routes").hide();
         $(".pop_routes").hide();
-        $(this).css("color",'#a22');
-        $(".editor").css("color",'#08DCA9');
-        $(".mustgo").css("color",'#08DCA9');
-        $(".pop").css("color",'#08DCA9');
+        $(this).attr("border-left",'3px solid #fa0');
+        $(".editor").css("border-left",'3px solid #4fa7bd');
+        $(".mustgo").css("border-left",'3px solid #4fa7bd');
+        $(".pop").css("border-left",'3px solid #4fa7bd');
     });
 
     $(".editor").click( function() {
@@ -16,10 +16,10 @@ $(function(){
         $(".editor_routes").show();
         $(".mustgo_routes").hide();
         $(".pop_routes").hide();
-        $(this).css("color",'#a22');
-        $(".new").css("color",'#08DCA9');
-        $(".mustgo").css("color",'#08DCA9');
-        $(".pop").css("color",'#08DCA9');
+        $(this).css("border-left",'3px solid #fa0');
+        $(".new").css("border-left",'3px solid #4fa7bd');
+        $(".mustgo").css("border-left",'3px solid #4fa7bd');
+        $(".pop").css("border-left",'3px solid #4fa7bd');
     });
 
     $(".mustgo").click( function() {
@@ -27,10 +27,10 @@ $(function(){
         $(".editor_routes").hide();
         $(".mustgo_routes").show();
         $(".pop_routes").hide();
-        $(this).css("color",'#a22');
-        $(".editor").css("color",'#08DCA9');
-        $(".new").css("color",'#08DCA9');
-        $(".pop").css("color",'#08DCA9');
+        $(this).css("border-left",'3px solid #fa0');
+        $(".editor").css("border-left",'3px solid #4fa7bd');
+        $(".new").css("border-left",'3px solid #4fa7bd');
+        $(".pop").css("border-left",'3px solid #4fa7bd');
     });
 
     $(".pop").click( function() {
@@ -38,10 +38,10 @@ $(function(){
         $(".editor_routes").hide();
         $(".mustgo_routes").hide();
         $(".pop_routes").show();
-        $(this).css("color",'#a22');
-        $(".editor").css("color",'#08DCA9');
-        $(".mustgo").css("color",'#08DCA9');
-        $(".new").css("color",'#08DCA9');
+        $(this).css("border-left",'3px solid #fa0');
+        $(".editor").css("border-left",'3px solid #4fa7bd');
+        $(".mustgo").css("border-left",'3px solid #4fa7bd');
+        $(".new").css("border-left",'3px solid #4fa7bd');
     });
 
 
