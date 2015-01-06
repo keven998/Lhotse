@@ -57,7 +57,7 @@ router.get('/detail/:TEMPLATEID', function(req, res) {
                 user_info       : utils.get_user_info(req, res),
                 config          : config,
                 already_saved   : false,
-            })
+            });
             return ;
         }
         console.log(model.getUrl());
@@ -102,7 +102,7 @@ router.get('/edit/:UGCID', function(req, res) {
                 user_info       : utils.get_user_info(req, res),
                 config          : config,
                 already_saved   : false
-            })
+            });
             return ;
         }
         var oriData         = JSON.parse(data),
@@ -142,22 +142,22 @@ router.get('/mine/', function(req, res){
                 updateMonth = updateTime.getMonth()+1,
                 updateDay = updateTime.getDate(),
                 updateDate = updateYear + "." + updateMonth + "." + updateDay;
-            if (plan.startDate != ""){
+            var startDate = '';
+            if (plan.startDate !== ""){
                 var startYear = plan.startDate.substr(0,4),
                     startMonth = plan.startDate.substr(5,2),
-                    startDay = plan.startDate.substr(8,2),
-                    startDate = startYear;
-                startDate += "." + startMonth + "." + startDay;
-            }else
-                startDate = 0;
-            if (plan.endDate != ""){
+                    startDay = plan.startDate.substr(8,2);
+                    //startDate = startYear;
+                startDate = startYear + "." + startMonth + "." + startDay;
+            }
+            var endDate = '';
+            if (plan.endDate !== ""){
                 var endYear = plan.endDate.substr(0,4),
                     endMonth = plan.endDate.substr(5,2),
-                    endDay = plan.endDate.substr(8,2),
-                    endDate = endYear;
-                endDate += "." + endMonth + "." + endDay;
-            }else
-                endDate = 0;
+                    endDay = plan.endDate.substr(8,2);
+                    // endDate = endYear;
+                endDate = endYear + "." + endMonth + "." + endDay;
+            }
             planList[i] = {
                 "id":           plan._id,
                 "name":         plan.title,
@@ -166,7 +166,7 @@ router.get('/mine/', function(req, res){
                 "startDate":    startDate,
                 "endDate":      endDate,
                 "updateDate":   updateDate
-            }
+            };
         }
         res.render('plans/mine',{
             num : i,
@@ -238,7 +238,7 @@ router.get('/timeline/customized/:UGCID', function(req, res) {
                 user_info       : utils.get_user_info(req, res),
                 config          : config,
                 already_saved   : false,
-            })
+            });
             return ;
         }
 
@@ -254,7 +254,7 @@ router.get('/timeline/customized/:UGCID', function(req, res) {
         var dates           = detailInfo.dates;
         var calendarData    = detailInfo.calendarData;
         // res.json(oriData);
-        console.log(utils.get_user_info(req, res))
+        console.log(utils.get_user_info(req, res));
             res.render('plans/detail', {
                 basicInfo       : basicInfo,
                 spotData        : spotData,
@@ -283,7 +283,7 @@ var gstTime = (function () {
     return {
         date: date,
         time: time,
-    }
+    };
 })();
 
 
@@ -335,21 +335,21 @@ var dataExtract = (function () {
 
     // data for navigation bar
     var navigationData = function(allRoutes) {
-        var navigation = new Array();
+        var navigation = [];
         for (var i = 0; i < allRoutes.length; i++) {
             var oneDay = allRoutes[i];
             var oneDayRoutes = oneDay.actv;
-            var tempDay = new Object();
-            var tempActv = new Array(); // 存放地点数组
+            var tempDay = {};
+            var tempActv = []; // 存放地点数组
 
             tempDay.date = oneDay.date; // 时间
             for (var routeNum = 0; routeNum < oneDayRoutes.length; routeNum++) {
                 var oneSpot = oneDayRoutes[routeNum];
                 if (oneSpot.type != "airRoute" && oneSpot.type != "trainRoute") {
-                    var tempSpot = new Object();
-                    tempSpot['itemName'] = oneSpot.itemName.length < 5 ? oneSpot.itemName : oneSpot.itemName.substring(0, 5)+ '...';
-                    tempSpot['type'] = oneSpot.type;
-                    tempSpot['latLng'] = oneSpot.lat + "," + oneSpot.lng;
+                    var tempSpot = {};
+                    tempSpot.itemName = oneSpot.itemName.length < 5 ? oneSpot.itemName : oneSpot.itemName.substring(0, 5)+ '...';
+                    tempSpot.type = oneSpot.type;
+                    tempSpot.latLng = oneSpot.lat + "," + oneSpot.lng;
                     tempActv.push(tempSpot);
                 }
             }
@@ -384,8 +384,8 @@ var dataExtract = (function () {
 
             var date        = gstTime.date(details[dayIndex].date),
                 // date        = moment()
-                weekFlay    = moment(date).format('dddd'),
-                date        = moment(date).format('MM月DD日');
+                weekFlay    = moment(date).format('dddd');
+            date        = moment(date).format('MM月DD日');
             dates.push(date);
             oneDayCalendar.date     = date;
             oneDayCalendar.weekFlay = weekFlay;
@@ -460,7 +460,7 @@ var dataExtract = (function () {
                             date     : gstTime.date(nextSpot.depTime)
                         };
                         trafficCalendar.push(tempSpot.detail);
-                    };
+                    }
                     tempOneDay.push(tempSpot);
                 }
                 viewspotCnt.push(viewspotSlug);

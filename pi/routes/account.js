@@ -29,7 +29,7 @@ router.get('/callback/weibo/', function(req, ori_res) {
         if (err) {throw err;}
         oauth2 = JSON.parse(data);
         var access_token = oauth2.access_token;
-        if (access_token == undefined){
+        if (access_token === undefined){
             ori_res.redirect('/');
             return ;
         }
@@ -57,14 +57,14 @@ router.get('/callback/weibo/', function(req, ori_res) {
                     id: data.result._id,
                     nick_name: data.result.nickName,
                     avatar: data.result.avatar,
-                }
+                };
                 utils.set_user_info(req, ori_res, user_info);
                 if (req.headers.referer){
                     ori_res.redirect(req.headers.referer);
                 }else{
                     ori_res.redirect('/');
                 }
-            })
+            });
         });
     });
 });
@@ -113,7 +113,7 @@ router.get('/callback/qq/', function(req, ori_res) {
                         id: data.result._id,
                         nick_name: data.result.nickName,
                         avatar: data.result.avatar,
-                    }
+                    };
                     utils.set_user_info(req, ori_res, user_info);
                     var source_url = getUrl(req.headers.referer);
                     if (source_url){
@@ -121,9 +121,9 @@ router.get('/callback/qq/', function(req, ori_res) {
                     }else{
                         ori_res.redirect('/');
                     }
-                })
-            })
-        })
+                });
+            });
+        });
     });
 });
 
@@ -148,6 +148,6 @@ router.get('/logout/', function(req, res) {
     }else {
         res.redirect(source_url);
     }
-})
+});
 
 module.exports = router;

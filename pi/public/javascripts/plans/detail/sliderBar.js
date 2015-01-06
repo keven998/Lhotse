@@ -34,7 +34,7 @@ define(function () {
                 me.curTop = disTop + 30;
                 me.scrollDom.css("top", me.curTop);
             } else {
-                me.scrollDom.css("top", 0)
+                me.scrollDom.css("top", 0);
             }
             me.scrollDom.css("min-height", $(window).height() - 104);
         },

@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 require.config({
     baseUrl: '/javascripts/',
@@ -32,7 +32,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                     }
                 });
             }
-        })
+        });
 
 
         /*条件筛选————tab点击效果*/
@@ -59,7 +59,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                     $(this).parents('.layer').hide('fast');
                     icoClass.removeClass('ico-arr02').addClass('ico-arr01');
                     // $this.children('b').css('border-bottom', 'none');
-                })
+                });
 
                 //筛选条件列表下拉
                 $thisParent.children('.layer').fadeToggle('fast');
@@ -74,17 +74,17 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                         // $this.children('b').css('border-bottom', 'none');
                         $this.children('i').removeClass('ico-arr02').addClass('ico-arr01');
                     }
-                })
-            })
-        })
+                });
+            });
+        });
 
 
         /*条件筛选按钮列表操作函数*/
         var travelPi = {
-            selectListUpdate: function (selectItemId, value, dataName) {
-                var value = value,
+            selectListUpdate: function (selectItemId, value_, dataName_) {
+                var value = value_,
                     dataFrom = selectItemId,
-                    dataName = dataName,
+                    dataName = dataName_,
                     selectListHtml,
                     selectListContent = $('.select-list');
                 selectListHtml = '<a data-from="' + dataFrom + '" data-name="' + dataName + '" data-item="' + value + '" class="bluebg option">' + value + '<i class="btn-close2"></i></a>';
@@ -92,23 +92,23 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                 travelPi.selectListClose(dataFrom);
             },
             //close the filterList-item will make the selectList-item with the special value closed
-            selectListRemove: function (value) {
-                var value = value,
+            selectListRemove: function (value_) {
+                var value = value_,
                     selectListContent = $('.select-list');
                 selectListContent.find('a').each(function (index) {
                     if ($(this).text() === value) {
                         $(this).remove();
                     }
-                })
+                });
             },
             //close the selectList-item will make the filterList-item with the special Id closed
-            selectListClose : function (dataFrom) {
+            selectListClose : function (dataFrom_) {
                 var selectList = $('.select-list>a'),
-                    dataFrom = dataFrom,
+                    dataFrom = dataFrom_,
                     aDataFrom = [],
                     dataFromID;
                 selectList.each(function () {
-                    if ($(this).attr('data-from') === dataFrom){
+                    if ($(this).attr('data-from') === dataFrom) {
                         $(this).on('click', function () {
                             dataFromID = '#' + dataFrom;
                             $(dataFromID).iCheck('uncheck');
@@ -116,7 +116,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                             reloadRouteList(params);
                             responseRouteListHeight();
                         });
-                    };
+                    }
                 });
             }
         };
@@ -131,27 +131,27 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                 purpose: "tag"
             };
 
-        function selectParams(){
+        function selectParams() {
             var selectList = $('.select-list>a'),
-                selectParams = "";
+                params = "";
             selectList.each(function () {
                 var selectItem = $(this),
                     dataName = selectItem.attr("data-name"),
                     dataItem = selectItem.attr("data-item");
                 if (dataName == "date"){
-                    selectParams += dateParams[dataItem];
+                    params += dateParams[dataItem];
                 }else{
-                    selectParams += "&" + filtField[dataName] + "=" + dataItem;
+                    params += "&" + filtField[dataName] + "=" + dataItem;
                 }
-            })
-            return selectParams;
+            });
+            return params;
         }
 
         function sortParams (){
             var sortIcon = $('.sort').children('i'),
                 sortKey = sortIcon.attr('data-key'),
-                sortParams = "&sortField=forkedCnt&sort=" + sortKey;
-            return sortParams;
+                params = "&sortField=forkedCnt&sort=" + sortKey;
+            return params;
         }
 
         function reloadRouteList(params){
@@ -325,7 +325,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
 
             //bind fork event
             $('.fork').each(function(){
-                $(this).on('click', popLayer)
+                $(this).on('click', popLayer);
             });
             //bind layer event
             routeList.each(function () {
@@ -391,7 +391,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                                 } else {
                                                     return false;
                                                 }
-                                            })
+                                            });
                                             tab02.on('click', function (e) {
                                                 if (item02.css('display') == 'none'){
                                                     item02.show();
@@ -399,7 +399,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                                 } else {
                                                     return false;
                                                 }
-                                            })
+                                            });
 
                                             //fork
                                             $('.slider_layer').find('.fork').on('click', popLayer);
@@ -407,9 +407,9 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                             $('#slider_close').on('click',function(){
                                                 sliderLayer.animate({
                                                     left: -650
-                                                },500,"swing")
-                                            })
-                                        })
+                                                },500,"swing");
+                                            });
+                                        });
                                         $(layerClass).show('fast');
 
                                         //close the droplayer by the close btn
@@ -417,7 +417,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                         var closdBtn = $(layerClass).find('#drop_close');
                                         closdBtn.on('click', function (e) {
                                             $(layerClass).hide(400);
-                                        })
+                                        });
 
                                         //图片滚动
                                         var id = function(el) {
@@ -449,7 +449,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                                 ul.style.width = (marginLeft + 20) * itemCount + 'px'; //加载完后设置容器长度   !!!
                                                 var timer = setInterval(marquee, speed);
                                             }
-                                        })
+                                        });
                                         $('#prev').click(function(){
                                             if(c) {
                                                 var marquee = function() {
@@ -464,7 +464,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                                 ul.style.width = (marginLeft + 20) * itemCount + 'px';
                                                 var timer = setInterval(marquee, speed);
                                             }
-                                        })
+                                        });
                                         locked = false;
                                     },
                                     error : function (XMLHttpRequest, textStatus, errorThrown) {
@@ -477,7 +477,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                     }else{
                         //
                     }
-                })
+                });
             });
         }
         window.onload = bindListEvent();
@@ -503,7 +503,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
             changeIcon();
             var params = selectParams() + sortParams();
             reloadRouteList(params);
-        })
+        });
 
 
         //复制路线-弹层
@@ -612,7 +612,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                 this.oH2 = document.createElement('h2');
                 this.oAlert_tit.className = 'alert_tit';
                 this.oAlert_con.className = 'alert_con';
-                if(this.oTitle != ""){
+                if(this.oTitle !== ""){
                     this.con.appendChild(this.oAlert_tit);
                     this.con.appendChild(this.oAlert_con);
                     this.oAlert_tit = $$$(this.tit, 'alert_tit')[0];
@@ -638,7 +638,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
             },
             content : function(){
                 this.conent = $$$(this.tit, 'alert_con')[0];
-                this.conent == undefined ? this.con.innerHTML = this.oContent : this.conent.innerHTML = this.oContent;
+                this.conent === undefined ? this.con.innerHTML = this.oContent : this.conent.innerHTML = this.oContent;
                 this.oButton = $$(this.tit, 'button');
                 var i = 0;
                 var _this = this;
@@ -669,7 +669,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                 this.oBot_c = $$$(this.oFrame, 'bot_c')[0];
                 this.oAlert_tit = $$$(this.oFrame, 'alert_tit')[0];
                 this.oAlert_con = $$$(this.oFrame, 'alert_con')[0];
-                if(this.iWidth != ""){
+                if(this.iWidth !== ""){
                     this.oFrame.style.width = parseInt(this.iWidth) +'px';
                     this.oFrame.style.marginLeft = -parseInt(this.iWidth) / 2 +'px';
                     this.oTop_c.style.width = parseInt(this.iWidth) - 10 +'px';
@@ -680,7 +680,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                 }
             },
             height : function(){
-                if(this.iHeight != ""){
+                if(this.iHeight !== ""){
                     this.oFrame.style.height = parseInt(this.iHeight) +'px';
                     this.oFrame.style.marginTop = -parseInt(this.iHeight) / 2 +'px';
                     this.oCon.style.height = parseInt(this.iHeight) - 10 +'px';
@@ -688,7 +688,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                 }
             },
             top : function(){
-                if(this.iTop != "")this.oFrame.style.top = parseInt(this.iTop) +'px',this.oFrame.style.marginTop = 0;
+                if(this.iTop !== "")this.oFrame.style.top = parseInt(this.iTop) +'px',this.oFrame.style.marginTop = 0;
             },
             left : function(){
                 if(this.iLeft != "")this.oFrame.style.left = parseInt(this.iLeft) +'px',this.oFrame.style.marginLeft = 0;
@@ -716,7 +716,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                             if(this.L < 0){
                                 this.L = 0;
                             }else if(this.L > document.documentElement.clientWidth - _this.oFrame.offsetWidth){
-                                this.L = document.documentElement.clientWidth - _this.oFrame.offsetWidth
+                                this.L = document.documentElement.clientWidth - _this.oFrame.offsetWidth;
                             }
                             if(this.T < 0){
                                 this.T = 0;
@@ -727,7 +727,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                             _this.oFrame.style.top = this.T + 'px';
                             _this.oFrame.style.margin = 0;
                             return false;
-                        }
+                        };
                         document.onmouseup = function(){
                             document.onmouseup = null;
                             document.onmousemove = null;
@@ -745,7 +745,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                 }
             },
             close : function(){
-                if(this.iClose == "close" && this.oTitle != ""){
+                if(this.iClose === "close" && this.oTitle !== ""){
                     var _this = this;
                     this.clos = $$$(this.tit, 'alert_tit')[0];
                     var oEm = document.createElement('em');
@@ -758,7 +758,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                             document.body.removeChild(_this.em.parentNode.parentNode.parentNode.parentNode.parentNode);
                         });
                         _this.sMove(_this.oBackg, {opacity:0});
-                    }
+                    };
                 }
             },
             getStyle : function(obj, attr){
@@ -851,7 +851,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
         // var arrive = new Vcity.CitySelector({input:'arrive'});
         /*********** City End ************/
 
-    })
+    });
 
 
     /************map************/
@@ -933,7 +933,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                 }
                 option.value = i;
                 selectDom.appendChild(option);
-            };
+            }
             selectPanelDiv.appendChild(selectDom);
             mapObject.controls[google.maps.ControlPosition.TOP_RIGHT].push(selectPanelDiv);
             if (routeData) {
@@ -959,7 +959,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                     tempMarkerArray.push(marker);
                     spot.indexInAll = indexInAll;
                     spot = cthis.addHTML(spot);
-                    mapControl.addMarker(spot, function(){})
+                    mapControl.addMarker(spot, function(){});
                 }
                 latLngArray.push(tempMarkerArray);
             }
@@ -967,7 +967,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
 
         cthis.drawRoute = function(index) {
             mapControl.clearRoute();
-            if (0 == index) {
+            if (0 === index) {
                 cthis.showAllMarker();
             }else {
                 cthis.showOneDay(index);
@@ -978,7 +978,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
 
         cthis.setFitView = function(index) {
             var bound = new google.maps.LatLngBounds();
-            if (0 == index ) {
+            if (0 === index ) {
                 for(var dayIndex in latLngArray) {
                     var oneDayData = latLngArray[dayIndex];
                     for (var j in oneDayData) {
@@ -1033,7 +1033,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
             currentSelect = 0;
             cthis.init();
 
-        }
+        };
     }
 
 
@@ -1063,6 +1063,6 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
         $(window).resize(function(){
             var wWidth = $(window).width();
             $('#map_inner').css('width',wWidth - routeListWidth);
-        })
+        });
     }
 });

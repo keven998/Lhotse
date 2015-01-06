@@ -12,7 +12,7 @@ $("i.delete").on("click",function(){
         }
     });
     $(this).parents(".plan_item").remove();
-})
+});
 
 
 /*修改计划名称*/
@@ -53,12 +53,12 @@ $(".plan_title").click(function(){
             planTitle.children(".plan_name").text(abbrName + "...");
         }else{
             planTitle.children(".plan_name").text(planName);
-        };
+        }
         planTitle.children(".plan_name").attr("title",planName);
         planEdit.css("display","none");
         planEditBtn.css("display","none");
         planTitle.css("display","inline-block");
-    })
+    });
 
     /*取消按钮*/
     planEditBtn.children('.cancel').off('click');
@@ -67,6 +67,6 @@ $(".plan_title").click(function(){
         planEditBtn.css("display","none");
         planTitle.css("display","inline-block");
         planInput.val(planPreName);
-    })
-})
+    });
+});
 

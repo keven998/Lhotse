@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 require.config({
     baseUrl: "/javascripts/",
@@ -36,7 +36,7 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock', 'PopLayer'
             var id  = $('.main_title').attr('data-id'),
                 url = '/plans/edit/' + id;
             window.open(url);
-        })
+        });
 
 
         /*
@@ -61,7 +61,7 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock', 'PopLayer'
                 data      : postData,
                 success: function(respondData) {
                     console.log(respondData);
-                    respondData.code == 0 ? (alert("保存成功"), window.location.href = '/plans/mine/')
+                    respondData.code === 0 ? (alert("保存成功"), window.location.href = '/plans/mine/')
                     : alert("保存失败");
 
                 }
@@ -206,7 +206,7 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock', 'PopLayer'
                     $('#pop_traffic_info').append(html);
                 });
             });
-        })
+        });
 
 
         /*
@@ -219,7 +219,7 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock', 'PopLayer'
                     distance = mapControl.calcuDistance(index);
                 $(this).find('.js_showPoiTrafficPopup').text(distance);
             });
-        };
+        }
 
         /*
          *左侧列表条目事件绑定
@@ -229,7 +229,7 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock', 'PopLayer'
                 id      = $(this).attr("data-id"),
                 dataUrl = '/edit/detail';
             infoBlock.render({url: dataUrl, mode: mode, id: id});
-        })
+        });
 
         /*
          *判断滚动条滚动位置，返回触发值

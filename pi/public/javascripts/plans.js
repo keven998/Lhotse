@@ -7,9 +7,8 @@ $(function () {
         tab02 = $('#tab02'),
         item01 = $('#item01'),
         item02 = $('#item02');
-        
+
     tab01.on('click', function (e) {
-        console.dir($(this))
         if ( !$(this).hasClass('item01-hover') ) {
             $(this).addClass('item01-hover').removeClass('item01-normal');
             tab02.removeClass('item02-hover').addClass('item02-normal');
@@ -18,8 +17,8 @@ $(function () {
         } else {
             return false;
         }
-    })
-    
+    });
+
     tab02.on('click', function (e) {
         if ( !$(this).hasClass('item02-hover') ) {
             $(this).addClass('item02-hover').removeClass('item02-normal');
@@ -29,13 +28,13 @@ $(function () {
         } else {
             return false;
         }
-    })
+    });
 
     var routeList = $('.routelist'),
         sider = $('.sider'),
         layer = $('.layer'),
         navHeight = 100,
-        wheight = $(window).height()
+        wheight = $(window).height(),
         sider_height = wheight - navHeight;
 
     /*
@@ -62,7 +61,7 @@ $(function () {
                     tags += msg.details.tags[i];
                     $("span.tags span").text(tags);
                     $("ul.l").empty();
-                    for (var i = 0; i < msg.details.summary.length; i++) {
+                    for (i = 0; i < msg.details.summary.length; i++) {
                         $("ul.l").append("<li><b class='date'>D" + (i+1) + "</b>" + msg.details.summary[i] + "</li>");
                     }
                     $(".c .routename").text(msg.details.title);
@@ -72,7 +71,7 @@ $(function () {
                     //请求成功后，写入dom,打开侧栏、遮罩
                     var noteList = $('#item02').children('ul'),
                         note, noteItem;
-                    for (var i = 0; i < msg.notes.length; i++){
+                    for (i = 0; i < msg.notes.length; i++){
                         note = msg.notes[i];
                         noteList.append('<li><a class="n' + i + '"></a></li>');
                         noteItem = noteList.find('a.n'+ i);//在DOM中定位
@@ -102,7 +101,7 @@ $(function () {
                     }
                 },
                 error : function () {
-                    console.log('error!!!')
+                    console.log('error!!!');
                 }
             });
 
@@ -118,21 +117,21 @@ $(function () {
             });
         });
     });
-    
-    
+
+
     var playthemeList=$('.play-theme a'),
         outDaylist=$('.out-days a'),
         fromId = $('h1.t').attr('data-fromId'),
         arrId = $('h1.t').attr('data-arriveId');
-    
+
     // page设置
     var page = 0;
     // 记录滚动加载是否结束
     var dataOver = false;
-        
+
     radioCheck(playthemeList,'btn02-c1');
     radioCheck(outDaylist,'btn02-c1');
-    
+
     // 检测是否有主题或者天数选中，激活ajax请求，动态生成DOM
     function radioCheck(lists,　activeClass)　{
         lists.each(function(index)　{
@@ -143,15 +142,15 @@ $(function () {
                      if(index!==Index && $(this).hasClass(activeClass))　{
                          $(this).removeClass(activeClass);
                      }
-                })
-                
+                });
+
                 // 每次有主题和天数选中时，page要清零,dataOver要置为false
                 page = 0;
                 dataOver = false;
                 // 读取主题tag 和 天数 days
                 var tag = $('.play-theme').children('a.btn02-c1').text() || '不限',
                     days = $('.out-days').children('a.btn02-c1').attr('data-days') || '0-99';
-                
+
                 // ajax的post数据
                 var selection = {
                     "tag" : tag,
@@ -161,39 +160,39 @@ $(function () {
                     'page' : 0,
                 };
 
-                $.ajax({  
+                $.ajax({
                     url    : '/route/selection',
                     data   : selection,
-                    dataType : "json",           
+                    dataType : "json",
                     type : 'POST',
-                    
+
                     error  : function () {
                         alert('Error...');
                     },
-                    
+
                     success: function (msg) {
                         var switchTag = 0;
-                        ajaxAddDom(msg, switchTag); 
+                        ajaxAddDom(msg, switchTag);
                     },
                 });
-            })
-        })
+            });
+        });
     }
-    
+
     /*
         ajax滚动加载
     */
-    var ajaxStatus = true;    
+    var ajaxStatus = true;
     $(window).on("scroll", function () {
         var top = document.documentElement.scrollTop + document.body.scrollTop;
         var textheight = $(document).height();
-        // 判断下拉菜单位置，加载更多数据        
+        // 判断下拉菜单位置，加载更多数据
         if ( textheight - top - $(window).height() <= 50  && !dataOver && ajaxStatus ) {
-            ajaxStatus = false;           
+            ajaxStatus = false;
             // 下面函数将要用到这四个参数
             var tag = $('.play-theme').children('a.btn02-c1').text() || '不限',
                     days = $('.out-days').children('a.btn02-c1').attr('data-days') || '0-99';
-                    
+
             // ajax的post数据
             var selection = {
                 "tag" : tag,
@@ -208,17 +207,17 @@ $(function () {
                 $('.more').show();
             }
 
-            $.ajax({ 
+            $.ajax({
                 url    : '/route/selection',
                 data   : selection,
-                dataType : "json",           
+                dataType : "json",
                 type : 'POST',
-                
+
                 success: function (msg) {  //成功返回后删除加载状态样式，插入dom
                     //console.dir(msg);
                     $('.more').hide();
-                    ajaxAddDom (msg, 1);       
-                    ajaxStatus = true;                    
+                    ajaxAddDom (msg, 1);
+                    ajaxStatus = true;
                 },
                 error  : function () {
                     return false;
@@ -226,20 +225,20 @@ $(function () {
             });
         }
     });
-    
-    
+
+
     /*
         ajax动态添加DOM元素
-        switch : 
+        switch :
                 -- 0 用于选择主题和天数
-                -- 1 用于ajax动态加载更多 
+                -- 1 用于ajax动态加载更多
     */
     function ajaxAddDom (msg, switchTag) {
         var result = msg.result;
         var len = result.length;
-        
-        if (len == 0) {
-            if (switchTag == 0) {
+
+        if (len === 0) {
+            if (switchTag === 0) {
                 routeList.empty();
                 //routeList.append("<h1 font='50px'>没有数据...</h1>");
             } else {
@@ -249,12 +248,12 @@ $(function () {
                 }
             }
             return ;
-        }    
-        
-        if (switchTag == 0) {
+        }
+
+        if (switchTag === 0) {
             routeList.empty();
         }
-        
+
         // 添加新的DOM数据
         for (var i = 0; i < len; i++) {
             var route = result[i];
@@ -264,9 +263,9 @@ $(function () {
             for (var j = 0; j < taglen; j++) {
                 tags += route.tags[j] + ' ';
             }
-            
+
             //alert(route._id);
-            // 配置DOM元素                                
+            // 配置DOM元素
             var childElement = '<li data-url=/route/plans/detail/' +
                 route._id + '><a class="c-img rel"><img src=' +
                 (route.imageList[0] === undefined ? '"/images/route/285-215.png"' : route.imageList[0]) + '><img class="most_tag" src="/images/route/triangle.png"><h2 class="most_tag">' +
@@ -277,10 +276,10 @@ $(function () {
                 route.days + '天</b></p><p class="ico-g fl w50"><i class="ico01 ico01-cost"></i><b>预计花费 ￥' +
                 route.budget[0] + '-￥' + route.budget[1] + '</b></p><a href=/plans/timeline/' +
                 route._id + "?_fromLoc=" + fromId + ' class="btn02 btn02-c4">复制路线</a></div></li>';
-            
+
             routeList.append(childElement);
-        }   
+        }
     }
-    
+
     /* ---end line--- */
-})
+});

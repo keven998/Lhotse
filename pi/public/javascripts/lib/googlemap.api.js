@@ -63,7 +63,7 @@ define(['async!http://ditu.google.cn/maps/api/js?v=3&sensor=false&libraries=geom
         };
         that.getMap = function() {
             return mapObj;
-        }
+        };
         that.setCenterByLatLng = function(lat, lng) {
             mapObj.setCenter(new google.maps.LatLng(lat, lng));
         };
@@ -144,7 +144,7 @@ define(['async!http://ditu.google.cn/maps/api/js?v=3&sensor=false&libraries=geom
             markers[f] && markers[f].setMap(mapObj);
         };
         that.showMarkers = function(markerIds) {
-            if(markerIds == null) {
+            if(markerIds === null) {
                 return;
             }
             for (var l = markerIds.length, m = 0; m < l; m++)

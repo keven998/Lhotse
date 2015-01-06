@@ -54,11 +54,11 @@ $(function(){
     $(mList).on('mouseleave', '.m-list', function (e) {
         $('.layer').stop(false,true);
         $(this).find('.layer').fadeOut(200);
-    })
+    });
 
     //jump detail page
-    var mList = $('.main a');
-    $(mList).each(function(){
+    var mList_ = $('.main a');
+    $(mList_).each(function(){
         $(this).on('click', function(){
             var fromName = $('#from').text(),
                 requestUrl = '/getid?locName=' + fromName,
@@ -202,14 +202,14 @@ $(function(){
 // 通过IP获取地理地址-城市名字
 
 $(function(){
-    var cityName = remote_ip_info["city"];// + remote_ip_info["city"];
+    var cityName = remote_ip_info.city;// + remote_ip_info["city"];
     if (!getCookie('userInputFrom')) {
         document.getElementById('from').innerHTML = cityName;
     }else{
         document.getElementById('from').innerHTML = getCookie('userInputFrom');//function getcookie defined in common.js
     }
     setCookie('fromLoc',encodeURI(cityName), 1);
-})
+});
 
 
 /********* City Selector *********/
@@ -218,7 +218,7 @@ var fromWrap = new Vcity.CitySelector({input:'fromWrap'});
 /*********** City End ************/
 
 /* ---end--- */
-          
+
 
 
 
