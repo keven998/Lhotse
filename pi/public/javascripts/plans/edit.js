@@ -733,6 +733,7 @@ var DayMapControl = function(constructInput) {
 
         that.getSubmitData = function(){
             var spotsArr = [];
+            var emptyFlag = true;
             $('.day_detail').each(function(){
                 var temp = [];
                 $(this).find('li').each(function() {
@@ -740,11 +741,34 @@ var DayMapControl = function(constructInput) {
                         obj   = {};
                     obj.type = $(this).attr('data-type');
                     obj.id   = $(this).find('i.spot_name').attr('data-id');
+                    if(emptyFlag) {
+                        if(obj.type != null || obj.type != undefined) {
+                            emptyFlag = !emptyFlag;
+                        }
+                    }
                     temp.push(obj);
                 });
                 spotsArr.push(temp);
             });
-            return spotsArr;
+            if(!emptyFlag){
+                return spotsArr;
+            }else{
+                return null;
+            }
+        };
+
+        that.popLayerForSubmit = function(xPostion, yPosition) {
+            var poplayer  = new PopLayer.PopLayer({
+                    targetCls : "",
+                    width     : "300px",
+                    height    : "40px",
+                    theight   : '0px',
+                    title     : '提示',
+                    showBg    :  false,
+                    time      :  5000
+            });
+            var content = "<div class='submit_spot_tips'>&nbsp&nbsp&nbsp&nbsp计划为空, 请添加景点。</div>";
+            poplayer.pop(content, 'text');
         };
 
         that.submitData = function() {
@@ -759,14 +783,20 @@ var DayMapControl = function(constructInput) {
                     startTime   = $('.J_calendar').val(),
                     postData    = {};
 
-                    postData.spots       = that.getSubmitData();
-                    postData.id          = ugcId;
-                    postData.startTime   = startTime;
-                    postData.title       = title;
-                    postData.templateId  = templateId;
-                    postData.userId      = userId;
-                    postData.trafficData = trafficData;
-                    postData.dayDiff     = parseInt(postData.spots.length - inputLen);
+                var submitData = that.getSubmitData();
+                if(!submitData){
+                    that.popLayerForSubmit();
+                    return;
+                }
+
+                postData.spots       = submitData;
+                postData.id          = ugcId;
+                postData.startTime   = startTime;
+                postData.title       = title;
+                postData.templateId  = templateId;
+                postData.userId      = userId;
+                postData.trafficData = trafficData;
+                postData.dayDiff     = parseInt(postData.spots.length - inputLen);
 
                 console.log(postData);
                 $.ajax({
