@@ -86,6 +86,13 @@
     left: 10px;
     position: absolute;
     width: 60px;
+    height: 495px;
+    overflow: auto;
+}
+
+ul#day_list {
+    overflow: auto;
+    height: auto;
 }
 
 .J_all_day {
@@ -108,6 +115,8 @@
     background: url(/images/plans/edit/icon-day-select.png) no-repeat;
     padding-right: 10px;
 }
+
+
 
 .J_day_list li {
     list-style: none;
@@ -217,12 +226,19 @@ i.new_add_to_plan {
     width       : 25px;
     height      : 25px;
     margin-top  : 5px;
+    margin-bottom: 5px;
     margin-left : 10px;
     cursor      : pointer;
 }
 
 .J_add_day:hover {
-
+    background: url(/images/plans/edit/btn-add-day.png) no-repeat;
+    width       : 25px;
+    height      : 25px;
+    margin-top  : 5px;
+    margin-bottom: 5px;
+    margin-left : 10px;
+    cursor      : pointer;
 }
 
 .icon_viewspot {
@@ -308,9 +324,10 @@ i.marker_number {
     left: 320px;
     top: 5px;
     height: 100%;
-    width: 100px;
+    width: 100%;
     position: absolute;
-    border: 1px solid #DDD;
+    border-left: 1px solid #DDD;
+    border-top: 1px solid #DDD;
 }
 
 div#map_inner {

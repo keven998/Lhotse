@@ -1,4 +1,4 @@
-'use strict';
+ 'use strict';
 require.config({
     baseUrl: '/javascripts/',
     paths: {
