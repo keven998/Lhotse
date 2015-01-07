@@ -3,11 +3,14 @@
 .route_container{width:582px;border: 1px solid #DDD;}
 .wrap_left{margin:5px 2px;;width:584px;overflow: hidden;display: inline-block;}
 /****head****/
-.search-bg{background:#fff;color:#898989;height:30px;width:544px;font-size:14px;border:1px solid #ddd;box-shadow: 5px 2px 6px #ccc;margin:5px 15px 10px;}
+.search-bg{position:relative;background:#fff;color:#898989;height:30px;width:544px;font-size:14px;border:1px solid #ddd;box-shadow: 5px 2px 6px #ccc;margin:5px 15px 10px;}
 .search-bg b{display:inline-block;vertical-align:top;line-height:30px;}
 .search-bg .change{margin-left:8px;color:#ccc;font-size:12px;}
 .search-bg .line{height:25px;margin:3px 20px 3px;border-right:1px solid #4fa7bd;}
-.search-bg input{border:0 none;vertical-align:top;height:30px;line-height:20px;font-size:14px;width:350px;}
+.search-bg input{border:0 none;vertical-align:top;height:30px;line-height:20px;font-size:14px;width:376px;}
+.search-btn{display:inline-block;height:30px;width:30px;position:absolute;right:0;top:0;background-color:#4fa7bd;}
+.search-btn:hover{background-color:#4b90ac;}
+.ico-magnifier{display:inline-block;width:30px;height:30px;margin:4px;background:url("/images/route/index/icon-magnifier.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/circle.png',sizingMethod='scale');cursor: pointer;}
 
 #fromWrap{display: inline-block;vertical-align: top;cursor: pointer;width:80px;height:30px;position: absolute;z-index: 100;}
 /****fileter-nav****/
@@ -30,8 +33,9 @@
 /**the gap include select-list & filter-option & the number of route**/
 .gap{background:#fff;height:35px;width:582px;border-bottom:1px solid #ccc;font-size:14px;}
 .route-sum{display:inline-block;background-color:#f7f7f7;height:25px;line-height:25px;padding-left:15px;color:#898989;width:445px;margin-top:5px;margin-right:5px;}
-.bluebg{display:inline-block;background:#2b708c;margin-top:5px;padding:0 10px;text-align:center;height:25px;line-height:25px;color:#fff;cursor:pointer;}
+.sort{display:inline-block;background:#4fa7bd;margin-top:5px;padding:0 10px;text-align:center;height:25px;line-height:25px;color:#fff;cursor:pointer;}
 .select-list{width:585px;border-right:1px solid #ccc;margin: 5px 10px;}
+.bluebg{display:inline-block;background:#2b708c;margin-top:5px;padding:0 10px;text-align:center;height:25px;line-height:25px;color:#fff;cursor:pointer;}
 .option{font-size:12px;margin:5px 5px 0;}
 .option i{vertical-align:middle;margin-left:10px;}
 
@@ -158,7 +162,7 @@ li p.ico-g{display:inline-block;color:#4fa7bd;}
 .alert_frame .bot_r {width:5px;height:5px;float:left;overflow:hidden;background:url(/images/route/index/poplayer/corner.png) no-repeat -5px -5px;}
 .alert_frame .alert_tit {width:328px;height:70px;float:left;color:#fff;line-height:27px;border:1px solid #fff;background-color:#2b708c;}
 .alert_frame .alert_tit h2 {float:left;margin:24px 50px;font-size:26px;font-weight:normal;font-family:"\u5FAE\u8F6F\u96C5\u9ED1";}
-.alert_frame .alert_tit em {width:64px;height:64px;overflow:hidden;float:right;cursor:pointer;background:url(/images/route/index/poplayer/cancel.gif) no-repeat;display:inline;margin:10px 10px 0 0;}
+.alert_frame .alert_tit em {width:64px;height:64px;overflow:hidden;float:right;cursor:pointer;background:url(/images/route/index/poplayer/cancel.png) no-repeat;display:inline;margin-top:20px;}
 /*.alert_frame .alert_tit em.hove {background:url(/images/route/index/poplayer/gnbimgs.gif) no-repeat -8px 0;}*/
 .alert_frame .alert_con {width:330px;height:81px;float:left;border-top:1px solid #e5e5e5;}
 .plan_option{width:100%;margin:20px 0 20px 50px;text-align:left;line-height:30px;color:#000;font-size:14px}

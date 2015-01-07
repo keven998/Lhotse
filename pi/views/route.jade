@@ -20,8 +20,8 @@ block content
                 b.change [更换]
                 b.line
                 input#arrive(type="text" name="arriveName" placeholder='景点/城市/省份' onkeyup="suggestion_to(this.value)" autocomplete="off" value='#{arriveName}' data-id='#{arriveId}')
-                //
-                    i.ico-addpos
+                .search-btn
+                    i.ico-magnifier(onclick="go_plan_list()")
             .route_container
                 ul.filter-nav
                     - var index = 0;
@@ -42,7 +42,7 @@ block content
                 .gap
                     .route-sum
                         |   共有#{plans.length}条线路
-                    .sort.bluebg
+                    .sort
                         |   按使用人数
                         i.ico-arr03(data-key="desc")
                 ul.routelist
