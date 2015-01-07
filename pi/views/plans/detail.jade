@@ -236,60 +236,64 @@ block content
             span 备注
       table(width='100%', border='0', cellspacing='0', cellpadding='0')
         tbody
-        - var cal_dayCnt = 0
-        each oneDayData in calendarData
-          - cal_dayCnt = cal_dayCnt + 1
-          tr
-            td
-              .tt1
-                span D#{cal_dayCnt}
+          - var cal_dayCnt = 0
+          each oneDayData in calendarData
+            - cal_dayCnt = cal_dayCnt + 1
+            tr
+              td
+                .tt1
+                  span D#{cal_dayCnt}
+              td
+                .tt2
+                  .time #{oneDayData.date}
+                  span.xq #{oneDayData.weekFlay}
+                  ul.adlist
+                    li
+                      i.circle
+                      b &nbsp
+                    li
+                      i.circle
+                      b &nbsp
+              td(valign='top')
+                .tt3
+                  each traffic in oneDayData.traffics
+                    .list
+                      strong.title #{traffic.depTime} - #{traffic.arrTime}
+                      p.city
+                        a.cLightgray(href='javascript:void(0)', target='_blank')  出发地
+                        span.traffic_plane
+                        a.cLightgray(href='javascript:void(0)') 目的地
+                      .no --
 
-            td
-              .tt2
-                .time #{oneDayData.date}
-                .xq #{oneDayData.weekFlay}
-                ul.adlist
+              td(valign='top')
+                .tt4
+                  ul
+                  - var cal_vsCnt = 0
+                  each viewspot in oneDayData.viewspots
+                    -cal_vsCnt = cal_vsCnt + 1
+                    li
+                      | #{cal_vsCnt}.
+                      span.cn
+                        a.cGray(href='javascript:void(0)') #{viewspot}
+                      span.en
+                        a.cLightgray(href='javascript:void(0)')
 
-            td(valign='top')
-              .tt3
-                each traffic in oneDayData.traffics
-                  .list
-                    strong.title #{traffic.depTime} - #{traffic.arrTime}
-                    p.city
-                      a.cLightgray(href='javascript:void(0)', target='_blank') 出发地
-                      span.traffic_plane
-                      a.cLightgray(href='javascript:void(0)') 目的地
-                    .no --
+              td(valign='top')
+                .tt5
+                  ul
+                  each hotel in oneDayData.hotels
+                    li
+                      span.cn
+                        a.cGray(href='javascript:void(0)') #{hotel}
+                      span.en
+                        a.cLightgray(href='javascript:void(0)')
 
-            td(valign='top')
-              .tt4
-                ul
-                - var cal_vsCnt = 0
-                each viewspot in oneDayData.viewspots
-                  -cal_vsCnt = cal_vsCnt + 1
-                  li
-                    | #{cal_vsCnt}.
-                    span.cn
-                      a.cGray(href='javascript:void(0)') #{viewspot}
-                    span.en
-                      a.cLightgray(href='javascript:void(0)')
-
-            td(valign='top')
-              .tt5
-                ul
-                each hotel in oneDayData.hotels
-                  li
-                    span.cn
-                      a.cGray(href='javascript:void(0)') #{hotel}
-                    span.en
-                      a.cLightgray(href='javascript:void(0)')
-
-            td(valign='top')
-              .tt6
-                | #{oneDayData.cost}
-            td(valign='top')
-              .tt7
-                p #{oneDayData.remark}
+              td(valign='top')
+                .tt6
+                  | #{oneDayData.cost}
+              td(valign='top')
+                .tt7
+                  p #{oneDayData.remark}
         //
           tr
             td

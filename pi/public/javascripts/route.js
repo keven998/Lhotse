@@ -940,7 +940,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                 selectDom.appendChild(option);
             }
             selectPanelDiv.appendChild(selectDom);
-            mapObject.controls[google.maps.ControlPosition.TOP_RIGHT].push(selectPanelDiv);
+            mapObject.controls[google.maps.ControlPosition.TOP_CENTER].push(selectPanelDiv);
             if (routeData) {
                 cthis.setFitView(0);
             }
