@@ -47,34 +47,31 @@ block content
         //-     b.txt01 精彩的旅程，也需要你的发现
         .c-nav
             a.new
-                b |
                 span 新鲜出炉
             a.editor
-                b |
                 span 小编推荐
             a.mustgo
-                b |
                 span 不可不去
             a.pop
-                b |
                 span 人气之旅
         .new_routes
-            .c-left
-                .num 1
-                p 这里汇集了旅行达人们最新发布的旅行攻略。
+            //
+                .c-left
+                    .num 1
+                    p 这里汇集了旅行达人们最新发布的旅行攻略。
             .c-right.f-cb
                 #m-list.main
                     each route in newRoute
-                        .m-list.fl.w50
+                        .m-list.fl
                             a(href='javascript:;' data-url='/plans/detail/#{route.id}')
                                 .layer
                                 if route.images
                                     if route.images.length
-                                        img(src=route.images[0].url + "?imageView2/1/w/342/h/180" width=342 height=180)
+                                        img(src=route.images[0].url + "?imageView2/1/w/300/h/200" width=300 height=200)
                                     else
-                                        <img src="/images/index/342-180.png" width="342" height="180">
+                                        <img src="/images/index/342-180.png" width="300" height="200">
                                 else
-                                    <img src="/images/index/342-180.png" width="342" height="180">
+                                    <img src="/images/index/342-180.png" width="300" height="200">
                             .left
                                 .bottom
                                     img(src=route.editorAvatar width=35 height=35)
@@ -84,32 +81,28 @@ block content
                                         a(href='javascript:;' data-url='/plans/detail/#{route.id}') #{route.name}
                                     p
                                         if route.description.desc
-                                          - var short_desc = route.description.desc.toString().substring(0, 40)
+                                          - var short_desc = route.description.desc.toString().substring(0, 25)
                                           | #{short_desc}...
                                     .label #{route.editor}
         .editor_routes(style='display: none;')
-            .c-left
-                .num 2
-                p 软妹子小编每日加班为您精选，篇篇攻略是经典，内容已审有保证。
+            //
+                .c-left
+                    .num 2
+                    p 软妹子小编每日加班为您精选，篇篇攻略是经典，内容已审有保证。
             .c-right.f-cb
                 #m-list.main
                     each route in editorRoute
-                        .m-list.fl.w50
+                        .m-list.fl
                             a(href='javascript:;' data-url='/plans/detail/#{route.id}')
                                 .layer
                                 if route.images
                                     if route.images.length
-                                        img(src=route.images[0].url + "?imageView2/1/w/342/h/180" width=342 height=180)
+                                        img(src=route.images[0].url + "?imageView2/1/w/300/h/200" width=300 height=200)
                                     else
-                                        <img src="http://lvxingpai-img-store.qiniudn.com/assets/images/46fcfe9041da2dc012630f39405e8cd5.jpg?imageView2/1/w/342/h/180" width="342" height="180">
+                                        <img src="/images/index/342-180.png" width="300" height="200">
                                 else
-                                    <img src="http://lvxingpai-img-store.qiniudn.com/assets/images/46fcfe9041da2dc012630f39405e8cd5.jpg?imageView2/1/w/342/h/180" width="342" height="180">
-                                //
-                                    img(src=route.image[0].url+"?imageView2/1/w/342/h/180" width=342 height=180)
+                                    <img src="/images/index/342-180.png" width="300" height="200">
                             .left
-                                //
-                                    .top
-                                        img(src='/images/index/ca.png')
                                 .bottom
                                     img(src=route.editorAvatar width=35 height=35)
                             .right
@@ -118,28 +111,27 @@ block content
                                         a(href='javascript:;' data-url='/plans/detail/#{route.id}') #{route.name}
                                     p
                                         if route.description.desc
-                                            - var short_desc = route.description.desc.toString().substring(0, 40)
+                                            - var short_desc = route.description.desc.toString().substring(0, 25)
                                             | #{short_desc}...
                                     .label #{route.editor}
         .mustgo_routes(style='display: none;')
-            .c-left
-                .num 3
-                p 有人说旅行是一种生活，我们说每样的生活都有一些不可不去的旅行。
+            //
+                .c-left
+                    .num 3
+                    p 有人说旅行是一种生活，我们说每样的生活都有一些不可不去的旅行。
             .c-right.f-cb
                 #m-list.main
                     each route in mustgoRoute
-                        .m-list.fl.w50
+                        .m-list.fl
                             a(href='javascript:;' data-url='/plans/detail/#{route.id}')
                                 .layer
                                 if route.images
                                     if route.images.length
-                                        img(src=route.images[0].url + "?imageView2/1/w/342/h/180" width=342 height=180)
+                                        img(src=route.images[0].url + "?imageView2/1/w/300/h/200" width=300 height=200)
                                     else
-                                        <img src="http://lvxingpai-img-store.qiniudn.com/assets/images/46fcfe9041da2dc012630f39405e8cd5.jpg?imageView2/1/w/342/h/180" width="342" height="180">
+                                        <img src="/images/index/342-180.png" width="300" height="200">
                                 else
-                                    <img src="http://lvxingpai-img-store.qiniudn.com/assets/images/46fcfe9041da2dc012630f39405e8cd5.jpg?imageView2/1/w/342/h/180" width="342" height="180">
-                                //
-                                    img(src=route.image[0].url+"?imageView2/1/w/342/h/180" width=342 height=180)
+                                    <img src="/images/index/342-180.png" width="300" height="200">
                             .left
                                 .bottom
                                     img(src=route.editorAvatar width=35 height=35)
@@ -149,26 +141,27 @@ block content
                                         a(href='javascript:;' data-url='/plans/detail/#{route.id}') #{route.name}
                                     p
                                         if route.description.desc
-                                            - var short_desc = route.description.desc.toString().substring(0, 40)
+                                            - var short_desc = route.description.desc.toString().substring(0, 25)
                                             | #{short_desc}...
                                     .label #{route.editor}
         .pop_routes(style='display: none;')
-            .c-left
-                .num 4
-                p 这里收集有当下最热门目的地的旅行攻略。
+            //
+                .c-left
+                    .num 4
+                    p 这里收集有当下最热门目的地的旅行攻略。
             .c-right.f-cb
                 #m-list.main
                     each route in popRoute
-                        .m-list.fl.w50
+                        .m-list.fl
                             a(href='javascript:;' data-url='/plans/detail/#{route.id}')
                                 .layer
                                 if route.images
                                     if route.images.length
-                                        img(src=route.images[0].url + "?imageView2/1/w/342/h/180" width=342 height=180)
+                                        img(src=route.images[0].url + "?imageView2/1/w/300/h/200" width=300 height=200)
                                     else
-                                        <img src="http://lvxingpai-img-store.qiniudn.com/assets/images/46fcfe9041da2dc012630f39405e8cd5.jpg?imageView2/1/w/342/h/180" width="342" height="180">
+                                        <img src="/images/index/342-180.png" width="300" height="200">
                                 else
-                                    <img src="http://lvxingpai-img-store.qiniudn.com/assets/images/46fcfe9041da2dc012630f39405e8cd5.jpg?imageView2/1/w/342/h/180" width="342" height="180">
+                                    <img src="/images/index/342-180.png" width="300" height="200">
                             .left
                                 .bottom
                                     img(src=route.editorAvatar width=35 height=35)
@@ -178,6 +171,6 @@ block content
                                         a(href='javascript:;' data-url='/plans/detail/#{route.id}') #{route.name}
                                     p
                                         if route.description.desc
-                                            - var short_desc = route.description.desc.toString().substring(0, 40)
+                                            - var short_desc = route.description.desc.toString().substring(0, 25)
                                             | #{short_desc}...
                                     .label #{route.editor}

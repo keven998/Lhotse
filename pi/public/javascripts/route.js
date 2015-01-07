@@ -194,7 +194,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
         function responseRouteListHeight(){
             var wHeight = $(window).height(),
                 hdHeight = $('.hd').height(),
-                searchHeight = 40,
+                searchHeight = 52,
                 margintop = 5,
                 filternavHeight = 24,
                 selectListHeight = $('.select-list').height(),
@@ -310,13 +310,14 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
 
 
         function responseRouteLayerHeight(){
-            var sliderHdPadding = 30,
+            var wHeight = $(window).height(),
+                sliderHdPadding = 20,
                 sliderHdHeight = $('.slider_hd').height() + sliderHdPadding,
                 sliderTabHeight = 31,
-                searchHeight = 55,
-                map_height = $('#map_inner').height();
-            $('.slider_layer').css('height', map_height - searchHeight);
-            $('.tab-c').css('height', map_height - searchHeight - sliderHdHeight - sliderTabHeight);
+                searchHeight = 52,
+                navHeight = 60;
+            $('.slider_layer').css('height', wHeight - searchHeight - navHeight);
+            $('.tab-c').css('height', wHeight - searchHeight - sliderHdHeight - sliderTabHeight - navHeight);
         }
 
         function bindListEvent(){
@@ -387,7 +388,9 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                             tab01.on('click', function (e) {
                                                 if (item01.css('display') == 'none'){
                                                     item01.show();
+                                                    tab01.addClass("selected");
                                                     item02.hide();
+                                                    tab02.removeClass("selected");
                                                 } else {
                                                     return false;
                                                 }
@@ -395,7 +398,9 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                             tab02.on('click', function (e) {
                                                 if (item02.css('display') == 'none'){
                                                     item02.show();
+                                                    tab02.addClass("selected");
                                                     item01.hide();
+                                                    tab01.removeClass("selected");
                                                 } else {
                                                     return false;
                                                 }
@@ -1047,18 +1052,18 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
     function container_initial(){
         var wHeight = $(window).height(),
             wWidth = $(window).width(),
-            hdHeight = $('.hd').height(),
-            searchHeight = 40,
-            margintop = 5,
+            searchHeight = 52,
+            navHeight = 60,
+            margintop = 10,
             //searchHeight = $('.bg-blue').height(),    the 'search' div has the padding that's not in .height()
             filternavHeight = 24,
             selectListHeight = $('.select-list').height(),
             gapHeight = 36,
             routeListWidth = $('.routelist').width(),
-            marginleft = 10;
+            marginleft = 15;
         $('#map_inner').css('width',wWidth - routeListWidth - marginleft);
-        $('#map_inner').css('height',wHeight - hdHeight - margintop);
-        $('.routelist').css('height',wHeight - hdHeight - searchHeight - filternavHeight - selectListHeight - gapHeight - margintop);
+        $('#map_inner').css('height',wHeight - margintop - navHeight);
+        $('.routelist').css('height',wHeight - searchHeight - filternavHeight - selectListHeight - gapHeight - margintop - navHeight);
 
         $(window).resize(function(){
             var wWidth = $(window).width();
