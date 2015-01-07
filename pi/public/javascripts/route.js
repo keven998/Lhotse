@@ -657,9 +657,9 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                             for (var index in flags){
                                 params += "&" + getParamsFromRadio(flags[index], names[index]);
                             }
-                            window.location.assign("/plans/detail/" + _this.route_id + params);
+                            window.open("/plans/detail/" + _this.route_id + params);
                         }else if ($(this).hasClass('skip')){
-                            window.location.assign("/plans/detail/" + _this.route_id + params);
+                            window.open("/plans/detail/" + _this.route_id + params);
                         }
                         _this.em.onclick();
                     };
