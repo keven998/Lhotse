@@ -335,8 +335,8 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                     var target = e.target,
                         dropClassName = "drop_layer",
                         layerClass = "." + dropClassName,
-                        tabUl = layerClass + ' ul';
-                    var fromId = $('#from').attr('data-id'),
+                        tabUl = layerClass + ' ul',
+                        fromId = $('#from').attr('data-id'),
                         requestUrl = "/route/layer/" + $(this).attr('data-id') + "?fromLoc=" + fromId;
                     if ( target.className !== 'fork ico-fork' ) {//排除‘复制路线’按钮事件，未改
                         //judge the next class and his data-id
@@ -372,6 +372,8 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                         /*create the routedetail layer*/
                                         $this.parent('ul.routelist').append(msg.sliderLayerHtml);
                                         $('.moredesc').append(msg.moreDesc);
+
+                                        /*bind sliderlayer show event*/
                                         $('#route').on('click',function(){
                                             var sliderLayer = $('.slider_layer');
                                             sliderLayer.show();
@@ -380,11 +382,12 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                                 left: 0
                                             },500,"swing");
 
-                                            //tab
+                                            //tab event
                                             var tab01 = $('#tab01'),
                                                 tab02 = $('#tab02'),
                                                 item01 = $('#item01'),
                                                 item02 = $('#item02');
+                                            tab01.off('click');
                                             tab01.on('click', function (e) {
                                                 if (item01.css('display') == 'none'){
                                                     item01.show();
@@ -395,6 +398,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                                     return false;
                                                 }
                                             });
+                                            tab02.off('click');
                                             tab02.on('click', function (e) {
                                                 if (item02.css('display') == 'none'){
                                                     item02.show();
@@ -406,9 +410,13 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                                 }
                                             });
 
-                                            //fork
-                                            $('.slider_layer').find('.fork').on('click', popLayer);
+                                            //fork event
+                                            var forkBtn = $('.slider_layer').find('.fork');
+                                            forkBtn.off('click');
+                                            forkBtn.on('click', popLayer);
 
+                                            //closed evnt
+                                            $('#slider_close').off('click');
                                             $('#slider_close').on('click',function(){
                                                 sliderLayer.animate({
                                                     left: -650
@@ -810,7 +818,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                 '<input type="radio" name="traffic" value="airRoute" id="air" checked/><label for="air">飞机</label>'+
                                 '<input type="radio" name="traffic" value="trainRoute" id="train"/><label for="train">火车</label>'+
                                 // '<input type="radio" name="traffic" value="carRoute" id="car"/><label for="car">汽车</label>'+
-                                '<input type="radio" name="traffic" value="none" id="tnone"/><label for="tnone">无</label>'+
+                                '<input type="radio" name="traffic" value="none" id="tnone"/><label for="tnone">不限</label>'+
                             '</div>'+
                             '<div>'+
                                 '<b>酒店</b>'+
@@ -819,14 +827,14 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                 '<input type="radio" name="hotel" value="youthandfolk" id="youthandfolk"/><label for="youthandfolk">青旅或民俗</label>'+
                                 // '<input type="radio" name="hotel" value="youth" id="youth"/><label for="youth">青年旅社</label>'+
                                 // '<input type="radio" name="hotel" value="folk" id="folk"/><label for="folk">民俗酒店</label>'+
-                                '<input type="radio" name="hotel" value="none" id="hnone"/><label for="hnone">无</label>'+
+                                '<input type="radio" name="hotel" value="none" id="hnone"/><label for="hnone">不限</label>'+
                             '</div>'+
                             '<div>'+
                                 '<b>美食</b>'+
                                 '<input type="radio" name="restaurant" value="reputation" id="reputation" checked/><label for="reputation">口碑最好</label>'+
                                 '<input type="radio" name="restaurant" value="special" id="special"/><label for="special">特色小吃</label>'+
                                 // '<input type="radio" name="restaurant" value="wellknow" id="wellknow"/><label for="wellknow">连锁名店</label>'+
-                                '<input type="radio" name="restaurant" value="none" id="rnone"/><label for="rnone">无</label>'+
+                                '<input type="radio" name="restaurant" value="none" id="rnone"/><label for="rnone">不限</label>'+
                             '</div>'+
                             // '<div>'+
                             //     '<b>娱乐</b>'+
@@ -837,8 +845,8 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                         '</form>'+
                     '</div>'+
                     '<div class="but">'+
-                        '<button class="mkplan" title="点击此处，帮您一键规划行程！"></button>'+
-                        '<button class="skip" title="谢谢，我不需要任何帮忙！"></button>'+
+                        '<button class="mkplan" title="点击此处，帮您一键规划行程！">替我规划</button>'+
+                        '<button class="skip" title="谢谢，我不需要任何帮忙！">自己规划</button>'+
                     '</div>',
                 width : '650px',
                 height : '320px',
