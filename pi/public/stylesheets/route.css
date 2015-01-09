@@ -7,7 +7,7 @@
 .search-bg b{display:inline-block;vertical-align:top;line-height:30px;}
 .search-bg .change{margin-left:8px;color:#ccc;font-size:12px;}
 .search-bg .line{height:25px;margin:3px 20px 3px;border-right:1px solid #4fa7bd;}
-.search-bg input{border:0 none;vertical-align:top;height:30px;line-height:20px;font-size:14px;width:376px;}
+.search-bg input{border:0 none;vertical-align:top;height:30px;font-size:14px;width:376px;}
 .search-btn{display:inline-block;height:30px;width:30px;position:absolute;right:0;top:0;background-color:#4fa7bd;}
 .search-btn:hover{background-color:#4b90ac;}
 .ico-magnifier{display:inline-block;width:30px;height:30px;margin:4px;background:url("/images/route/index/icon-magnifier.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/circle.png',sizingMethod='scale');cursor: pointer;}

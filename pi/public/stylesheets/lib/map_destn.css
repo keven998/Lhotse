@@ -1,0 +1,369 @@
+@charset "gb2312";
+.clear:after,.ltClear:after{content:'\20';display:block;height:0;clear:both}
+.clear,.ltClear{*zoom:1}
+html body{background:#fff}
+.ltSection{width:980px;margin:0 auto}
+
+/*=S 广告 */
+.ltAd980{width:980px;margin:20px auto 0;clear:both;overflow:hidden}
+.ltAd980 img{*display:block}
+.wrapGray .ltAd980,div.index_topgg{margin-top:0;padding-top:15px}
+.ltAd980 div.index_topgg{margin-top:0;padding-top:0}
+/*=E 广告 */
+
+/* 地图 */
+.destnMap{width:980px;margin:0 auto;padding:7px 0}
+.destnMapL{position:absolute;right:30px;top:25px;width:640px;height:430px}
+.dMapSwch{position:absolute;top:10px;left:0;height:22px;overflow:hidden;z-index:11}
+.dMapSwch a{display:inline-block;width:54px;height:22px;margin-right:1px;background:#f1f1f1;color:#666;font-size:13px;line-height:24px;line-height:25px\9;text-align:center;overflow:hidden}
+.dMapSwch a.cur{background:#ff9900;color:#fff}
+.dMapSwch a:hover{text-decoration:none}
+
+.mapTabSp{position:relative}
+.mapTabSpCn{margin-top:25px}
+.destnMap-merc{width:620px;height:400px;margin-left:20px}
+.destnMap-word{width:620px;height:400px;margin-left:20px}
+path{-moz-box-shadow:5px 5px 5px #999;-webkit-box-shadow:5px 5px 5px #999;box-shadow:5px 5px 5px #999}
+.dMapName h2{position:absolute;height:14px;color:#2b2b2b;font:normal 12px/14px \5B8B\4F53;z-index:10;cursor:pointer}
+.dMapNameWord h2{position:absolute;height:14px;color:#2b2b2b;font:normal 12px/14px \5B8B\4F53;z-index:10;cursor:pointer}
+
+.wordMap a{cursor:pointer}
+.wordMap a:hover{text-decoration:none}
+.wordMap .Asia .AsiaCn{display:block;width:101px;height:83px;background:url(http://img1.lotour.net/destn/map/mapcn.png) no-repeat;;position:absolute;left:119px;top:62px;}
+.wordMap .Asia .AsiaCn i{font-size:14px;font-family:\5B8B\4F53;color:#2b2b2b;position:absolute;left:44px;top:37px;font-style:normal;font-size:12px;font-weight:normal}
+.wordMap .Asia:hover .AsiaCn i{left:46px;top:39px}
+.wordMap .Asia:hover .AsiaCn{width:105px;height:87px;background:url(http://img1.lotour.net/destn/map/mapcnon.png) no-repeat;left:117px;top:60px}
+.wordMap .Asia .AsiaCn:hover{width:105px;height:87px;background:url(http://img1.lotour.net/destn/map/mapcnAson.png) no-repeat;left:117px;top:60px}
+.wordMap .Asia{display:block;width:275px;height:219px;background:url(http://img1.lotour.net/destn/map/map101.png) no-repeat;position:absolute;left:355px;top:46px}
+.wordMap .Asia:hover{background:url(http://img1.lotour.net/destn/map/map101on.png) no-repeat;}
+.wordMap .Asia i{font-size:14px;font-family:\5B8B\4F53;color:#2b2b2b;position:absolute;left:125px;top:55px;font-style:normal}
+.wordMap .Europe{display:block;width:153px;height:103px;background:url(http://img1.lotour.net/destn/map/map102.png) no-repeat;_background-image:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img1.lotour.net/destn/map/map102.png');position:absolute;left:260px;top:45px}
+.wordMap .Europe:hover{background:url(http://img1.lotour.net/destn/map/map102on.png) no-repeat;_background-image:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img1.lotour.net/destn/map/map102on.png')}
+.wordMap .Europe i{font-size:14px;font-family:\5B8B\4F53;color:#2b2b2b;position:absolute;left:90px;top:50px;font-style:normal}
+.wordMap .Africa{display:block;width:160px;height:181px;background:url(http://img1.lotour.net/destn/map/map103.png) no-repeat;_background-image:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img1.lotour.net/destn/map/map103.png');position:absolute;left:257px;top:142px}
+.wordMap .Africa:hover{background:url(http://img1.lotour.net/destn/map/map103on.png) no-repeat;_background-image:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img1.lotour.net/destn/map/map103on.png')}
+.wordMap .Africa i{font-size:14px;font-family:\5B8B\4F53;color:#2b2b2b;position:absolute;left:70px;top:50px;font-style:normal}
+.wordMap .NorthAmerica{display:block;width:291px;height:180px;background:url(http://img1.lotour.net/destn/map/map104.png) no-repeat;_background-image:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img1.lotour.net/destn/map/map104.png');position:absolute;left:0px;top:40px}
+.wordMap .NorthAmerica:hover{background:url(http://img1.lotour.net/destn/map/map104on.png) no-repeat;_background-image:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img1.lotour.net/destn/map/map104on.png')}
+.wordMap .NorthAmerica i{font-size:14px;font-family:\5B8B\4F53;color:#2b2b2b;position:absolute;left:70px;top:65px;font-style:normal}
+.wordMap .SouthAmerica{display:block;width:111px;height:171px;background:url(http://img1.lotour.net/destn/map/map105.png) no-repeat;_background-image:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img1.lotour.net/destn/map/map105.png');position:absolute;left:115px;top:203px}
+.wordMap .SouthAmerica:hover{background:url(http://img1.lotour.net/destn/map/map105on.png) no-repeat;_background-image:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img1.lotour.net/destn/map/map105on.png')}
+.wordMap .SouthAmerica i{font-size:14px;font-family:\5B8B\4F53;color:#2b2b2b;position:absolute;left:40px;top:50px;font-style:normal}
+.wordMap .Australia{display:block;width:132px;height:117px;background:url(http://img1.lotour.net/destn/map/map106.png) no-repeat;_background-image:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img1.lotour.net/destn/map/map106.png');position:absolute;left:540px;top:230px }
+.wordMap .Australia:hover{background:url(http://img1.lotour.net/destn/map/map106on.png) no-repeat;_background-image:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img1.lotour.net/destn/map/map106on.png')}
+.wordMap .Australia i{font-size:14px;font-family:\5B8B\4F53;color:#2b2b2b;position:absolute;left:30px;top:50px;font-style:normal}
+
+.dMapName h2.name15{top:134px;left:400px}
+.dMapName h2.name22{top:130px;left:515px}
+.dMapName h2.name23{top:85px;left:525px}
+.dMapName h2.name21{top:155px;left:490px}
+.dMapName h2.name13{top:188px;left:418px}
+.dMapName h2.name11{top:159px;left:427px}
+.dMapName h2.name12{top:184px;left:449px}
+.dMapName h2.name37{top:210px;left:440px}
+.dMapName h2.name32{top:245px;left:455px}
+.dMapName h2.name65{top:165px;left:155px}
+.dMapName h2.name62{top:190px;left:301px}
+.dMapName h2.name64{top:200px;left:335px}
+.dMapName h2.name14{top:200px;left:390px}
+.dMapName h2.name63{top:215px;left:250px}
+.dMapName h2.name61{top:234px;left:360px}
+.dMapName h2.name41{top:238px;left:400px}
+.dMapName h2.name34{top:260px;left:433px}
+.dMapName h2.name54{top:265px;left:180px}
+.dMapName h2.name51{top:272px;left:305px}
+.dMapName h2.name50{top:282px;left:345px}
+.dMapName h2.name42{top:267px;left:392px}
+.dMapName h2.name33{top:288px;left:458px}
+.dMapName h2.name31{top:268px;left:483px}
+.dMapName h2.name53{top:334px;left:295px}
+.dMapName h2.name52{top:312px;left:342px}
+.dMapName h2.name43{top:303px;left:386px}
+.dMapName h2.name36{top:305px;left:419px}
+.dMapName h2.name35{top:320px;left:440px}
+.dMapName h2.name45{top:341px;left:359px}
+.dMapName h2.name44{top:340px;left:400px}
+.dMapName h2.name46{top:375px;left:345px}
+.dMapName h2.name18{top:342px;left:490px}
+.dMapName h2.name19{top:337px;left:537px}
+.dMapName h2.name99{top:357px;left:421px}
+.dMapName h2.name95{top:366px;left:396px}
+
+/*.dMapNameWord h2.name101{top:121px;left:475px;font-size:14px;font-family:\5FAE\8F6F\96C5\9ED1;color:#fff}
+.dMapNameWord h2.name102{top:95px;left:350px;font-size:14px;font-family:\5FAE\8F6F\96C5\9ED1;color:#fff}
+.dMapNameWord h2.name103{top:195px;left:330px;font-size:14px;font-family:\5FAE\8F6F\96C5\9ED1;color:#fff}
+.dMapNameWord h2.name104{top:100px;left:75px;font-size:14px;font-family:\5FAE\8F6F\96C5\9ED1;color:#fff}
+.dMapNameWord h2.name105{top:255px;left:150px;font-size:14px;font-family:\5FAE\8F6F\96C5\9ED1;color:#fff}
+.dMapNameWord h2.name106{top:285px;left:565px;font-size:14px;font-family:\5FAE\8F6F\96C5\9ED1;color:#fff}*/
+
+.dMapLayer{position:absolute;width:396px;border:1px solid #ddd;background-color:#fff;background-position:0 0;background-repeat:no-repeat;z-index:11}
+.dMapLayer h2{height:42px;padding:1px 14px 0 0;font:normal 30px/42px \5FAE\8F6F\96C5\9ED1;color:#ec6909;text-align:right;clear:both;overflow:hidden}
+.dMapLayer h2 em{margin-right:4px;color:#ff9900;font:normal 24px/42px Arial;text-transform:uppercase}
+.dMapLayer h2 a{color:#ec6909}
+.dMapLayer h2 a:hover{color:#ec6909;text-decoration:none}
+.dMapList{padding:2px 0 0;margin-top:43px}
+.dMapList dl{height:27px;border-bottom:1px solid #f5f5f5;font-size:12px;white-space:nowrap;clear:both;overflow:hidden}
+.dMapList dl.bgf9{background-color:#f9f9f9}
+.dMapList dl.nobor{border:none}
+.dMapList dl,.dMapList dl a{color:#666}
+.dMapList dt,.dMapList dd{float:left;height:18px;padding:5px 0 4px;overflow:hidden}
+.dMapList dt{width:63px;margin-right:5px;padding-right:10px;border-right:1px solid #f5f5f5;font-weight:bold;text-align:right;line-height:18px}
+.dMapList dt a.fonc{color:#ec6909}
+.dMapList dt a:hover{color:#ec6909;text-decoration:underline}
+.dMapList dd{margin-right:2px}
+.dMapList dd a{float:left;height:12px;padding:3px 5px;padding:4px 3px 2px\9;line-height:12px}
+.dMapList dd a.fonc{color:#ec6909}
+.dMapList dd a:hover{color:#fff;background:#ff9900;text-decoration:none}
+
+.dMapLayer i{position:absolute}
+.dMapLayer i.bor41{top:0;right:-31px;width:31px;height:80px;background:url(http://img1.lotour.net/destn/map/bor41.png) no-repeat;_background-image:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img1.lotour.net/destn/map/bor41.png')}
+.dMapLayer i.borLT{top:0;left:-31px;width:31px;height:80px;background:url(http://img1.lotour.net/destn/map/borLT.png) no-repeat;_background-image:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img1.lotour.net/destn/map/borLT.png')}
+.dMapLayer i.borBL{bottom:-45px;left:120px;width:50px;height:45px;background:url(http://img1.lotour.net/destn/map/borBL.png) no-repeat;_background-image:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img1.lotour.net/destn/map/borBL.png')}
+.dMapLayer i.borBR{bottom:-45px;right:50px;width:50px;height:45px;background:url(http://img1.lotour.net/destn/map/borBL.png) no-repeat;_background-image:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img1.lotour.net/destn/map/borBL.png')}
+
+.dMapbg15{background-image:url(http://img1.lotour.net/destn/map/bg15.png);top:60px;left:-10px}/*内蒙古*/
+.dMapbg22{background-image:url(http://img1.lotour.net/destn/map/bg22.png);top:52px;left:100px}/*吉林*/
+.dMapbg23{background-image:url(http://img1.lotour.net/destn/map/bg23.png);top:5px;left:100px}/*黑龙江*/
+.dMapbg21{background-image:url(http://img1.lotour.net/destn/map/bg21.png);top:75px;left:70px}/*辽宁*/
+.dMapbg13{background-image:url(http://img1.lotour.net/destn/map/bg13.png);top:120px;left:5px}/*河北*/
+.dMapbg11{background-image:url(http://img1.lotour.net/destn/map/bg11.png);top:90px;left:12px}/*北京*/
+.dMapbg12{background-image:url(http://img1.lotour.net/destn/map/bg12.png);top:108px;left:20px}/*天津*/
+.dMapbg37{background-image:url(http://img1.lotour.net/destn/map/bg37.png);top:138px;left:25px}/*山东*/
+.dMapbg32{background-image:url(http://img1.lotour.net/destn/map/bg32.png);top:170px;left:40px}/*江苏*/
+.dMapbg65{background-image:url(http://img1.lotour.net/destn/map/bg65.png);top:45px;left:250px}/*新疆*/
+.dMapbg62{background-image:url(http://img1.lotour.net/destn/map/bg62.png);top:118px;left:340px}/*甘肃*/
+.dMapbg64{background-image:url(http://img1.lotour.net/destn/map/bg64.png);top:117px;left:380px}/*宁夏*/
+.dMapbg14{background-image:url(http://img1.lotour.net/destn/map/bg14.png);top:125px;left:-20px}/*山西*/
+.dMapbg63{background-image:url(http://img1.lotour.net/destn/map/bg63.png);top:140px;left:295px}/*青海*/
+.dMapbg61{background-image:url(http://img1.lotour.net/destn/map/bg61.png);top:155px;left:405px}/*陕西*/
+.dMapbg41{background-image:url(http://img1.lotour.net/destn/map/bg41.png);top:170px;left:-15px}/*河南*/
+.dMapbg34{background-image:url(http://img1.lotour.net/destn/map/bg34.png);top:187px;left:20px}/*安徽*/
+.dMapbg54{background-image:url(http://img1.lotour.net/destn/map/bg54.png);top:160px;left:225px}/*西藏*/
+.dMapbg51{background-image:url(http://img1.lotour.net/destn/map/bg51.png);top:195px;left:350px}/*四川*/
+.dMapbg50{background-image:url(http://img1.lotour.net/destn/map/bg50.png);top:0px;left:235px}/*重庆*/
+.dMapbg42{background-image:url(http://img1.lotour.net/destn/map/bg42.png);top:190px;left:-25px}/*湖北*/
+.dMapbg33{background-image:url(http://img1.lotour.net/destn/map/bg33.png);top:212px;left:42px}/*浙江*/
+.dMapbg31{background-image:url(http://img1.lotour.net/destn/map/bg31.png);top:195px;left:59px}/*上海*/
+.dMapbg53{background-image:url(http://img1.lotour.net/destn/map/bg53.png);bottom:110px;left:187px}/*云南*/
+.dMapbg52{background-image:url(http://img1.lotour.net/destn/map/bg52.png);bottom:130px;left:230px}/*贵州*/
+.dMapbg43{background-image:url(http://img1.lotour.net/destn/map/bg43.png);top:225px;left:-25px}/*湖南*/
+.dMapbg36{background-image:url(http://img1.lotour.net/destn/map/bg36.png);top:230px;left:5px}/*江西*/
+.dMapbg35{background-image:url(http://img1.lotour.net/destn/map/bg35.png);top:245px;left:27px}/*福建*/
+.dMapbg45{background-image:url(http://img1.lotour.net/destn/map/bg45.png);bottom:100px;left:250px}/*广西*/
+.dMapbg44{background-image:url(http://img1.lotour.net/destn/map/bg44.png);bottom:100px;left:290px}/*广东*/
+.dMapbg46{background-image:url(http://img1.lotour.net/destn/map/bg46.png);bottom:60px;left:258px}/*海南*/
+.dMapbg18{background-image:url(http://img1.lotour.net/destn/map/bg18.png);bottom:108px;left:196px}/*台湾*/
+.dMapbg99{background-image:url(http://img1.lotour.net/destn/map/bg99.png);bottom:86px;left:121px}/*香港*/
+.dMapbg95{background-image:url(http://img1.lotour.net/destn/map/bg95.png);bottom:80px;left:113px}/*澳门*/
+
+.dMapbg101{background-image:url(http://img1.lotour.net/destn/map/bg101.png);top:35px;left:55px}/*亚洲*/
+.dMapbg102{background-image:url(http://img1.lotour.net/destn/map/bg102.png);top:20px;left:400px}/*欧洲*/
+.dMapbg103{background-image:url(http://img1.lotour.net/destn/map/bg103.png);top:120px;left:370px}/*非洲*/
+.dMapbg104{background-image:url(http://img1.lotour.net/destn/map/bg104.png);top:33px;left:120px}/*北美洲*/
+.dMapbg105{background-image:url(http://img1.lotour.net/destn/map/bg105.png);top:180px;left:210px}/*南美洲*/
+.dMapbg106{background-image:url(http://img1.lotour.net/destn/map/bg106.png);top:180px;left:150px}/*大洋洲*/
+
+/* 地图标签 */
+.dMapLayer2{position:absolute;overflow:hidden;z-index:10}
+.dMapLayerCon2{width:62px;height:71px;background:url(http://img1.lotour.net/destn/map_tag.png) no-repeat;font:normal 12px/22px \5B8B\4F53;color:#f1f1f1;text-align:center; overflow:hidden}
+
+.dMaptag15{top:62px;left:382px}/*内蒙古*/
+.dMaptag22{top:60px;left:480px}/*吉林*/
+.dMaptag23{top:15px;left:510px}/*黑龙江*/
+.dMaptag21{top:85px;left:470px}/*辽宁*/
+.dMaptag13{top:120px;left:398px}/*河北*/
+.dMaptag11{top:102px;left:410px}/*北京*/
+.dMaptag12{top:120px;left:416px}/*天津*/
+.dMaptag37{top:145px;left:420px}/*山东*/
+.dMaptag32{top:180px;left:435px}/*江苏*/
+.dMaptag65{top:92px;left:137px}/*新疆*/
+.dMaptag62{top:127px;left:270px}/*甘肃*/
+.dMaptag64{top:130px;left:318px}/*宁夏*/
+.dMaptag14{top:130px;left:370px}/*山西*/
+.dMaptag63{top:142px;left:230px}/*青海*/
+.dMaptag61{top:160px;left:347px}/*陕西*/
+.dMaptag41{top:170px;left:380px}/*河南*/
+.dMaptag34{top:189px;left:412px}/*安徽*/
+.dMaptag54{top:192px;left:160px}/*西藏*/
+.dMaptag51{top:200px;left:285px}/*四川*/
+.dMaptag50{top:210px;left:340px}/*重庆*/
+.dMaptag42{top:200px;left:375px}/*湖北*/
+.dMaptag33{top:220px;left:440px}/*浙江*/
+.dMaptag31{top:206px;left:453px}/*上海*/
+.dMaptag53{bottom:65px;left:277px}/*云南*/
+.dMaptag52{bottom:85px;left:325px}/*贵州*/
+.dMaptag43{top:232px;left:365px}/*湖南*/
+.dMaptag36{top:235px;left:400px}/*江西*/
+.dMaptag35{top:250px;left:423px}/*福建*/
+.dMaptag45{bottom:58px;left:340px}/*广西*/
+.dMaptag44{bottom:48px;left:400px}/*广东*/
+.dMaptag46{bottom:5px;left:350px}/*海南*/
+.dMaptag18{bottom:50px;left:455px}/*台湾*/
+.dMaptag99{bottom:32px;left:390px}/*香港*/
+.dMaptag95{bottom:25px;left:378px}/*澳门*/
+
+.destnMapR{float:right;width:280px;margin-top:10px}
+.destnMapR h2{height:20px;border-bottom:2px solid #ff9900;font:14px/16px \5B8B\4F53;color:#2b2b2b}
+.ltRecommend{width:100%;border-bottom:1px solid #e9e9e9}
+.ltRecommend li{float:left;width:100%;height:32px;background:url(http://img1.lotour.net/destn/dot_bg.gif) repeat-x 0 bottom;line-height:32px;color:#2b2b2b;white-space:nowrap;clear:both;overflow:hidden}
+.ltRecommend li a{float:left;color:#2b2b2b}
+.ltRecommend li a:hover{color:#ec6909;text-decoration:none}
+.ltRecommend li span{float:left;margin-right:3px;color:#ec6909;line-height:normal;white-space:nowrap;overflow:hidden}
+.ltRecommend li.hover{background:#fff url(http://img1.lotour.net/destn/dot_bg.gif) repeat-x 0 bottom}
+.ltRecommend li.last{background-image:none}
+.ltRecommend li span a{padding:2px 3px 1px;color:#ec6909;line-height:normal;margin-top:7px;vertical-align:middle}
+.ltRecommend li span a:hover{background:#ff9900;color:#fff}
+
+/* 版块 */
+.destnPic{margin-top:20px}
+.destnPic img{display:block}
+.destnPic dd img.hover,.mdd-img img.hover{filter:alpha(opacity=85);-moz-opacity:0.85;-khtml-opacity:0.85;opacity:0.85}
+
+.destnPic .destnTit1{float:left;width:391px;height:255px;border-right:1px solid #fff;border-bottom:1px solid #fff;background:#f1f1f1}
+.destnTit{height:154px;padding:20px 0 0 35px;background:#ec6909;color:#fff}
+.destnTit h2{height:96px;color:#f1f1f1;font:normal 40px/96px \5FAE\8F6F\96C5\9ED1;overflow:hidden}
+.destnTit h2 strong{font-size:72px;font-weight:normal;color:#fff}
+.destnTit2 h2{height:30px;padding-bottom:10px;color:#666;font:normal 30px/30px \5FAE\8F6F\96C5\9ED1;overflow:hidden}
+.destnTit2 h2 strong{font-weight:normal;color:#ec6909}
+.destnTit3{height:30px;margin-top:20px;padding-bottom:8px;border-bottom:1px solid #f1f1f1;color:#666;font:normal 24px/30px \5FAE\8F6F\96C5\9ED1;clear:both;overflow:hidden}
+.destnTit3 a{color:#666}
+
+.destnTag{margin-right:35px;padding:6px 0;border-top:1px solid #d96109;color:#f1f1f1;line-height:20px;clear:both;overflow:hidden}
+.destnTag a{color:#f1f1f1}
+.destnTag li{float:left;margin-right:6px}
+.xqUser{padding:4px 0 0 24px}
+.xqUser h3{color:#666;font:normal 16px/32px \5FAE\8F6F\96C5\9ED1}
+.xqUserImg{position:relative;height:30px;clear:both}
+
+.xqUser li{float:left;width:31px;height:30px;background:#f2f0f1 url(http://img1.lotour.net/destn/loading.gif) no-repeat center center}
+.xqUser li img{width:30px;height:30px}
+.xqUser .xqBtn{float:left;width:63px;height:30px;color:#fff;line-height:30px}
+.xqUser .xqBtn a{display:block;padding:0 0 0 20px;background:#ff9900 url(http://img1.lotour.net/discover/discover_bg.png) no-repeat 7px -296px;color:#fff}
+.xqUser .xqBtn a:hover{background-color:#ec6909;text-decoration:none}
+
+.jq-slide .jq-wrap{float:left;position:relative;width:279px;height:30px;overflow:hidden}
+.jq-slide-con{position:absolute}
+.jq-slide-nav{display:none}
+.jq-slide-nav a{display:block;z-index:99;width:16px;height:30px;overflow:hidden;text-decoration:none;position:absolute;top:0;background:url(http://img1.lotour.net/destn/slidenav.png) no-repeat}
+.jq-slide-nav a.jq-prev{left:0;background-position:0 0}.jq-slide-nav a.jq-prev:hover{background-position:0 -31px}
+.jq-slide-nav a.jq-next{left:262px;background-position:-17px 0}.jq-slide-nav a.jq-next:hover{background-position:-17px -31px}
+
+.destnPic dd{position:relative;float:left;width:195px;height:255px;border-right:1px solid #fff;border-bottom:1px solid #fff}
+.loadingImg{background:#f2f0f1 url(http://img1.lotour.net/destn/loading.gif) no-repeat center center}
+.destnPic dd.coldd{width:391px}
+.destnPic dd .textDiv{position:absolute;bottom:0;right:0;padding:4px 11px 5px;filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#66000000', endColorstr='#66000000');background:rgba(0,0,0,0.4);text-align:right}
+:root .destnPic dd .textDiv{filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#00000000', endColorstr='#00000000')}
+.destnPic dd .textDiv a{color:#fff}
+.destnPic dd .textDiv a:hover{color:#ec6909;text-decoration:none}
+.destnPic dd h4{font:normal 18px/24px \5FAE\8F6F\96C5\9ED1}
+.destnPic dd p{color:#ccc;line-height:normal}
+.destnPic dd p .icoNum{padding-left:21px;background:url(http://img1.lotour.net/destn/ico_num.png) no-repeat 1px 2px}
+.destnPic dd.posB .textDiv{bottom:0}
+
+.destnNav{border:1px solid #f9f9f9;border-top:none;background:#fff}
+.destnNav h2{_display:inline;float:left;height:36px;margin-left:15px;padding:2px 10px;background:#fff8ed;font:normal 18px/36px \5FAE\8F6F\96C5\9ED1;color:#ff9900;text-align:center}
+.destnNav h2{color:#ff9900}
+.destnNav ul{float:left;width:400px;padding:2px 0 0 12px;_display:inline}
+.destnNav li{float:left;margin:0 2px 4px 0}
+.destnNav li a{float:left;height:15px;padding:1px 5px 1px;padding:2px 5px 0\9;color:#666;line-height:16px;white-space:nowrap}
+.destnNav li a.cur,.destnNav li a:hover{background:#ff9900;color:#fff;text-decoration:none}
+.dNavMod{float:left;width:488px;padding:10px 0;overflow:hidden}
+.destnNav ul.oneline{height:20px;padding:12px 0 0 12px;overflow:hidden}
+.dNavOne .dNavMod{float:none;margin:0 auto;clear:both}
+
+.destnTagNav{padding:11px 0 9px;border:1px solid #f1f1f1;background:#f9f9f9;text-align:center}
+.destnTagNav span{display:inline-block;padding-left:12px;color:#ff9900}
+.destnTagNav span a,.destnTagNav span a:hover{background:none;color:#ff9900;text-decoration:none}
+.destnTagNav a{display:inline-block;padding:1px 5px 0;padding:2px 5px 0\9;color:#666;line-height:15px;white-space:nowrap}
+.destnTagNav a.cur,.destnTagNav a:hover{background:#ff9900;color:#fff;text-decoration:none}
+
+.destnList{float:left;width:245px;height:115px;overflow:hidden}
+.destnList dt{padding-top:5px;font:normal 16px/36px \5FAE\8F6F\96C5\9ED1;color:#ec6909;clear:both}
+.destnList dt a{color:#ec6909}
+.destnList dd{float:left;margin-right:12px;color:#666;line-height:24px}
+.destnList dd a{color:#666;white-space:nowrap}
+
+/*=S 搜索框弹层*/
+div.city_divtc{display:none;position:absolute;width:296px;height:auto;padding:5px 9px 0;border:1px solid #ddd;background:#fff;z-index:30003}
+div.city_divtc_t{height:23px;padding-left:8px;border-bottom:1px solid #ddd}
+div.city_divtc_t span{color:#666;font-weight:bold;line-height:23px}
+div.city_divtc_t .closex{float:right;width:12px;height:12px;margin-top:3px;background:url(http://img1.lotour.net/lotour/searchframe_x.gif) no-repeat;cursor:pointer}
+div.city_divtc_m{padding-left:6px;line-height:24px}
+div.city_divtc_m ul{width:290px;padding:5px 0 10px 0;overflow:hidden}
+div.city_divtc_m ul li{float:left;width:58px}
+div.city_divtc_m a{color:#2b2b2b}
+div.city_divtc_m a:hover{color:#ec6909;text-decoration:none}
+/*=E 搜索框弹层*/
+
+div.ltBtm{margin-top:25px;background:none;clear:both;overflow:hidden}
+.kj{border-top:1px solid #fff;color:#666}
+
+/*20141015优化*/
+.mdd-pic{ position:relative; margin-bottom:-16px;+margin-bottom:0px;_margin-bottom:-16px;}
+.mdd-pic dt,.mdd-pic dd{ float:left; width:282px; height:278px; margin:0 3px 16px 0; padding:4px; background:#fff; border:1px solid #e8e8e8;}
+.mdd-pic dt,.mdd-pic dd.pic-w2{ width:380px;}
+.mdd-pic dt.mr0,.mdd-pic dd.mr0{ margin-right:0}
+.mdd-pic .bgc1{ background:#9bcd46}
+.mdd-pic .bgc2{ background:#9669e1}
+.mdd-pic .bgc3{ background:#fa82a5}
+.mdd-pic .bgc4{ background:#ff9900}
+.mdd-tit{width:380px; height:193px; overflow:hidden}
+.mdd-tit h2{ height:72px; padding-top:15px;font:normal 48px/72px \5FAE\8F6F\96C5\9ED1;color:#fff; text-align:center}
+.mdd-tit p{width:260px; height:66px; padding:9px 18px 10px 62px;background:url(http://img1.lotour.net/destn/mdd_titp.png) no-repeat 45px 0;font:normal 14px/22px \5B8B\4F53;color:#fff;overflow:hidden}
+.mdd-tit a{ display:block;height:66px; overflow:hidden;color:#fff}
+.mdd-tit a:hover{color:#fff; text-decoration:underline}
+
+.xqUser{ padding:5px 0 0 45px}
+.xqUser h3{height:32px;font:normal 14px/32px \5B8B\4F53;}
+.xqUser h3.cor1{color:#9bcd46}
+.xqUser h3.cor2{color:#9669e1}
+.xqUser h3.cor3{color:#fa82a5}
+.xqUser h3.cor4{color:#ff9900}
+.jq-slide .jq-wrap{width:222px;}
+.xqUser li{ width:32px; background-color:#fff}
+.xqUser .xqBtn{ height:22px; margin:5px 0 0 3px; line-height:22px}
+.xqUser .xqBtn a{ background-position:6px -300px;-moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px}
+.jq-slide-nav a.jq-next{left:206px}
+.xqUser li img{position:relative;z-index:1}
+.xqUser li a{position:relative;display:block;width:30px;height:30px}
+.xqUser li a i{position:absolute;top:0;left:0;width:30px;height:30px;background:url(http://img1.lotour.net/destn/hd_bg.png) no-repeat 0 0;z-index:10}
+
+.mdd-img{ position:relative;display:block;width:282px; height:193px;}
+.mdd-img img{display:block;width:282px; height:193px;}
+.mdd-pic dd.pic-w2 .mdd-img,.mdd-pic dd.pic-w2 .mdd-img img{width:380px;}
+.mdd-img i{ position:absolute; left:0; bottom:0;_bottom:-1px; width:100%; height:48px;background:url(http://img1.lotour.net/destn/mdd_imgbg.png) no-repeat 0 0; z-index:1}
+.mdd-img h2{position:absolute; left:0; bottom:0; width:100%; height:40px; z-index:2}
+.mdd-img h2 strong{float:left; margin-left:15px;font:normal 18px/40px \5FAE\8F6F\96C5\9ED1;color:#f1f1f1;}
+.mdd-img h2 .icoNum{float:left;margin:15px 0 0 10px;padding-left:20px;background:url(http://img1.lotour.net/destn/ico_num2.png) no-repeat 1px 2px;font:normal 12px/14px \5B8B\4F53;color:#999;}
+.mdd-img h2 a{color:#f1f1f1}
+.mdd-img h2 a:hover{color:#ff9900;text-decoration:none}
+.mdd-txt{ height:54px; padding:16px 10px 0 15px;font:normal 12px/18px \5B8B\4F53;color:#2b2b2b; overflow:hidden}
+.mdd-txt a{color:#2b2b2b}
+.mdd-txt a:hover{color:#ff9900;text-decoration:none}
+.destnNav{ margin-top:16px; padding-bottom:25px;border:none; background:none}
+.destnNav .dNavMod{padding:0;}
+.destnNav h2{height:24px;margin:0 15px 0 0;padding:0 8px 1px;background:#f1f1f1;font:normal 14px/24px \5FAE\8F6F\96C5\9ED1;color:#000;text-align:left}
+.destnNav h2 a{color:#000}
+.destnNav a:hover{color:#ff9900;text-decoration:none}
+.destnNav ul,.destnNav ul.oneline{ margin-top:4px;padding:0; overflow:hidden}
+.destnNav li a{height:19px;padding:1px 5px 0;color:#666;line-height:19px;}
+.mdd-bg1 .destnNav h2{ background:#e4e4e4}
+.mdd-bg1,.mdd-bg2{width:100%;padding-top:30px;background:#f9f9f9}
+.mdd-bg2{background:#fff}
+.mdd-bg1 .ltAd980,.mdd-bg2 .ltAd980{ margin:0 auto 20px}
+
+/* 左侧菜单 */
+.mdd-menu{ display:none; position:fixed;top:20px; left:0;width:74px; height:409px; padding:20px 0 0 10px;z-index:9;_position:absolute;_bottom:auto;_top:expression(eval(document.documentElement.scrollTop));_margin-top:20px;}
+.mdd-menu-bg{width:74px;height:316px;padding:20px 0 18px;background:url(http://img1.lotour.net/destn/menu_dash.png) repeat-y 8px 0;}
+.mdd-menu-con{position:relative;height:316px;overflow:hidden;*zoom:1;}
+.mdd-menu dl{ position:relative;}
+.mdd-menu dd{position:relative;width:52px; margin-bottom:28px;padding-left:22px;background:url(http://img1.lotour.net/destn/menu_btn.png) no-repeat 3px -47px;color:#666;font:normal 12px/14px \5B8B\4F53;}
+.mdd-menu dd a{color:#666}
+.mdd-menu dd a:hover,.mdd-menu dd.on a{color:#ff9900; text-decoration:none}
+.mdd-menu dd.on{background:url(http://img1.lotour.net/destn/menu_btn.png) no-repeat 3px -88px;color:#ff9900}
+.mdd-menu-up,.mdd-menu-down{display:block;width:17px;height:17px;background:url(http://img1.lotour.net/destn/menu_btn.png) no-repeat -19px 0;}
+.mdd-menu-down{background-position:-19px -19px;}
+.mdd-menu-upoff{ background-position:0 0;}
+.mdd-menu-downoff{ background-position:0 -19px;}
+.mdd-menu-s{background:url(http://img1.lotour.net/destn/menu_bg.png) no-repeat 0 0;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=scale,src="http://img1.lotour.net/destn/menu_bg.png");}
+*html{background-image:url(about:blank);background-attachment:fixed}

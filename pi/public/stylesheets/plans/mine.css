@@ -11,14 +11,15 @@
 .plan_desc{display:inline-block;height:140px;width:280px;vertical-align:top;}
 .plan_title{display:inline-block;height:28px;width:180px;margin-top:25px;cursor:text;}
 .plan_title:hover{background:#e3e4e4;}
-.plan_name{margin-left:5px;line-height:28px;font-size:19px;color:#4fa7bd;}
-.plan_edit{display:none;height:28px;width:180px;margin-top:25px;}
-.plan_input{margin-left:5px;width:180px;height:28px;line-height:28px;font-size:19px;color:#4fa7bd;}
-.edit_btn{display:none;margin-left:10px;width:86px;}
-.confirm{background-image:url("/images/plans/mine/confirm_btn.png");height:23px;width:40px;margin-right:4px;}
-.cancel{background-image:url("/images/plans/mine/cancel_btn.png");height:23px;width:40px;}
-p.date{margin:5px 0 15px 5px;font-size:16px;}
-/*.viewdetail{background-image:url("/images/plans/mine/viewdetail_btn.png");height:23px;width:65px;margin:0 0 30px 15px;}*/
-.viewdetail{background-color:#4fa7bd;height:23px;width:65px;margin:0 0 30px 5px;padding:5px 10px;border-radius:73px;-moz-border-radius:73px;-webkit-border-radius:3px;color:#fff;font-size:14px;}
+.plan_name{line-height:30px;font-size:22px;color:#4fa7bd;}
+.plan_edit{display:none;width:160px;margin-top:25px;}
+.plan_input{width:160px;height:25px;line-height:25px;font-size:18px;color:#4fa7bd;}
+.edit_btn{display:none;margin-top:25px;margin-left:10px;vertical-align: top;}
+.confirm{background-color: #f26622;color:#fff;border-radius:4px;height:25px;line-height:25px;width:45px;text-align: center;margin:0 5px;}
+.confirm:hover{background-color: #E5550D;color:#fff;}
+.cancel{border:1px solid #bebebe;background-color:#ebebeb;color:#c4c4c4;border-radius:4px;height:25px;line-height:25px;width:45px;text-align: center;}
+.cancel:hover{background-color:#bebebe;color:#fff;}
+p.date{margin:8px 0;font-size:16px;}
+.viewdetail{background-color:#4fa7bd;height:23px;width:65px;margin-bottom:30px;padding:5px 10px;border-radius:73px;-moz-border-radius:73px;-webkit-border-radius:3px;color:#fff;font-size:14px;}
 .plan_ft{margin:30px 0 0 115px;color:#888;font-size:13px;}
 i.delete{margin-left:15px;vertical-align: text-top;display:inline-block;background:url("/images/plans/mine/delete_btn.png") no-repeat;width:15px;height:15px;cursor:pointer;}
