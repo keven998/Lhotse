@@ -41,8 +41,8 @@ block content
                                 .plan_edit
                                     input.plan_input(type="text" value=plan.name data-id=plan.id)
                                 .edit_btn
-                                    input.confirm(type="button" value="")
-                                    input.cancel(type="button" value="")
+                                    input.confirm(type="button" value="确定")
+                                    input.cancel(type="button" value="取消")
                                 p.date #{plan.startDate}
                                     if (plan.endDate != 0)
                                         | -#{plan.endDate}
