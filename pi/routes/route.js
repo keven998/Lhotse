@@ -13,7 +13,6 @@ var zone = require('../conf/zone');
 
 mu.root = _dirname;
 moment.locale('zh-cn');
-// apiList.apiHost = 'http://api.lvxingpai.com'
 
 /*get data for route.jade's ajax request*/
 router.get('/layer/:ROUTEID', function(req, res){
