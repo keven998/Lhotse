@@ -1,83 +1,50 @@
-var express = require('express');
-var router = express.Router();
-var model = require('../model/sup_model.js');
+var _dirname = 'public/htmltemplate/routePage';
 var apiList = require('../url_api');
+var async = require('async');
 var config = require('../conf/system');
+var express = require('express');
+var model = require('../model/sup_model.js');
+var moment = require('moment');
+var mu = require('mu2');
+var router = express.Router();
 var utils = require( "../common/utils");
 var zone = require('../conf/zone');
-var mu = require('mu2');
-var _dirname = 'public/htmltemplate/routePage';
 
-var moment = require('moment');
+
+mu.root = _dirname;
 moment.locale('zh-cn');
-
+// apiList.apiHost = 'http://api.lvxingpai.com'
 
 /*get data for route.jade's ajax request*/
 router.get('/layer/:ROUTEID', function(req, res){
-    mu.root = _dirname;
-    var dropLayerTemplate = 'droplayer.html',
-        dropLayerHtml = [],
-        sliderLayerTemplate = 'sliderlayer.html',
-        sliderLayerHtml = [],
-        fromLoc = req.query.fromLoc;
-
-    /*get the details of the route*/
-    model.setUrl(apiList.apiHost + "/web/plans/" + req.params.ROUTEID + '?fromLoc=' + fromLoc);
-    model.getdata(null, function(data) {
-        // model.consoleUrl();
-        // console.log(data);
-        if (data !== null){
-            if (data.indexOf("!DOCTYPE") != -1){
-                console.log("The error occurred while getting the route-detail data!");
-            }else{
-                var route_data = JSON.parse(data).result;
-            }
-        }else{
-            console.log("The route-detail data is null!");
+    async.parallel({
+        route_data: function(callback){
+            model.setUrl(apiList.apiHost + "/web/plans/" + req.params.ROUTEID + '?fromLoc=' + req.query.fromLoc);
+            model.getCleanData(null, function(data) {callback(null, data)});
+        },
+        misc_data: function(callback){
+            model.setUrl(apiList.apiHost + apiList.routeNotes);
+            model.getCleanData(null, function(data) {callback(null, data)});
         }
-
-
-        /*get the relatived notes of the route*/
-        model.setUrl(apiList.apiHost + apiList.routeNotes);
-        model.getdata(req,function(data){
-            if (data !== null){
-                if (data.indexOf("!DOCTYPE") != -1){
-                    console.log("The error occurred while getting the misc data!");
-                }else{
-                    var misc_data = JSON.parse(data).result;
-                }
-            }else{
-                console.log("The misc data is null!");
+    }, function(err, results){
+        /*render the html*/
+        var result = {};
+        if(!results.route_data.succ){
+            result = {succ: false, data: results.route_data.data.toString()}
+        }else if( !results.misc_data.succ){
+            result = {succ: false, data: results.misc_data.data.toString()}
+        }else{
+            var data = regroupLayer(results.route_data, results.misc_data);
+            result = {
+                dropLayerHtml: mu.compileAndRender('droplayer.html' , data),
+                sliderLayerHtml: mu.compileAndRender('sliderlayer.html' , data),
+                mapView: data.mapView,
+                moreDesc: data.fullView.moreDesc
             }
-
-
-            /*render the html*/
-            var data = regroupLayer(route_data, misc_data);
-
-            mu.compileAndRender(dropLayerTemplate , data)
-            .on('data', function(chunk) {
-                dropLayerHtml.push(chunk);
-            })
-            .on('end', function() {
-                dropLayerHtml = dropLayerHtml.join("");
-                mu.compileAndRender(sliderLayerTemplate , data)
-                .on('data', function(chunk) {
-                    sliderLayerHtml.push(chunk);
-                })
-                .on('end', function() {
-                    sliderLayerHtml = sliderLayerHtml.join("");
-                    res.json('route', {
-                        dropLayerHtml: dropLayerHtml.toString(),
-                        sliderLayerHtml: sliderLayerHtml.toString(),
-                        mapView: data.mapView,
-                        moreDesc: data.fullView.moreDesc
-                    });
-                });
-            });
-        });
+        }
+        res.json(result);
     });
 })
-
 
 
 //景点详情(../route/detail)页面的数据获取

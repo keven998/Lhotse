@@ -31,6 +31,30 @@ var base_model = function(){
     });
   }
 
+  // 请求数据
+    this.cleanGet = function(callback) {
+        request(this.getUrls(), function(err, res, data) {
+            var error_msg = '';
+            var succ = false;
+            if (err){
+                console.log('err say');
+                console.log(err);
+                error_msg = err;
+            }
+            else if (data !== null) {
+                if (data.indexOf("!DOCTYPE") != -1){
+                    error_msg = "The api return a error html page.";
+                }else{
+                    data = JSON.parse(data).result;
+                    succ = true;
+                }
+            } else {
+                error_msg = "The data is null.";
+            }
+            callback({succ: succ, data: error_msg? error_msg : data})
+        });
+    }
+
   // 获取所有query参数
   this.parseQuery = function(req) {
     if (req == null)

@@ -12,7 +12,12 @@ api_model.prototype.constructor = api_model;
 
 // 获取数据
 api_model.getdata = function(req, callback) {
-  return api_model.prototype.buildUrl(req).get(callback);
+    return api_model.prototype.buildUrl(req).get(callback);
+}
+
+// 获取检测过数据
+api_model.getCleanData = function(req, callback) {
+    return api_model.prototype.buildUrl(req).cleanGet(callback);
 }
 
 // 配置url
