@@ -116,10 +116,10 @@ path{-moz-box-shadow:5px 5px 5px #999;-webkit-box-shadow:5px 5px 5px #999;box-sh
 .dMapList dd a:hover{color:#fff;background:#ff9900;text-decoration:none}
 
 .dMapLayer i{position:absolute}
-.dMapLayer i.bor41{top:0;right:-31px;width:31px;height:80px;background:url(http://img1.lotour.net/destn/map/bor41.png) no-repeat;_background-image:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img1.lotour.net/destn/map/bor41.png')}
-.dMapLayer i.borLT{top:0;left:-31px;width:31px;height:80px;background:url(http://img1.lotour.net/destn/map/borLT.png) no-repeat;_background-image:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img1.lotour.net/destn/map/borLT.png')}
-.dMapLayer i.borBL{bottom:-45px;left:120px;width:50px;height:45px;background:url(http://img1.lotour.net/destn/map/borBL.png) no-repeat;_background-image:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img1.lotour.net/destn/map/borBL.png')}
-.dMapLayer i.borBR{bottom:-45px;right:50px;width:50px;height:45px;background:url(http://img1.lotour.net/destn/map/borBL.png) no-repeat;_background-image:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img1.lotour.net/destn/map/borBL.png')}
+.dMapLayer i.bor41{top:0;right:-31px;width:31px;height:80px;background:url(/images/target/3.png) no-repeat;_background-image:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/target/3.png')}
+.dMapLayer i.borLT{top:0;left:-31px;width:31px;height:80px;background:url(/images/target/2.png) no-repeat;_background-image:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/target/2.png')}
+.dMapLayer i.borBL{bottom:-45px;left:120px;width:50px;height:45px;background:url(/images/target/1.png) no-repeat;_background-image:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/target/1.png')}
+.dMapLayer i.borBR{bottom:-45px;right:50px;width:50px;height:45px;background:url(/images/target/1.png) no-repeat;_background-image:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/target/1.png')}
 
 .dMapbg15{background-image:url(http://img1.lotour.net/destn/map/bg15.png);top:60px;left:-10px}/*内蒙古*/
 .dMapbg22{background-image:url(http://img1.lotour.net/destn/map/bg22.png);top:52px;left:100px}/*吉林*/
