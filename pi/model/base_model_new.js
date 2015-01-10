@@ -14,6 +14,8 @@ var BaseModel = function(){
 
     self.setParam = function(param) {self.param = param;}
 
+    self.showParam = function(param) { console.log(self.param); return self.param;}
+
     self.say = function() {console.log('hi');}
 
     self.getData = function(param, callback) {
@@ -44,22 +46,25 @@ var BaseModel = function(){
 
     self.checkParam = function(param){
         var succ = true
-        var not_in_array = []
+        var unknown_array = []
         var missing_array = []
-        var param_list = _.map(param, function(v, k){ return v;});
+        var param_list = _.map(param, function(k, v){ return v;});
+
         for(k in param_list){
-            if(_.contains(self.param, k)){
-                not_in_array.push(k);
+            k = param_list[k]
+            if(!_.contains(self.param, k)){
+                unknown_array.push(k);
                 succ = false;
             }
         }
         for(k in self.param){
-            if(_.contains(param_list, k)){
+            k = self.param[0]
+            if(!_.contains(param_list, k)){
                 missing_array.push(k)
                 succ = false;
             }
         }
-        return {succ: succ, data: 'missing param:' + missing_array.toString() + 'not in:' + not_in_array.toString()}
+        return {succ: succ, data: 'missing params:' + missing_array.toString() + ' unknown params:' + unknown_array.toString()}
     }
 
     self.buildUrl = function(param){
