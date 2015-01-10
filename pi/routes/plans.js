@@ -1,7 +1,5 @@
-
 var express = require('express');
 var router = express.Router();
-var routeDetail = require('../model/route_detail');
 var request = require('request');
 var async = require('async');
 var config = require('../conf/system');

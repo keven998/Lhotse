@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var async = require('async');
 var apiList = require('../url_api');
-var plans = require('../model/plans');
 var request = require('request');
 var model = require('../model/sup_model.js');
 var left_nav_data = require('../conf/country_nav');
