@@ -29,11 +29,8 @@ router.get('/', function(req, res) {
                     pageSize: 30
                 },
                 function(model_result){
-                    if (model_result.succ){
-                        callback(null, model_result.data);
-                    }else{
-                        callback("can't get the newRoute", null);
-                    }
+                    if (! model_result.succ){ console.log("can't get the newRoute"); };
+                    callback(null, model_result);
                 }
             );
         },
@@ -43,11 +40,8 @@ router.get('/', function(req, res) {
                     pageSize: 30
                 },
                 function(model_result){
-                    if (model_result.succ){
-                        callback(null, model_result.data);
-                    }else{
-                        callback("can't get the editorRoute", null);
-                    }
+                    if (! model_result.succ){ console.log("can't get the editorRoute"); };
+                    callback(null, model_result);
                 }
             );
         },
@@ -57,11 +51,8 @@ router.get('/', function(req, res) {
                     pageSize: 30
                 },
                 function(model_result){
-                    if (model_result.succ){
-                        callback(null, model_result.data);
-                    }else{
-                        callback("can't get the mustgoRoute", null);
-                    }
+                    if (! model_result.succ) { console.log("can't get the mustgoRoute"); };
+                    callback(null, model_result);
                 }
             );
         },
@@ -71,22 +62,18 @@ router.get('/', function(req, res) {
                     pageSize: 30
                 },
                 function(model_result){
-                    if (model_result.succ){
-                        callback(null, model_result.data);
-                    }else{
-                        callback("can't get the popRoute", null);
-                    }
+                    if (! model_result.succ) { console.log("can't get the popRoute"); };
+                    callback(null, model_result);
                 }
             );
         }
     },
     function(err, results) {
-        if (err){ console.log(err); };
         res.render('index', {
-            newRoute: results.newRoute,
-            editorRoute: results.editorRoute,
-            mustgoRoute: results.mustgoRoute,
-            popRoute: results.popRoute,
+            newRoute: (results.newRoute.succ) ? results.newRoute.data : [],
+            editorRoute: (results.editorRoute.succ) ? results.editorRoute.data : [],
+            mustgoRoute: (results.mustgoRoute.succ) ? results.mustgoRoute.data : [],
+            popRoute: (results.popRoute.succ) ? results.popRoute.data : [],
             user_info: utils.get_user_info(req, res),
             config: config
         });
