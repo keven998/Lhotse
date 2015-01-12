@@ -24,39 +24,64 @@ var error = [
 router.get('/', function(req, res) {
     async.parallel({
         newRoute: function(callback) {
-            models.newRouteModel.getData(
-                {},
-                function(e){
-                    callback(null, e.data);
+            models.newRouteModel.getData({
+                    page: 0,
+                    pageSize: 30
+                },
+                function(model_result){
+                    if (model_result.succ){
+                        callback(null, model_result.data);
+                    }else{
+                        callback("can't get the newRoute", null);
+                    }
                 }
             );
         },
         editorRoute: function(callback) {
-            models.editorRouteModel.getData(
-                {},
-                function(e){
-                    callback(null, e.data);
+            models.editorRouteModel.getData({
+                    page: 0,
+                    pageSize: 30
+                },
+                function(model_result){
+                    if (model_result.succ){
+                        callback(null, model_result.data);
+                    }else{
+                        callback("can't get the editorRoute", null);
+                    }
                 }
             );
         },
         mustgoRoute: function(callback) {
-            models.mustgoRouteModel.getData(
-                {},
-                function(e){
-                    callback(null, e.data);
+            models.mustgoRouteModel.getData({
+                    page: 0,
+                    pageSize: 30
+                },
+                function(model_result){
+                    if (model_result.succ){
+                        callback(null, model_result.data);
+                    }else{
+                        callback("can't get the mustgoRoute", null);
+                    }
                 }
             );
         },
         popRoute: function(callback) {
-            models.popRouteModel.getData(
-                {},
-                function(e){
-                    callback(null, e.data);
+            models.popRouteModel.getData({
+                    page: 0,
+                    pageSize: 30
+                },
+                function(model_result){
+                    if (model_result.succ){
+                        callback(null, model_result.data);
+                    }else{
+                        callback("can't get the popRoute", null);
+                    }
                 }
             );
         }
     },
     function(err, results) {
+        if (err){ console.log(err); };
         res.render('index', {
             newRoute: results.newRoute,
             editorRoute: results.editorRoute,

@@ -15,17 +15,17 @@ module.exports.suggestionModel = create_model(
 //recommend routes
 module.exports.newRouteModel = create_model(
     '/web/recommend/newitem',
-    []
+    ['page', 'pageSize']
 )
 module.exports.editorRouteModel = create_model(
     '/web/recommend/editor',
-    []
+    ['page', 'pageSize']
 )
 module.exports.mustgoRouteModel = create_model(
     '/web/recommend/mustgo',
-    []
+    ['page', 'pageSize']
 )
 module.exports.popRouteModel = create_model(
     '/web/recommend/popularity',
-    []
+    ['page', 'pageSize']
 )
