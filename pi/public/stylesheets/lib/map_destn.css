@@ -13,7 +13,7 @@ html body{background:#fff}
 
 /* 地图 */
 .destnMap{width:980px;margin:0 auto;padding:7px 0}
-.destnMapL{position:absolute;right:30px;top:25px;width:640px;height:430px}
+.destnMapL{position:absolute;right:30px;top:0;width:640px;height:430px}
 .dMapSwch{position:absolute;top:10px;left:0;height:22px;overflow:hidden;z-index:11}
 .dMapSwch a{display:inline-block;width:54px;height:22px;margin-right:1px;background:#f1f1f1;color:#666;font-size:13px;line-height:24px;line-height:25px\9;text-align:center;overflow:hidden}
 .dMapSwch a.cur{background:#ff9900;color:#fff}

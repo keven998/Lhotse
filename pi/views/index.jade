@@ -79,11 +79,11 @@ block content
                                 .m
                                     h2
                                         a(href='javascript:;' data-url='/plans/detail/#{route.id}') #{route.name}
+                                    .label #{route.editor}
                                     p
                                         if route.description.desc
                                           - var short_desc = route.description.desc.toString().substring(0, 25)
                                           | #{short_desc}...
-                                    .label #{route.editor}
         .editor_routes(style='display: none;')
             //
                 .c-left
@@ -109,11 +109,11 @@ block content
                                 .m
                                     h2
                                         a(href='javascript:;' data-url='/plans/detail/#{route.id}') #{route.name}
+                                    .label #{route.editor}
                                     p
                                         if route.description.desc
                                             - var short_desc = route.description.desc.toString().substring(0, 25)
                                             | #{short_desc}...
-                                    .label #{route.editor}
         .mustgo_routes(style='display: none;')
             //
                 .c-left
@@ -139,11 +139,11 @@ block content
                                 .m
                                     h2
                                         a(href='javascript:;' data-url='/plans/detail/#{route.id}') #{route.name}
+                                    .label #{route.editor}
                                     p
                                         if route.description.desc
                                             - var short_desc = route.description.desc.toString().substring(0, 25)
                                             | #{short_desc}...
-                                    .label #{route.editor}
         .pop_routes(style='display: none;')
             //
                 .c-left
@@ -169,8 +169,8 @@ block content
                                 .m
                                     h2
                                         a(href='javascript:;' data-url='/plans/detail/#{route.id}') #{route.name}
+                                    .label #{route.editor}
                                     p
                                         if route.description.desc
                                             - var short_desc = route.description.desc.toString().substring(0, 25)
                                             | #{short_desc}...
-                                    .label #{route.editor}

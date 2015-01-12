@@ -39,16 +39,18 @@ i.line{color:#4fa7bd;}
 .fl-r{float:right;}
 
 /*left navigation*/
-.left-nav {margin:25px 40px; float:left; display:block;}
+.left-nav {margin:20px; float:left; display:block;}
 .left-nav ul {padding:0; margin:0; list-style-type: none;;}
 .left-nav ul li {position:relative;display:block; text-align:center; text-decoration:none; width:220px;margin:0 10px;height:35px;line-height:35px;color:#333; border:1px solid #ccc; background:#fff;font-size:18px;padding:10px 0;z-index:;}
 .left-nav ul li h2{padding-right: 20px;}
 .left-nav ul li .left-nav-second-level {display:none;margin-left: 220px;padding:10px 20px;line-height: 1.8;text-align: left;}
 .left-nav ul li .left-nav-second-level a {display: inline-block;}
-.left-nav ul li:hover{border-right:none;width:230px;}
+.left-nav ul li:hover{border-color:#4fa7bd;border-right:none;width:230px;}
 .left-nav ul li:hover a {color:#898989;padding: 0 10px;}
-.left-nav ul li:hover a:hover{background-color:#ccc;} 
-.left-nav ul li:hover .left-nav-second-level {display:block;position:absolute;top:-1px;width:250px;font-size: 14px;border:1px solid #ccc;background-color:#fff;z-index:100;}
+.left-nav ul li:hover a:hover{background-color:#4fa7bd;color:#fff;}
+.left-nav ul li:hover .left-nav-second-level {display:block;position:absolute;top:-1px;width:250px;font-size: 14px;border:1px solid #4fa7bd;background-color:#fff;z-index:100;}
+.left-nav ul li:hover h2{color:#4b90ac;}
+.left-nav ul li:hover .city-num{color:#4fa7bd;}
 .left-nav .city-num {font-size: 14px;position:absolute;top:0;right:0;background:#fff;padding-right: 40px;width: 36px;height:55px;line-height:55px;z-index:101;}
 
 /*from location*/

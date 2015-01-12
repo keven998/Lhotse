@@ -9,18 +9,20 @@ block page_var
             path: '',
             use_require_js: false
         }
+    script(src='http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js' type='text/ecmascript')
 
 block content
     .main_container
         .wrapGray
             .left-nav
-                .search_layer
-                    .search_form
-                        .search_in
-                            .text_input
-                                h4 起点:
-                                input.s-ip(type="text" name="fromName" placeholder='城市' id="from" onkeyup="suggestion_from(this.value)" autocomplete="off")
-                                #suggestion_from.suggestion(style="width:190px;z-index:999;font-size:17px;")
+                //
+                    .search_layer
+                        .search_form
+                            .search_in
+                                .text_input
+                                    h4 起点:
+                                    input.s-ip(type="text" name="fromName" placeholder='城市' id="from" onkeyup="suggestion_from(this.value)" autocomplete="off")
+                                    #suggestion_from.suggestion(style="width:190px;z-index:999;font-size:17px;")
                 ul
                     each city_list, regin_name in left_nav_data
                         li

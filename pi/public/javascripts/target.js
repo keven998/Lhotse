@@ -104,11 +104,21 @@ $('.dMapName h2').click(function(event){
     $('.mapTabSpWord').addClass('sphl');
 });
 
-function target_go_plan_list(arr_name, arr_poi_type){
-    var from_name = $('#from').val(),
-        from_poi_type = $('#from').attr('poi_type') || 'loc';
-    href_plan_list(from_name, from_poi_type, arr_name, arr_poi_type);
+function getFromName(){
+    var cityName = "北京";
+    if (remote_ip_info.city){
+        cityName = remote_ip_info.city;
+    }
+    if (getCookie('userInputFrom')){
+        cityName = getCookie('userInputFrom');
+    }
+    return cityName;
 }
+
+function target_go_plan_list(arr_name, arr_poi_type){
+    var from_name = getFromName(),
+        from_poi_type = "loc";
+    href_plan_list(from_name, from_poi_type, arr_name, arr_poi_type);
 
 /*
     loc : 城市
@@ -117,17 +127,10 @@ function target_go_plan_list(arr_name, arr_poi_type){
 */
 function href_plan_list(from_name, from_poi_type, arr_name, arr_poi_type){
     var url = '/route';
-
-    if(from_name === ""){
-        alert('请先填写起点。');
-    }else if (from_poi_type == zone.type.locality){
-        if (arr_poi_type == zone.type.locality){
-            url += "?" + zone.type.locality + "=" + arr_name + '&fromName=' + from_name;
-        }else if(arr_poi_type == zone.type.viewspot){
-            url += "?" + zone.type.viewspot + "=" + arr_name + '&fromName=' + from_name;
-        }
-        window.location.href = url;
-    }else{
-        alert('not support');
+    if (arr_poi_type == zone.type.locality){
+        url += "?" + zone.type.locality + "=" + arr_name + '&fromName=' + from_name;
+    }else if(arr_poi_type == zone.type.viewspot){
+        url += "?" + zone.type.viewspot + "=" + arr_name + '&fromName=' + from_name;
     }
+    window.location.href = url;
 }
