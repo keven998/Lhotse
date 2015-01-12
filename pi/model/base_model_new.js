@@ -73,7 +73,10 @@ var BaseModel = function(){
             url += key + '=' + param[key] + '&'
         }
         return url.slice(0, -1)
-    }  
+    }
+
+    // 显示url
+    this.dispUrl = function() { console.log(self.url); }
 
     return self;
 };

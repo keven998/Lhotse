@@ -12,6 +12,8 @@ var utils = require( "../common/utils");
 var route_filters = require('../conf/route_filters');
 var _    = require('underscore');
 
+var models = require('../model/models.js');
+
 var error = [
     'Error in getting fromId by name !',
     'Error in getting arriveId by name !',
@@ -22,40 +24,44 @@ var error = [
 router.get('/', function(req, res) {
     async.parallel({
         newRoute: function(callback) {
-            model.setUrl(apiList.apiHost + apiList.newRoute);
-            model.getdata(req, function(data){
-                callback(null, data);
-            });
+            models.newRouteModel.getData(
+                {},
+                function(e){
+                    callback(null, e.data);
+                }
+            );
         },
         editorRoute: function(callback) {
-            model.setUrl(apiList.apiHost + apiList.editorRoute);
-            model.getdata(req, function(data){
-                callback(null, data);
-            });
+            models.editorRouteModel.getData(
+                {},
+                function(e){
+                    callback(null, e.data);
+                }
+            );
         },
         mustgoRoute: function(callback) {
-            model.setUrl(apiList.apiHost + apiList.mustgoRoute);
-            model.getdata(req, function(data){
-                callback(null, data);
-            });
+            models.mustgoRouteModel.getData(
+                {},
+                function(e){
+                    callback(null, e.data);
+                }
+            );
         },
         popRoute: function(callback) {
-            model.setUrl(apiList.apiHost + apiList.popRoute);
-            model.getdata(req, function(data){
-                callback(null, data);
-            });
+            models.popRouteModel.getData(
+                {},
+                function(e){
+                    callback(null, e.data);
+                }
+            );
         }
     },
     function(err, results) {
-        results.newRoute = JSON.parse(results.newRoute);
-        results.editorRoute = JSON.parse(results.editorRoute);
-        results.mustgoRoute = JSON.parse(results.mustgoRoute);
-        results.popRoute = JSON.parse(results.popRoute);
         res.render('index', {
-            newRoute: results.newRoute.result,
-            editorRoute: results.editorRoute.result,
-            mustgoRoute: results.mustgoRoute.result,
-            popRoute: results.popRoute.result,
+            newRoute: results.newRoute,
+            editorRoute: results.editorRoute,
+            mustgoRoute: results.mustgoRoute,
+            popRoute: results.popRoute,
             user_info: utils.get_user_info(req, res),
             config: config
         });
