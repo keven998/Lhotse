@@ -119,7 +119,7 @@ function target_go_plan_list(arr_name, arr_poi_type){
     var from_name = getFromName(),
         from_poi_type = "loc";
     href_plan_list(from_name, from_poi_type, arr_name, arr_poi_type);
-
+}
 /*
     loc : 城市
     vs : 景点

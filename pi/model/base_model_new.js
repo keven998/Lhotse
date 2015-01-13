@@ -28,13 +28,13 @@ var BaseModel = function(){
                     error_msg = err;
                 }else if(data !== null) {
                     if (data.indexOf("!DOCTYPE") != -1){
-                        error_msg = "The api return a error html page.";
+                        error_msg = "Error: The server return an error html page.";
                     }else{
                         data = JSON.parse(data).result;
                         succ = true;
                     }
                 }else{
-                    error_msg = "The data is null.";
+                    error_msg = "Error: The server return an empty data.";
                 }
                 callback({succ: succ, data: error_msg? error_msg : data})
             });
