@@ -60,7 +60,6 @@ require(['sliderBar', 'googlemapApi', 'gmapControl', 'siderBarBlock', 'PopLayer'
                 dataType  : "json",
                 data      : postData,
                 success: function(respondData) {
-                    console.log(respondData);
                     respondData.code === 0 ? (alert("保存成功"), window.location.href = '/plans/mine/')
                     : alert("保存失败");
 

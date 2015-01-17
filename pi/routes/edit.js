@@ -75,7 +75,6 @@ router.post('/spotInfo', function(req, res) {
         type = postData.type,
         id = postData.id,
         requestUrl = selectUrlForSpotInfo(type);
-    console.log(requestUrl + id);
     if (requestUrl) {
         var options = {
             url: requestUrl + id,
@@ -87,9 +86,6 @@ router.post('/spotInfo', function(req, res) {
                 throw err;
             }
             if(!utils.checkApiRequestState(data)) {
-                console.log("==== api request error ====");
-                console.log("request url: ");
-                console.log(requestUrl + id);
                 res.json({
                     state : 0,
                 });
@@ -130,43 +126,34 @@ router.post('/detail', function(req, res) {
             url: requestUrl + id,
             method: 'GET'
         };
-        console.log("请求的链接:");
-        console.log(requestUrl + id);
         request(options, function(err, respond, data) {
             if (err) {
-                throw err;
+                res.json({state : 0});
             }
-            console.log('请求返回数据:');
-            console.log(data);
             if(!utils.checkApiRequestState(data)) {
-                console.log("==== api request error ====");
-                console.log("request url: ");
-                console.log(requestUrl + id);
-                /* render error page */
-                res.json({
-                    state : 0,
-                });
+                res.json({state : 0});
             }
             var spotInfo = extractDataForspotInfo(JSON.parse(data), type),
                 htmlTemplateRoute = 'detailPage/slider_' + type + '.html',
                 html = [];
             if (!spotInfo) {
-                console.log('没有数据');
-                return ;
+                res.json({state : 0});
             }
             mu.compileAndRender(htmlTemplateRoute, {data: spotInfo})
                 .on('data', function(chunk) {
                     html.push(chunk);
                 })
                 .on('end', function() {
-
                     html = html.join("");
-                    console.log(html.toString());
                     res.json({
                         state : 0,
                         html  : html.toString(),
                     });
                 });
+        });
+    }else{
+        res.json({
+            state : 0,
         });
     }
 
@@ -174,26 +161,20 @@ router.post('/detail', function(req, res) {
 
 /* edit post request */
 router.post('/submit', function(req, res) {
-    console.log('in......');
     var submitData      = req.body,
         spotsInfo       = submitData.spots,
         ugcId           = submitData.id,
         templateId      = submitData.templateId;
-    console.log('-=-=-=-=-=-=-=输出结果-=-=-=-=-=-=-=-');
     var data = processSubmitData(submitData);
-    console.log('-=-=-=-=-=-=-=输出结果-=-=-=-=-=-=-=-');
-    console.log(data);
     var options = {
         url : apiList.apiHost + apiList.ugc.saveUgc,
         json: data,
         method: 'POST',
     };
-    console.log('-=-=-=-=-=-=-请求结果-=-=-=-=-=-=-=-');
     request(options, function(err, respond, result) {
         if (err) {
             throw err;
         }
-        console.log(result);
         res.json(result);
     });
 });
@@ -225,7 +206,6 @@ function getListContent(querys, type, callback) {
  */
 function selectUrlForSpotInfo(type) {
     var requestUrl = '';
-    console.log('spot type is: ' + type);
     switch(type) {
         case 'viewspot':
             requestUrl = 'http://api.lvxingpai.cn/web/poi/view-spots/';
@@ -250,7 +230,6 @@ function selectUrlForSpotInfo(type) {
             break;
 
         default:
-            console.log('type is not correct');
             break;
     }
     return requestUrl;
@@ -279,7 +258,6 @@ function selectUrlForSpotsInCity(type) {
             requestUrl = '';
             break;
         default:
-            console.log('type is not correct');
             break;
     }
     return requestUrl;
@@ -303,7 +281,6 @@ function extractData(data, type) {
         tempObject.type = type;
         extractedData.push(tempObject);
     }
-    console.log(extractedData);
     return extractedData;
 }
 
@@ -334,7 +311,6 @@ function extractDataForspotInfo(data, type) {
                 break;
         }
     }
-    console.log(usefulData);
     return usefulData;
 }
 
@@ -442,7 +418,6 @@ function processSubmitData(submitData) {
     tempObj.stayBudget  = 250;
     details_row_1     = assembleSpotData(submitData.spots, submitData.startTime);
     trafficProRes     = assembleTrafficData(submitData.trafficData, submitData.dayDiff, submitData.startTime);
-    console.log('---====---');
     details_row_2       = trafficProRes.traffic;
     tempObj.fromLoc     = trafficProRes.fromLoc;
     tempObj.details   = details_row_1.concat(details_row_2);

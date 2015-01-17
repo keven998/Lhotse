@@ -47,9 +47,6 @@ router.get('/detail/:TEMPLATEID', function(req, res) {
     model.setUrl(apiList.ugc.planDetail + templateId + '?' + query);
     model.getdata(null, function(data){
         if(!utils.checkApiRequestState(data)) {
-            console.log("==== api request error ====");
-            console.log("request url: ");
-            console.log(model.getUrl());
             /* render error page */
             res.render('common/error', {
                 user_info       : utils.get_user_info(req, res),
@@ -58,7 +55,6 @@ router.get('/detail/:TEMPLATEID', function(req, res) {
             });
             return ;
         }
-        console.log(model.getUrl());
         var oriData         = JSON.parse(data),
             result          = oriData.result,
             ugcDetail       = result.details,
