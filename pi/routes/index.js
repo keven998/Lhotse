@@ -98,7 +98,6 @@ router.get('/route', function(req, res) {
             indexGoUrl = apiList.apiHost + apiList.getRouteList + "fromLoc=" + fromId + "&" + poiType + "=" + arriveId;
         model.setUrl(encodeURI(indexGoUrl));
         model.getdata(null, function(data){
-            // model.consoleUrl();
             if((data !== undefined) && (data.indexOf('<html>') < 0)){
                 var data = JSON.parse(data);
                 res.render('route', {

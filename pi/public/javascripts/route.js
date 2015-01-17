@@ -118,7 +118,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
 
         var dateParams = {
                 "三天之内": "&minDays=0&maxDays=3",
-                "一周之内": "&minDays=4&maxDays=7",
+                "一周之内": "&minDays=0&maxDays=7",
                 "一周以上": "&minDays=7"
             },
             filtField = {
