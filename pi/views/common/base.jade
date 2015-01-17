@@ -120,6 +120,7 @@ html
                 };
                 loadJS(page_path, page_id, use_require_js);
             script(src='/javascripts/common.js', rel='javascripts')
-            script(type="text/javascript").
-                var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-                document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F642d04109c4306c85015d272c1938156' type='text/javascript'%3E%3C/script%3E"));
+            if config.env == 'product'
+                script(type="text/javascript").
+                    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+                    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F642d04109c4306c85015d272c1938156' type='text/javascript'%3E%3C/script%3E"));

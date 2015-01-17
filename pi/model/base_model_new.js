@@ -1,10 +1,10 @@
 var request = require('request');
 var _ = require('underscore');
-
+var config = require('../conf/system');
 
 var BaseModel = function(){
     var self = this;
-    self.apiHost = 'http://api.lvxingpai.cn'
+    self.apiHost = config.api_host;
     self.url = '';
     self.required_query = [];
     self.default_not_required_query = ['page', 'pageSize'];
