@@ -1,6 +1,6 @@
 models = require('./models');
 
-models.newRouteModel.getData({}, function(data){
+models.recommend.newRouteModel.getData({}, function(data){
     console.log(JSON.stringify(data));
 })
 
@@ -16,6 +16,6 @@ args = {
     query: {fromLoc: '5473ccd7b8ce043a64108c46'},
     url_param: {planID: '547c007fb8ce0440a92709ff'}
 };
-models.planDetailModel.getData(args, function(data){
+models.plan.planDetailModel.getData(args, function(data){
     console.log(JSON.stringify(data));
 });

@@ -31,8 +31,13 @@ module.exports.suggestionModel = create_model({
 })
 
 
-module.exports.planDetailModel = create_model({
-    url: '/web/plans/{planID}',
-    required_query: ['fromLoc'],
-    url_param: ['planID']
-})
+module.exports.plan = {
+    planDetailModel: create_model({
+        url: '/web/plans/{planID}',
+        required_query: ['fromLoc'],
+        url_param: ['planID']
+    })
+}
+
+
+
