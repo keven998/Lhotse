@@ -126,7 +126,6 @@ var BaseModel = function(){
         if(_.size(args.url_param) > 0){
             _.map(args.url_param, function(value, url_param){
                 var place_holder = '{' + url_param + '}';
-                
                 url = url.replace(place_holder, value)
             })
         }
