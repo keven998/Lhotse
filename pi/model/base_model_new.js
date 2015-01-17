@@ -7,6 +7,7 @@ var BaseModel = function(){
     self.apiHost = 'http://api.lvxingpai.cn'
     self.url = '';
     self.required_query = [];
+    self.default_not_required_query = ['page', 'pageSize'];
     self.not_required_query = [];
     self.url_param = [];
 
@@ -16,7 +17,7 @@ var BaseModel = function(){
     self.setRequiredQuery = function(required_query) {self.required_query = required_query;}
     self.getRequiredQuery = function() { console.log(self.required_query); return self.required_query;}
 
-    self.setNotRequiredQuery = function(not_required_query) {self.not_required_query = not_required_query;}
+    self.setNotRequiredQuery = function(not_required_query) {self.not_required_query = _.union(not_required_query, self.default_not_required_query);}
     self.getNotRequiredQuery = function() { console.log(self.not_required_query); return self.not_required_query;}
 
     self.setUrlParam = function(url_param) {self.url_param = url_param;}
@@ -34,13 +35,13 @@ var BaseModel = function(){
                     error_msg = err;
                 }else if(data !== null) {
                     if (data.indexOf("!DOCTYPE") != -1){
-                        error_msg = "The api return a error html page.";
+                        error_msg = "Error: The server return an error html page.";
                     }else{
                         data = JSON.parse(data).result;
                         succ = true;
                     }
                 }else{
-                    error_msg = "The data is null.";
+                    error_msg = "Error: The server return an empty data.";
                 }
                 callback({succ: succ, data: error_msg? error_msg : data})
             });

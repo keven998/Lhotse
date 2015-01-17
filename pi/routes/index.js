@@ -12,6 +12,8 @@ var utils = require( "../common/utils");
 var route_filters = require('../conf/route_filters');
 var _    = require('underscore');
 
+var models = require('../model/models.js');
+
 var error = [
     'Error in getting fromId by name !',
     'Error in getting arriveId by name !',
@@ -22,40 +24,36 @@ var error = [
 router.get('/', function(req, res) {
     async.parallel({
         newRoute: function(callback) {
-            model.setUrl(apiList.apiHost + apiList.newRoute);
-            model.getdata(req, function(data){
-                callback(null, data);
+            models.newRouteModel.getData({}, function(model_result){
+                if (! model_result.succ){ console.log("can't get the newRoute"); };
+                callback(null, model_result);
             });
         },
         editorRoute: function(callback) {
-            model.setUrl(apiList.apiHost + apiList.editorRoute);
-            model.getdata(req, function(data){
-                callback(null, data);
+            models.editorRouteModel.getData({}, function(model_result){
+                if (! model_result.succ){ console.log("can't get the editorRoute"); };
+                callback(null, model_result);
             });
         },
         mustgoRoute: function(callback) {
-            model.setUrl(apiList.apiHost + apiList.mustgoRoute);
-            model.getdata(req, function(data){
-                callback(null, data);
+            models.mustgoRouteModel.getData({}, function(model_result){
+                if (! model_result.succ) { console.log("can't get the mustgoRoute"); };
+                callback(null, model_result);
             });
         },
         popRoute: function(callback) {
-            model.setUrl(apiList.apiHost + apiList.popRoute);
-            model.getdata(req, function(data){
-                callback(null, data);
+            models.popRouteModel.getData({}, function(model_result){
+                if (! model_result.succ) { console.log("can't get the popRoute"); };
+                callback(null, model_result);
             });
         }
     },
     function(err, results) {
-        results.newRoute = JSON.parse(results.newRoute);
-        results.editorRoute = JSON.parse(results.editorRoute);
-        results.mustgoRoute = JSON.parse(results.mustgoRoute);
-        results.popRoute = JSON.parse(results.popRoute);
         res.render('index', {
-            newRoute: results.newRoute.result,
-            editorRoute: results.editorRoute.result,
-            mustgoRoute: results.mustgoRoute.result,
-            popRoute: results.popRoute.result,
+            newRoute: (results.newRoute.succ) ? results.newRoute.data : [],
+            editorRoute: (results.editorRoute.succ) ? results.editorRoute.data : [],
+            mustgoRoute: (results.mustgoRoute.succ) ? results.mustgoRoute.data : [],
+            popRoute: (results.popRoute.succ) ? results.popRoute.data : [],
             user_info: utils.get_user_info(req, res),
             config: config
         });

@@ -17,6 +17,26 @@ var create_model = function(args){
 }
 
 
+module.exports.newRouteModel = create_model({
+    url: '/web/recommend/newitem'
+})
+
+
+module.exports.editorRouteModel = create_model({
+    url: '/web/recommend/editor'
+})
+
+
+module.exports.mustgoRouteModel = create_model({
+    url: '/web/recommend/mustgo'
+})
+
+
+module.exports.popRouteModel = create_model({
+    url: '/web/recommend/popularity'
+})
+
+
 module.exports.suggestionModel = create_model({
     url: '/web/suggestions',
     required_query: ['keyword'],

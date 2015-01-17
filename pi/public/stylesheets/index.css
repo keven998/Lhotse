@@ -48,8 +48,8 @@
 .m-list .right .m{padding-left: 60px;padding-right: 10px;}
 .m-list .right h2{font-size: 16px;font-weight: bold;padding:10px 0 0 5px;overflow: hidden;}
 .m-list .right a{color:#000;}
-.m-list .right .label{color: #4fa7bd;font-size: 12px;margin-left: 4px;}
-.m-list .right p{font-size: 14px;color: #898989;padding: 5px;line-height: 1.5;height:42px;}
+.m-list .right .label{color: #4fa7bd;font-size: 12px;margin-left: 5px;}
+.m-list .right p{font-size: 14px;color: #898989;padding:0 5px;line-height: 1.5;height:42px;}
 .m-list .bottom{width: 100%;height: 20px;margin-top: 10px;*margin-top:40px;float: left;}
 .m-list .bottom .arr-c{margin-top: 0;font-size: 12px;margin-left: 70px;}
 /* slider-container */

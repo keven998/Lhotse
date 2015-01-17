@@ -10,8 +10,6 @@ var router = express.Router();
 var utils = require( "../common/utils");
 var zone = require('../conf/zone');
 
-
-mu.root = _dirname;
 moment.locale('zh-cn');
 
 /*get data for route.jade's ajax request*/
@@ -22,7 +20,7 @@ router.get('/layer/:ROUTEID', function(req, res){
             model.getCleanData(null, function(data) {callback(null, data)});
         },
         misc_data: function(callback){
-            model.setUrl(apiList.apiHost + apiList.routeNotes);
+            model.setUrl(apiList.apiHost + "/web/misc/notes/search?planId=" + req.params.ROUTEID);
             model.getCleanData(null, function(data) {callback(null, data)});
         }
     }, function(err, results){
@@ -30,18 +28,37 @@ router.get('/layer/:ROUTEID', function(req, res){
         var result = {};
         if(!results.route_data.succ){
             result = {succ: false, data: results.route_data.data.toString()}
+            res.json(result);
         }else if( !results.misc_data.succ){
             result = {succ: false, data: results.misc_data.data.toString()}
+            res.json(result);
         }else{
-            var data = regroupLayer(results.route_data, results.misc_data);
-            result = {
-                dropLayerHtml: mu.compileAndRender('droplayer.html' , data),
-                sliderLayerHtml: mu.compileAndRender('sliderlayer.html' , data),
-                mapView: data.mapView,
-                moreDesc: data.fullView.moreDesc
-            }
+            mu.root = _dirname;
+            var data = regroupLayer(results.route_data.data, results.misc_data.data);
+            var dropLayerHtml = [],
+                sliderLayerHtml = [];
+            mu.compileAndRender('droplayer.html', data)
+            .on('data', function(chunk){
+                dropLayerHtml.push(chunk);
+            })
+            .on('end', function(){
+                dropLayerHtml = dropLayerHtml.join("");
+                mu.compileAndRender('sliderlayer.html', data)
+                .on('data', function(chunk){
+                    sliderLayerHtml.push(chunk);
+                })
+                .on('end', function(){
+                    sliderLayerHtml = sliderLayerHtml.join("");
+                    res.json({
+                        succ: true,
+                        dropLayerHtml: dropLayerHtml,
+                        sliderLayerHtml: sliderLayerHtml,
+                        mapView: data.mapView,
+                        moreDesc: data.fullView.moreDesc
+                    });
+                });
+            });
         }
-        res.json(result);
     });
 })
 
@@ -92,12 +109,10 @@ router.post('/reload', function(req, res){
         model.consoleUrl();
         if((data !== undefined) && (data.indexOf('<html>') < 0)){
             var data = JSON.parse(data),
-                routeListTemplate = 'routelist.html',
                 routeListHtml = [];
             mu.root = _dirname;
-            // console.log(data);
             data = regroupRouteList(data.result);
-            mu.compileAndRender(routeListTemplate, {
+            mu.compileAndRender('routelist.html', {
                 routeData: data.routeListView
             })
             .on('data', function(chunk) {
@@ -105,7 +120,6 @@ router.post('/reload', function(req, res){
             })
             .on('end', function() {
                 routeListHtml = routeListHtml.join("");
-                // console.log(routeListHtml);
                 res.json('route', {
                     routeListHtml: routeListHtml,
                     routeCnt: data.routeCnt

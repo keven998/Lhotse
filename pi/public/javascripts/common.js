@@ -147,6 +147,7 @@ function select_to(input, poi_type){
     $("#suggestion_to").hide();
 }
 
+
 // onclick event (used in html)
 function suggestion_to(input){
     var slug = 'to';
@@ -164,6 +165,8 @@ function suggestion_to(input){
     }    
 }
 
+
+//
 function suggestion(slug, input){
     $.ajax({
         url: "/suggestion?type=" + slug + "&input=" + input,// type:['from','to'],input:
@@ -198,8 +201,8 @@ function suggestion(slug, input){
 }
 
 
+//delete the blank
 function myTrim(x) {
-    //delete the blank
     return x.replace(/^\s+|\s+$/gm, '');
 }
 
@@ -228,6 +231,7 @@ arrInput.forEach(function(t){
         }
     });
 });
+
 
 // var array = [[arriveSuggestions, arriveInput], [fromSuggestions, fromInput]];
 var array = [[arriveSuggestions, arriveInput]];
@@ -369,22 +373,26 @@ function go_plan_list(){
 
     if (!from_name || !arr_name){
         alert('请输入出发地和目的地');
-    } 
-    else if (from_poi_type == zone.type.locality){
-        if (arr_poi_type ==zone.type.locality){
-            url += "?" + zone.type.locality + "=" + arr_name;
-        }else if(arr_poi_type == zone.type.viewspot){
-            url += "?" + zone.type.viewspot + "=" + arr_name;
-        }else {
-            alert('未查到该地点，请再次输入您的目的地！');
-            return ;
-        }
-        url += '&fromName=' + from_name;
-        window.location.href = url;
-    }else{
+        return ;
+    }
+    if (from_poi_type != zone.type.locality){
         alert(from_name + '不可以作为出发地，请您输入大一些的地点名称，如：北京');
         $('#from').val('');
+        return ;
     }
+    switch (arr_poi_type){
+        case zone.type.locality:
+            url += "?" + zone.type.locality + "=" + arr_name;
+            break;
+        case zone.type.viewspot:
+            url += "?" + zone.type.viewspot + "=" + arr_name;
+            break;
+        default:
+            alert('未查到该地点，请再次输入您的目的地！');
+            return ;
+    }
+    url += '&fromName=' + from_name;
+    window.location.href = url;
 }
 
 

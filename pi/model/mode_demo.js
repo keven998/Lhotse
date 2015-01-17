@@ -1,5 +1,9 @@
 models = require('./models');
 
+models.newRouteModel.getData({}, function(data){
+    console.log(JSON.stringify(data));
+})
+
 args = {
     query: {keyword: 'bj', restaurant: 1, hotel: 1, vs: 1, loc: 1}
 };
