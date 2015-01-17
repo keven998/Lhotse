@@ -9,9 +9,8 @@
 .black{color:#000;}
 .days{position:absolute;left:55px;top:70px;font-size:30px;}
 .plan_desc{display:inline-block;height:140px;width:280px;vertical-align:top;}
-.plan_title{display:inline-block;height:28px;width:180px;margin-top:25px;cursor:text;}
+.plan_title{display:inline-block;height:30px;width:180px;margin-top:25px;cursor:text;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;line-height:30px;font-size:22px;color:#4fa7bd;}
 .plan_title:hover{background:#e3e4e4;}
-.plan_name{line-height:30px;font-size:22px;color:#4fa7bd;}
 .plan_edit{display:none;width:160px;margin-top:25px;}
 .plan_input{width:160px;height:25px;line-height:25px;font-size:18px;color:#4fa7bd;}
 .edit_btn{display:none;margin-top:25px;margin-left:10px;vertical-align: top;}

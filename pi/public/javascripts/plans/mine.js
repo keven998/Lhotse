@@ -19,14 +19,14 @@ $("i.delete").on("click",function(){
 $(".plan_title").click(function(){
     var planEdit = $(this).next(),
         planInput =  planEdit.children(".plan_input"),
-        planPreName = $(this).children(".plan_name").attr("title"),
+        planPreName = $(this).text(),
         planId = planInput.attr("data-id"),
         planEditBtn = planEdit.siblings(".edit_btn");
 
-    $(this).css("display","none");
-    planEdit.css("display","inline-block");
-    planEditBtn.css("display","inline-block");
-
+    $(this).css("display", "none");
+    planEdit.css("display", "inline-block");
+    planEditBtn.css("display", "inline-block");
+    planInput.focus();
     var planTitle = $(this);//子函数可以使用
     /*确定按钮*/
     planEditBtn.children('.confirm').off('click');
@@ -48,24 +48,19 @@ $(".plan_title").click(function(){
                 console.log('error!!!');
             }
         });
-        if(planName.length > 9){
-            var abbrName = planName.substring(0,8);
-            planTitle.children(".plan_name").text(abbrName + "...");
-        }else{
-            planTitle.children(".plan_name").text(planName);
-        }
-        planTitle.children(".plan_name").attr("title",planName);
-        planEdit.css("display","none");
-        planEditBtn.css("display","none");
-        planTitle.css("display","inline-block");
+        planTitle.text(planName);
+        planTitle.attr("title", planName);
+        planEdit.css("display", "none");
+        planEditBtn.css("display", "none");
+        planTitle.css("display", "inline-block");
     });
 
     /*取消按钮*/
     planEditBtn.children('.cancel').off('click');
     planEditBtn.children('.cancel').click(function(){
-        planEdit.css("display","none");
-        planEditBtn.css("display","none");
-        planTitle.css("display","inline-block");
+        planEdit.css("display", "none");
+        planEditBtn.css("display", "none");
+        planTitle.css("display", "inline-block");
         planInput.val(planPreName);
     });
 });
