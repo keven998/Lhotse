@@ -17,28 +17,24 @@ var create_model = function(args){
 }
 
 
-module.exports.newRouteModel = create_model(
-    '/web/recommend/newitem',
-    ['page', 'pageSize']
-)
+module.exports.newRouteModel = create_model({
+    url: '/web/recommend/newitem'
+})
 
 
-module.exports.editorRouteModel = create_model(
-    '/web/recommend/editor',
-    ['page', 'pageSize']
-)
+module.exports.editorRouteModel = create_model({
+    url: '/web/recommend/editor'
+})
 
 
-module.exports.mustgoRouteModel = create_model(
-    '/web/recommend/mustgo',
-    ['page', 'pageSize']
-)
+module.exports.mustgoRouteModel = create_model({
+    url: '/web/recommend/mustgo'
+})
 
 
-module.exports.popRouteModel = create_model(
-    '/web/recommend/popularity',
-    ['page', 'pageSize']
-)
+module.exports.popRouteModel = create_model({
+    url: '/web/recommend/popularity'
+})
 
 
 module.exports.suggestionModel = create_model({

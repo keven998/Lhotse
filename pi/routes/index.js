@@ -24,48 +24,28 @@ var error = [
 router.get('/', function(req, res) {
     async.parallel({
         newRoute: function(callback) {
-            models.newRouteModel.getData({
-                    page: 0,
-                    pageSize: 30
-                },
-                function(model_result){
-                    if (! model_result.succ){ console.log("can't get the newRoute"); };
-                    callback(null, model_result);
-                }
-            );
+            models.newRouteModel.getData({}, function(model_result){
+                if (! model_result.succ){ console.log("can't get the newRoute"); };
+                callback(null, model_result);
+            });
         },
         editorRoute: function(callback) {
-            models.editorRouteModel.getData({
-                    page: 0,
-                    pageSize: 30
-                },
-                function(model_result){
-                    if (! model_result.succ){ console.log("can't get the editorRoute"); };
-                    callback(null, model_result);
-                }
-            );
+            models.editorRouteModel.getData({}, function(model_result){
+                if (! model_result.succ){ console.log("can't get the editorRoute"); };
+                callback(null, model_result);
+            });
         },
         mustgoRoute: function(callback) {
-            models.mustgoRouteModel.getData({
-                    page: 0,
-                    pageSize: 30
-                },
-                function(model_result){
-                    if (! model_result.succ) { console.log("can't get the mustgoRoute"); };
-                    callback(null, model_result);
-                }
-            );
+            models.mustgoRouteModel.getData({}, function(model_result){
+                if (! model_result.succ) { console.log("can't get the mustgoRoute"); };
+                callback(null, model_result);
+            });
         },
         popRoute: function(callback) {
-            models.popRouteModel.getData({
-                    page: 0,
-                    pageSize: 30
-                },
-                function(model_result){
-                    if (! model_result.succ) { console.log("can't get the popRoute"); };
-                    callback(null, model_result);
-                }
-            );
+            models.popRouteModel.getData({}, function(model_result){
+                if (! model_result.succ) { console.log("can't get the popRoute"); };
+                callback(null, model_result);
+            });
         }
     },
     function(err, results) {
