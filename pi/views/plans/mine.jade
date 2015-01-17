@@ -31,13 +31,7 @@ block content
                                     img(src="/images/plans/mine/146-146.png" width="146" height="146")
                                     .days.black 共#{plan.days}天
                             .plan_desc
-                                .plan_title
-                                    abbr.plan_name(title = plan.name)
-                                        if (plan.name.length > 9)
-                                            - var abbrName = plan.name.substring(0, 8)
-                                            | #{abbrName}...
-                                        else
-                                            | #{plan.name}
+                                .plan_title(title=plan.name) #{plan.name}
                                 .plan_edit
                                     input.plan_input(type="text" value=plan.name data-id=plan.id)
                                 .edit_btn
