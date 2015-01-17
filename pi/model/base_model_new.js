@@ -25,7 +25,7 @@ var BaseModel = function(){
     self.say = function() {console.log('hi');}
 
     self.getData = function(args, callback) {
-        var check = self.checkUrl(args.query);
+        var check = self.checkUrl(args);
         if(check.succ){
             request(self.buildUrl(args), function(err, res, data) {
                 var error_msg = '';
@@ -50,7 +50,16 @@ var BaseModel = function(){
         
     }
 
-    self.checkUrl = function(query){
+    self.checkUrl = function(args){
+        query_check_result = self._checkQuery(args.query)
+        url_param_check_result = self._checkUrlParam(args.url_param)
+        if(!query_check_result.succ || !url_param_check_result.succ){
+            return {succ: false, data: url_param_check_result.data + query_check_result.data}
+        }
+        return {succ: true, data: url_param_check_result.data + query_check_result.data}
+    }
+
+    self._checkQuery = function(query){
         var succ = true
         var unknown_query = []
         var miss_query = []
@@ -72,30 +81,66 @@ var BaseModel = function(){
         })
 
         if(miss_query.length > 0){
-            msg += 'Missing required query: ' + miss_query.toString() + '.';
+            msg += 'Missing required query: ' + miss_query.toString() + '. ';
         }
         if(unknown_query.length > 0){
-            msg += 'Unknown query: ' + unknown_query.toString() + '.';
+            msg += 'Unknown query: ' + unknown_query.toString() + '. ';
         }
         return {succ: succ, data: msg}
     }
 
-    // self._checkRequiredQuery = function(required_query){
-    // }
+    self._checkUrlParam = function(url_param){
+        var succ = true
+        var unknown_url_param = []
+        var miss_url_param = []
+        var url_param_list = _.map(url_param, function(k, v){ return v;});
+        var msg = '';
 
-    // self._checkNotRequiredQuery = function(not_required_query){
-    // }
+        _.map(url_param_list, function(url_param){
+            if(!_.contains(self.url_param, url_param)){
+                unknown_url_param.push(url_param);
+                succ = false;
+            }
+        })
 
-    // self._checkUrlParam = function(url_param){
-    // }
+        _.map(self.url_param, function(url_param){
+            if(!_.contains(url_param_list, url_param)){
+                miss_url_param.push(url_param)
+                succ = false;
+            }
+        })
+
+        if(miss_url_param.length > 0){
+            msg += 'Missing url param: ' + miss_url_param.toString() + '. ';
+        }
+        if(unknown_url_param.length > 0){
+            msg += 'Unknown url param: ' + unknown_url_param.toString() + '. ';
+        }
+        return {succ: succ, data: msg}
+    }
 
     self.buildUrl = function(args){
-        var url = self.url + '?'
-        _.map(args.query, function(value, query){
-            url += query + '=' + value + '&'
-        })
-        return url.slice(0, -1)
-    }  
+        var url = self.url
+
+        // build with url param
+        if(_.size(args.url_param) > 0){
+            _.map(args.url_param, function(value, url_param){
+                var place_holder = '{' + url_param + '}';
+                
+                url = url.replace(place_holder, value)
+            })
+        }
+
+        // build with query
+        if(_.size(args.query) > 0){
+            url += '?'
+            _.map(args.query, function(value, query){
+                url += query + '=' + value + '&'
+            })
+            url.slice(0, -1)
+        }
+        return url
+    } 
 
     return self;
 };
