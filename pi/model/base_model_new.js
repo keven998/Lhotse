@@ -6,6 +6,7 @@ var BaseModel = function(){
     var self = this;
     self.apiHost = 'http://api.lvxingpai.cn'
     self.url = '';
+    self.query = {};
     self.param = [];
 
     self.getUrl = function() {return self.url;}

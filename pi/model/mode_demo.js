@@ -1,7 +1,7 @@
 models = require('./models');
 
 models.suggestionModel.getData(
-    {word: 'a'},
+    {keyword: 'bj'},
     function(e){
         console.log(e)
     }
