@@ -10,14 +10,13 @@ block page_var
 
 block content
     .main_container
-        //
-            a(href="/plans/create/")
-                button.newplan_btn
         if (num == 0)
             h1
                 | 您还没有制定过计划 ,
                 br
                 | 快去规划您的行程吧 ！
+            a.jump(href="/route?loc=&fromName=北京")
+                img(src="/images/plans/mine/btn-arr-r.gif" width="150" height="141")
         else
             .plan_list
                 if myPlans.length != 0
