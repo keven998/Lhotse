@@ -241,7 +241,14 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
             $('.slider_layer').css('height', wHeight - searchHeight - navHeight);
             $('.tab-c').css('height', wHeight - searchHeight - sliderHdHeight - sliderTabHeight - navHeight);
         }
-
+/*
+        function bindMoreBtn(){
+            $(".more").on('click', function(e){
+                console.log("1");
+                console.log(e);
+            })
+        }
+*/
         function bindListEvent(){
             var routeList = $('.routelist>li'),
                 locked = false;
@@ -292,6 +299,9 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                         if (ajax_data.succ) {
                                             $('.tab_nav').after(ajax_data.dropLayerHtml);
                                             $('.loading').remove();
+                                            console.log("0");
+
+                                            // bindMoreBtn();
 
                                             //show the map @CK
                                             selectPanel.updateData(ajax_data.mapView);

@@ -141,7 +141,6 @@ router.get('/mine/', function(req, res){
                 var startYear = plan.startDate.substr(0,4),
                     startMonth = plan.startDate.substr(5,2),
                     startDay = plan.startDate.substr(8,2);
-                    //startDate = startYear;
                 startDate = startYear + "." + startMonth + "." + startDay;
             }
             var endDate = '';
@@ -149,7 +148,6 @@ router.get('/mine/', function(req, res){
                 var endYear = plan.endDate.substr(0,4),
                     endMonth = plan.endDate.substr(5,2),
                     endDay = plan.endDate.substr(8,2);
-                    // endDate = endYear;
                 endDate = endYear + "." + endMonth + "." + endDay;
             }
             planList[i] = {
