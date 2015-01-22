@@ -1,4 +1,4 @@
-//切换"路线推荐"维度
+//could use angular
 $(function(){
     $(".new").click( function() {
         $(".new_routes").show();
@@ -98,7 +98,7 @@ $(function(){
             if ($window.width() > opts.pageHeightJg * 2 + opts.pageWidth) {
                 controlLeft = ($window.width() - opts.pageWidth) / 2 + opts.pageWidth + opts.pageWidthJg;
             }else{
-                controlLeft = $window.width()- opts.pageWidthJg-$this.width();
+                controlLeft = $window.width() - opts.pageWidthJg - $this.width();
             }
 
             var controlTop=$window.height() - $this.height()-opts.pageHeightJg;
@@ -119,7 +119,9 @@ $(function(){
         },30);
 
         $(this).click(function(event){
-            $body.stop().animate( { scrollTop: $(opts.targetObg).offset().top}, opts.duration);
+            $body.stop().animate({
+                scrollTop: $(opts.targetObg).offset().top
+            }, opts.duration);
             $(this).blur();
             event.preventDefault();
             event.stopPropagation();
@@ -134,6 +136,16 @@ $(function(){
         duration:3000,//回到顶部的速度时间
         targetObg:"body"//目标位置
     };
+
+    $('<a href="javascript:;" class="backToTop" title="返回顶部"></a>').appendTo("body");
+    $(".backToTop").goToTop();
+    $(window).bind('scroll resize',function(){
+        $(".backToTop").goToTop({
+            pageWidth:960,
+            duration:400
+        });
+    });
+})(jQuery);
 
     /*
      * 滚动加载
@@ -180,23 +192,6 @@ $(function(){
 //            nextSlide = currSlide + 1 < slideCount ? currSlide + 1 : 0;
 //        }, 6000);
 //    }
-})(jQuery);
-
-
-$(function(){
-    $('<a href="javascript:;" class="backToTop" title="返回顶部"></a>').appendTo("body");
-});
-
-//返顶效果
-$(function(){
-  $(".backToTop").goToTop();
-      $(window).bind('scroll resize',function(){
-        $(".backToTop").goToTop({
-          pageWidth:960,
-          duration:400
-        });
-    });
-});
 
 
 // 通过IP获取地理地址-城市名字

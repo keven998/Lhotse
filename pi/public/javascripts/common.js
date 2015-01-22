@@ -18,9 +18,10 @@ $(function () {
         lgWidth = lgLayer.width(),
         lgTop = (wHeight - lgHeight)/2,
         lgRight = (wWidth - lgWidth)/2;
-
     lgLayer.offset({top:lgTop , right: -400});
-    topHd.on('click','a.login',function(e){
+    console.log(wHeight);
+    console.log(lgHeight);
+    topHd.on('click', 'a.login', function(e){
         //qq登录时的当前页面的记录
         var qq_call_back = $(".qq").attr("href") + "&referer=" + window.location.href;
         $(".qq").attr("href",qq_call_back);
@@ -29,7 +30,7 @@ $(function () {
         lgLayer.animate({
             right: lgRight
         }, 300, "swing", function(){
-            layer.on('click',function(e){
+            layer.on('click', function(e){
                 lgLayer.animate({
                     right: -400
                 }, 300, 'swing');
