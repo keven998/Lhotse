@@ -45,6 +45,7 @@ router.get('/detail/:TEMPLATEID', function(req, res) {
         query      = req._parsedUrl.query;
 
     model.setUrl(apiList.ugc.planDetail + templateId + '?' + query);
+    console.log(model.getUrl());
     model.getdata(null, function(data){
         if(!utils.checkApiRequestState(data)) {
             /* render error page */
@@ -126,6 +127,7 @@ router.get('/mine/', function(req, res){
     var user_info = utils.get_user_info(req, res);
 
     model.setUrl(apiList.apiHost + apiList.myPlans + user_info.id);
+    console.log(model.getUrl());
     model.getdata(req, function(data) {
         var planList = [], i;
         data = JSON.parse(data);
@@ -153,7 +155,7 @@ router.get('/mine/', function(req, res){
             planList[i] = {
                 "id":           plan._id,
                 "name":         plan.title,
-                "image":        plan.imageList[0],
+                "image":        plan.images[0] && plan.images[0].url,
                 "days":         plan.days,
                 "startDate":    startDate,
                 "endDate":      endDate,
