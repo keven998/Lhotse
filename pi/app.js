@@ -49,7 +49,7 @@ log4js.configure({
         online_product: 'ERROR',
         online_development: 'INFO'
      },
-     replaceConsole: config.env !== 'local_debug'
+     replaceConsole: (config.env !== 'local_debug') && (config.env !== 'local')
 });
 
 //set logger_log4js can be called in other files
@@ -63,6 +63,7 @@ if (config.env !== 'local_debug') {
 } else {
     app.use(logger('dev'));
 }
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
@@ -105,13 +106,13 @@ if (app.get('env') === 'development') {
 }
 
 // production error handler, no stacktraces leaked to user
-// app.use(function(err, req, res, next) {
-//     res.status(err.status || 500);
-//     res.render('common/error', {
-//         message: err.message,
-//         config: config,
-//         error: {}
-//     });
-// });
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('common/error', {
+        message: err.message,
+        config: config,
+        error: {}
+    });
+});
 
 module.exports = app;

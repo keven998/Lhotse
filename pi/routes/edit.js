@@ -166,6 +166,8 @@ router.post('/submit', function(req, res) {
         ugcId           = submitData.id,
         templateId      = submitData.templateId;
     var data = processSubmitData(submitData);
+    // console post content
+    // console.log(data);
     var options = {
         url : apiList.apiHost + apiList.ugc.saveUgc,
         json: data,
