@@ -241,14 +241,69 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
             $('.slider_layer').css('height', wHeight - searchHeight - navHeight);
             $('.tab-c').css('height', wHeight - searchHeight - sliderHdHeight - sliderTabHeight - navHeight);
         }
-/*
+
         function bindMoreBtn(){
             $(".more").on('click', function(e){
-                console.log("1");
-                console.log(e);
+                console.log($(this));
+                console.log(this);
+                $('#route').trigger('click');
+                var tabId = '#' + $(this).attr('data-type');
+                $(tabId).trigger('click');
             })
         }
-*/
+
+        function bindSliderTab(){
+            // $('#route').off('click');
+            $('#detail').on('click', function (e) {
+                if ($('#item01').css('display') == 'none'){
+                    $('#item01').show();
+                    $('#detail').addClass('selected');
+                    $('#item02').hide();
+                    $('#misc').removeClass('selected');
+                } else {
+                    return false;
+                }
+            });
+            // $('#misc').off('click');
+            $('#misc').on('click', function (e) {
+                if ($('#item02').css('display') == 'none'){
+                    $('#item02').show();
+                    $('#misc').addClass('selected');
+                    $('#item01').hide();
+                    $('#detail').removeClass('selected');
+                } else {
+                    return false;
+                }
+            });
+        }
+
+        function bindSliderLayerEvents(){
+            $('#route').on('click',function(){
+                var sliderLayer = $('.slider_layer');
+                sliderLayer.show();
+                responseRouteLayerHeight();
+                sliderLayer.animate({
+                    left: 0
+                },500,"swing");
+
+                //tab event
+                bindSliderTab();
+
+                //fork event
+                var forkBtn = $('.slider_layer').find('.fork');
+                forkBtn.off('click');
+                forkBtn.on('click', popLayer);
+
+                //closed evnt
+                $('#slider_close').off('click');
+                $('#slider_close').on('click',function(){
+                    sliderLayer.animate({
+                        left: -650
+                    },500,"swing");
+                });
+            });
+        }
+
         function bindListEvent(){
             var routeList = $('.routelist>li'),
                 locked = false;
@@ -263,7 +318,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                 $this.on('click', function (e) {
                     var target = e.target,
                         dropClassName = "drop_layer",
-                        layerClass = "." + dropClassName,
+                        layerClass = "." + dropClassName,//droplayer class
                         tabUl = layerClass + ' ul',
                         fromId = $('#from').attr('data-id'),
                         requestUrl = "/route/layer/" + $(this).attr('data-id') + "?fromLoc=" + fromId;
@@ -299,9 +354,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                         if (ajax_data.succ) {
                                             $('.tab_nav').after(ajax_data.dropLayerHtml);
                                             $('.loading').remove();
-                                            console.log("0");
-
-                                            // bindMoreBtn();
+                                            bindMoreBtn();
 
                                             //show the map @CK
                                             selectPanel.updateData(ajax_data.mapView);
@@ -313,55 +366,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                             $('.moredesc').append(ajax_data.moreDesc);
 
                                             /*bind sliderlayer show event*/
-                                            $('#route').on('click',function(){
-                                                var sliderLayer = $('.slider_layer');
-                                                sliderLayer.show();
-                                                responseRouteLayerHeight();
-                                                sliderLayer.animate({
-                                                    left: 0
-                                                },500,"swing");
-
-                                                //tab event
-                                                var tab01 = $('#tab01'),
-                                                    tab02 = $('#tab02'),
-                                                    item01 = $('#item01'),
-                                                    item02 = $('#item02');
-                                                tab01.off('click');
-                                                tab01.on('click', function (e) {
-                                                    if (item01.css('display') == 'none'){
-                                                        item01.show();
-                                                        tab01.addClass("selected");
-                                                        item02.hide();
-                                                        tab02.removeClass("selected");
-                                                    } else {
-                                                        return false;
-                                                    }
-                                                });
-                                                tab02.off('click');
-                                                tab02.on('click', function (e) {
-                                                    if (item02.css('display') == 'none'){
-                                                        item02.show();
-                                                        tab02.addClass("selected");
-                                                        item01.hide();
-                                                        tab01.removeClass("selected");
-                                                    } else {
-                                                        return false;
-                                                    }
-                                                });
-
-                                                //fork event
-                                                var forkBtn = $('.slider_layer').find('.fork');
-                                                forkBtn.off('click');
-                                                forkBtn.on('click', popLayer);
-
-                                                //closed evnt
-                                                $('#slider_close').off('click');
-                                                $('#slider_close').on('click',function(){
-                                                    sliderLayer.animate({
-                                                        left: -650
-                                                    },500,"swing");
-                                                });
-                                            });
+                                            bindSliderLayerEvents();
                                             $(layerClass).show('fast');
 
                                     
