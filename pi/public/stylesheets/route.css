@@ -1,9 +1,9 @@
 .full-screen{width:100%;position: relative;}
 
 .route_container{width:582px;border: 1px solid #DDD;}
-.wrap_left{margin:5px 2px;;width:584px;overflow: hidden;display: inline-block;}
+.wrap_left{margin:10px 2px 0;;width:584px;overflow: hidden;display: inline-block;}
 /****head****/
-.search-bg{position:relative;background:#fff;color:#898989;height:30px;width:544px;font-size:14px;border:1px solid #ddd;margin:5px 15px 10px;}
+.search-bg{position:relative;background:#fff;color:#898989;height:30px;width:544px;font-size:14px;border:1px solid #ddd;margin:0 15px 10px;}
 .search-bg b{display:inline-block;vertical-align:top;line-height:30px;}
 .search-bg .change{margin-left:8px;color:#ccc;font-size:12px;}
 .search-bg .line{height:25px;margin:3px 20px 3px;border-right:1px solid #4fa7bd;}

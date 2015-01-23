@@ -185,13 +185,15 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
 
         function responseRouteListHeight(){
             var wHeight = $(window).height(),
-                hdHeight = $('.hd').height(),
-                searchHeight = 52,
+                navHeight = 60,
+                searchHeight = 42,
+                filternavHeight = 29,
+                selectListHeight = $('.select-list').height() ? $('.select-list').height() + 15 : 10,
+                gapHeight = 36,
                 margintop = 5,
-                filternavHeight = 24,
-                selectListHeight = $('.select-list').height(),
-                gapHeight = 36;
-            $('.routelist').css('height',wHeight - hdHeight - searchHeight - filternavHeight - selectListHeight - gapHeight - margintop);
+                routelist_border = 5;
+            console.log(selectListHeight);
+            $('.routelist').css('height',wHeight - searchHeight - filternavHeight - selectListHeight - gapHeight - margintop - navHeight + routelist_border);
         }
 
         //uncheck first , then check
@@ -236,7 +238,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                 sliderHdPadding = 20,
                 sliderHdHeight = $('.slider_hd').height() + sliderHdPadding,
                 sliderTabHeight = 31,
-                searchHeight = 52,
+                searchHeight = 42,
                 navHeight = 60;
             $('.slider_layer').css('height', wHeight - searchHeight - navHeight);
             $('.tab-c').css('height', wHeight - searchHeight - sliderHdHeight - sliderTabHeight - navHeight);
@@ -997,21 +999,22 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
     function container_initial(){
         var wHeight = $(window).height(),
             wWidth = $(window).width(),
-            searchHeight = 52,
             navHeight = 60,
-            margintop = 10,
-            filternavHeight = 24,
-            selectListHeight = $('.select-list').height(),
+            searchHeight = 42,
+            filternavHeight = 29,
+            selectListHeight = $('.select-list').height() + 10,
             gapHeight = 36,
             routeListWidth = $('.routelist').width(),
-            marginleft = 15;
+            margintop = 5,
+            marginleft = 15,
+            routelist_border = 5;
         $('#map_inner').css('width',wWidth - routeListWidth - marginleft);
         $('#map_inner').css('height',wHeight - margintop - navHeight);
-        $('.routelist').css('height',wHeight - searchHeight - filternavHeight - selectListHeight - gapHeight - margintop - navHeight);
+        $('.routelist').css('height',wHeight - searchHeight - filternavHeight - selectListHeight - gapHeight - margintop - navHeight + routelist_border);
 
         $(window).resize(function(){
             var wWidth = $(window).width();
-            $('#map_inner').css('width',wWidth - routeListWidth);
+            $('#map_inner').css('width',wWidth - routeListWidth - marginleft);
         });
     }
 });
