@@ -371,7 +371,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                             bindSliderLayerEvents();
                                             $(layerClass).show('fast');
 
-                                    
+
 
                                             //图片滚动
                                             var id = function(el) {
@@ -832,7 +832,8 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
             if (routeData) {
                 cthis.setIdArray();
                 cthis.addMarker();
-                cthis.addSelectOptiontab();
+                // cthis.addSelectOptiontab();
+                cthis.daySelectPanel();
             }
         };
 
@@ -899,6 +900,45 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
             });
         };
 
+        cthis.daySelectPanel = function() {
+            var selectPanelDiv = document.createElement('div');
+            selectPanelDiv.index = 1;
+            selectPanelDiv.className = "map_day_select";
+            selectPanelDiv.id = "J_selectPanel";
+
+            var totalDay = routeData.length;
+            for (var i = 0; i <= totalDay; i++) {
+                var option = document.createElement('div');
+                if (0 === i) {
+                    option.innerHTML = '全程';
+                }else {
+                    option.innerHTML = '第' + i + '天';
+                }
+                option.className = "map_day_flag";
+                option.id = 'map_day_' + i;
+                option.setAttribute('data-index', i);
+                selectPanelDiv.appendChild(option);
+                currentSelect = gmapAddDomListener(option);
+            }
+
+            mapObject.controls[google.maps.ControlPosition.TOP_LEFT].push(selectPanelDiv);
+
+            if (routeData) {
+                cthis.setFitView(0);
+            }
+
+            function gmapAddDomListener(dom){
+                var index = '';
+                google.maps.event.addDomListener(dom, 'click', function() {
+                    index = $(dom).attr('data-index');
+                    $(dom).addClass('map_day_current');
+                    $(dom).siblings().removeClass('map_day_current');
+                    cthis.drawRoute(index);
+                });
+                return index;
+            }
+        };
+
         cthis.addMarker = function() {
             var indexInAll = 0;
             for (var dayIndex in routeData) {
@@ -919,7 +959,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
 
         cthis.drawRoute = function(index) {
             mapControl.clearRoute();
-            if (0 === index) {
+            if (0 == index) {
                 cthis.showAllMarker();
             }else {
                 cthis.showOneDay(index);
@@ -930,7 +970,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
 
         cthis.setFitView = function(index) {
             var bound = new google.maps.LatLngBounds();
-            if (0 === index ) {
+            if (0 == index ) {
                 for(var dayIndex in latLngArray) {
                     var oneDayData = latLngArray[dayIndex];
                     for (var j in oneDayData) {
