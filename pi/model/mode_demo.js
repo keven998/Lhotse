@@ -19,3 +19,11 @@ args = {
 models.plan.planDetailModel.getData(args, function(data){
     console.log(JSON.stringify(data));
 });
+
+/*
+	the type of args:
+	    self.required_query = [];
+	    self.default_not_required_query = ['page', 'pageSize'];
+	    self.not_required_query = [];
+	    self.url_param = [];
+*/
