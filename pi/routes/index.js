@@ -67,7 +67,9 @@ router.get('/route', function(req, res) {
     async.parallel({
         from: function(callback) {
             models.searchId.locModel.getData({
-                required_query: { "keyword":  req.query.fromName}
+                query: {
+                    "keyword":  req.query.fromName
+                }
             }, function(model_result){
                 if (! model_result.succ){ console.log("Can't find this fromLoc!"); };
                 callback(null, model_result);
@@ -80,7 +82,9 @@ router.get('/route', function(req, res) {
                 poiType = zone.type.locality;
             };
             models.searchId[ poiType + "Model" ].getData({
-                required_query: { "keyword": req.query[poiType] }
+                query: {
+                    "keyword": req.query[poiType]
+                }
             }, function(model_result){
                 if (! model_result.succ){ console.log("Can't find this arriveLoc!"); };
                 callback(null, model_result);
@@ -88,17 +92,17 @@ router.get('/route', function(req, res) {
         }
     },
     function(err, results) {
-        var fromId = results.from;
-        var arriveId = results.arrive;
+        var fromId = results.from.data[0].id;
+        var arriveId = results.arrive.data[0].id;
         var args = (poiType == "vs")?
             {
-                required_query: { 
+                query: { 
                     fromLoc: fromId,
                     vs: arriveId
                 }
             }
             :{
-                required_query: { 
+                query: { 
                     fromLoc: fromId,
                     loc: arriveId
                 }

@@ -1,5 +1,4 @@
 models = require('./models');
-
 models.recommend.newRouteModel.getData({}, function(data){
     console.log(JSON.stringify(data));
 })
