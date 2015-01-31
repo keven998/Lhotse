@@ -66,7 +66,7 @@ router.get('/route', function(req, res) {
     var poiType;
     async.parallel({
         from: function(callback) {
-            models.searchId.locModel.getData({
+            models.searchByName.locModel.getData({
                 query: {
                     "keyword":  req.query.fromName,
                     "prefix": false
@@ -82,7 +82,7 @@ router.get('/route', function(req, res) {
             }else if (req.query[zone.type.locality] !== undefined){
                 poiType = zone.type.locality;
             };
-            models.searchId[ poiType + "Model" ].getData({
+            models.searchByName[ poiType + "Model" ].getData({
                 query: {
                     "keyword": req.query[poiType],
                     "prefix": false

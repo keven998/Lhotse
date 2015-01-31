@@ -32,7 +32,7 @@ module.exports.suggestionModel = create_model({
 })
 
 
-module.exports.searchId = {
+module.exports.searchByName = {
     locModel: create_model({
         url: '/web/geo/localities/search',
         required_query: ['keyword'],
