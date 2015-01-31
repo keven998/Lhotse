@@ -68,7 +68,8 @@ router.get('/route', function(req, res) {
         from: function(callback) {
             models.searchId.locModel.getData({
                 query: {
-                    "keyword":  req.query.fromName
+                    "keyword":  req.query.fromName,
+                    "prefix": false
                 }
             }, function(model_result){
                 if (! model_result.succ){ console.log("Can't find this fromLoc!"); };
@@ -83,7 +84,8 @@ router.get('/route', function(req, res) {
             };
             models.searchId[ poiType + "Model" ].getData({
                 query: {
-                    "keyword": req.query[poiType]
+                    "keyword": req.query[poiType],
+                    "prefix": false
                 }
             }, function(model_result){
                 if (! model_result.succ){ console.log("Can't find this arriveLoc!"); };
@@ -92,38 +94,57 @@ router.get('/route', function(req, res) {
         }
     },
     function(err, results) {
-        var fromId = results.from.data[0].id;
-        var arriveId = results.arrive.data[0].id;
-        var args = (poiType == "vs")?
-            {
-                query: { 
-                    fromLoc: fromId,
-                    vs: arriveId
+        if (!(_.isArray(results.from.data) && results.from.data.length && _.isArray(results.arrive.data) && results.arrive.data.length)){
+            res.render('route', {
+                plans: [],
+                fromName: req.query.fromName,
+                arriveName: req.query[poiType],
+                user_info: utils.get_user_info(req, res),
+                config: config,
+                route_filters: route_filters
+            })
+            console.log("Can't get any route!");
+        }else{
+            var fromId = results.from.data[0].id;
+            var arriveId = results.arrive.data[0].id;
+            var args = (poiType == "vs")?
+                {
+                    query: { 
+                        fromLoc: fromId,
+                        vs: arriveId
+                    }
                 }
-            }
-            :{
-                query: { 
-                    fromLoc: fromId,
-                    loc: arriveId
+                :{
+                    query: { 
+                        fromLoc: fromId,
+                        loc: arriveId
+                    }
                 }
-            }
-        models.routeList[ poiType + "Model" ].getData(args, function(model_result){
-            if (! model_result.succ){
-                res.json(null);
-                console.log("Can't get any route!");
-            }else{
-                res.render('route', {
-                    plans: model_result.data,
-                    fromName: req.query.fromName,
-                    arriveId: arriveId,
-                    fromId: fromId,  // 用于配置“复制路线”的url
-                    arriveName: req.query[poiType],
-                    user_info: utils.get_user_info(req, res),
-                    config: config,
-                    route_filters: route_filters
-                })
-            }
-        })
+            models.routeList[ poiType + "Model" ].getData(args, function(model_result){
+                if (! model_result.succ){
+                    res.render('route', {
+                        plans: [],
+                        fromName: req.query.fromName,
+                        arriveName: req.query[poiType],
+                        user_info: utils.get_user_info(req, res),
+                        config: config,
+                        route_filters: route_filters
+                    })
+                    console.log("Can't get any route!");
+                }else{
+                    res.render('route', {
+                        plans: model_result.data,
+                        fromName: req.query.fromName,
+                        arriveId: arriveId,
+                        fromId: fromId,  // 用于配置“复制路线”的url
+                        arriveName: req.query[poiType],
+                        user_info: utils.get_user_info(req, res),
+                        config: config,
+                        route_filters: route_filters
+                    })
+                }
+            })   
+        }
     })
 });
 

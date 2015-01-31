@@ -39,11 +39,7 @@ var BaseModel = function(){
                         error_msg = "Error: The server return an error html page.";
                     }else{
                         data = JSON.parse(data).result;
-                        if (data != null){
-                            succ = true;
-                        }else{
-                            error_msg = "Error: The server return an empty result.";        
-                        }
+                        succ = true;
                     }
                 }else{
                     error_msg = "Error: The server return an empty data.";

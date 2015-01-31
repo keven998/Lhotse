@@ -35,11 +35,13 @@ module.exports.suggestionModel = create_model({
 module.exports.searchId = {
     locModel: create_model({
         url: '/web/geo/localities/search',
-        required_query: ['keyword']
+        required_query: ['keyword'],
+        not_required_query: ['prefix']
     }),
     vsModel: create_model({
         url: '/web/poi/view-spots/search',
-        required_query: ['keyword']
+        required_query: ['keyword'],
+        not_required_query: ['prefix']
     })
 }
 

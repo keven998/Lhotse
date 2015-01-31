@@ -757,7 +757,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                 '<input type="radio" name="traffic" value="airRoute" id="air" checked/><label for="air">飞机</label>'+
                                 '<input type="radio" name="traffic" value="trainRoute" id="train"/><label for="train">火车</label>'+
                                 // '<input type="radio" name="traffic" value="carRoute" id="car"/><label for="car">汽车</label>'+
-                                '<input type="radio" name="traffic" value="none" id="tnone"/><label for="tnone">不限</label>'+
+                                '<input type="radio" name="traffic" value="all" id="tnone"/><label for="tnone">不限</label>'+
                             '</div>'+
                             '<div>'+
                                 '<b>酒店</b>'+
@@ -766,20 +766,20 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
                                 '<input type="radio" name="hotel" value="youthandfolk" id="youthandfolk"/><label for="youthandfolk">青旅或民俗</label>'+
                                 // '<input type="radio" name="hotel" value="youth" id="youth"/><label for="youth">青年旅社</label>'+
                                 // '<input type="radio" name="hotel" value="folk" id="folk"/><label for="folk">民俗酒店</label>'+
-                                '<input type="radio" name="hotel" value="none" id="hnone"/><label for="hnone">不限</label>'+
+                                '<input type="radio" name="hotel" value="all" id="hnone"/><label for="hnone">不限</label>'+
                             '</div>'+
                             '<div>'+
                                 '<b>美食</b>'+
                                 '<input type="radio" name="restaurant" value="reputation" id="reputation" checked/><label for="reputation">口碑最好</label>'+
                                 '<input type="radio" name="restaurant" value="special" id="special"/><label for="special">特色小吃</label>'+
                                 // '<input type="radio" name="restaurant" value="wellknow" id="wellknow"/><label for="wellknow">连锁名店</label>'+
-                                '<input type="radio" name="restaurant" value="none" id="rnone"/><label for="rnone">不限</label>'+
+                                '<input type="radio" name="restaurant" value="all" id="rnone"/><label for="rnone">不限</label>'+
                             '</div>'+
                             // '<div>'+
                             //     '<b>娱乐</b>'+
                             //     '<input type="radio" name="enjoy" value="bar" id="bar" checked/><label for="bar">酒吧</label>'+
                             //     '<input type="radio" name="enjoy" value="activity" id="activity"/><label for="activity">活动</label>'+
-                            //     '<input type="radio" name="enjoy" value="none" id="enone"/><label for="enone">无</label>'+
+                            //     '<input type="radio" name="enjoy" value="all" id="enone"/><label for="enone">无</label>'+
                             // '</div>'+
                         '</form>'+
                     '</div>'+
