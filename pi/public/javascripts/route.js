@@ -123,7 +123,7 @@ require(['googlemapApi','citySelector','idTabs','iCheck'], function(GMaper) {
             },
             filtField = {
                 companions: "company",
-                purpose: "tag"
+                purpose: "plays"
             };
 
         function selectParams() {
