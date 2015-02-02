@@ -24,11 +24,40 @@ module.exports.recommend = {
     popRouteModel: create_model({url: '/web/recommend/popularity'})
 }
 
+
 module.exports.suggestionModel = create_model({
     url: '/web/suggestions',
     required_query: ['keyword'],
-    not_required_query: ['restaurant', 'vs', 'hotel', 'loc'],
+    not_required_query: ['restaurant', 'vs', 'hotel', 'loc']
 })
+
+
+module.exports.searchByName = {
+    locModel: create_model({
+        url: '/web/geo/localities/search',
+        required_query: ['keyword'],
+        not_required_query: ['prefix']
+    }),
+    vsModel: create_model({
+        url: '/web/poi/view-spots/search',
+        required_query: ['keyword'],
+        not_required_query: ['prefix']
+    })
+}
+
+
+module.exports.routeList = {
+    vsModel: create_model({
+        url: "/web/plans/explore",
+        required_query: ['vs', 'fromLoc'],
+        not_required_query: ['tag', 'minDays', 'maxDays']
+    }),
+    locModel: create_model({
+        url: "/web/plans/explore",
+        required_query: ['loc', 'fromLoc'],
+        not_required_query: ['tag', 'minDays', 'maxDays']
+    })
+}
 
 
 module.exports.plan = {

@@ -17,11 +17,11 @@ router.get('/layer/:ROUTEID', function(req, res){
     async.parallel({
         route_data: function(callback){
             model.setUrl(apiList.apiHost + "/web/plans/" + req.params.ROUTEID + '?fromLoc=' + req.query.fromLoc);
-            model.getCleanData(null, function(data) {callback(null, data)});
+            model.getCleanData(null, function(data) { callback(null, data) });
         },
         misc_data: function(callback){
             model.setUrl(apiList.apiHost + "/web/misc/notes/search?planId=" + req.params.ROUTEID);
-            model.getCleanData(null, function(data) {callback(null, data)});
+            model.getCleanData(null, function(data) { callback(null, data) });
         }
     }, function(err, results){
         /*render the html*/

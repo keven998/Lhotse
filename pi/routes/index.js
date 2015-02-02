@@ -62,60 +62,90 @@ router.get('/', function(req, res) {
 
 
 router.get('/route', function(req, res) {
-    var fromLocName = req.query.fromName;
-    /*get locId*/
-    var queryFromName = apiList.apiHost + apiList.searchCityIdByName + decodeURIComponent(fromLocName);
-    if (req.query[zone.type.viewspot] !== undefined){
-        var poiType = zone.type.viewspot,
-            arrLocName = req.query[zone.type.viewspot],
-            queryArrName = apiList.apiHost + apiList.searchViewspotIdByName + decodeURIComponent(arrLocName) + "&sort=desc";
-    }else if (req.query[zone.type.locality] !== undefined){
-        var poiType = zone.type.locality,
-            arrLocName = req.query[zone.type.locality],
-            queryArrName = apiList.apiHost + apiList.searchCityIdByName + arrLocName;
-    }else{
-        console.log("No destination!");
-    }
-
+    //get fromId and arriveId
+    var poiType;
     async.parallel({
         from: function(callback) {
-            model.setUrl(encodeURI(queryFromName));
-            model.getdata(null, function(data){
-               callback(null, getIdFromName(data,0));
+            models.searchByName.locModel.getData({
+                query: {
+                    "keyword":  req.query.fromName,
+                    "prefix": false
+                }
+            }, function(model_result){
+                if (! model_result.succ){ console.log("Can't find this fromLoc!"); };
+                callback(null, model_result);
             });
         },
         arrive: function(callback) {
-            model.setUrl(encodeURI(queryArrName));
-            model.getdata(null, function(data){
-               callback(null, getIdFromName(data,1));
+            if (req.query[zone.type.viewspot] !== undefined){
+                poiType = zone.type.viewspot;
+            }else if (req.query[zone.type.locality] !== undefined){
+                poiType = zone.type.locality;
+            };
+            models.searchByName[ poiType + "Model" ].getData({
+                query: {
+                    "keyword": req.query[poiType],
+                    "prefix": false
+                }
+            }, function(model_result){
+                if (! model_result.succ){ console.log("Can't find this arriveLoc!"); };
+                callback(null, model_result);
             });
         }
     },
     function(err, results) {
-        var fromId = results.from,
-            arriveId = results.arrive,
-            // indexGoUrl = apiList.apiHost + apiList.getRouteList + "?tag=&minDays=0&maxDays=99" + "&fromLoc=" + fromId + "&" + poiType + "=" + arriveId;
-            indexGoUrl = apiList.apiHost + apiList.getRouteList + "fromLoc=" + fromId + "&" + poiType + "=" + arriveId;
-        model.setUrl(encodeURI(indexGoUrl));
-        model.getdata(null, function(data){
-            if((data !== undefined) && (data.indexOf('<html>') < 0)){
-                var data = JSON.parse(data);
-                res.render('route', {
-                    plans: data.result || [],
-                    fromName: fromLocName,
-                    arriveId: arriveId,
-                    fromId: fromId,  // 用于配置“复制路线”的url
-                    arriveName: arrLocName,
-                    user_info: utils.get_user_info(req, res),
-                    config: config,
-                    route_filters: route_filters
-                });
-            }else{
-                res.json(null);
-                console.log(error[2]);
-            }
-        });
-    });
+        if (!(_.isArray(results.from.data) && results.from.data.length && _.isArray(results.arrive.data) && results.arrive.data.length)){
+            res.render('route', {
+                plans: [],
+                fromName: req.query.fromName,
+                arriveName: req.query[poiType],
+                user_info: utils.get_user_info(req, res),
+                config: config,
+                route_filters: route_filters
+            })
+            console.log("Can't get any route!");
+        }else{
+            var fromId = results.from.data[0].id;
+            var arriveId = results.arrive.data[0].id;
+            var args = (poiType == "vs")?
+                {
+                    query: { 
+                        fromLoc: fromId,
+                        vs: arriveId
+                    }
+                }
+                :{
+                    query: { 
+                        fromLoc: fromId,
+                        loc: arriveId
+                    }
+                }
+            models.routeList[ poiType + "Model" ].getData(args, function(model_result){
+                if (! model_result.succ){
+                    res.render('route', {
+                        plans: [],
+                        fromName: req.query.fromName,
+                        arriveName: req.query[poiType],
+                        user_info: utils.get_user_info(req, res),
+                        config: config,
+                        route_filters: route_filters
+                    })
+                    console.log("Can't get any route!");
+                }else{
+                    res.render('route', {
+                        plans: model_result.data,
+                        fromName: req.query.fromName,
+                        arriveId: arriveId,
+                        fromId: fromId,  // 用于配置“复制路线”的url
+                        arriveName: req.query[poiType],
+                        user_info: utils.get_user_info(req, res),
+                        config: config,
+                        route_filters: route_filters
+                    })
+                }
+            })   
+        }
+    })
 });
 
 router.get('/download/', function(req, res) {

@@ -28,7 +28,8 @@ var BaseModel = function(){
     self.getData = function(args, callback) {
         var check = self.checkUrl(args);
         if(check.succ){
-            request(self.buildUrl(args), function(err, res, data) {
+            var url = encodeURI(self.buildUrl(args));
+            request(url, function(err, res, data) {
                 var error_msg = '';
                 var succ = false;
                 if(err){
@@ -137,7 +138,7 @@ var BaseModel = function(){
             _.map(args.query, function(value, query){
                 url += query + '=' + value + '&'
             })
-            url.slice(0, -1)
+            url = url.slice(0, -1)
         }
         return url
     } 
