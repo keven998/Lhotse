@@ -24,25 +24,31 @@ var error = [
 router.get('/', function(req, res) {
     async.parallel({
         newRoute: function(callback) {
-            models.recommend.newRouteModel.getData({}, function(model_result){
+            models.recommend.newRouteModel.getData({ query: { pageSize: 6 } }, function(model_result){
                 if (! model_result.succ){ console.log("can't get the newRoute"); };
                 callback(null, model_result);
             });
         },
         editorRoute: function(callback) {
-            models.recommend.editorRouteModel.getData({}, function(model_result){
+            models.recommend.editorRouteModel.getData({ query: { pageSize: 6 } }, function(model_result){
                 if (! model_result.succ){ console.log("can't get the editorRoute"); };
                 callback(null, model_result);
             });
         },
         mustgoRoute: function(callback) {
-            models.recommend.mustgoRouteModel.getData({}, function(model_result){
+            models.recommend.mustgoRouteModel.getData({ query: { pageSize: 6 } }, function(model_result){
                 if (! model_result.succ) { console.log("can't get the mustgoRoute"); };
                 callback(null, model_result);
             });
         },
         popRoute: function(callback) {
-            models.recommend.popRouteModel.getData({}, function(model_result){
+            models.recommend.popRouteModel.getData({ query: { pageSize: 6 } }, function(model_result){
+                if (! model_result.succ) { console.log("can't get the popRoute"); };
+                callback(null, model_result);
+            });
+        },
+        articles: function(callback) {
+            models.article.listModel.getData({ query: { pageSize: 6 } }, function(model_result){
                 if (! model_result.succ) { console.log("can't get the popRoute"); };
                 callback(null, model_result);
             });
@@ -50,6 +56,7 @@ router.get('/', function(req, res) {
     },
     function(err, results) {
         res.render('index', {
+            articles: (results.articles.succ) ? results.articles.data : [],
             newRoute: (results.newRoute.succ) ? results.newRoute.data : [],
             editorRoute: (results.editorRoute.succ) ? results.editorRoute.data : [],
             mustgoRoute: (results.mustgoRoute.succ) ? results.mustgoRoute.data : [],
@@ -111,13 +118,15 @@ router.get('/route', function(req, res) {
                 {
                     query: { 
                         fromLoc: fromId,
-                        vs: arriveId
+                        vs: arriveId,
+                        pageSize: 999
                     }
                 }
                 :{
                     query: { 
                         fromLoc: fromId,
-                        loc: arriveId
+                        loc: arriveId,
+                        pageSize: 999
                     }
                 }
             models.routeList[ poiType + "Model" ].getData(args, function(model_result){

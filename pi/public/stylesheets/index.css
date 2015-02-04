@@ -20,9 +20,12 @@
 #from{color:#898989;}
 #fromWrap{display: inline-block;vertical-align: top;cursor: pointer;width:110px;height:30px;position: absolute;z-index: 100;}
 
+h1.title{font-size: 30px;color: #b0c6c1;font-family: "黑体";display: inline-block;padding-bottom:30px;}
+.new_routes, .editor_routes, .mustgo_routes, .pop_routes{height: 750px;}
+
 .content .t{width: auto;height: 40px;text-align: center;color: #aaa;padding: 20px 10px;line-height: 1.5;}
 .t .txt01{font-size: 28px;font-family: "黑体";}
-.content .c-nav{height: 30px;line-height: 30px;padding-bottom:30px;font-size: 16px;}
+.content .c-nav{height: 30px;line-height: 30px;font-size: 16px;display: inline-block;padding-left: 20px;padding-bottom: 10px;vertical-align: middle;}
 .c-nav a{display: inline-block;height: auto;margin-right: 24px;line-height: 1;color: #4fa7bd;text-align: left;font-weight: bold;font-family: "黑体";border-left: 3px solid #4fa7bd;padding:2px;}
 .c-nav a.new{border-left: 3px solid #ffaa00;}
 .c-nav a:hover{background-color:#b0c6c1;}

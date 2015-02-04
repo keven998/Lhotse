@@ -7,9 +7,7 @@ var create_model = function(args){
     if(args.hasOwnProperty('required_query')){
         model.setRequiredQuery(args.required_query);
     }
-    if(args.hasOwnProperty('not_required_query')){
-        model.setNotRequiredQuery(args.not_required_query);
-    }
+    model.setNotRequiredQuery(args.not_required_query);
     if(args.hasOwnProperty('url_param')){
         model.setUrlParam(args.url_param);
     }
@@ -68,5 +66,15 @@ module.exports.plan = {
     })
 }
 
+
+module.exports.article = {
+    listModel: create_model({
+        url: "/web/articles"
+    }),
+    detailModel: create_model({
+        url: "/web/articles/{articleID}",
+        url_param: ['articleID']
+    })
+}
 
 

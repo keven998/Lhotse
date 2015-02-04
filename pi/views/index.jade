@@ -12,6 +12,7 @@ block page_var
         }
     script(src='http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js' type='text/ecmascript')
 
+    title 旅行派——想旅行，你就派一下！
 
 block content
     .bd
@@ -44,8 +45,7 @@ block content
 
     #suggestion_to.suggestion(style="width:380px;")
     .content.f-cb
-        //- p.t
-        //-     b.txt01 精彩的旅程，也需要你的发现
+        h1.title 最热路线
         .c-nav
             a.new
                 span 新鲜出炉
@@ -55,11 +55,7 @@ block content
                 span 不可不去
             a.pop
                 span 人气之旅
-        .new_routes
-            //
-                .c-left
-                    .num 1
-                    p 这里汇集了旅行达人们最新发布的旅行攻略。
+        .new_routes.routes
             .c-right.f-cb
                 #m-list.main
                     each route in newRoute
@@ -85,11 +81,7 @@ block content
                                         if route.description.desc
                                           - var short_desc = route.description.desc.toString().substring(0, 25)
                                           | #{short_desc}...
-        .editor_routes(style='display: none;')
-            //
-                .c-left
-                    .num 2
-                    p 软妹子小编每日加班为您精选，篇篇攻略是经典，内容已审有保证。
+        .editor_routes(style='display: none;').routes
             .c-right.f-cb
                 #m-list.main
                     each route in editorRoute
@@ -115,11 +107,7 @@ block content
                                         if route.description.desc
                                             - var short_desc = route.description.desc.toString().substring(0, 25)
                                             | #{short_desc}...
-        .mustgo_routes(style='display: none;')
-            //
-                .c-left
-                    .num 3
-                    p 有人说旅行是一种生活，我们说每样的生活都有一些不可不去的旅行。
+        .mustgo_routes(style='display: none;').routes
             .c-right.f-cb
                 #m-list.main
                     each route in mustgoRoute
@@ -145,11 +133,7 @@ block content
                                         if route.description.desc
                                             - var short_desc = route.description.desc.toString().substring(0, 25)
                                             | #{short_desc}...
-        .pop_routes(style='display: none;')
-            //
-                .c-left
-                    .num 4
-                    p 这里收集有当下最热门目的地的旅行攻略。
+        .pop_routes(style='display: none;').routes
             .c-right.f-cb
                 #m-list.main
                     each route in popRoute
@@ -175,3 +159,28 @@ block content
                                         if route.description.desc
                                             - var short_desc = route.description.desc.toString().substring(0, 25)
                                             | #{short_desc}...
+//        .articles
+//            h1.title 最火文章
+//            .c-right.f-cb
+//                #m-list.main
+//                    each article in articles
+//                        .m-list.fl
+//                            a(href='/misc/article/#{article.id}')
+//                                .layer
+//                               if article.images
+//                                    if article.images.length
+//                                        img(src=article.images[0].url + "?imageView2/1/w/300/h/200" width=300 height=200)
+//                                    else
+//                                        img(src="/images/index/342-180.png" width="300" height="200")
+//                                else
+//                                    img(src="/images/index/342-180.png" width="300" height="200")
+//                            .right
+//                                .m
+//                                    h2
+//                                        a(href='/misc/article/#{article.id}') #{article.title}
+//                                    .label #{article.authorName}
+//                                   p
+//                                        if article.desc
+//                                            - var short_desc = article.desc.toString().substring(0, 25)
+//                                            | #{short_desc}...
+

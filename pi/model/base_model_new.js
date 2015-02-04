@@ -35,7 +35,7 @@ var BaseModel = function(){
                 if(err){
                     error_msg = err;
                 }else if(data !== null) {
-                    if (data.indexOf("!DOCTYPE") != -1){
+                    if (data.indexOf("html") != -1){
                         error_msg = "Error: The server return an error html page.";
                     }else{
                         data = JSON.parse(data).result;

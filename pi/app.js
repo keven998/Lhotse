@@ -14,6 +14,7 @@ var viewspot = require('./routes/viewspot');
 var route = require('./routes/route');
 var hotel = require('./routes/hotel');
 var edit = require('./routes/edit');
+var misc = require('./routes/misc');
 
 var app = express();
 
@@ -84,6 +85,7 @@ app.use('/plans', plans);
 app.use('/viewspot', viewspot);
 app.use('/hotel', hotel);
 app.use('/edit', edit);
+app.use('/misc', misc);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -106,13 +108,13 @@ if (app.get('env') === 'development') {
 }
 
 // production error handler, no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('common/error', {
-        message: err.message,
-        config: config,
-        error: {}
-    });
-});
+// app.use(function(err, req, res, next) {
+//     res.status(err.status || 500);
+//     res.render('common/error', {
+//         message: err.message,
+//         config: config,
+//         error: {}
+//     });
+// });
 
 module.exports = app;
