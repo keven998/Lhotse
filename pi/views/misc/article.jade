@@ -1,0 +1,22 @@
+extends ../common/base
+
+
+block page_var
+    script.
+        var page_var = {
+            id: 'article',
+            path: 'misc/',
+            use_require_js: false
+        }
+
+block content
+    .content
+        .article(data-id='#{article.id}')
+            .title #{article.title}
+            | By
+            .source #{article.source}
+            .author #{article.authorName}
+            .date #{article.publishTime}
+            !{article.content}
+            img(src=article.image width=1002 height=auto)
+        .recomlists
