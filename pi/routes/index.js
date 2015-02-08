@@ -1,18 +1,19 @@
-var express = require('express');
-var router = express.Router();
-var async = require('async');
+var _    = require('underscore');
 var apiList = require('../url_api');
-var request = require('request');
-var model = require('../model/sup_model.js');
+var async = require('async');
+var config = require('../conf/system');
+var express = require('express');
 var left_nav_data = require('../conf/country_nav');
 var map_data = require('../conf/map_data');
-var config = require('../conf/system');
-var zone = require('../conf/zone');
-var utils = require( "../common/utils");
-var route_filters = require('../conf/route_filters');
-var _    = require('underscore');
-
+var model = require('../model/sup_model.js');
 var models = require('../model/models.js');
+var moment = require('moment');
+    moment.locale('zh-cn');
+var request = require('request');
+var route_filters = require('../conf/route_filters');
+var router = express.Router();
+var utils = require( "../common/utils");
+var zone = require('../conf/zone');
 
 var error = [
     'Error in getting fromId by name !',
@@ -24,32 +25,55 @@ var error = [
 router.get('/', function(req, res) {
     async.parallel({
         newRoute: function(callback) {
-            models.recommend.newRouteModel.getData({}, function(model_result){
+            models.recommend.newRouteModel.getData({ query: { pageSize: 6 } }, function(model_result){
                 if (! model_result.succ){ console.log("can't get the newRoute"); };
                 callback(null, model_result);
             });
         },
         editorRoute: function(callback) {
-            models.recommend.editorRouteModel.getData({}, function(model_result){
+            models.recommend.editorRouteModel.getData({ query: { pageSize: 6 } }, function(model_result){
                 if (! model_result.succ){ console.log("can't get the editorRoute"); };
                 callback(null, model_result);
             });
         },
         mustgoRoute: function(callback) {
-            models.recommend.mustgoRouteModel.getData({}, function(model_result){
+            models.recommend.mustgoRouteModel.getData({ query: { pageSize: 6 } }, function(model_result){
                 if (! model_result.succ) { console.log("can't get the mustgoRoute"); };
                 callback(null, model_result);
             });
         },
         popRoute: function(callback) {
-            models.recommend.popRouteModel.getData({}, function(model_result){
+            models.recommend.popRouteModel.getData({ query: { pageSize: 6 } }, function(model_result){
                 if (! model_result.succ) { console.log("can't get the popRoute"); };
+                callback(null, model_result);
+            });
+        },
+        articles: function(callback) {
+            models.article.listModel.getData({ query: { pageSize: 6 } }, function(model_result){
+                if (! model_result.succ) { console.log("can't get the articles"); };
                 callback(null, model_result);
             });
         }
     },
     function(err, results) {
+        var articles = [];
+        var article;
+        if (results.articles.succ){
+            var temp = results.articles.data;
+            for (var i = 0;i < temp.length;i++){
+                article = {
+                    id: temp[i].id,
+                    title: temp[i].title,
+                    images: temp[i].images,
+                    publishTime: moment(temp[i].publishTime).format('YYYY-MM-DD'),
+                    authorName: temp[i].authorName,
+                    desc: temp[i].desc
+                }
+                articles.push(article);
+            }
+        }
         res.render('index', {
+            articles: articles,
             newRoute: (results.newRoute.succ) ? results.newRoute.data : [],
             editorRoute: (results.editorRoute.succ) ? results.editorRoute.data : [],
             mustgoRoute: (results.mustgoRoute.succ) ? results.mustgoRoute.data : [],
@@ -111,13 +135,15 @@ router.get('/route', function(req, res) {
                 {
                     query: { 
                         fromLoc: fromId,
-                        vs: arriveId
+                        vs: arriveId,
+                        pageSize: 999
                     }
                 }
                 :{
                     query: { 
                         fromLoc: fromId,
-                        loc: arriveId
+                        loc: arriveId,
+                        pageSize: 999
                     }
                 }
             models.routeList[ poiType + "Model" ].getData(args, function(model_result){

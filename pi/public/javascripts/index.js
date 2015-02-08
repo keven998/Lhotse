@@ -57,7 +57,7 @@ $(function(){
     });
 
     //jump detail page
-    var mList_ = $('.main a');
+    var mList_ = $('.routes a');
     $(mList_).each(function(){
         $(this).on('click', function(){
             var fromName = $('#from').text(),
