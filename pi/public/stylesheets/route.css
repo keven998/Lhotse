@@ -317,3 +317,30 @@ li p.ico-g{display:inline-block;color:#4fa7bd;}
   padding: 0 18px;
   border-radius: 0 14px 14px 0
 }
+
+/* 地图选择的tag */
+.map_day_flag {
+    display: inline-block;
+    width: 50px;
+    height: 30px;
+    cursor: pointer;
+    line-height: 30px;
+    text-align: center;
+    margin: 5px;
+    font-size: 14px;
+    color: #FFF;
+    background-color: #4fa7bd;
+}
+
+.map_day_flag:hover {
+    background-color: rgba(43, 112, 140, .9);
+}
+
+.map_day_current {
+    background-color: rgba(43, 112, 140, .9);
+}
+
+div#J_selectPanel {
+    background-color: rgba(255, 255, 255, 0.7);
+    width: 100%;
+}
