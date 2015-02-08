@@ -45,6 +45,34 @@ block content
 
     #suggestion_to.suggestion(style="width:380px;")
     .content.f-cb
+        .articles
+            h1.title 推荐文章
+            .c-right.f-cb
+                #m-list.main
+                    each article in articles
+                        .m-list.fl
+                            a(href='/misc/article/#{article.id}')
+                                .layer
+                                if article.images
+                                    if article.images.length
+                                        img(src=article.images[0].url + "?imageView2/1/w/300/h/200")
+                                    else
+                                        .placeholder
+                                else
+                                    .placeholder
+                            .right
+                                .m2
+                                    h2
+                                        a(href='/misc/article/#{article.id}') #{article.title}
+                                    .label by #{article.authorName}
+                                        span.date #{article.publishTime}
+                                    p
+                                        if article.desc
+                                            if (article.desc.length > 25)
+                                                - var short_desc = article.desc.toString().substring(0, 35)
+                                                | #{short_desc}...
+                                            else
+                                                | #{article.desc}
         h1.title 最热路线
         .c-nav
             a.new
@@ -159,30 +187,3 @@ block content
                                         if route.desc
                                             - var short_desc = route.desc.toString().substring(0, 25)
                                             | #{short_desc}...
-
-//        .articles
-//            h1.title 最火文章
-//            .c-right.f-cb
-//                #m-list.main
-//                    each article in articles
-//                        .m-list.fl
-//                            a(href='/misc/article/#{article.id}')
-//                                .layer
-//                                if article.images
-//                                    if article.images.length
-//                                        img(src=article.images[0].url + "?imageView2/1/w/300/h/200" width=300 height=200)
-//                                    else
-//                                        img(src="/images/index/342-180.png" width="300" height="200")
-//                                else
-//                                    img(src="/images/index/342-180.png" width="300" height="200")
-//                            .right
-//                                .m2
-//                                    h2
-//                                        a(href='/misc/article/#{article.id}') #{article.title}
-//                                    .label by #{article.authorName}
-//                                        span.date #{article.publishTime}
-//                                    p
-//                                        if article.desc
-//                                            - var short_desc = article.desc.toString().substring(0, 25)
-//                                            | #{short_desc}...
-

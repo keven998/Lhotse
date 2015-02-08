@@ -21,7 +21,9 @@
 #fromWrap{display: inline-block;vertical-align: top;cursor: pointer;width:110px;height:30px;position: absolute;z-index: 100;}
 
 h1.title{font-size: 30px;color: #b0c6c1;font-family: "黑体";display: inline-block;padding-bottom:30px;}
-.new_routes, .editor_routes, .mustgo_routes, .pop_routes, .articles{height: 750px;}
+.new_routes, .editor_routes, .mustgo_routes, .pop_routes{height: 750px;}
+.articles{height: 750px;margin-bottom: 30px;}
+.articles h2 a{text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
 .m2{padding:0 10px;}
 .date{padding-left: 20px;color:#aaa;}
 

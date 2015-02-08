@@ -1,18 +1,19 @@
-var express = require('express');
-var router = express.Router();
-var async = require('async');
+var _    = require('underscore');
 var apiList = require('../url_api');
-var request = require('request');
-var model = require('../model/sup_model.js');
+var async = require('async');
+var config = require('../conf/system');
+var express = require('express');
 var left_nav_data = require('../conf/country_nav');
 var map_data = require('../conf/map_data');
-var config = require('../conf/system');
-var zone = require('../conf/zone');
-var utils = require( "../common/utils");
-var route_filters = require('../conf/route_filters');
-var _    = require('underscore');
-
+var model = require('../model/sup_model.js');
 var models = require('../model/models.js');
+var moment = require('moment');
+    moment.locale('zh-cn');
+var request = require('request');
+var route_filters = require('../conf/route_filters');
+var router = express.Router();
+var utils = require( "../common/utils");
+var zone = require('../conf/zone');
 
 var error = [
     'Error in getting fromId by name !',
@@ -55,8 +56,24 @@ router.get('/', function(req, res) {
         }
     },
     function(err, results) {
+        var articles = [];
+        var article;
+        if (results.articles.succ){
+            var temp = results.articles.data;
+            for (var i = 0;i < temp.length;i++){
+                article = {
+                    id: temp[i].id,
+                    title: temp[i].title,
+                    images: temp[i].images,
+                    publishTime: moment(temp[i].publishTime).format('YYYY-MM-DD'),
+                    authorName: temp[i].authorName,
+                    desc: temp[i].desc
+                }
+                articles.push(article);
+            }
+        }
         res.render('index', {
-            articles: (results.articles.succ) ? results.articles.data : [],
+            articles: articles,
             newRoute: (results.newRoute.succ) ? results.newRoute.data : [],
             editorRoute: (results.editorRoute.succ) ? results.editorRoute.data : [],
             mustgoRoute: (results.mustgoRoute.succ) ? results.mustgoRoute.data : [],
