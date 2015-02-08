@@ -49,7 +49,7 @@ router.get('/', function(req, res) {
         },
         articles: function(callback) {
             models.article.listModel.getData({ query: { pageSize: 6 } }, function(model_result){
-                if (! model_result.succ) { console.log("can't get the popRoute"); };
+                if (! model_result.succ) { console.log("can't get the articles"); };
                 callback(null, model_result);
             });
         }

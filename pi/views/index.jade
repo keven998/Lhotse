@@ -63,12 +63,12 @@ block content
                             a(href='javascript:;' data-url='/plans/detail/#{route.id}')
                                 .layer
                                 if route.images
-                                    if route.images.length
-                                        img(src=route.images[0].url + "?imageView2/1/w/300/h/200" width=300 height=200)
+                                    if (route.images.length && route.images[0].url)
+                                        img(src=route.images[0].url + "?imageView2/1/w/300/h/200")
                                     else
-                                        <img src="/images/index/342-180.png" width="300" height="200">
+                                        .placeholder
                                 else
-                                    <img src="/images/index/342-180.png" width="300" height="200">
+                                    .placeholder
                             .left
                                 .bottom
                                     img(src=route.editorAvatar width=35 height=35)
@@ -78,8 +78,8 @@ block content
                                         a(href='javascript:;' data-url='/plans/detail/#{route.id}') #{route.name}
                                     .label #{route.editor}
                                     p
-                                        if route.description.desc
-                                          - var short_desc = route.description.desc.toString().substring(0, 25)
+                                        if route.desc
+                                          - var short_desc = route.desc.toString().substring(0, 25)
                                           | #{short_desc}...
         .editor_routes(style='display: none;').routes
             .c-right.f-cb
@@ -89,12 +89,12 @@ block content
                             a(href='javascript:;' data-url='/plans/detail/#{route.id}')
                                 .layer
                                 if route.images
-                                    if route.images.length
-                                        img(src=route.images[0].url + "?imageView2/1/w/300/h/200" width=300 height=200)
+                                    if (route.images.length && route.images[0].url)
+                                        img(src=route.images[0].url + "?imageView2/1/w/300/h/200")
                                     else
-                                        <img src="/images/index/342-180.png" width="300" height="200">
+                                        .placeholder
                                 else
-                                    <img src="/images/index/342-180.png" width="300" height="200">
+                                    .placeholder
                             .left
                                 .bottom
                                     img(src=route.editorAvatar width=35 height=35)
@@ -104,8 +104,8 @@ block content
                                         a(href='javascript:;' data-url='/plans/detail/#{route.id}') #{route.name}
                                     .label #{route.editor}
                                     p
-                                        if route.description.desc
-                                            - var short_desc = route.description.desc.toString().substring(0, 25)
+                                        if route.desc
+                                            - var short_desc = route.desc.toString().substring(0, 25)
                                             | #{short_desc}...
         .mustgo_routes(style='display: none;').routes
             .c-right.f-cb
@@ -115,12 +115,12 @@ block content
                             a(href='javascript:;' data-url='/plans/detail/#{route.id}')
                                 .layer
                                 if route.images
-                                    if route.images.length
-                                        img(src=route.images[0].url + "?imageView2/1/w/300/h/200" width=300 height=200)
+                                    if (route.images.length && route.images[0].url)
+                                        img(src=route.images[0].url + "?imageView2/1/w/300/h/200")
                                     else
-                                        <img src="/images/index/342-180.png" width="300" height="200">
+                                        .placeholder
                                 else
-                                    <img src="/images/index/342-180.png" width="300" height="200">
+                                    .placeholder
                             .left
                                 .bottom
                                     img(src=route.editorAvatar width=35 height=35)
@@ -130,8 +130,8 @@ block content
                                         a(href='javascript:;' data-url='/plans/detail/#{route.id}') #{route.name}
                                     .label #{route.editor}
                                     p
-                                        if route.description.desc
-                                            - var short_desc = route.description.desc.toString().substring(0, 25)
+                                        if route.desc
+                                            - var short_desc = route.desc.toString().substring(0, 25)
                                             | #{short_desc}...
         .pop_routes(style='display: none;').routes
             .c-right.f-cb
@@ -141,12 +141,12 @@ block content
                             a(href='javascript:;' data-url='/plans/detail/#{route.id}')
                                 .layer
                                 if route.images
-                                    if route.images.length
-                                        img(src=route.images[0].url + "?imageView2/1/w/300/h/200" width=300 height=200)
+                                    if (route.images.length && route.images[0].url)
+                                        img(src=route.images[0].url + "?imageView2/1/w/300/h/200")
                                     else
-                                        <img src="/images/index/342-180.png" width="300" height="200">
+                                        .placeholder
                                 else
-                                    <img src="/images/index/342-180.png" width="300" height="200">
+                                    .placeholder
                             .left
                                 .bottom
                                     img(src=route.editorAvatar width=35 height=35)
@@ -156,9 +156,10 @@ block content
                                         a(href='javascript:;' data-url='/plans/detail/#{route.id}') #{route.name}
                                     .label #{route.editor}
                                     p
-                                        if route.description.desc
-                                            - var short_desc = route.description.desc.toString().substring(0, 25)
+                                        if route.desc
+                                            - var short_desc = route.desc.toString().substring(0, 25)
                                             | #{short_desc}...
+
 //        .articles
 //            h1.title 最火文章
 //            .c-right.f-cb
@@ -167,7 +168,7 @@ block content
 //                        .m-list.fl
 //                            a(href='/misc/article/#{article.id}')
 //                                .layer
-//                               if article.images
+//                                if article.images
 //                                    if article.images.length
 //                                        img(src=article.images[0].url + "?imageView2/1/w/300/h/200" width=300 height=200)
 //                                    else
@@ -175,11 +176,12 @@ block content
 //                                else
 //                                    img(src="/images/index/342-180.png" width="300" height="200")
 //                            .right
-//                                .m
+//                                .m2
 //                                    h2
 //                                        a(href='/misc/article/#{article.id}') #{article.title}
-//                                    .label #{article.authorName}
-//                                   p
+//                                    .label by #{article.authorName}
+//                                        span.date #{article.publishTime}
+//                                    p
 //                                        if article.desc
 //                                            - var short_desc = article.desc.toString().substring(0, 25)
 //                                            | #{short_desc}...
