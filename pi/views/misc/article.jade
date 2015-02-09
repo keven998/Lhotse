@@ -19,4 +19,8 @@ block content
             .date #{article.publishTime}
             !{article.content}
             img(src=article.image width=1002 height=auto)
-        .recomlists
+        .recomlist
+            h2 推荐阅读
+            each article in articles
+                a(href='/misc/article/#{article.id}')
+                    | #{article.title}
