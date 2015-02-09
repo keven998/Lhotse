@@ -69,7 +69,8 @@ module.exports.plan = {
 
 module.exports.article = {
     listModel: create_model({
-        url: "/web/articles"
+        url: "/web/articles",
+        not_required_query: ['removeId']
     }),
     detailModel: create_model({
         url: "/web/articles/{articleID}",
