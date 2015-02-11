@@ -21,6 +21,9 @@ block content
             img(src=article.image width=1002 height=auto)
         .recomlist
             h2 推荐阅读
+            - var i=0;
             each article in articles
-                a(href='/misc/article/#{article.id}')
+                - i=i+1;
+                i #{i}
+                a(target="_blank" href='/misc/article/#{article.id}')
                     | #{article.title}
