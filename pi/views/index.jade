@@ -12,7 +12,8 @@ block page_var
         }
     script(src='http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js' type='text/ecmascript')
 
-    title 旅行派——想旅行，你就派一下！
+    title 旅行派一最轻的旅游攻略!
+    meta(name="keywords" content="旅行攻略,线路推荐,路线搜索,行程规划")
 
 block content
     .bd
@@ -51,7 +52,7 @@ block content
                 #m-list.main
                     each article in articles
                         .m-list.fl
-                            a(href='/misc/article/#{article.id}')
+                            a(target="_blank" href='/misc/article/#{article.id}')
                                 .layer
                                 if article.images
                                     if article.images.length
@@ -63,7 +64,7 @@ block content
                             .right
                                 .m2
                                     h2
-                                        a(href='/misc/article/#{article.id}') #{article.title}
+                                        a(target="_blank" href='/misc/article/#{article.id}') #{article.title}
                                     .label by #{article.authorName}
                                         span.date #{article.publishTime}
                                     p
@@ -73,7 +74,7 @@ block content
                                                 | #{short_desc}...
                                             else
                                                 | #{article.desc}
-        h1.title 最热路线
+        h1.title 热门路线
         .c-nav
             a.new
                 span 新鲜出炉
