@@ -5,7 +5,7 @@ $(function(){
         $(".editor_routes").hide();
         $(".mustgo_routes").hide();
         $(".pop_routes").hide();
-        $(this).attr("border-left",'3px solid #fa0');
+        $(this).css("border-left",'3px solid #fa0');
         $(".editor").css("border-left",'3px solid #4fa7bd');
         $(".mustgo").css("border-left",'3px solid #4fa7bd');
         $(".pop").css("border-left",'3px solid #4fa7bd');
