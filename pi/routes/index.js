@@ -209,7 +209,7 @@ router.get('/target/', function(req, res){
             if (cityName.substr(6,1) !== "")
                 cityAbbr = cityName.substr(4)+'...';
             cityList.push({
-                id: city._id,
+                id: city.id,
                 abbr: cityAbbr,
                 name: cityName,
                 img: (city.images && city.images[0]) ? city.images[0].url : null
@@ -222,7 +222,7 @@ router.get('/target/', function(req, res){
             if (viewName.substr(6,1) !== "")
                 viewAbbr = viewName.substr(0,5)+'...';
             viewList.push({
-                id: view._id,
+                id: view.id,
                 abbr: viewAbbr,
                 name: viewName,
                 img: (view.images && view.images[0]) ? view.images[0].url : null

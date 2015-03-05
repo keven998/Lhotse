@@ -1,5 +1,9 @@
 extends common/base
 
+block meta
+    title 旅行派——最轻的旅游攻略,最佳的行程助手
+    meta(name="keywords" content="旅游攻略，自助游，规划行程，旅游线路设计")
+    meta(name="description" content="旅行派！最靠谱的旅游攻略，最佳的行程助手，海量旅游景点图片、游记、交通、美食、购物等旅游信息，旅行派获取旅游信息更轻，更快")
 
 block page_var
     script(src='/javascripts/lib/cityselector.js', rel='javascripts')
@@ -11,9 +15,6 @@ block page_var
             use_require_js: false
         }
     script(src='http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js' type='text/ecmascript')
-
-    title 旅行派一最轻的旅游攻略!
-    meta(name="keywords" content="旅行攻略,线路推荐,路线搜索,行程规划")
 
 block content
     .bd

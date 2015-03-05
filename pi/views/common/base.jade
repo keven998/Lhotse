@@ -3,6 +3,7 @@ html
     head
         meta(charset='utf-8')
         meta(http-equiv='X-UA-Compatible', content='IE=Edge')
+        block meta
         script(src='/javascripts/lib/jquery-1.11.1.min.js', rel='javascripts')
         block page_var
         script.
@@ -24,8 +25,6 @@ html
         link(href='/stylesheets/common/reset.css', rel='stylesheet')
         link(href='/stylesheets/common/travelpi.css', rel='stylesheet')
         script(src='/javascripts/lib/checklogin.js', rel='javascripts')
-
-        title 旅行派
 
     body
         #top.hd

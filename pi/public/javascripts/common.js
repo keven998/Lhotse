@@ -135,12 +135,9 @@ var arriveInput = $('#arrive'),
     fromInput = $('#from'),
     fromSuggestions = $('#suggestion_from');
 
-// var arrInput = [[arriveInput, arriveSuggestions, "suggestion_to", "arrive"],
-//                 [fromInput, fromSuggestions, "suggestion_from", "from"]];
-
 var arrInput = [[arriveInput, arriveSuggestions, "suggestion_to", "arrive"]];
 
-//  arrive location (used in "function suggestion()" by "slug")
+//  dynamic function —— arrive location (used in "function suggestion()" by "slug")
 function select_to(input, poi_type){
     $('#arrive').val(input);
     $('#arrive').attr('poi_type', poi_type);
@@ -148,12 +145,11 @@ function select_to(input, poi_type){
     $("#suggestion_to").hide();
 }
 
-
-// onclick event (used in html)
+// onclick event (called in html)
 function suggestion_to(input){
     var slug = 'to';
     var inputText = $('#arrive').val();
-    //tem is the register for the formar text
+    //tem is the register for the former text
     if(inputText !== $('#arrive').attr('tem')){
         $('#arrive').attr('tem', inputText);
         if (myTrim(inputText)) {
@@ -167,7 +163,7 @@ function suggestion_to(input){
 }
 
 
-//
+//ajax to suggestion api
 function suggestion(slug, input){
     $.ajax({
         url: "/suggestion?type=" + slug + "&input=" + input,// type:['from','to'],input:
@@ -183,7 +179,7 @@ function suggestion(slug, input){
                 });
             }else{
                 for(var k = 0;k < obj.length;k++){
-                    html += "<p onclick='select_" + slug + "(\"" + obj[k].name + "\", \"" + obj[k].type + "\")'>" + obj[k].name + "</p>";
+                    html += "<p onclick='select_" + slug + "(\"" + obj[k].name + "\", \"" + obj[k].type + "\")'" + "data-type=" + obj[k].type + ">" + obj[k].name + "</p>";
                 }
                 $("#suggestion_" + slug).css("display", "block");
                 if (slug == "to"){
@@ -249,6 +245,8 @@ array.forEach(function(t){
             }
         }
     }
+
+
     //// 上下方向键选择联想的输入
     $(document).keydown(function(e) {
         var keyCode = e.keyCode ? e.keyCode : e.which,
@@ -270,7 +268,7 @@ array.forEach(function(t){
                 }
             }
             if (keyCode == 40) { // 下
-                var tempLocName;
+                var tempLocName, tempLocType;
                 // 当前有选中提示
                 if (curSelectedObj) {
                     // 当前位置到了末尾
@@ -278,11 +276,13 @@ array.forEach(function(t){
                         // 先清除当前选中，然后跳到第一个
                         clearSelectedStyle();
                         $(items[0]).addClass('sugg_selected');
+                        tempLocType = $(items[0]).attr("data-type");
                         tempLocName = $(items[0]).text();
                     }
                     else {
                         clearSelectedStyle();
                         $(items[curSelectedObj.index + 1]).addClass('sugg_selected');
+                        tempLocType = $(items[curSelectedObj.index + 1]).attr("data-type");
                         tempLocName = $(items[curSelectedObj.index + 1]).text();
                     }
                 }
@@ -293,10 +293,12 @@ array.forEach(function(t){
                         index: 0
                     };
                     $(items[curSelectedObj.index]).addClass('sugg_selected');
+                    tempLocType = $(items[curSelectedObj.index]).attr("data-type");
                     tempLocName = $(items[curSelectedObj.index]).text();
                 }
                 t[1].attr('tem', tempLocName);
                 t[1].val(tempLocName);
+                t[1].attr('poi_type', tempLocType);
                 e.stopPropagation();
                 e.preventDefault();
             }
@@ -306,11 +308,13 @@ array.forEach(function(t){
                     if (curSelectedObj.index === 0) {
                         clearSelectedStyle();
                         $(items[len - 1]).addClass('sugg_selected');
+                        tempLocType = $(items[len - 1]).attr("data-type");
                         tempLocName = $(items[len - 1]).text();
                     }
                     else {
                         clearSelectedStyle();
                         $(items[curSelectedObj.index - 1]).addClass('sugg_selected');
+                        tempLocType = $(items[curSelectedObj.index - 1]).attr("data-type");
                         tempLocName = $(items[curSelectedObj.index - 1]).text();
                     }
                 }
@@ -320,10 +324,12 @@ array.forEach(function(t){
                         index: len - 1
                     }
                     $(items[curSelectedObj.index]).addClass('sugg_selected');
+                    tempLocType = $(items[curSelectedObj.index]).attr("data-type");
                     tempLocName = $(items[curSelectedObj.index]).text();
                 }
                 t[1].attr('tem', tempLocName)
                 t[1].val(tempLocName);
+                t[1].attr('poi_type', tempLocType);
                 e.stopPropagation();
                 e.preventDefault();
             }
@@ -347,9 +353,11 @@ array.forEach(function(t){
         var targetTagName = target.tagName.toLowerCase();
         if (targetTagName == 'p') {
             $(target).addClass('sugg_selected');
-            var tempLocName = $(target).text();
+            var tempLocName = $(target).text(),
+                tempLocType = $(target).attr('data-type');
             t[1].attr('tem', tempLocName);
             t[1].val(tempLocName);
+            t[1].attr('poi_type', tempLocType);
         }
     }).mouseout(function(e) {
         var target = e.target || e.srcElement;
