@@ -23,7 +23,7 @@ router.post('/detail/save', function(req, res) {
     var requestUrl = apiList.apiHost + apiList.ugc.saveUgc;
     // http post
     var options = {
-        url :  requestUrl,
+        url: requestUrl,
         json: postData,
         method: 'POST',
     };
@@ -106,7 +106,7 @@ router.get('/edit/:UGCID', function(req, res) {
             detailInfo      = dataExtract.detailData(null, ugcDetail),
             basicInfo       = dataExtract.basicData(null, result),
             spotData        = detailInfo.spotData,
-            trafficRoute     = detailInfo.trafficRoute;
+            trafficRoute    = detailInfo.trafficRoute;
 
         // res.json(trafficRoute);
         res.render('plans/edit', {

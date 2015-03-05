@@ -1,5 +1,10 @@
 extends ../common/base
 
+block meta
+    title #{basicInfo.title}——旅行派
+    meta(name="keywords" content="#{basicInfo.title}")
+    meta(name="description" content="#{basicInfo.title}")
+
 block page_var
     script.
         var page_var = {
