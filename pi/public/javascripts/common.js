@@ -140,8 +140,6 @@ var arrInput = [[arriveInput, arriveSuggestions, "suggestion_to", "arrive"]];
 //  dynamic function —— arrive location (used in "function suggestion()" by "slug")
 function select_to(input, poi_type){
     $('#arrive').val(input);
-    console.log("poi_type");
-    console.log(poi_type);
     $('#arrive').attr('poi_type', poi_type);
     $("#suggestion_to").empty();
     $("#suggestion_to").hide();
