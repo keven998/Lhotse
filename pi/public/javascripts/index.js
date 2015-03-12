@@ -65,6 +65,8 @@ $(function(){
                 dataUrl = $(this).attr('data-url'),
                 fromId;
             console.log(fromName);
+            requestUrl = encodeURI(requestUrl);
+            console.log(requestUrl);
             $.ajax({
                 url: requestUrl,
                 async: true,
