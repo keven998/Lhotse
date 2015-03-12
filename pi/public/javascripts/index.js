@@ -64,13 +64,20 @@ $(function(){
                 requestUrl = '/getid?locName=' + fromName,
                 dataUrl = $(this).attr('data-url'),
                 fromId;
+            console.log(fromName);
             $.ajax({
                 url: requestUrl,
                 async: true,
                 type: "GET",
                 success : function (msg) {
-                    fromId = msg.locId;
-                    window.open(dataUrl + "?fromLoc=" + fromId + "&trafficFlag=airRoute&hotelFlag=star&restaurantFlag=reputation");
+                    if (msg.locId != -1){
+                        fromId = msg.locId;
+                        window.open(dataUrl + "?fromLoc=" + fromId + "&trafficFlag=airRoute&hotelFlag=star&restaurantFlag=reputation");
+                    }else{
+                        console.log('Error in getting fromId');
+                        fromId = "5473ccd7b8ce043a64108c46";//the defalut value is beijing's ID
+                        window.open(dataUrl + "?fromLoc=" + fromId + "&trafficFlag=airRoute&hotelFlag=star&restaurantFlag=reputation");
+                    }
                 },
                 error : function (XMLHttpRequest, textStatus, errorThrown) {
                     console.log('Error in getting fromId');

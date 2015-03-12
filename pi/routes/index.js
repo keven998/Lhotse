@@ -292,8 +292,6 @@ router.get('/getid', function(req, res){
     model.getdata(req, function(data){
         model.consoleUrl();
         var locId = getIdFromName(data,0);
-        console.log("0");
-        console.log(locId);
         res.json({
             locId: locId
         });
