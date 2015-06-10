@@ -27,7 +27,7 @@ html body{height: 100%;position: relative;}
 .ico02-weibo{background:url("/images/common/ico_weibo_20.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/ico_weibo_20.png',sizingMethod='scale');width: 20px;height: 20px;}
 .ico02-loading{background-size:30px;background:url("/images/common/loading.gif") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/loading.gif',sizingMethod='scale');top: 10px;}
 .ico02-circle{background:url("/images/common/circle.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/common/circle.png',sizingMethod='scale');top: 10px;left: 5px;}
-.ico-lxp-26{display:inline-block;background:url("/images/common/ico_lxp_26.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/images/common/ico_lxp_26.png",sizingMethod='scale');width: 30px;height: 30px;}
+.ico-lxp-26{display:inline-block;background:url("/images/common/footer_logo.png") no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="/images/common/ico_lxp_26.png",sizingMethod='scale');width: 35px;height: 35px;position: relative;top:7px;}
 
 .ico-addpos{display:inline-block;width:30px;height:28px;background-size: 30px;background:url(/images/route/index/btn-add-search.png) no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/route/index/btn-add-search.png',sizingMethod='scale');vertical-align:top;}
 /*btn*/
