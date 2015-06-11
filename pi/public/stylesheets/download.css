@@ -1,11 +1,24 @@
 /*.Download_wrap{margin-top:100px;margin-bottom:80px;background:url(/images/download/wave_backgroud.png) no-repeat bottom;background-size:100% 400px;width:100%;height:585px;}*/
 body{background:url(/images/download/wrap_bg.jpg) !important;}
-.Download_wrap{padding-top:100px;margin-bottom:30px;background:url(/images/download/body_bg.jpg);width:100%;height:585px;}
+.Download_wrap{padding-top:50px;background:url(/images/download/body_bg.jpg);width:100%;height:820px;}
 .Download_main{width:1000px;margin:0 auto;overflow: hidden;}
-.Download_phone{float:left;background:url(/images/download/phone.png) no-repeat top;background-size:460px;width:520px;height:580px;position:relative;}
-.Download_phone #phone_slider{width:300px;height:500px;margin-left:160px;margin-top:90px;z-index:2;}
-.reflect{position:absolute;left:350px;top:0px;z-index:3;}
-.Download_intro{display:inline-block;margin-left:20px;width:420px;}
+.Download_phone{
+	float:left;
+	background:url(/images/download/iphone_frame.png) no-repeat top;
+	background-size: 380px 795px;
+  	width: 450px;
+  	height: 850px;
+  	position:relative;
+}
+.Download_phone #phone_slider{
+	width: 300px;
+	height: 500px;
+	margin-left: 75px;
+	margin-top: 145px;
+	z-index: 2;
+}
+/*.reflect{position:absolute;left:350px;top:0px;z-index:3;}*/
+.Download_intro{display:inline-block;margin-left:50px;width:500px;}
 .Download_biglogo{margin-top:40px;}
 .Download_biglogo h1{
 	display: inline-block;
@@ -17,11 +30,11 @@ body{background:url(/images/download/wrap_bg.jpg) !important;}
 	color: #1cc091;
 }
 .Download_text{margin-top:30px;color:#333;}
-.Download_text h2{font-size:24px;margin-bottom:30px;line-height: 1.5;}
-.Download_text h4{font-size:16px;margin-bottom:10px;font-weight:normal;line-height: 1.5;}
-.Download_download{display:inline-block;margin-top:50px;margin-right:20px;height:70px;width:300px;}
-.Download_title{margin:5px 0 20px;color:#333;font-size:20px;}
-.Download_appdown{margin-right:10px;display:inline-block;background:url(/images/download/APP_download.png) no-repeat;width:138px;height:33px;}
+.Download_text h2{font-size:24px;margin-bottom:50px;line-height: 2;}
+.Download_text h4{font-size:20px;margin-bottom:10px;font-weight:normal;line-height: 2;}
+.Download_download{display:inline-block;margin-top:70px;margin-right:20px;height:70px;width:350px;}
+.Download_title{margin:5px 0 40px;color:#333;font-size:20px;}
+.Download_appdown{margin-right:30px;display:inline-block;background:url(/images/download/APP_download.png) no-repeat;width:138px;height:33px;}
 .Download_anddown{display:inline-block;background:url(/images/download/And_download.png) no-repeat;width:138px;height:33px;}
 .Download_two_code{display:inline-block;}
 
