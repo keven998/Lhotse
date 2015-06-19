@@ -1,4 +1,4 @@
-var _dirname = 'public/htmltemplate/routePage';
+var _dirname = __dirname + '/../public/htmltemplate/routePage';
 var apiList = require('../url_api');
 var async = require('async');
 var config = require('../conf/system');
