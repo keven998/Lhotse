@@ -2,14 +2,20 @@
 body{
 	background:url(/images/download/wrap_bg.jpg) !important;
 	min-height: 70em;
+	min-width: 70em;
 }
 .Download_wrap{
 	padding-top: 7em;
 	background: url(/images/download/body_bg.jpg);
 	width: 100%;
+	min-width: 70em;
 	min-height: 63em;
 }
-.Download_main{width:50em;margin:0 auto;overflow: hidden;}
+.Download_main{
+	width:50em;
+	margin:0 auto;
+	overflow: hidden;
+}
 /*.Download_main{width:80%;margin:0 auto;overflow: hidden;}*/
 .Download_phone{
 	float:left;
