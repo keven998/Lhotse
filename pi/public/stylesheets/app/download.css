@@ -59,20 +59,40 @@ body{
 	/*height: 70px;*/
 	width: 3.5em;
 	height: 3.5em;
+	border-radius: .5em;
 }
 /*.Download_text{margin-top:30px;color:#333;}*/
 .Download_text{margin-top:1.5em;color:#333;}
 /*.Download_text h2{font-size:24px;margin-bottom:50px;line-height: 2;}*/
-.Download_text h2{font-size:1.2em;margin-bottom:2.5em;line-height: 2;}
+.Download_text h2{font-size:1.2em;margin-bottom:.5em;line-height: 2;}
 /*.Download_text h4{font-size:20px;margin-bottom:10px;font-weight:normal;line-height: 2;}*/
 .Download_text h4{font-size:1em;margin-bottom:.5em;font-weight:normal;line-height: 2;}
 /*.Download_download{display:inline-block;margin-top:70px;margin-right:20px;height:70px;width:350px;}*/
-.Download_download{display:inline-block;margin-top:3.5em;margin-right:1em;height:3.5em;width:21em;}
+.Download_download{
+	display:inline-block;
+	margin-top:1.5em;
+	margin-right:1em;
+	height:2em;
+	width:23em;
+}
 /*.Download_title{margin:5px 0 40px;color:#333;font-size:20px;}*/
-.Download_title{margin:.5em 0 2em;color:#333;font-size:1em;}
+.Download_title{margin-bottom:1.5em;color:#333;font-size:1em;}
 /*.Download_appdown{margin-right:30px;display:inline-block;background:url(/images/download/APP_download.png) no-repeat;width:138px;height:33px;}*/
-.Download_appdown{margin-right:3em;display:inline-block;background:url(/images/download/APP_download.png) no-repeat;width:9em;height:3em;background-size: contain;}
+.Download_appdown{margin-right:1em;margin-bottom:1em;display:block;background:url(/images/download/APP_download.png) no-repeat;width:11em;height:3em;background-size: contain;}
 /*.Download_anddown{display:inline-block;background:url(/images/download/And_download.png) no-repeat;width:138px;height:33px;}*/
-.Download_anddown{display:inline-block;background:url(/images/download/And_download.png) no-repeat;width:9em;height:3em;background-size: contain;}
+.Download_anddown{display:block;background:url(/images/download/And_download.png) no-repeat;width:11em;height:3em;background-size: contain;}
 .Download_two_code{display:inline-block;}
+.Download_two_code img{
+	width: 10em;
+	height: 10em;
+}
+
+.Download_btn{
+	display: inline-block;
+}
+
+.Download_two_code{
+	display: inline-block;
+	vertical-align: top;
+}
 
