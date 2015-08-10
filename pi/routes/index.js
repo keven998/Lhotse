@@ -175,7 +175,11 @@ router.get('/route', function(req, res) {
 });
 
 router.get('/download/lxp_v1.0.apk', function(req, res) {
-    res.redirect('/lxp_v1.0.apk');
+    res.render('app/download', {
+        user_info: utils.get_user_info(req, res),
+        config: config
+    });
+    // res.redirect('/lxp_v1.0.apk');
 });
 
 router.get('/download/', function(req, res) {
