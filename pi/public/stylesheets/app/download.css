@@ -2,13 +2,13 @@
 body{
 	background:url(/images/download/wrap_bg.jpg) !important;
 	min-height: 70em;
-	min-width: 70em;
+	/*min-width: 70em;*/
 }
 .Download_wrap{
 	padding-top: 7em;
 	background: url(/images/download/body_bg.jpg);
-	width: 100%;
-	min-width: 70em;
+	/*width: 100%;*/
+	/*min-width: 70em;*/
 	min-height: 63em;
 }
 .Download_main{
@@ -102,3 +102,12 @@ body{
 	vertical-align: top;
 }
 
+
+/*不展示二维码的时候*/
+.Download_anddown{
+	vertical-align:top;
+  	display:inline-block
+}
+.Download_appdown{
+	display: inline-block;
+}
