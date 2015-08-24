@@ -174,12 +174,13 @@ router.get('/route', function(req, res) {
     })
 });
 
-router.get('/download/lxp_v1.0.apk', function(req, res) {
+// http://www.lvxingpai.com/download/lvxingpai.apk
+router.get('/download/lvxingpai.apk', function(req, res) {
     res.render('app/download', {
         user_info: utils.get_user_info(req, res),
         config: config
     });
-    // res.redirect('/lxp_v1.0.apk');
+    // res.redirect('/lvxingpai_v2.0.1_0820_1_LXP.apk');
 });
 
 router.get('/download/', function(req, res) {

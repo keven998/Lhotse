@@ -103,6 +103,10 @@ body{
 	vertical-align: top;
 }
 
+.Download_download>h3{
+	color: #777;
+	font-weight: 100;
+}
 
 /*不展示二维码的时候*/
 .Download_anddown{
